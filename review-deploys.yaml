@@ -1,0 +1,19 @@
+brandingVolume:
+  enabled: false
+derivativesVolume:
+  enabled: false
+uploadsVolume:
+  enabled: false
+livenessProbe:
+  enabled: false
+readinessProbe:
+  enabled: false
+
+ingress:
+  enabled: true
+  hosts:
+    - host: hyku-test.20.90.72.114.xip.io
+      paths: ['/']
+
+imagePullSecrets:
+  - name: gitlab-registry
