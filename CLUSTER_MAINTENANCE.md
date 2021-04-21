@@ -1,4 +1,6 @@
-
+# Key Setup
+Install the British Library GPG key.
+See http://playbook-staging.notch8.com/en/devops/keybase/helm-secrets-with-sops
 
 Historical:
 ----------
@@ -15,4 +17,7 @@ az network public-ip create --resource-group MC_bl-staging-rg_bl-staging-cluster
 
 helm --kubeconfig ~/.kube/notch8-bl-stage-config install nginx-ingress ingress-nginx/ingress-nginx --namespace nginx-ingress --set controller.replicaCount=3 --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux --set controller.admissionWebhooks.patch.nodeSelector."beta\.kubernetes\.io/os"=linux --set controller.service.loadBalan
 cerIP="20.90.72.114" --set controller.service.annotations."service\.beta\.kubernetes\.io/azure-dns-label-name"="nginx-ingress" --set controller.service.externalTrafficPolicy=Local
+
+helm secretes dec ops/gitlab-secret.yaml
+kubectl apply --kubeconfig ~/.kube/notch8-bl-stage-config -f ops/gitlab-secret.yaml.dec
 ```
