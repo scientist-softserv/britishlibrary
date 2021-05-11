@@ -1,7 +1,23 @@
 Hyrax.config do |config|
-  config.register_curation_concern :generic_work
+  config.register_curation_concern :article
+  # Injected via `rails g hyrax:work Book`
+  config.register_curation_concern :book
+  # Injected via `rails g hyrax:work BookContribution`
+  config.register_curation_concern :book_contribution
+  config.register_curation_concern :conference_item
+  # Injected via `rails g hyrax:work Dataset`
+  config.register_curation_concern :dataset
+  # Injected via `rails g hyrax:work ExhibitionItem`
+  config.register_curation_concern :exhibition_item
   # Injected via `rails g hyrax:work Image`
   config.register_curation_concern :image
+  # Injected via `rails g hyrax:work Report`
+  config.register_curation_concern :report
+  # Injected via `rails g hyrax:work ThesisOrDissertation`
+  config.register_curation_concern :thesis_or_dissertation
+  # Injected via `rails g hyrax:work TimeBasedMedia`
+  config.register_curation_concern :time_based_media
+  config.register_curation_concern :generic_work
 
   # Email recipient of messages sent via the contact form
   config.contact_email = Settings.contact_email
@@ -37,7 +53,7 @@ Hyrax.config do |config|
   # config.persistent_hostpath = 'http://localhost/files/'
 
   # If you have ffmpeg installed and want to transcode audio and video uncomment this line
-  config.enable_ffmpeg = false
+  config.enable_ffmpeg = true
 
   # Using the database noid minter was too slow when ingesting 1000s of objects (8s per transaction),
   # so switching to UUIDs for the MVP.
@@ -92,6 +108,7 @@ Hyrax.config do |config|
   # The default is true.
   # config.work_requires_files = true
 
+ config.work_requires_files = false
   # Should a button with "Share my work" show on the front page to all users (even those not logged in)?
   # config.display_share_button_when_not_logged_in = true
 
@@ -136,11 +153,11 @@ Hyrax.config do |config|
   # config.display_media_download_link = true
 
   # Options to control the file uploader
-  # config.uploader = {
-  #   limitConcurrentUploads: 6,
-  #   maxNumberOfFiles: 100,
-  #   maxFileSize: 500.megabytes
-  # }
+  config.uploader = {
+    # limitConcurrentUploads: 6,
+    # maxNumberOfFiles: 100,
+    maxFileSize: 10.gigabytes
+  }
 
   # Fedora import/export tool
   #
@@ -182,6 +199,7 @@ Qa::Authorities::Local.register_subauthority('subjects', 'Qa::Authorities::Local
 Qa::Authorities::Local.register_subauthority('languages', 'Qa::Authorities::Local::TableBasedAuthority')
 Qa::Authorities::Local.register_subauthority('genres', 'Qa::Authorities::Local::TableBasedAuthority')
 
+Qa::Authorities::Crossref::GenericAuthority.label = lambda { |item| [item['name'], item['location']].compact.join(', ') }
 # set bulkrax default work type to first curation_concern if it isn't already set
 if Settings.bulkrax.enabled && Bulkrax.default_work_type.blank?
   Bulkrax.default_work_type = Hyrax.config.curation_concerns.first.to_s
