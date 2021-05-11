@@ -31,11 +31,11 @@ class SolrDocument
   attribute :rendering_ids, Solr::Array, solr_name('hasFormat', :symbol)
 
   field_semantics.merge!(
-    contributor: 'contributor_tesim',
-    creator: 'creator_tesim',
-    date: 'date_created_tesim',
-    description: 'description_tesim',
-    identifier: 'identifier_tesim',
+    contributor: ['contributor_list_tesim', 'editor_list_tesim', 'funder_tesim'],
+    creator: 'creator_search_tesim',
+    date: 'date_published_tesim',
+    description: 'abstract_oai_tesim',
+    identifier: ['official_link_oai_tesim', 'doi_oai_tesim', 'all_orcid_isni_tesim', 'work_tenant_url_tesim', 'collection_tenant_url_tesim'],
     language: 'language_tesim',
     publisher: 'publisher_tesim',
     relation: 'nesting_collection__pathnames_ssim',

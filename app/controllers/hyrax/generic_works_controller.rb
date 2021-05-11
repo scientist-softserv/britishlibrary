@@ -4,7 +4,7 @@
 #  `rails generate hyrax:work GenericWork`
 module Hyrax
   # Generated controller for GenericWork
-  class GenericWorksController < ApplicationController
+  class GenericWorksController < SharedBehaviorsController
     # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
     include Hyrax::BreadcrumbsForWorks
