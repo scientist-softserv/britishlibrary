@@ -2,7 +2,7 @@ module Ubiquity
   module AllFormsSharedBehaviour
     extend ActiveSupport::Concern
 
-    include(::Ubiquity::HyraxWorkFormOverride)
+    # TODO this has multi-tenant search stuff include(::Ubiquity::HyraxWorkFormOverride)
 
 
     included do
