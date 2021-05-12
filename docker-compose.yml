@@ -88,7 +88,7 @@ services:
 
   app:
     build: .
-    image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
+    image: ghcr.io/samvera/hyku:latest
     env_file:
       - .env
     environment:
