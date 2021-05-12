@@ -1,7 +1,0 @@
-<!-- we using current_account to save to solr the  account_cname of the
-  tenant the works belong in the shared search page since we can't easily know the
-  tenant to link when a work is clicked from the shared search page without this
--->
-<% my_model_name = f.object.model.class.to_s.underscore %>
-
-<%= hidden_field_tag "#{my_model_name}[account_cname]", current_account.cname %>

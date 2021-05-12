@@ -49,8 +49,7 @@ module Ubiquity
       self.required_fields += %i[title]
       #add to enable the form to a hidden_field needed to set the
       #tenants cname on each each work to allow for cross tenant shared search
-      self.terms.push(:account_cname, :collection_id, :collection_names)
-
+      self.terms.push(:collection_id, :collection_names)
     end
 
     class_methods do
