@@ -4,7 +4,7 @@ class Image < ActiveFedora::Base
   include Hyrax::WorkBehavior
   include Ubiquity::UniversalMetadata
   include Ubiquity::SharedMetadata
-  # include Ubiquity::AllModelsVirtualFields
+  include Ubiquity::AllModelsVirtualFields
   # include Ubiquity::UpdateSharedIndex
   include Ubiquity::FileAvailabilityFaceting
   # include ::Ubiquity::CachingSingle
