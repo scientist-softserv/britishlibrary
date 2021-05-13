@@ -4,7 +4,7 @@ class ThesisOrDissertation < ActiveFedora::Base
   include Hyrax::WorkBehavior
   include Ubiquity::UniversalMetadata
   include Ubiquity::SharedMetadata
-  # include Ubiquity::AllModelsVirtualFields
+  include Ubiquity::AllModelsVirtualFields
   include Ubiquity::VersionMetadataModelConcern
   # include Ubiquity::UpdateSharedIndex
   include Ubiquity::FileAvailabilityFaceting
