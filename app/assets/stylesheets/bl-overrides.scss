@@ -22,7 +22,7 @@ h2{
   font-weight: 500;
 }
 h3{
-  font-size: 30px;
+  font-size: 28px;
 }
 h4{
   font-size: 28px;
@@ -77,6 +77,10 @@ a:hover, a:focus {
   min-height: 100px;
 }
 
+.navbar-inverse.navbar-collapse{
+  border: none !important;
+}
+
 .navbar-inverse .navbar-link { 
   color: $darkgrey !important;
    }
@@ -115,12 +119,12 @@ li.nav-item.dropdown:focus, a.nav-link.dropdown-toggle, ul#user_utility_links  {
   padding: inherit ;
   height: auto;
 }
-ul.footer-links li{
-  display: inline;
-  padding: 40px;
+.footer-link{
+  padding: 20px 40px;
 }
-@media only screen and (max-width: 1098px) {
-  ul.footer-links li, div.navbar-text.text-right{
+
+@media only screen and (max-width: 1100px) {
+.footer-link, div.navbar-text.text-right{
     text-align: center;
   }
 }
@@ -152,6 +156,13 @@ ul.footer-links li{
 
 
 //CUSTOM HOMEPAGE/SPLASH
+
+  @media (min-width: 1200px){
+  .container.homepage-container {
+      width: 1200px;
+  }
+}
+
 .bl-searchbar-wrapper {
   border: 2px solid $lightgrey;
   border-radius: 5px;

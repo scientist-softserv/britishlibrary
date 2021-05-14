@@ -1,6 +1,7 @@
 <nav id="masthead" class="navbar navbar-inverse navbar-static-top" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
+    <% if controller_name != 'splash' %>
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-collapse" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
@@ -10,6 +11,7 @@
       </button>
       <!-- OVERRIDE to remove the logo in the masthead -->
     </div>
+    <% end %>
 
     <div class="collapse navbar-collapse" id="top-navbar-collapse">
       <% if admin_host? %>
