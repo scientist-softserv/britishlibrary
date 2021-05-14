@@ -1,0 +1,248 @@
+@import 'variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
+
+//TEXT STYLES
+
+body { 
+  font-family: "Noto Sans JP" !important;
+  color: $darkgrey !important;
+  }
+
+h1, h2, h3, h4, h5, h6 { 
+  font-family: "Noto Sans JP" !important;
+  color: $darkgrey !important;
+  }
+
+h1{
+  font-size: 38px;
+  font-weight: 600;
+}
+h2{
+  font-size: 32px;
+  font-weight: 500;
+}
+h3{
+  font-size: 28px;
+}
+h4{
+  font-size: 28px;
+  font-weight: 300;
+}
+h5{
+  font-size: 24px;
+}
+p{
+  color: $darkgrey !important;
+  font-size: 16px;
+}
+
+.home_marketing_text h1, .home_marketing_text h2{
+  color: $darkgrey !important;
+}
+
+//General Classes
+
+.section-contrast {
+  background-color: $neutral;
+}
+//padding and margin bootstrap classes
+.pt-20 {
+  padding-top: 20px;
+}
+.pt-40 {
+  padding-top: 40px;
+}
+.mt-40{
+  margin-top: 40
+}
+
+
+/* LINK COLORS */
+a {
+  font-weight: bold;
+  color: $darkgrey !important;
+}
+a:hover, a:focus { 
+  color: $mediumgrey !important; 
+  }
+#sort-dropdown .dropdown-toggle, #per_page-dropdown .dropdown-toggle { 
+  color: $darkgrey !important;
+  }
+
+//     /* MAIN NAV */
+
+.navbar-default, .navbar.navbar-inverse.navbar-static-top {
+  background: linear-gradient(to right, $rust, $mustard);
+  border: none;
+  min-height: 100px;
+}
+
+.navbar-inverse.navbar-collapse{
+  border: none !important;
+}
+
+.navbar-inverse .navbar-link { 
+  color: $darkgrey !important;
+   }
+.navbar-inverse .navbar-link:hover { 
+  color: $mediumgrey !important
+  }
+.navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand {
+  color: $white !important;
+}
+.navbar-inverse .navbar-text{
+  color: $darkgrey !important;
+}
+
+li.nav-item.dropdown:focus, a.nav-link.dropdown-toggle, ul#user_utility_links  {
+  outline: transparent !important;
+}
+
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus { 
+  background-color: transparent !important; }
+.navbar-inverse .navbar-nav > li > a,
+.navbar-inverse .navbar-text,
+.navbar-inverse .navbar-brand { 
+  color: $mediumgrey; }
+.navbar-inverse { 
+  background-color: $white !important; 
+  border-color: inherit; 
+}
+
+//footer
+.navbar.navbar-inverse.site-footer {
+  border-top: 2px solid $lightgrey !important;
+  background-color: $white !important;
+  border: none ;
+  padding: inherit ;
+  height: auto;
+}
+.footer-link{
+  padding: 20px 40px;
+}
+
+@media only screen and (max-width: 1100px) {
+.footer-link, div.navbar-text.text-right{
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 768px) {
+  div.navbar-text.text-right{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.dropdown-menu {
+  background-color: $white;
+}
+.dropdown-menu > li > a:hover, .twitter-typeahead .tt-menu > li > a:hover, .dropdown-menu > li > a:focus, .twitter-typeahead .tt-menu > li > a:focus {
+  background-color: $white;
+}
+.dropdown-menu .divider{
+  background-color: $neutral !important;
+}
+.home-share-work a.btn.btn-primary.btn-lg {
+  float: right;
+  border: 3px solid transparent !important;
+  position: relative;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  display: hidden;
+}
+
+
+//CUSTOM HOMEPAGE/SPLASH
+
+  @media (min-width: 1200px){
+  .container.homepage-container {
+      width: 1200px;
+  }
+}
+
+.bl-searchbar-wrapper {
+  border: 2px solid $lightgrey;
+  border-radius: 5px;
+  transition: .1s ease-in-out;
+  margin: 20px 0px;
+}
+.bl-searchbar-wrapper:focus-within {
+  outline: none;
+  border: 0px solid transparent;
+  box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+}
+
+.bl-searchbar {
+  background-color:transparent;
+  border:0;
+  padding: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: $mediumgrey;
+  font-size: 24px;
+}
+.bl-searchbar:focus {
+  outline: none;
+  border: 0px solid transparent;
+}
+
+input.bl-searchbar{
+  width: 82%;
+}
+input.bl-searchbar::placeholder{
+  color: $mediumgrey;
+  font-size: 24px;
+}
+
+button.bl-searchbar{
+  width: 15%
+}
+
+.homepage-info-text {
+  padding-right: 100px
+}
+body.splash.splash-index.public-facing {
+  background-image: linear-gradient(
+90deg
+, $neutral 50%, $white 50%);
+}
+@media only screen and (max-width: 768px) {
+  body.splash.splash-index.public-facing {
+    background-image: linear-gradient(
+180deg
+, $neutral 30%, $white 70%);
+  }
+}
+.homepage-left{
+  padding-left: 0;
+  padding-right: 60px;
+}
+.homepage-right{
+  padding-left: 60px;
+  padding-right: 0;
+}
+@media only screen and (max-width: 768px) {
+  .homepage-left, .homepage-right{
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 40px;
+    text-align: center;
+  }
+}
+.tenant-logo{
+  max-width: 130px;
+  max-height: 100px;
+  object-fit: contain;
+  object-position: center center;
+  margin-top: 50px;
+  padding: 10px;
+  //add these properties to make all logos greyscale
+  // filter: grayscale(1);
+  // -webkit-filter: grayscale(1);
+}
+
+
+
