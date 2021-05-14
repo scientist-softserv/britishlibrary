@@ -6,7 +6,6 @@ module Hyrax
     self.curation_concern_type = ::BookContribution
 
     # Use this line if you want to use a custom presenter
-    # self.show_presenter = Hyrax::BookContributionPresenter
-    #
+    self.show_presenter = Hyrax::BookContributionPresenter
   end
 end
