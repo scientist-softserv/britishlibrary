@@ -1,16 +1,34 @@
 <footer class="navbar navbar-inverse site-footer">
   <div class="container-fluid">
-    <div class="navbar-text text-left">
-        <p><%= t('hyrax.footer.service_html') %></p>
-        <p>Hyku v<%= Hyku::VERSION %></p>
+    <div class="navbar-text">
+      <!-- /begin nav links: OVERRIDE here to include nav links on bottom bar -->
+      <div class="row">
+        <div class = 'col-xs-4 col-md-2 footer-link' <%= 'class=active' if current_page?(hyrax.root_path) %>>
+          <%= link_to t(:'hyrax.controls.home'), hyrax.root_path, aria: current_page?(hyrax.root_path) ? {current: 'page'} : nil %></div>
+        <div class = 'col-xs-4 col-md-2 footer-link' <%= 'class=active' if current_page?(hyrax.about_path) %>>
+          <%= link_to t(:'hyrax.controls.about'), hyrax.about_path, aria: current_page?(hyrax.about_path) ? {current: 'page'} : nil %></div>
+        <div class = 'col-xs-4 col-md-2 footer-link' <%= 'class=active' if current_page?(hyrax.help_path) %>>
+          <%= link_to t(:'hyrax.controls.help'), hyrax.help_path, aria: current_page?(hyrax.help_path) ? {current: 'page'} : nil %></div>
+        <div class = 'col-xs-4 col-md-2 footer-link' <%= 'class=active' if current_page?(hyrax.contact_path) %>>
+          <%= link_to t(:'hyrax.controls.contact'), hyrax.contact_path, aria: current_page?(hyrax.contact_path) ? {current: 'page'} : nil %></div>
+        <% if admin_host? && !user_signed_in? %>
+        <div class = 'col-xs-4 col-md-2 footer-link' >
+          <%= link_to t('hyku.footer.admin_login', default: [:'hyrax.toolbar.profile.login']), main_app.new_user_session_path %>
+        <% end %>
+        </div>
+        <div class = 'col-xs-4 col-md-2 footer-link' >
+          <% if controller_name == 'splash' && !Settings.multitenancy.admin_only_tenant_creation || can?(:manage, Account) %>
+            <%= link_to t('hyku.splash.account_signup'), account_sign_up_path %>
+          <% elsif controller_name == 'splash' && !user_signed_in? %>
+            <%= link_to t('hyku.splash.account_login'), main_app.new_user_session_path %>
+          <% end %>
+        </div>
+      </div><!-- /.nav -->
     </div>
     <div class="navbar-right">
-      <div class="navbar-text text-right">
-        <p><%= t('hyrax.footer.copyright_html') %></p>
-        <p><%= t('hyrax.background_attribution_html') %></p>
-        <% if admin_host? && !user_signed_in? %>
-          <p><%= link_to t('hyku.footer.admin_login', default: [:'hyrax.toolbar.profile.login']), main_app.new_user_session_path %></p>
-        <% end %>
+      <div class="navbar-text text-right footer-link">
+        Managed by the <a href="https://www.bl.uk/">The British Library</a>
+        <br/>Provided by <a href="https://www.notch8.com/">Notch8</a>
       </div>
     </div>
   </div>
