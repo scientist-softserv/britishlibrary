@@ -76,7 +76,6 @@ services:
 
   db:
     image: postgres:9.6
-    command: ["postgres", "-c", "log_statement=all", "-c", "log_min_duration_statement=5000"]
     environment:
       - POSTGRES_DB=fcrepo
       - POSTGRES_PASSWORD=a18e89029adb64c13
