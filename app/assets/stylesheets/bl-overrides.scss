@@ -62,16 +62,19 @@ a {
   font-weight: bold;
   color: $darkgrey !important;
 }
-a:hover, a:focus { 
+a:hover { 
   color: $mediumgrey !important; 
   }
+a:focus{
+  outline: none !important;
+}
 #sort-dropdown .dropdown-toggle, #per_page-dropdown .dropdown-toggle { 
   color: $darkgrey !important;
   }
 
 //     /* MAIN NAV */
 
-.navbar-default, .navbar.navbar-inverse.navbar-static-top {
+.navbar.navbar-inverse.navbar-static-top {
   background: linear-gradient(to right, $rust, $mustard);
   border: none;
   min-height: 100px;
@@ -111,7 +114,176 @@ li.nav-item.dropdown:focus, a.nav-link.dropdown-toggle, ul#user_utility_links  {
   border-color: inherit; 
 }
 
-//footer
+/* HOME PAGE SEARCH BAR NAV */
+.image-masthead .navbar { 
+  background-color: transparent !important; 
+}
+.image-masthead .navbar .active > a, .image-masthead .navbar .active > a:hover, .image-masthead .navbar .active > a:focus {
+    background-color: transparent !important;
+    color: $mediumgrey !important;
+}
+.image-masthead .navbar .navbar-nav a {
+    color: $darkgrey;
+    text-transform: none !important;
+}
+
+.image-masthead .navbar .navbar-nav a:hover, .image-masthead .navbar .navbar-nav a:focus {
+    background-color: transparent !important;
+    color: $mediumgrey;
+}
+
+.navbar.navbar-default.navbar-static-top{
+  background-color: $white !important;
+  border: none !important;
+}
+
+button#search-submit-header {
+  color: $darkgrey;
+  background-color: $white;
+  padding: 12px 12px;
+  border-top: 2px solid $lightgrey !important;
+  border-bottom: 2px solid $lightgrey !important;
+  border-right: 2px solid $lightgrey !important;
+  border-left: 0px solid transparent !important;
+}
+button#search-submit-header:focus {
+  outline: none
+}
+
+#search-field-header {
+  padding: 22px 12px;
+  border-top: 2px solid $lightgrey !important;
+  border-bottom: 2px solid $lightgrey !important;
+  border-left: 2px solid $lightgrey !important;
+  border-right: 0px solid transparent !important;
+}
+#search-field-header::placeholder {
+  color: $mediumgrey;
+  font-size: 18px;
+}
+
+.form-control:focus {
+  border-color: $lightgrey;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.form-control {
+  -webkit-box-shadow: none;
+  box-shadow: none
+}
+
+//MASTHEAD
+
+.container.site-title-container {
+  min-height: 250px;
+}
+
+
+/* HOME PAGE NAV-PILL TABS */
+.nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: transparent !important;
+}
+
+.nav-pills > li.active > a {
+  background-color: transparent !important;
+  border: 2px solid $neutral;
+  color: $darkgrey;
+}
+
+/* PRIMARY BUTTON STYLES */
+.btn-primary {
+  background-color: $white;
+  border-color: $neutral;
+}
+.btn-primary:focus,
+.btn-primary.focus {
+  background-color: $white;
+  border-color: $neutral;
+}
+.btn-primary:hover {
+  background-color: $white;
+  border-color: $lightgrey;
+}
+.btn-primary:active,
+.btn-primary.active {
+  background-color: $white;
+  border-color: $neutral;
+}
+.btn-primary:active:hover,
+.btn-primary:active:focus,
+.btn-primary:active.focus,
+.btn-primary.active:hover,
+.btn-primary.active:focus,
+.btn-primary.active.focus{
+  background-color: $white;
+  border-color: $neutral;
+}
+.btn-primary.disabled:hover,
+.btn-primary.disabled:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled]:hover,
+.btn-primary[disabled]:focus,
+.btn-primary[disabled].focus {
+  background-color: $lightgrey;
+  border-color: $neutral;
+}
+
+/* DEFAULT BUTTON STYLES */
+.btn-default {
+  background-color: $white;
+  border-color: $neutral;
+  color: $darkgrey;;
+}
+.btn-default:focus,
+.btn-default.focus {
+  background-color: $white;
+  border-color: $neutral;
+}
+.btn-default:hover {
+  background-color: $neutral;
+  border-color: $neutral;
+}
+.btn-default:active,
+.btn-default.active {
+  background-color: $white;
+  border-color: $neutral;
+}
+.btn-default:active:hover,
+.btn-default:active:focus,
+.btn-default:active.focus,
+.btn-default.active:hover,
+.btn-default.active:focus,
+.btn-default.active.focus{
+  background-color: $white;
+  border-color: $neutral;
+}
+.btn-default.disabled:hover,
+.btn-default.disabled:focus,
+.btn-default.disabled.focus,
+.btn-default[disabled]:hover,
+.btn-default[disabled]:focus,
+.btn-default[disabled].focus {
+  background-color: $white;
+  border-color: $neutral;
+}
+
+/* FACET PANEL STYLES */
+.panel-default > .panel-heading {
+    color: $darkgrey;
+    background-color: $white;
+    border-color: $neutral;
+}
+.panel-default { 
+  border-color: $neutral; 
+}
+.panel-heading.collapse-toggle .panel-title:after{ 
+  color: $mediumgrey; 
+}
+
+// FOOTER STYLES
+
 .navbar.navbar-inverse.site-footer {
   border-top: 2px solid $lightgrey !important;
   background-color: $white !important;
@@ -144,14 +316,6 @@ li.nav-item.dropdown:focus, a.nav-link.dropdown-toggle, ul#user_utility_links  {
 }
 .dropdown-menu .divider{
   background-color: $neutral !important;
-}
-.home-share-work a.btn.btn-primary.btn-lg {
-  float: right;
-  border: 3px solid transparent !important;
-  position: relative;
-  margin-bottom: 20px;
-  margin-right: 20px;
-  display: hidden;
 }
 
 
