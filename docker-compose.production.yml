@@ -1,0 +1,188 @@
+version: '3.8'
+
+volumes:
+  fcrepo:
+  solr:
+  db:
+  redis:
+  zk1:
+  zkconf:
+  uploads:
+  assets:
+  cache:
+
+networks:
+  internal:
+
+services:
+  zoo1:
+    image: zookeeper:3.4
+    environment:
+      - ZOO_MY_ID=1
+      - ZOO_SERVERS=server.1=zoo1:2888:3888
+    expose:
+      - 2181
+      - 2888
+      - 3888
+    volumes:
+      - zk1:/data
+      - zkconf:/conf
+    networks:
+      internal:
+       aliases:
+         - zookeeper_cluster
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'ruok' | nc -w 2 -q 2 localhost 2181 | grep imok || exit 1"]
+      interval: "10s"
+      timeout: "8"
+  solr:
+    image: bitnami/solr:8
+    environment:
+      - OOM=script
+      - SOLR_ADMIN_USERNAME=admin
+      - SOLR_ADMIN_PASSWORD=admin
+      - SOLR_COLLECTION=hydra-development
+      - SOLR_CLOUD_BOOTSTRAP=yes
+      - SOLR_ENABLE_CLOUD_MODE=yes
+      - SOLR_ENABLE_AUTHENTICATION=yes
+      - SOLR_PORT_NUMBER=8983
+      - SOLR_ZK_HOSTS=zoo1
+      - VIRTUAL_PORT=8983
+      - VIRTUAL_HOST=solr.hyku.test
+    depends_on:
+      zoo1:
+        condition: service_healthy
+    expose:
+      - 8983
+    volumes:
+      - .:/app
+      - solr:/opt/solr/server/solr
+    networks:
+      internal:
+
+  fcrepo:
+    image: cbeer/fcrepo4:4.7
+    env_file:
+      - .env
+    expose:
+      - 8080
+    volumes:
+      - ./fcrepo:/data
+    environment:
+      #- JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
+      - JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/jdbc-postgresql/repository.json" -Dfcrepo.postgresql.host=db -Dfcrepo.postgresql.username=hyku -Dfcrepo.postgresql.password=***REMOVED*** -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/fcrepo.binary.directory"
+    networks:
+      internal:
+
+  db:
+    image: postgres:9.6
+    command: ["postgres", "-c", "log_statement=all", "-c", "log_min_duration_statement=5000"]
+    environment:
+      - POSTGRES_DB=fcrepo
+      - POSTGRES_PASSWORD=***REMOVED***
+      - POSTGRES_USER=hyku
+    volumes:
+      - ./pg:/var/lib/postgresql/data
+    networks:
+      internal:
+
+  x-app: &app
+    build:
+      context: .
+      target: hyku-base
+      args:
+        - EXTRA_APK_PACKAGES=less vim bash # TODO: this doesn't install vim, why?
+    image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
+    env_file:
+      - .env
+    # NOTE: all common env variables moved to .env
+    volumes:
+      - uploads:/app/samvera/hyrax-webapp/tmp/uploads
+      - assets:/app/samvera/hyrax-webapp/public/assets
+      - cache:/app/samvera/hyrax-webapp/tmp/cache
+      - .:/app/samvera/hyrax-webapp
+    networks:
+      internal:
+
+  web:
+    <<: *app
+    environment:
+      - VIRTUAL_PORT=3000
+      - VIRTUAL_HOST=hyku.test
+    depends_on:
+      - check_volumes
+      - db
+      - solr
+      - fcrepo
+      - redis
+      - zoo1
+      - chrome
+      - initialize_app
+      - db_migrate
+    ports:
+      - 80:3000
+
+  workers:
+    <<: *app
+    build:
+      context: .
+      target: hyku-worker
+      args:
+        - EXTRA_APK_PACKAGES=less vim bash # TODO: this doesn't install vim, why?
+    command: bundle exec sidekiq -c 5
+    depends_on:
+      - check_volumes
+      - db
+      - solr
+      - fcrepo
+      - redis
+      - zoo1
+      - initialize_app
+      - db_migrate
+
+  check_volumes:
+    <<: *app
+    user: root
+    entrypoint: ["sh", "-c"]
+    command:
+      - >
+        # Do not recurse through all of tmp. derivitives will make booting
+        # very slow and eventually just time out as data grows
+        chown -f app:app /app/samvera/hyrax-webapp/tmp
+        chown -fR app:app /app/samvera/hyrax-webapp/tmp/pids
+        chown -fR app:app /app/samvera/hyrax-webapp/tmp/uploads
+        chown -fR app:app /app/samvera/hyrax-webapp/public/assets
+        chown -fR app:app /app/samvera/hyrax-webapp/tmp/cache
+
+  initialize_app:
+    <<: *app
+    environment:
+      - CONFDIR=/app/samvera/hyrax-webapp/solr/config
+    entrypoint: ["sh", "-c"]
+    command:
+      - >
+        solrcloud-upload-configset.sh /app/samvera/hyrax-webapp/solr/config;
+        solrcloud-assign-configset.sh;
+        SOLR_COLLECTION_NAME=hydra-test solrcloud-assign-configset.sh;
+    depends_on:
+      - solr
+
+  db_migrate:
+    <<: *app
+    entrypoint: ["sh", "-c"]
+    command: db-migrate-seed.sh
+    depends_on:
+      - db
+
+  redis:
+    image: redis:5
+    command: redis-server
+    volumes:
+      - redis:/data
+    networks:
+      internal:
+
+  chrome:
+    image: selenium/standalone-chrome:3.141
+    networks:
+      internal:
