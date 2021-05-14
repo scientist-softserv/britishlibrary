@@ -5,8 +5,6 @@ module Hyrax
     include Hyrax::BreadcrumbsForWorks
     # TODO include Ubiquity::BreadcrumbOverride
 
-    self.show_presenter = Hyku::WorkShowPresenter
-
     private
     # TODO understand notes/conversation feature
      #  def after_update_response

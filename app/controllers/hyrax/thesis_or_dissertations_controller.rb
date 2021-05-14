@@ -6,6 +6,6 @@ module Hyrax
     self.curation_concern_type = ::ThesisOrDissertation
 
     # Use this line if you want to use a custom presenter
-    #self.show_presenter = Hyrax::ThesisOrDissertationPresenter
+    self.show_presenter = Hyrax::ThesisOrDissertationPresenter
   end
 end

@@ -6,6 +6,6 @@ module Hyrax
     self.curation_concern_type = ::Report
 
     # Use this line if you want to use a custom presenter
-    # self.show_presenter = Hyrax::ReportPresenter
+    self.show_presenter = Hyrax::ReportPresenter
   end
 end
