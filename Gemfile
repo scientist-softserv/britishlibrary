@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.2.5'
 
 # pre release versions for index fixes
-gem 'ldp', git: 'https://github.com/samvera/ldp.git'
+gem 'ldp', '>= 1.0.3'
 gem 'samvera-nesting_indexer', git: 'https://github.com/samvera-labs/samvera-nesting_indexer.git', branch: 'skip_failure_option'
 gem 'activerecord-nulldb-adapter'
 # Use sqlite3 as the database for Active Record
