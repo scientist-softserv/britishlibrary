@@ -6,6 +6,10 @@ module ApplicationHelper
   include Hyrax::OverrideHelperBehavior
   include GroupNavigationHelper
 
+  def check_has_editor_fields?(presenter)
+    ["Book", "BookContribution", "ConferenceItem", "Report", "GenericWork"].include? presenter
+  end
+
   def ubiquity_url_parser(original_url)
     full_url = URI.parse(original_url)
     if full_url.host.present? && full_url.host.class == String
