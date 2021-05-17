@@ -1,42 +1,54 @@
-<% content_for :page_title, application_name %>
-<% content_for(:container_class) { 'row' } %>
-<section id="banner" class="jumbotron">
-  <div class="container">
-    <h1><%= application_name %></h1>
-    <p><%= t('application.tagline') %></p>
-    <p>
-      <% if !Settings.multitenancy.admin_only_tenant_creation || can?(:manage, Account) %>
-        <%= link_to t('hyku.splash.account_signup'), account_sign_up_path, class: 'btn btn-lg btn-sign-up' %>
-      <% elsif !user_signed_in? %>
-        <%= link_to t('hyku.splash.account_login'), main_app.new_user_session_path, class: 'btn btn-lg btn-sign-up' %>
-      <% else %>
-        <%= t('hyku.splash.account_denied') %>
-      <% end %>
-    </p>
+
+<div class="container homepage-container">
+  <div class= "row">
+    <div class="col-sm-6 col-xs-12 pt-20 homepage-left">
+    <h1>Shared Research Repository</h1>
+    <h3>for cultural and heritage organisations</h3>
+    <h4 class="pt-40">
+      The Shared Research Repository makes available research produced by staff of the British Library and our current partner organisations:<br/><br/>
+
+      The British Museum, MOLA (Museum of London Archaeology), National Museums Scotland, Royal Botanic Gardens, Kew, and Tate. </h4>
+    </div>
+    <div class="col-sm-6 col-xs-12 pt-20 homepage-right">
+      <%# SEARCH BAR FOR HOME PAGE %>
+      <%# <div class="bl-searchbar-wrapper">
+        <button class="bl-searchbar"><span class="fa fa-search"></span></button>
+        <input class="bl-searchbar" type="text" id="search_all_hyku" placeholder="Begin Your Search">
+         <label class="sr-only" aria-label="search_all_hyku" for="search_all_hyku"></label>
+      </div> %>
+      <h2 class="pt-40">Browse our partner repositories:</h2>
+      <div class="row logo-grid">
+        <div class="col-xs-6 col-md-4 text-center">
+          <a href="https://www.bl.uk/">
+            <img class="tenant-logo" alt="MOLA" src="https://i.ibb.co/V2h2vJQ/220px-MOLA-Museum-of-London-Archaeology-Logo.jpg">
+          </a>
+        </div>
+        <div class="col-xs-6 col-md-4 text-center">
+          <a href="https://www.bl.uk/">
+            <img class="tenant-logo" alt="National Museum of Scotland" src="https://i.ibb.co/1L7SkJK/BL-NMS.jpg">
+          </a>
+        </div>
+        <div class="col-xs-12 col-md-4 text-center">
+          <a href="https://www.bl.uk/">
+            <img class="tenant-logo" alt="British Library" src="https://i.ibb.co/jWzwHz1/britishlibrary.jpg">
+          </a>
+        </div>
+        <div class="col-xs-6 col-md-4 text-center">
+          <a href="https://www.bl.uk/">
+            <img class="tenant-logo" alt="Kew Royal Botanic Gardens" src="https://i.ibb.co/vsNGy9d/Kew-royalbritannicgardens-logo.png">
+          </a>
+        </div>
+        <div class="col-xs-6 col-md-4 text-center">
+          <a href="https://www.bl.uk/">
+            <img class="tenant-logo" alt="Tate Modern" src="https://i.ibb.co/mGY5VzR/tate.png">
+          </a>
+        </div>
+        <div class="col-xs-12 col-md-4 text-center">
+          <a href="https://www.bl.uk/">
+            <img class="tenant-logo" alt="The British Museum" src="https://i.ibb.co/PQ91fMB/thebritishmuseum.png">
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
-</section>
-
-<section class="product-features">
-  <div class="row grid-row">
-    <div class="col-xs-12 col-sm-4 grid-item">
-      <h2 class="heading"><%= t('hyku.splash.left_heading') %></h2>
-      <p>
-          <%= t('hyku.splash.left_text') %>
-      </p>
-    </div>
-
-    <div class="col-xs-12 col-sm-4 grid-item">
-      <h2 class="heading"><%= t('hyku.splash.center_heading') %></h2>
-      <p>
-          <%= t('hyku.splash.center_text') %>
-      </p>
-    </div>
-
-    <div class="col-xs-12 col-sm-4 grid-item">
-      <h2 class="heading"><%= t('hyku.splash.right_heading') %></h2>
-      <p>
-          <%= t('hyku.splash.right_text') %>
-      </p>
-    </div>
-  </div>
-</section>
+</div>
