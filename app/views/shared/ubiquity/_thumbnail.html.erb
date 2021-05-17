@@ -1,0 +1,14 @@
+<!-- This file is called from
+app/views/shared/collections/_show_document_list_row.html.erb
+app/views/hyrax/my/works/_list_works.html.erb
+app/views/hyrax/dashboard/works/_list_works.html.erb
+
+ -->
+<% if presenter.thumbnail_id.present? %>
+  <%= link_to [main_app, document], class: 'media-left', 'aria-hidden' => true do %>
+    <!-- dont' displays universal viewer for files with archived format eg zip -->
+    <%= render 'shared/ubiquity/thumbnail_icons', document: document,  presenter: presenter %>
+   <% end %>
+<% else %>
+  <span class="media-left hidden-xs file_listing_thumbnail" style="padding-left:62px" ></span>
+<% end %>
