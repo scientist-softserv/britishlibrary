@@ -1,0 +1,54 @@
+<%#
+  displays dashboard collection list including the works
+ Copied from https://github.com/samvera/hyrax/blob/v2.0.2/app/views/hyrax/dashboard/collections/_show_document_list_row.html.erb
+    and
+    called in app/views/hyrax/collections/_show_document_list_row.html.erb
+    https://github.com/samvera/hyrax/blob/v2.0.2/app/views/hyrax/collections/_show_document_list_row.html.erb
+    Consolidated since there is just a minor change of showing edit button when rendered via dashboard
+
+%>
+
+<% id = document.id %>
+<tr id="document_<%= id %>" data-child-value="<%= collection_child_row_details(document)%>">
+  <td class='details-control'></td>
+  <td>
+    <div class="media">
+      <% if  document.thumbnail_id %>
+        <%= render 'shared/ubiquity/thumbnail', document: document,  presenter: Hyku::ManifestEnabledWorkShowPresenter.new(document, current_ability) %>
+      <% else %>
+        <%= link_to "", class: 'media-left', 'aria-hidden' => true do %>
+          <span class="media-left hidden-xs file_listing_thumbnail" style="height:55px;width:50px;padding-left: 55px;" ></span>
+        <% end %>
+      <% end %>
+    </div>
+  </td>
+  <td>
+    <div class="media">
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= link_to document.title_or_label, [main_app, document], id: "src_copy_link#{id}", class: "#{'document-title' if document.title_or_label == document.label}" %>
+        </h4>
+        <%= render_collection_links(document) %>
+      </div>
+    </div>
+  </td>
+  <td>
+    <div class="media-body">
+      <%# UbiquityPress replaces document.creator.to_a.to_a pulled from document detail" %>
+      <span class="text-center"><%= display_json_values_comma_separated(document.creator) %> </span>
+    </div>
+  </td>
+  <td>
+    <div class="media-body">
+      <span class="text-center"><%= document.date_published.first %></span>
+    </div>
+  </td>
+  <td>
+    <%= human_readable_resource_type(document.resource_type) %>
+  </td>
+  <% if (current_user && controller.class == Hyrax::Dashboard::CollectionsController) %>
+    <td class="text-center">
+      <%= render 'show_document_list_menu', document: document %>
+    </td>
+  <% end %>
+</tr>

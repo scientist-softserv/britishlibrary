@@ -4,10 +4,8 @@
 #  `rails generate hyrax:work Image`
 module Hyrax
   # Generated controller for Image
-  class ImagesController < ApplicationController
+  class ImagesController < SharedBehaviorsController
     # Adds Hyrax behaviors to the controller.
-    include Hyrax::WorksControllerBehavior
-    include Hyrax::BreadcrumbsForWorks
     self.curation_concern_type = ::Image
 
     # Use this line if you want to use a custom presenter
