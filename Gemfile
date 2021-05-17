@@ -5,6 +5,9 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.5'
 
+# pre release versions for index fixes
+gem 'ldp', '>= 1.0.3'
+gem 'samvera-nesting_indexer', git: 'https://github.com/samvera-labs/samvera-nesting_indexer.git', branch: 'skip_failure_option'
 gem 'activerecord-nulldb-adapter'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
@@ -81,8 +84,10 @@ group :development do
 end
 
 # Bulkrax
-gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git'
-gem 'willow_sword', git: 'https://github.com/notch8/willow_sword.git'
+group :bulkrax do
+  gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git'
+  gem 'willow_sword', git: 'https://github.com/notch8/willow_sword.git'
+end
 
 gem 'blacklight', '~> 6.7'
 gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'

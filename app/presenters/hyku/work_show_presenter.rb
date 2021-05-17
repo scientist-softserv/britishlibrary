@@ -4,7 +4,14 @@ module Hyku
   class WorkShowPresenter < Hyrax::WorkShowPresenter
     Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::FileSetPresenter
 
-    delegate :extent, to: :solr_document
+    delegate :extent, :rendering_ids, :isni, :institution, :org_unit, :refereed, :doi, :isbn, :issn, :eissn,
+             :funder, :fndr_project_ref, :add_info,
+             :journal_title, :alternative_journal_title, :issue, :volume, :pagination, :article_num, :project_name, :rights_holder,
+             :official_link, :place_of_publication, :series_name, :edition, :abstract, :version,
+             :event_title, :event_date, :event_location, :book_title, :editor,
+             :alternate_identifier, :related_identifier, :media, :duration, :related_exhibition, :related_exhibition_venue, :related_exhibition_date,
+             :dewey, :library_of_congress_classification, :alt_title, :current_he_institution, :qualification_name, :qualification_level, :collection_names, :collection_id,
+             to: :solr_document
 
     # assumes there can only be one doi
     def doi
