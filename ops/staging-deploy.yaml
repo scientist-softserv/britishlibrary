@@ -4,11 +4,11 @@ readinessProbe:
   enabled: false
 
 brandingVolume:
-  storageClass: nfs
+  storageClass: azurefile
 derivativesVolume:
-  storageClass: nfs
+  storageClass: azurefile
 uploadsVolume:
-  storageClass: nfs
+  storageClass: azurefile
 
 ingress:
   enabled: true
