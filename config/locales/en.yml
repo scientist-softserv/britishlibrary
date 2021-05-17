@@ -59,7 +59,7 @@ en:
         nav:
           attributes: Description
           delete: Remove
-          index: return to Manage Groups
+          index: Return to Manage Groups
           members: Users
         title:
           add_user: Add User to Group
@@ -73,7 +73,7 @@ en:
       title: Administration
       work_types: Available Work Types
     footer:
-      admin_login: Administrator login
+      admin_login: Admin
     proprietor:
       accounts:
         nav: Accounts
