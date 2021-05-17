@@ -1,0 +1,71 @@
+livenessProbe:
+  enabled: false
+readinessProbe:
+  enabled: false
+
+brandingVolume:
+  storageClass: nfs
+derivativesVolume:
+  storageClass: nfs
+uploadsVolume:
+  storageClass: nfs
+
+ingress:
+  enabled: true
+  hosts:
+    - host: hyku-staging.20.90.72.114.xip.io
+      paths:
+        - path: /
+    - host: "*.hyku-staging.20.90.72.114.xip.io"
+      paths:
+        - path: /
+
+extraEnvVars:
+  - name: SETTINGS__MULTITENANCY__ADMIN_HOST
+    value: hyku-staging.20.90.72.114.xip.io
+  - name: SETTINGS__MULTITENANCY__ROOT_HOST
+    value: hyku-staging.20.90.72.114.xip.io
+  - name: SETTINGS__MULTITENANCY__DEFAULT_HOST
+    value: "%{tenant}.hyku-staging.20.90.72.114.xip.io"
+  - name: SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION
+    value: "false"
+  - name: RAILS_LOG_TO_STDOUT
+    value: "true"
+  - name: SOLR_CONFIGSET_NAME
+    value: hyku
+
+worker:
+  extraEnvVars:
+    - name: SETTINGS__MULTITENANCY__ADMIN_HOST
+      value: hyku-staging.20.90.72.114.xip.io
+    - name: SETTINGS__MULTITENANCY__ROOT_HOST
+      value: hyku-staging.20.90.72.114.xip.io
+    - name: SETTINGS__MULTITENANCY__DEFAULT_HOST
+      value: "%{tenant}.hyku-staging.20.90.72.114.xip.io"
+    - name: SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION
+      value: "false"
+    - name: RAILS_LOG_TO_STDOUT
+      value: "true"
+    - name: SOLR_CONFIGSET_NAME
+      value: hyku
+
+podSecurityContext:
+  runAsUser: 1001
+  runAsGroup: 101
+  fsGroup: 101
+  fsGroupChangePolicy: "OnRootMismatch"
+
+worker:
+  podSecurityContext:
+    runAsUser: 1001
+    runAsGroup: 101
+    fsGroup: 101
+    fsGroupChangePolicy: "OnRootMismatch"
+
+solrEnabled: true
+
+redis:
+  architecture: standalone
+
+imagePullSecrets:
+  - name: gitlab-registry

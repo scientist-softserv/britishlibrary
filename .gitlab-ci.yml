@@ -3,6 +3,7 @@ stages:
   - build
   - test
   - review
+  - staging
 
 before_script:
   - export TAG=${CI_COMMIT_SHA}
@@ -108,6 +109,53 @@ hyku.review.stop:
     - delete
   tags:
     - kubernetes
+
+hyku.staging:
+  stage: staging
+  extends:
+    - .deploy
+  environment:
+    name: hyku.staging
+    url: http://hyku-staging.20.90.72.114.xip.io
+    on_stop: hyku.staging.stop
+  only:
+    refs:
+      - main
+      - deploy-staging # temporarily
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
+    DEPLOY_TAG: $CI_COMMIT_SHA
+    HELM_EXPERIMENTAL_OCI: 1
+    HELM_RELEASE_NAME: hyku-staging
+    KUBE_NAMESPACE: hyku-staging
+    HELM_EXTRA_ARGS: >
+      --values ops/staging-deploy.yaml
+  script:
+    - helm chart pull ghcr.io/samvera/hyrax/hyrax-helm:0.18.0
+    - helm chart export ghcr.io/samvera/hyrax/hyrax-helm:0.18.0
+    - deploy hyrax
+  tags:
+    - kubernetes
+
+hyku.staging.stop:
+  stage: staging
+  extends:
+    - .deploy
+  environment:
+    name: hyku.staging
+    url: http://hyku-staging.20.90.72.114.xip.io
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    HELM_RELEASE_NAME: hyku-staging
+    KUBE_NAMESPACE: hyku-staging
+    GIT_STRATEGY: none
+  script:
+    - delete
+  tags:
+    - kubernetes
+
 
 .deploy_helpers: &deploy_helpers |
   function deploy() {
