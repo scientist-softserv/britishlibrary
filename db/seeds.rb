@@ -43,3 +43,8 @@ unless Settings.multitenancy.enabled
 end
 
 
+Account.all.each do |account|
+  AccountElevator.switch!(account.cname)
+  Site.instance.available_works = Hyrax.config.registered_curation_concern_types
+  Site.instance.save
+end
