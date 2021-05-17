@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
-# Generated via
-#  `rails generate hyrax:work Image`
 class Image < ActiveFedora::Base
-  include ::Hyrax::WorkBehavior
+  include Hyrax::WorkBehavior
+  include Ubiquity::UniversalMetadata
+  include Ubiquity::SharedMetadata
+  include Ubiquity::AllModelsVirtualFields
+  # include Ubiquity::UpdateSharedIndex
+  include Ubiquity::FileAvailabilityFaceting
+  # include ::Ubiquity::CachingSingle
 
   property :extent, predicate: ::RDF::Vocab::DC.extent, multiple: true do |index|
     index.as :stored_searchable
