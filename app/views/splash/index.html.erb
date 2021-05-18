@@ -19,32 +19,32 @@
       <h2 class="pt-40">Browse our partner repositories:</h2>
       <div class="row logo-grid">
         <div class="col-xs-6 col-md-4 text-center">
-          <%= link_to root_url(subdomain: 'mola') do %>
+          <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'mola')}" do %>
             <img class="tenant-logo" alt="MOLA" src="https://i.ibb.co/V2h2vJQ/220px-MOLA-Museum-of-London-Archaeology-Logo.jpg">
           <% end %>
         </div>
         <div class="col-xs-6 col-md-4 text-center">
-          <%= link_to root_url(subdomain: 'nms') do %>
+          <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'nms')}" do %>
             <img class="tenant-logo" alt="National Museum of Scotland" src="https://i.ibb.co/1L7SkJK/BL-NMS.jpg">
           <% end %>
         </div>
         <div class="col-xs-12 col-md-4 text-center">
-          <%= link_to root_url(subdomain: 'bl') do %>
+          <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'bl')}" do %>
             <img class="tenant-logo" alt="British Library" src="https://i.ibb.co/jWzwHz1/britishlibrary.jpg">
           <% end %>
         </div>
         <div class="col-xs-6 col-md-4 text-center">
-          <%= link_to root_url(subdomain: 'kew') do %>
+          <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'kew')}" do %>
             <img class="tenant-logo" alt="Kew Royal Botanic Gardens" src="https://i.ibb.co/vsNGy9d/Kew-royalbritannicgardens-logo.png">
           <% end %>
         </div>
         <div class="col-xs-6 col-md-4 text-center">
-          <%= link_to root_url(subdomain: 'tate') do %>
+          <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'tate')}" do %>
             <img class="tenant-logo" alt="Tate Modern" src="https://i.ibb.co/mGY5VzR/tate.png">
           <% end %>
         </div>
         <div class="col-xs-12 col-md-4 text-center">
-          <%= link_to root_url(subdomain: 'britishmuseum') do %>
+          <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'britishmuseum')}" do %>
             <img class="tenant-logo" alt="The British Museum" src="https://i.ibb.co/PQ91fMB/thebritishmuseum.png">
           <% end %>
         </div>
