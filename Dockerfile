@@ -7,8 +7,11 @@ RUN apk --no-cache upgrade && \
   openjdk11-jre
 USER app
 
-COPY --chown=1001:101 $APP_PATH /app/samvera/hyrax-webapp
+COPY --chown=1001:101 $APP_PATH/Gemfile* /app/samvera/hyrax-webapp/
 RUN bundle install --jobs "$(nproc)"
+
+COPY --chown=1001:101 $APP_PATH /app/samvera/hyrax-webapp
+
 RUN RAILS_ENV=production SECRET_KEY_BASE=`bin/rake secret` DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
 
 FROM hyku-base as hyku-worker
@@ -28,10 +31,3 @@ RUN mkdir -p /app/fits && \
     rm fits.zip && \
     chmod a+x /app/fits/fits.sh
 ENV PATH="${PATH}:/app/fits"
-
-COPY --chown=1001:101 $APP_PATH /app/samvera/hyrax-webapp
-RUN bundle install --jobs "$(nproc)"
-
-# TODO: remove if we dont need assets for worker
-# RUN RAILS_ENV=production SECRET_KEY_BASE=`bin/rake secret` DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
-CMD bundle exec sidekiq
