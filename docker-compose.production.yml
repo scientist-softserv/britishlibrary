@@ -42,7 +42,7 @@ services:
       - SOLR_ADMIN_USERNAME=admin
       - SOLR_ADMIN_PASSWORD=admin
       - SOLR_COLLECTION=hydra-development
-      - SOLR_CLOUD_BOOTSTRAP=yes
+        # - SOLR_CLOUD_BOOTSTRAP=yes
       - SOLR_ENABLE_CLOUD_MODE=yes
       - SOLR_ENABLE_AUTHENTICATION=yes
       - SOLR_PORT_NUMBER=8983
@@ -52,8 +52,8 @@ services:
     depends_on:
       zoo1:
         condition: service_healthy
-    expose:
-      - 8983
+    ports:
+      - 8983:8983
     volumes:
       - .:/app
       - solr:/opt/solr/server/solr
@@ -63,7 +63,7 @@ services:
   fcrepo:
     image: cbeer/fcrepo4:4.7
     env_file:
-      - .env
+      - .env.production
     expose:
       - 8080
     volumes:
@@ -92,8 +92,9 @@ services:
       args:
         - EXTRA_APK_PACKAGES=less vim bash # TODO: this doesn't install vim, why?
     image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
+    user: root
     env_file:
-      - .env
+      - .env.production
     # NOTE: all common env variables moved to .env
     volumes:
       - uploads:/app/samvera/hyrax-webapp/tmp/uploads
@@ -142,16 +143,12 @@ services:
   check_volumes:
     <<: *app
     user: root
-    entrypoint: ["sh", "-c"]
+    entrypoint: ["sh", "-x", "-c"]
     command:
       - >
-        # Do not recurse through all of tmp. derivitives will make booting
-        # very slow and eventually just time out as data grows
-        chown -f app:app /app/samvera/hyrax-webapp/tmp
-        chown -fR app:app /app/samvera/hyrax-webapp/tmp/pids
-        chown -fR app:app /app/samvera/hyrax-webapp/tmp/uploads
-        chown -fR app:app /app/samvera/hyrax-webapp/public/assets
-        chown -fR app:app /app/samvera/hyrax-webapp/tmp/cache
+        chown -R app:app /app/samvera/hyrax-webapp/tmp/uploads &&
+        chown -R app:app /app/samvera/hyrax-webapp/public/assets &&
+        chown -R app:app /app/samvera/hyrax-webapp/tmp/cache
 
   initialize_app:
     <<: *app

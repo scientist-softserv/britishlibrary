@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_01_204556) do
+ActiveRecord::Schema.define(version: 2020_05_13_060932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,9 +24,13 @@ ActiveRecord::Schema.define(version: 2020_06_01_204556) do
     t.integer "fcrepo_endpoint_id"
     t.string "name"
     t.integer "redis_endpoint_id"
+    t.bigint "parent_id"
+    t.jsonb "settings", default: {}
+    t.jsonb "data", default: {}
     t.index ["cname", "tenant"], name: "index_accounts_on_cname_and_tenant"
     t.index ["cname"], name: "index_accounts_on_cname", unique: true
     t.index ["fcrepo_endpoint_id"], name: "index_accounts_on_fcrepo_endpoint_id", unique: true
+    t.index ["parent_id"], name: "index_accounts_on_parent_id"
     t.index ["redis_endpoint_id"], name: "index_accounts_on_redis_endpoint_id", unique: true
     t.index ["solr_endpoint_id"], name: "index_accounts_on_solr_endpoint_id", unique: true
   end
@@ -40,86 +44,6 @@ ActiveRecord::Schema.define(version: 2020_06_01_204556) do
     t.datetime "updated_at", null: false
     t.string "document_type"
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
-  end
-
-  create_table "bulkrax_entries", force: :cascade do |t|
-    t.string "identifier"
-    t.string "collection_ids"
-    t.string "type"
-    t.bigint "importerexporter_id"
-    t.text "raw_metadata"
-    t.text "parsed_metadata"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "last_error"
-    t.datetime "last_error_at"
-    t.datetime "last_succeeded_at"
-    t.string "importerexporter_type", default: "Bulkrax::Importer"
-    t.index ["importerexporter_id"], name: "index_bulkrax_entries_on_importerexporter_id"
-  end
-
-  create_table "bulkrax_exporter_runs", force: :cascade do |t|
-    t.bigint "exporter_id"
-    t.integer "total_work_entries", default: 0
-    t.integer "enqueued_records", default: 0
-    t.integer "processed_records", default: 0
-    t.integer "deleted_records", default: 0
-    t.integer "failed_records", default: 0
-    t.index ["exporter_id"], name: "index_bulkrax_exporter_runs_on_exporter_id"
-  end
-
-  create_table "bulkrax_exporters", force: :cascade do |t|
-    t.string "name"
-    t.bigint "user_id"
-    t.string "parser_klass"
-    t.integer "limit"
-    t.text "parser_fields"
-    t.text "field_mapping"
-    t.string "export_source"
-    t.string "export_from"
-    t.string "export_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "last_error"
-    t.datetime "last_error_at"
-    t.datetime "last_succeeded_at"
-    t.index ["user_id"], name: "index_bulkrax_exporters_on_user_id"
-  end
-
-  create_table "bulkrax_importer_runs", force: :cascade do |t|
-    t.bigint "importer_id"
-    t.integer "total_work_entries", default: 0
-    t.integer "enqueued_records", default: 0
-    t.integer "processed_records", default: 0
-    t.integer "deleted_records", default: 0
-    t.integer "failed_records", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "processed_collections", default: 0
-    t.integer "failed_collections", default: 0
-    t.integer "total_collection_entries", default: 0
-    t.integer "processed_children", default: 0
-    t.integer "failed_children", default: 0
-    t.text "invalid_records"
-    t.index ["importer_id"], name: "index_bulkrax_importer_runs_on_importer_id"
-  end
-
-  create_table "bulkrax_importers", force: :cascade do |t|
-    t.string "name"
-    t.string "admin_set_id"
-    t.bigint "user_id"
-    t.string "frequency"
-    t.string "parser_klass"
-    t.integer "limit"
-    t.text "parser_fields"
-    t.text "field_mapping"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "validate_only"
-    t.text "last_error"
-    t.datetime "last_error_at"
-    t.datetime "last_succeeded_at"
-    t.index ["user_id"], name: "index_bulkrax_importers_on_user_id"
   end
 
   create_table "checksum_audit_logs", id: :serial, force: :cascade do |t|
@@ -188,6 +112,16 @@ ActiveRecord::Schema.define(version: 2020_06_01_204556) do
     t.index ["user_id"], name: "index_curation_concerns_operations_on_user_id"
   end
 
+  create_table "domain_names", force: :cascade do |t|
+    t.bigint "account_id"
+    t.string "cname"
+    t.boolean "is_active", default: true
+    t.boolean "is_ssl_enabled", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_domain_names_on_account_id"
+  end
+
   create_table "domain_terms", id: :serial, force: :cascade do |t|
     t.string "model"
     t.string "term"
@@ -206,6 +140,18 @@ ActiveRecord::Schema.define(version: 2020_06_01_204556) do
     t.binary "options"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "external_services", force: :cascade do |t|
+    t.string "draft_doi"
+    t.string "work_id"
+    t.jsonb "property", default: []
+    t.jsonb "data", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["data"], name: "index_external_services_on_data", where: "((data -> 'api_type'::text) IS NOT NULL)", using: :gin
+    t.index ["draft_doi", "work_id"], name: "index_external_services_on_draft_doi_and_work_id", unique: true, where: "(draft_doi IS NOT NULL)"
+    t.index ["property"], name: "index_external_services_on_property", using: :gin
   end
 
   create_table "featured_works", id: :serial, force: :cascade do |t|
@@ -644,6 +590,8 @@ ActiveRecord::Schema.define(version: 2020_06_01_204556) do
     t.string "file_set_uri"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "file_status", default: 0
+    t.index ["file", "user_id", "file_status"], name: "index_uploaded_files_on_file_and_user_id_and_file_status"
     t.index ["file_set_uri"], name: "index_uploaded_files_on_file_set_uri"
     t.index ["user_id"], name: "index_uploaded_files_on_user_id"
   end
@@ -726,6 +674,29 @@ ActiveRecord::Schema.define(version: 2020_06_01_204556) do
     t.datetime "updated_at"
   end
 
+  create_table "work_download_stats", force: :cascade do |t|
+    t.string "work_uid"
+    t.string "title"
+    t.integer "downloads", default: 0
+    t.integer "owner_id"
+    t.datetime "date", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_work_download_stats_on_owner_id"
+    t.index ["work_uid"], name: "index_work_download_stats_on_work_uid"
+  end
+
+  create_table "work_expiry_services", force: :cascade do |t|
+    t.string "work_id"
+    t.string "work_type"
+    t.string "tenant_name"
+    t.datetime "expiry_time"
+    t.jsonb "data", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["work_id", "work_type"], name: "index_work_expiry_services_on_work_id_and_work_type"
+  end
+
   create_table "work_view_stats", id: :serial, force: :cascade do |t|
     t.datetime "date"
     t.integer "work_views"
@@ -737,11 +708,10 @@ ActiveRecord::Schema.define(version: 2020_06_01_204556) do
     t.index ["work_id"], name: "index_work_view_stats_on_work_id"
   end
 
+  add_foreign_key "accounts", "accounts", column: "parent_id"
   add_foreign_key "accounts", "endpoints", column: "fcrepo_endpoint_id", on_delete: :nullify
   add_foreign_key "accounts", "endpoints", column: "redis_endpoint_id", on_delete: :nullify
   add_foreign_key "accounts", "endpoints", column: "solr_endpoint_id", on_delete: :nullify
-  add_foreign_key "bulkrax_exporter_runs", "bulkrax_exporters", column: "exporter_id"
-  add_foreign_key "bulkrax_importer_runs", "bulkrax_importers", column: "importer_id"
   add_foreign_key "collection_type_participants", "hyrax_collection_types"
   add_foreign_key "content_blocks", "sites"
   add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", column: "conversation_id", name: "mb_opt_outs_on_conversations_id"
