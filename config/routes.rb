@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     constraints host: Account.admin_host do
       get '/account/sign_up' => 'account_sign_up#new', as: 'new_sign_up'
       post '/account/sign_up' => 'account_sign_up#create'
-      get '/', to: 'splash#index'
+      get '/', to: 'splash#index', as: 'splash'
 
       # pending https://github.com/projecthydra-labs/hyrax/issues/376
       get '/dashboard', to: redirect('/')
