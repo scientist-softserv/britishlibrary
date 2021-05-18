@@ -1,5 +1,24 @@
 version: '3.8'
 
+x-app: &app
+  build:
+    context: .
+    target: hyku-base
+    args:
+      - EXTRA_APK_PACKAGES=less vim bash # TODO: this doesn't install vim, why?
+  image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
+  env_file:
+    - .env
+  # NOTE: all common env variables moved to .env
+  volumes:
+    - uploads:/app/samvera/hyrax-webapp/tmp/uploads
+    - assets:/app/samvera/hyrax-webapp/public/assets
+    - cache:/app/samvera/hyrax-webapp/tmp/cache
+    - .:/app/samvera/hyrax-webapp
+  networks:
+    internal:
+
+
 volumes:
   fcrepo:
   solr:
@@ -83,24 +102,6 @@ services:
       - POSTGRES_USER=${DATABASE_USER}
     volumes:
       - db:/var/lib/postgresql/data
-    networks:
-      internal:
-
-  x-app: &app
-    build:
-      context: .
-      target: hyku-base
-      args:
-        - EXTRA_APK_PACKAGES=less vim bash # TODO: this doesn't install vim, why?
-    image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
-    env_file:
-      - .env
-    # NOTE: all common env variables moved to .env
-    volumes:
-      - uploads:/app/samvera/hyrax-webapp/tmp/uploads
-      - assets:/app/samvera/hyrax-webapp/public/assets
-      - cache:/app/samvera/hyrax-webapp/tmp/cache
-      - .:/app/samvera/hyrax-webapp
     networks:
       internal:
 
