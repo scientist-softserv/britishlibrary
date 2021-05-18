@@ -13,10 +13,11 @@
           <td><%= display_json_fields(document, field_name) %></td>
         <% end %>
 
-        <% if check_is_parent_shared_search_page.present? && field_name == 'institution_tesim'  %>
-          <th class="search-meta-label"><span class="attribute-label h4"><%= render_index_field_label document, field: field_name %></span></th>
-          <td><%= link_to_facet_list(document.institution.sort, 'institution', '', '; ').html_safe %></td>
-        <% end %>
+        <%# NOTE ~alignment: comment out due to being related to cross-tenant search %>
+        <%# if check_is_parent_shared_search_page.present? && field_name == 'institution_tesim'  %>
+          <%# <th class="search-meta-label"><span class="attribute-label h4"><%= render_index_field_label document, field: field_name </span></th> %>
+          <%# <td><%= link_to_facet_list(document.institution.sort, 'institution', '', '; ').html_safe</td> %>
+        <%# end %>
 
         <% if ['resource_type_tesim', 'institution_tesim', "creator_tesim", "contributor_tesim" , "editor_tesim"].exclude? field_name %>
           <th class="search-meta-label"><span class="attribute-label h4"><%= render_index_field_label document, field: field_name %></span></th>
