@@ -1,5 +1,24 @@
 version: '3.8'
 
+x-app: &app
+  build:
+    context: .
+    target: hyku-base
+    args:
+      - EXTRA_APK_PACKAGES=less vim bash # TODO: this doesn't install vim, why?
+  image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
+  env_file:
+    - .env
+  # NOTE: all common env variables moved to .env
+  volumes:
+    - uploads:/app/samvera/hyrax-webapp/tmp/uploads
+    - assets:/app/samvera/hyrax-webapp/public/assets
+    - cache:/app/samvera/hyrax-webapp/tmp/cache
+    - .:/app/samvera/hyrax-webapp
+  networks:
+    internal:
+
+
 volumes:
   fcrepo:
   solr:
@@ -86,24 +105,6 @@ services:
     networks:
       internal:
 
-  x-app: &app
-    build: 
-      context: .
-      target: hyku-base
-      args:
-        - EXTRA_APK_PACKAGES=less vim bash # TODO: this doesn't install vim, why?
-    image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
-    env_file:
-      - .env
-    # NOTE: all common env variables moved to .env
-    volumes:
-      - uploads:/app/samvera/hyrax-webapp/tmp/uploads
-      - assets:/app/samvera/hyrax-webapp/public/assets
-      - cache:/app/samvera/hyrax-webapp/tmp/cache
-      - .:/app/samvera/hyrax-webapp
-    networks:
-      internal:
-
   web:
     <<: *app
     environment:
@@ -124,6 +125,7 @@ services:
 
   workers:
     <<: *app
+    image: registry.gitlab.com/notch8/britishlibrary/workers:${TAG:-latest}
     build:
       context: .
       target: hyku-worker
@@ -144,16 +146,12 @@ services:
   check_volumes:
     <<: *app
     user: root
-    entrypoint: ["sh", "-c"]
+    entrypoint: ["sh", "-x", "-c"]
     command:
       - >
-        # Do not recurse through all of tmp. derivitives will make booting
-        # very slow and eventually just time out as data grows
-        chown -f app:app /app/samvera/hyrax-webapp/tmp
-        chown -fR app:app /app/samvera/hyrax-webapp/tmp/pids
-        chown -fR app:app /app/samvera/hyrax-webapp/tmp/uploads
-        chown -fR app:app /app/samvera/hyrax-webapp/public/assets
-        chown -fR app:app /app/samvera/hyrax-webapp/tmp/cache
+        chown -R app:app /app/samvera/hyrax-webapp/tmp/uploads &&
+        chown -R app:app /app/samvera/hyrax-webapp/public/assets &&
+        chown -R app:app /app/samvera/hyrax-webapp/tmp/cache
 
   initialize_app:
     <<: *app
