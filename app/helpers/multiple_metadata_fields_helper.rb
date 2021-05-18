@@ -132,4 +132,8 @@ module MultipleMetadataFieldsHelper
   def display_data_with_comma_separated(creator_hash, display_order)
     display_order.map { |ele| creator_hash[ele].presence }.compact.join(', ')
   end
+
+  def remove_last_semicolon(array_size, index)
+    ';' if index != array_size
+  end
 end
