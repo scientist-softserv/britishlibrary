@@ -28,6 +28,24 @@ module Hyku
       isbns&.flatten&.compact
     end
 
+    def date_published
+      date = solr_document['date_published_dtsim']
+      return formatted_date(date) if date.present?
+      solr_document['date_published_tesim'] # kept for backward compatibility
+    end
+
+    def date_accepted
+      date = solr_document['date_accepted_dtsim']
+      return formatted_date(date) if date.present?
+      solr_document['date_accepted_tesim']
+    end
+
+    def date_submitted
+      date = solr_document['date_submitted_dtsim']
+      return formatted_date(date) if date.present?
+      solr_document['date_submitted_tesim']
+    end
+
     private
 
       def extract_from_identifier(rgx)
