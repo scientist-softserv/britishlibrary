@@ -1,0 +1,45 @@
+<% if controller_name == 'homepage' ||  controller_name == 'pages' ||  controller_name == 'contact_form'%>
+  <div class="banner-section-wrapper">
+    <div class="image-masthead row">
+      <div class="col-xs-12 col-md-6 hidden-xs hidden-sm">
+        <div 
+          class="background-container" style="background-image: linear-gradient(to bottom, rgba(255,255,255,.3), rgba(255,255,255,.3)), url('<%= banner_image %>')">
+        </div>
+      </div>
+
+      <div class= "col-xs-12 col-md-6 section-contrast">
+        <div class="row banner-section">
+          <div class="col-xs-12 logo-section">
+            <%= render '/logo' %>
+            <h5>Research<br/>Repository</h5>
+          </div>
+          <div class="col-xs-12 controls-section hidden-xs hidden-sm">
+            <%= render '/controls' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% if controller_name == 'homepage' %>
+      <div class="homepage-search">
+        <%= render partial: 'catalog/search_form' %>
+      </div>
+    <%end%>
+  </div>
+<%end%>
+
+<% if controller_name == 'catalog' || controller_name == 'articles' || controller_name == 'book_contributions' || controller_name == 'books' || controller_name == 'conference_items' || controller_name == 'datasets' || controller_name == 'exhibition_items' || controller_name == 'generic_works' || controller_name == 'images' || controller_name == 'reports' || controller_name == 'thesis_or_dissertations' || controller_name == 'time_based_medias'%>
+  <div class="banner-section-wrapper">
+    <div class="row pages-nav flex-center mb-40">
+      <div class="col-xs-12 col-md-6 hidden-xs hidden-sm flex-center">
+        <%= render '/controls' %>
+      </div>
+      <div class= "col-xs-12 col-md-6 section-contrast flex-center catalog-logo-section">
+            <%= render '/logo' %>
+            <h5 class="mt-auto px-10">Research<br/>Repository</h5>
+      </div>
+    </div>
+    <div class="catalog-page-search pb-40 mx-auto">
+        <%= render partial: 'catalog/search_form' %>
+    </div>
+  </div>
+<%end%>

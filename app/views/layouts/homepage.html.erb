@@ -1,0 +1,24 @@
+<%# OVERRIDE for homepage layout hyrax 2.9.1 - adds updated banner section, marketing text container, and home content containers%>
+
+<% content_for(:navbar) do %>
+<%# BEGIN homepage, about, contact, and help page banner section  %>
+<%= render "hyrax/homepage/banner_section" if controller_name == 'homepage' || controller_name == 'pages'|| controller_name == 'contact_form' %>
+<%# END homepage, about, contact, and help page banner section  %>
+
+
+<%# BEGIN HOMEPAGE CONTENT SECTIONS  %>
+<%= render "hyrax/homepage/marketing_text_section" if controller_name == 'homepage' %>
+<%= render "hyrax/homepage/featured_works_section" if controller_name == 'homepage' %>
+<%= render "hyrax/homepage/featured_collection_section" if controller_name == 'homepage' %>
+<%= render "hyrax/homepage/recently_uploaded" if controller_name == 'homepage' %>
+
+<% end %>
+<%# END HOMEPAGE CONTENT SECTIONS  %>
+
+<%# BEGIN announcement section  %>
+<% content_for(:precontainer_content) do %>
+  <%= render 'hyrax/homepage/announcement' if controller_name == 'homepage' %>
+<% end %>
+<%# END announcement section  %>
+
+<%= render template: 'layouts/hyrax' %>
