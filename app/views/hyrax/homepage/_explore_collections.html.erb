@@ -1,0 +1,17 @@
+<% # OVERRIDE hyrax 2.9.1- removes the inline styling for the collections, but keeps the thumbnails %>
+
+<% collections.each do |collection| %>
+  <div class="col-xs- col-sm-4">
+    <div class="collection-card">
+      <%= link_to [hyrax, collection] do %>
+        <div class="collection-thumbnail center-block">
+          <%= render_thumbnail_tag(collection, { class: "img-responsive", alt: "#{collection.title_or_label} #{ t('hyrax.homepage.admin_sets.thumbnail')}" },
+          { suppress_link: true }) %>
+      </div>
+      <div class= "collection-label">
+        <%= collection.title_or_label %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -12,7 +12,18 @@
       <%= link_to "Skip to Content", "#skip-to-content" %>
     </div>
     <%= render '/masthead' %>
-    <%= content_for(:navbar) %>
+
+    <%# OVERRIDE Here to create a custom banner section for the catalog pages vs the homepage controller & to render the homepage content sections %>
+    <% if controller_name == 'homepage' || controller_name == 'pages' || controller_name == 'contact_form' || controller_name == 'terms'%>
+      <%= content_for(:navbar) %>
+    <% end %>
+  
+    <% if controller_name == 'catalog' || controller_name == 'articles' || controller_name == 'book_contributions' || controller_name == 'books' || controller_name == 'conference_items' || controller_name == 'datasets' || controller_name == 'exhibition_items' || controller_name == 'generic_works' || controller_name == 'images' || controller_name == 'reports' || controller_name == 'thesis_or_dissertations' || controller_name == 'time_based_medias'%>
+      <%= render "hyrax/homepage/banner_section"%>
+    <% end %>
+    
+    <%# end OVERRIDE  %>
+
     <%= content_for(:precontainer_content) %>
     <div id="content-wrapper" class="container" role="main">
       <% if controller_name != 'splash'%>
