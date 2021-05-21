@@ -1,6 +1,6 @@
   <% if logo_image %>
     <a id="logo" href="<%= hyrax.root_path %>" data-no-turbolink="true">
-      <span class="glyphicon glyphicon-globe" role="img" aria-label="<%= application_name %>" aria-hidden="true"></span>
+      <%# OVERRIDE here to remove the globe glyphicon hyrax 2.9.1 %>
       <%= image_tag logo_image %>
     </a>
   <% else %>

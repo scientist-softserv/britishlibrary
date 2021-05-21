@@ -2,10 +2,4 @@
   
 <% provide :page_title, application_name %>
 
-<%# OVERRIDE here- removes button and terms of use link 2.9.1 %>
-
-<div class="row home-content">
-  <%= render 'home_content' %>
-</div>
-
-<%= render '/shared/select_work_type_modal', create_work_presenter: @presenter.create_work_presenter if @presenter.draw_select_work_modal? %>
+<%# OVERRIDE here- Summer's note: removes Share Your Work button and terms of use link, as well as home-content section which will be moved to layouts/homepage.html.erb Hyrax 2.9.1 %>

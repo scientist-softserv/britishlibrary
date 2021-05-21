@@ -13,12 +13,15 @@
             <%= link_to "//#{Settings.multitenancy.admin_host}", class: "shared-research-repo-button" do %>
                 <span class="fa fa-caret-left"></span> <%= t('.Shared Research Repository') %>
               <% end %>
+      </div>
+<!-- OVERRIDE to remove the logo in the top header bar -->
     </div>
-      <!-- OVERRIDE to remove the logo in the masthead -->
-    </div>
-    <% end %>
+<% end %>
 
     <div class="collapse navbar-collapse" id="top-navbar-collapse">
+      <div class= "hidden-md hidden-lg">
+      <%= render '/controls'%>
+      </div>
       <% if admin_host? %>
         <%= render '/admin_util_links' %>
       <% else %>
