@@ -5,13 +5,13 @@ x-app: &app
     context: .
     target: hyku-base
     args:
-      - EXTRA_APK_PACKAGES=less vim bash # TODO: this doesn't install vim, why?
+      - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre
   image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
   env_file:
     - .env
   # NOTE: all common env variables moved to .env
   volumes:
-    - uploads:/app/samvera/hyrax-webapp/tmp/uploads
+    - uploads:/app/samvera/hyrax-webapp/public/uploads
     - assets:/app/samvera/hyrax-webapp/public/assets
     - cache:/app/samvera/hyrax-webapp/tmp/cache
     - .:/app/samvera/hyrax-webapp
@@ -61,7 +61,7 @@ services:
       - SOLR_ADMIN_USERNAME=admin
       - SOLR_ADMIN_PASSWORD=admin
       - SOLR_COLLECTION=hydra-development
-      - SOLR_CLOUD_BOOTSTRAP=yes
+      - SOLR_CLOUD_BOOTSTRAP=no
       - SOLR_ENABLE_CLOUD_MODE=yes
       - SOLR_ENABLE_AUTHENTICATION=yes
       - SOLR_PORT_NUMBER=8983
@@ -75,7 +75,7 @@ services:
       - 8983
     volumes:
       - .:/app
-      - solr:/opt/solr/server/solr
+      - solr:/bitnami
     networks:
       internal:
 
@@ -130,7 +130,7 @@ services:
       context: .
       target: hyku-worker
       args:
-        - EXTRA_APK_PACKAGES=less vim bash # TODO: this doesn't install vim, why?
+        - EXTRA_WORKER_APK_PACKAGES=ffmpeg
     command: bundle exec sidekiq
     depends_on:
       - check_volumes
@@ -143,13 +143,15 @@ services:
       - db_migrate
 
 
+  # Do not recurse through all of tmp. derivitives will make booting
+  # very slow and eventually just time out as data grows
   check_volumes:
     <<: *app
     user: root
     entrypoint: ["sh", "-x", "-c"]
     command:
       - >
-        chown -R app:app /app/samvera/hyrax-webapp/tmp/uploads &&
+        chown -R app:app /app/samvera/hyrax-webapp/public/uploads &&
         chown -R app:app /app/samvera/hyrax-webapp/public/assets &&
         chown -R app:app /app/samvera/hyrax-webapp/tmp/cache
 
