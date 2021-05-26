@@ -26,6 +26,14 @@ GIT
       simple_form
 
 GIT
+  remote: https://github.com/samvera-labs/samvera-nesting_indexer.git
+  revision: 8f87880846e75fe4d44787a373fadec8889e291e
+  branch: skip_failure_option
+  specs:
+    samvera-nesting_indexer (2.0.0)
+      dry-equalizer
+
+GIT
   remote: https://github.com/tawan/active-elastic-job.git
   revision: ec51c5d9dedc4a1b47f2db41f26d5fceb251e979
   specs:
@@ -867,8 +875,6 @@ GEM
     ruby_dep (1.5.0)
     rubyzip (2.3.0)
     safe_yaml (1.0.5)
-    samvera-nesting_indexer (2.0.0)
-      dry-equalizer
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -1046,6 +1052,7 @@ DEPENDENCIES
   is_it_working
   jbuilder (~> 2.5)
   jquery-rails
+  ldp (>= 1.0.3)
   listen (>= 3.0.5, < 3.2)
   lograge
   mods (~> 2.4)
@@ -1063,6 +1070,7 @@ DEPENDENCIES
   rspec_junit_formatter
   rubocop (~> 0.50, <= 0.52.1)
   rubocop-rspec (~> 1.22, <= 1.22.2)
+  samvera-nesting_indexer!
   sass-rails (~> 5.0)
   scss_lint
   secure_headers

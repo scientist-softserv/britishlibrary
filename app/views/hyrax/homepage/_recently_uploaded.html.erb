@@ -1,0 +1,17 @@
+<%# OVERRIDE to change the layout as per the British Libraries wireframe %>
+<div class="container-fluid pt-40 pb-40 px-home-content section-contrast">
+  <div class="row">
+    <h2>Recent Works</h2>
+  </div>
+  <% if @recent_documents.blank? %>
+      <p class="pt-40 pb-40"><%= t('.no_public') %></p>
+    <% else %>
+      <div class="row pt-40 pb-40 center-block">
+        <%= render partial: "recent_document", collection: @recent_documents %>
+      </div>
+  <% end %>
+    <%= link_to main_app.search_catalog_path, class: 'btn btn-primary pull-right' do %>
+      <%= t('hyrax.homepage.recent_button') %>
+      <span class="fa fa-caret-right"></span> 
+    <% end %>
+</div>

@@ -5,7 +5,7 @@ de:
       site:
         institution_name_full: Vollständiger Name der Institution
   application:
-    tagline: Die Next-Generation Repository-Lösung
+    tagline: Die nächste Generation der Repository-Lösung
   helpers:
     submit:
       add_user_to_group:

@@ -9,5 +9,12 @@ module Hyrax
     def primary_terms
       super + %i[license]
     end
+
+    # TODO do we need rendering_ids?
+    def secondary_terms
+      super - %i[rendering_ids date_created identifier collection_id, collection_names]
+    end
+    #added by ubiquity press to store doi options
+    attr_accessor :doi_options
   end
 end

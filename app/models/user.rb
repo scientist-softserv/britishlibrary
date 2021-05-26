@@ -76,6 +76,6 @@ class User < ApplicationRecord
     add_role :admin, Site.instance unless
       self.class.joins(:roles).where("roles.name = ?", "admin").any? || Account.global_tenant?
     # Role for any given site
-    add_role :registered, Site.instance
+    add_role :registered, Site.instance unless Account.global_tenant?
   end
 end

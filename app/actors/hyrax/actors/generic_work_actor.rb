@@ -4,7 +4,7 @@
 #  `rails generate hyrax:work GenericWork`
 module Hyrax
   module Actors
-    class GenericWorkActor < Hyrax::Actors::BaseActor
+    class GenericWorkActor < ::Hyrax::Actors::UbiquitySharedActor
     end
   end
 end
