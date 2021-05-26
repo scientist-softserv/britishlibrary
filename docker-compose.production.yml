@@ -1,15 +1,23 @@
 version: '3.8'
 
+x-app: &app
+  user: root
+  build:
+    context: .
+    target: hyku-base
+    args:
+      - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre
+  image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
+  env_file:
+    - .env.production
+  # NOTE: all common env variables moved to .env
+  volumes:
+    - .:/app/samvera/hyrax-webapp
+  networks:
+    internal:
+
 volumes:
-  fcrepo:
-  solr:
-  db:
   redis:
-  zk1:
-  zkconf:
-  uploads:
-  assets:
-  cache:
 
 networks:
   internal:
@@ -25,8 +33,7 @@ services:
       - 2888
       - 3888
     volumes:
-      - zk1:/data
-      - zkconf:/conf
+      - ./zk1:/bitnami/zookeeper
     networks:
       internal:
        aliases:
@@ -42,7 +49,7 @@ services:
       - SOLR_ADMIN_USERNAME=admin
       - SOLR_ADMIN_PASSWORD=admin
       - SOLR_COLLECTION=hydra-development
-      - SOLR_CLOUD_BOOTSTRAP=yes
+      - SOLR_CLOUD_BOOTSTRAP=no
       - SOLR_ENABLE_CLOUD_MODE=yes
       - SOLR_ENABLE_AUTHENTICATION=yes
       - SOLR_PORT_NUMBER=8983
@@ -52,54 +59,37 @@ services:
     depends_on:
       zoo1:
         condition: service_healthy
-    expose:
-      - 8983
+    ports:
+      - 8983:8983
     volumes:
       - .:/app
-      - solr:/opt/solr/server/solr
+      - ./solr:/bitnami
     networks:
       internal:
 
   fcrepo:
     image: cbeer/fcrepo4:4.7
     env_file:
-      - .env
+      - .env.production
     expose:
       - 8080
     volumes:
       - ./fcrepo:/data
     environment:
-      #- JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
       - JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/jdbc-postgresql/repository.json" -Dfcrepo.postgresql.host=db -Dfcrepo.postgresql.username=hyku -Dfcrepo.postgresql.password=a18e89029adb64c13 -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/fcrepo.binary.directory"
     networks:
       internal:
 
   db:
     image: postgres:9.6
+    env_file:
+      - .env.production
     environment:
-      - POSTGRES_DB=fcrepo
-      - POSTGRES_PASSWORD=a18e89029adb64c13
-      - POSTGRES_USER=hyku
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_USER=${DATABASE_USER}
     volumes:
       - ./pg:/var/lib/postgresql/data
-    networks:
-      internal:
-
-  x-app: &app
-    build:
-      context: .
-      target: hyku-base
-      args:
-        - EXTRA_APK_PACKAGES=less vim bash # TODO: this doesn't install vim, why?
-    image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
-    env_file:
-      - .env
-    # NOTE: all common env variables moved to .env
-    volumes:
-      - uploads:/app/samvera/hyrax-webapp/tmp/uploads
-      - assets:/app/samvera/hyrax-webapp/public/assets
-      - cache:/app/samvera/hyrax-webapp/tmp/cache
-      - .:/app/samvera/hyrax-webapp
     networks:
       internal:
 
@@ -118,17 +108,20 @@ services:
       - chrome
       - initialize_app
       - db_migrate
+    expose:
+      - 3000
     ports:
       - 80:3000
 
   workers:
     <<: *app
+    image: registry.gitlab.com/notch8/britishlibrary/workers:${TAG:-latest}
     build:
       context: .
       target: hyku-worker
       args:
-        - EXTRA_APK_PACKAGES=less vim bash # TODO: this doesn't install vim, why?
-    command: bundle exec sidekiq -c 5
+        - EXTRA_WORKER_APK_PACKAGES=ffmpeg
+    command: bundle exec sidekiq
     depends_on:
       - check_volumes
       - db
@@ -139,19 +132,18 @@ services:
       - initialize_app
       - db_migrate
 
+
+  # Do not recurse through all of tmp. derivitives will make booting
+  # very slow and eventually just time out as data grows
   check_volumes:
     <<: *app
     user: root
-    entrypoint: ["sh", "-c"]
+    entrypoint: ["sh", "-x", "-c"]
     command:
       - >
-        # Do not recurse through all of tmp. derivitives will make booting
-        # very slow and eventually just time out as data grows
-        chown -f app:app /app/samvera/hyrax-webapp/tmp
-        chown -fR app:app /app/samvera/hyrax-webapp/tmp/pids
-        chown -fR app:app /app/samvera/hyrax-webapp/tmp/uploads
-        chown -fR app:app /app/samvera/hyrax-webapp/public/assets
-        chown -fR app:app /app/samvera/hyrax-webapp/tmp/cache
+        chown -R app:app /app/samvera/hyrax-webapp/public/uploads &&
+        chown -R app:app /app/samvera/hyrax-webapp/public/assets &&
+        chown -R app:app /app/samvera/hyrax-webapp/tmp/cache
 
   initialize_app:
     <<: *app
