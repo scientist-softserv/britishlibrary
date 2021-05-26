@@ -6,7 +6,7 @@ x-app: &app
     target: hyku-base
     args:
       - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre
-  image: ghcr.io/samvera/hyku:latest
+  image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
   env_file:
     - .env
   # NOTE: all common env variables moved to .env
@@ -125,6 +125,7 @@ services:
 
   workers:
     <<: *app
+    image: registry.gitlab.com/notch8/britishlibrary/workers:${TAG:-latest}
     build:
       context: .
       target: hyku-worker

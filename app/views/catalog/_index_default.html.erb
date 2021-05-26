@@ -1,0 +1,18 @@
+<%# OVERRIDE FILE from Blacklight v6.23.0 to display JSON fields %>
+<% doc_presenter = index_presenter(document) %>
+<%# default partial to display solr document fields in catalog index view -%>
+<dl class="document-metadata dl-horizontal dl-invert">
+
+  <% index_fields(document).each do |field_name, field| -%>
+    <% if should_render_index_field? document, field %>
+      <dt class="blacklight-<%= field_name.parameterize %>"><%= render_index_field_label document, field: field_name %></dt>
+      <%# OVERRIDE: use #display_json_fields for virtual fields %>
+      <% if ['creator_tesim', 'contributor_tesim' , 'editor_tesim'].include? field_name %>
+        <dd class="blacklight-<%= field_name.parameterize %>"><%= display_json_fields(document, field_name) %></dd>
+      <% else %>
+        <dd class="blacklight-<%= field_name.parameterize %>"><%= doc_presenter.field_value field %></dd>
+      <% end -%>
+    <% end -%>
+  <% end -%>
+
+</dl>
