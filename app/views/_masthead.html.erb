@@ -1,32 +1,33 @@
 <nav id="masthead" class="navbar navbar-inverse navbar-static-top" role="navigation">
-<% if controller_name != 'splash' %>
-  <div class="container-fluid top-nav-container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-collapse" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <div>
+  <% if controller_name != 'splash' %>
+    <div class="container-fluid top-nav-container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <% if body_class.match(/public-facing/) %>
+          <div>
             <%= link_to "//#{Settings.multitenancy.admin_host}", class: "shared-research-repo-button" do %>
-                <span class="fa fa-caret-left"></span> <%= t('.Shared Research Repository') %>
-              <% end %>
+              <span class="fa fa-caret-left"></span> <%= t('.Shared Research Repository') %>
+            <% end %>
+          </div>
+        <% end %>
+        <!-- OVERRIDE to remove the logo in the top header bar -->
       </div>
-<!-- OVERRIDE to remove the logo in the top header bar -->
-    </div>
-<% end %>
+  <% end %>
 
-    <div class="collapse navbar-collapse" id="top-navbar-collapse">
-      <div class= "hidden-md hidden-lg">
+  <div class="collapse navbar-collapse" id="top-navbar-collapse">
+    <div class= "hidden-md hidden-lg">
       <%= render '/controls'%>
-      </div>
-      <% if admin_host? %>
-        <%= render '/admin_util_links' %>
-      <% else %>
-        <%= render '/user_util_links' %>
-      <% end %>
     </div>
+    <% if admin_host? %>
+      <%= render '/admin_util_links' %>
+    <% else %>
+      <%= render '/user_util_links' %>
+    <% end %>
   </div>
 </nav>

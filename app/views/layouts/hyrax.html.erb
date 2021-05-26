@@ -5,7 +5,7 @@
     <%= render partial: 'layouts/head_tag_content' %>
     <%= content_for(:head) %>
   </head>
-  <% content_for(:extra_body_classes, 'public-facing') %>
+  <% content_for(:extra_body_classes, 'public-facing') unless params[:controller].match(/^proprietor/) %>
 
   <body class="<%= body_class %>">
     <div class="skip-to-content">
@@ -17,11 +17,11 @@
     <% if controller_name == 'homepage' || controller_name == 'pages' || controller_name == 'contact_form' || controller_name == 'terms'%>
       <%= content_for(:navbar) %>
     <% end %>
-  
+
     <% if controller_name == 'catalog' || controller_name == 'articles' || controller_name == 'book_contributions' || controller_name == 'books' || controller_name == 'conference_items' || controller_name == 'datasets' || controller_name == 'exhibition_items' || controller_name == 'generic_works' || controller_name == 'images' || controller_name == 'reports' || controller_name == 'thesis_or_dissertations' || controller_name == 'time_based_medias'%>
       <%= render "hyrax/homepage/banner_section"%>
     <% end %>
-    
+
     <%# end OVERRIDE  %>
 
     <%= content_for(:precontainer_content) %>
