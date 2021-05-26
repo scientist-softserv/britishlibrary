@@ -125,6 +125,7 @@ body.public-facing {
     margin-top: 0;
     .navbar-header {
       margin-top: 12px;
+      margin-bottom: 5px;
     }
   }
 
@@ -211,7 +212,7 @@ body.public-facing {
 
   button.navbar-toggle, button.navbar-toggle.collapsed, button.navbar-toggle:focus, button.navbar-toggle.collapsed:focus {
     padding: 12px 10px;
-    margin: -12px auto 0 auto;
+    margin: -8px auto 0 auto;
     border: 2px solid rgba(255, 255, 255, .5);
     border-color: rgba(255, 255, 255, .5);
     border-radius: 5px;
