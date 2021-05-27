@@ -89,6 +89,12 @@ body.public-facing {
     display: flex;
     justify-content: center;
   }
+  .flex{
+    display: flex;
+  }
+  .wrap{
+    flex-wrap: wrap;
+  }
 
 
   /* LINK COLORS */
@@ -491,15 +497,23 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
   }
 
   // FEATURED COLLECTIONS SECTION
+
+  .collections-row{
+    justify-content: space-between;
+  }
+
   .collection-card{
     border: 2px solid $lightgrey;
     background-color: $white;
     border-radius: 5px;
     margin: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px;
   }
   .collection-label{
     border-top: 2px solid $lightgrey;
-    padding: 15px;
+    padding: 15px !important;
   }
 
   .collection-thumbnail{
@@ -508,6 +522,12 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
   .collection-thumbnail img.img-responsive{
     object-fit: cover;
     object-position: center;
+    width: 200px;
+    height: 200px;
+  }
+
+  .works-row{
+    flex-wrap: wrap;
   }
 
 

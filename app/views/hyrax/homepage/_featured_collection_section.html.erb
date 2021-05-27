@@ -2,7 +2,7 @@
   <div class="row">
     <h2>Featured Collections</h2>
   </div>
-  <div class="row pt-40 center-block">
+  <div class="row pt-40 flex wrap collections-row pb-40">
     <%= render 'explore_collections', collections: @presenter.collections %>
   </div>
     <%= link_to main_app.search_catalog_path(f: { human_readable_type_sim: ["Collection"]}), class: 'btn btn-default pull-right' do %>
