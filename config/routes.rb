@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   mount Riiif::Engine => 'images', as: :riiif if Hyrax.config.iiif_image_server?
 
+  authenticate :user, lambda { |u| u.is_superadmin } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   if Settings.multitenancy.enabled
     constraints host: Account.admin_host do
       get '/account/sign_up' => 'account_sign_up#new', as: 'new_sign_up'
