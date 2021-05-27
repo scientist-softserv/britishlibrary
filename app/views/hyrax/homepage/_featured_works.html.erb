@@ -14,7 +14,7 @@
     <%= f.submit("Save order", class: 'btn btn-default') %>
   <% end %>
 <% else %>
-  <ol id="featured_works row">
+  <div class="row center-block flex-center works-row">
     <%= render partial: 'featured', collection: @featured_work_list.featured_works %>
-  </ol>
+  </div>
 <% end %>

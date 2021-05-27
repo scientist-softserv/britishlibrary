@@ -39,7 +39,8 @@ class Hyrax::HomepageController < ApplicationController
 
   def recent
     # grab any recent documents
-    (_, @recent_documents) = search_results(q: '', sort: sort_field, rows: 4)
+    # summer's note: changes recent works to return 6 recent works
+    (_, @recent_documents) = search_results(q: '', sort: sort_field, rows: 6)
   rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
     @recent_documents = []
   end
