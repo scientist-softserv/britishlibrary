@@ -1,17 +1,26 @@
 <%# OVERRIDE from hyrax 2.9.1 - change li to div, refactor to make 2 rows with columns of 3%>
-  <div class="col-xs-12 col-sm-4">
+  <div class="col-xs-12 col-sm-6 col-md-4 pb-40">
     <div class="sr-only">
     <%= t('hyrax.homepage.recently_uploaded.document.title_label') %>
     </div>
-    <h3>
-      <%= link_to [main_app, recent_document] do %>
-        <%= render_thumbnail_tag(recent_document, {width: 90}, {suppress_link: true}) + recent_document.to_s %>
-      <% end %>
-    </h3>
-    <p class="recent-field">
-      <span class="recent-label"><%= t('hyrax.homepage.recently_uploaded.document.depositor_label') %>:</span> <%= link_to_profile recent_document.depositor(t('hyrax.homepage.recently_uploaded.document.depositor_missing')) %>
-    </p>
-    <p class="recent-field">
-      <span class="recent-label"><%= t('hyrax.homepage.recently_uploaded.document.keyword_label') %>:</span> <%= link_to_facet_list(recent_document.keyword, 'keyword', t('hyrax.homepage.recently_uploaded.document.keyword_missing')).html_safe %>
-    </p>
+    <div class="flex">
+      <div>
+        <%= link_to [main_app, recent_document] do %>
+          <%= render_thumbnail_tag(recent_document, {width: 90}, {suppress_link: true})%>
+        <% end %>
+      </div>
+      <div>
+        <h5>
+          <%= link_to [main_app, recent_document] do %>
+            <%= recent_document.to_s %>
+          <% end %>
+        </h5>
+        <p class="recent-field">
+          <span class="recent-label"><%= t('hyrax.homepage.recently_uploaded.document.depositor_label') %>:</span> <%= link_to_profile recent_document.depositor(t('hyrax.homepage.recently_uploaded.document.depositor_missing')) %>
+        </p>
+        <p class="recent-field">
+          <span class="recent-label"><%= t('hyrax.homepage.recently_uploaded.document.keyword_label') %>:</span> <%= link_to_facet_list(recent_document.keyword, 'keyword', t('hyrax.homepage.recently_uploaded.document.keyword_missing')).html_safe %>
+        </p>
+      </div>
+    </div>
   </div>

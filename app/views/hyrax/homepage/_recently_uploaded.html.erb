@@ -6,7 +6,7 @@
   <% if @recent_documents.blank? %>
       <p class="pt-40 pb-40"><%= t('.no_public') %></p>
     <% else %>
-      <div class="row pt-40 pb-40 center-block">
+      <div class="row pt-40 pb-40 center-block flex-center works-row">
         <%= render partial: "recent_document", collection: @recent_documents %>
       </div>
   <% end %>
