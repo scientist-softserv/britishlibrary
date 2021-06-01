@@ -292,6 +292,11 @@ body.public-facing {
     box-shadow: none
   }
 
+  a#logo.navbar-brand{
+    float: none;
+    padding: 0px;
+  }
+
 
   //BANNER IMAGE OR IMAGE MASTHEAD
 
@@ -332,7 +337,10 @@ body.public-facing {
 .logo-section{
   padding: 20px;
   text-align: right;
+  max-width: 40%;
+  float: right;
 }
+
 .catalog-logo-section{
   padding: 20px;
   text-align: left
@@ -357,6 +365,15 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
   width: 50%;
   bottom: 40%;
   left: 25%;
+}
+@media (max-width: 991px){
+  .homepage-search {
+    width: 55%;
+    left: 5%;
+  }
+  input#search-field-header::placeholder{
+    font-size: 15px;
+  }
 }
 
 .catalog-page-search {
@@ -439,9 +456,9 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
   }
   .btn-default:hover {
     color: $darkgrey !important;
-    background-color: $neutral;
-    border: 2px solid $mediumgrey;
-    border-color: $mediumgrey;
+    background-color: $neutral !important;
+    border: 2px solid $mediumgrey !important;
+    border-color: $mediumgrey !important;
   }
   .btn-default:active,
   .btn-default.active {
@@ -506,10 +523,16 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
     border: 2px solid $lightgrey;
     background-color: $white;
     border-radius: 5px;
-    margin: 10px;
+    margin-right: 0px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     padding: 10px 0px;
+    height: 100%;
+  }
+  .collection-card-container{
+    display: flex;
+    flex-direction: column;
   }
   .collection-label{
     border-top: 2px solid $lightgrey;
@@ -661,7 +684,16 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
     // -webkit-filter: grayscale(1);
   }
 
-  // ALERTS
+  // WORK SHOW PAGE
+  ul.tabular{
+    font-weight: 300
+  }
+  dl.work-show{
+    font-weight: 400
+  }
+
+
+  // ALERTS & GENERAL
 
   .alert-success, .alert-warning {
     color: $darkgrey;
@@ -669,6 +701,10 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
     border-color: none;
     border: none;
   }
+
+  span.glyphicon.glyphicon-remove {
+    color: $mediumgrey;
+}
 
 }
 
