@@ -24,13 +24,9 @@ ActiveRecord::Schema.define(version: 2020_05_13_060932) do
     t.integer "fcrepo_endpoint_id"
     t.string "name"
     t.integer "redis_endpoint_id"
-    t.bigint "parent_id"
-    t.jsonb "settings", default: {}
-    t.jsonb "data", default: {}
     t.index ["cname", "tenant"], name: "index_accounts_on_cname_and_tenant"
     t.index ["cname"], name: "index_accounts_on_cname", unique: true
     t.index ["fcrepo_endpoint_id"], name: "index_accounts_on_fcrepo_endpoint_id", unique: true
-    t.index ["parent_id"], name: "index_accounts_on_parent_id"
     t.index ["redis_endpoint_id"], name: "index_accounts_on_redis_endpoint_id", unique: true
     t.index ["solr_endpoint_id"], name: "index_accounts_on_solr_endpoint_id", unique: true
   end
@@ -140,18 +136,6 @@ ActiveRecord::Schema.define(version: 2020_05_13_060932) do
     t.binary "options"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "external_services", force: :cascade do |t|
-    t.string "draft_doi"
-    t.string "work_id"
-    t.jsonb "property", default: []
-    t.jsonb "data", default: {}
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["data"], name: "index_external_services_on_data", where: "((data -> 'api_type'::text) IS NOT NULL)", using: :gin
-    t.index ["draft_doi", "work_id"], name: "index_external_services_on_draft_doi_and_work_id", unique: true, where: "(draft_doi IS NOT NULL)"
-    t.index ["property"], name: "index_external_services_on_property", using: :gin
   end
 
   create_table "featured_works", id: :serial, force: :cascade do |t|
@@ -590,8 +574,6 @@ ActiveRecord::Schema.define(version: 2020_05_13_060932) do
     t.string "file_set_uri"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "file_status", default: 0
-    t.index ["file", "user_id", "file_status"], name: "index_uploaded_files_on_file_and_user_id_and_file_status"
     t.index ["file_set_uri"], name: "index_uploaded_files_on_file_set_uri"
     t.index ["user_id"], name: "index_uploaded_files_on_user_id"
   end
@@ -674,29 +656,6 @@ ActiveRecord::Schema.define(version: 2020_05_13_060932) do
     t.datetime "updated_at"
   end
 
-  create_table "work_download_stats", force: :cascade do |t|
-    t.string "work_uid"
-    t.string "title"
-    t.integer "downloads", default: 0
-    t.integer "owner_id"
-    t.datetime "date", default: [], array: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["owner_id"], name: "index_work_download_stats_on_owner_id"
-    t.index ["work_uid"], name: "index_work_download_stats_on_work_uid"
-  end
-
-  create_table "work_expiry_services", force: :cascade do |t|
-    t.string "work_id"
-    t.string "work_type"
-    t.string "tenant_name"
-    t.datetime "expiry_time"
-    t.jsonb "data", default: {}
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["work_id", "work_type"], name: "index_work_expiry_services_on_work_id_and_work_type"
-  end
-
   create_table "work_view_stats", id: :serial, force: :cascade do |t|
     t.datetime "date"
     t.integer "work_views"
@@ -708,7 +667,6 @@ ActiveRecord::Schema.define(version: 2020_05_13_060932) do
     t.index ["work_id"], name: "index_work_view_stats_on_work_id"
   end
 
-  add_foreign_key "accounts", "accounts", column: "parent_id"
   add_foreign_key "accounts", "endpoints", column: "fcrepo_endpoint_id", on_delete: :nullify
   add_foreign_key "accounts", "endpoints", column: "redis_endpoint_id", on_delete: :nullify
   add_foreign_key "accounts", "endpoints", column: "solr_endpoint_id", on_delete: :nullify
