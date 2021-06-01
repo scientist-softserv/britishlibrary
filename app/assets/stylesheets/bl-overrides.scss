@@ -292,6 +292,11 @@ body.public-facing {
     box-shadow: none
   }
 
+  a#logo.navbar-brand{
+    float: none;
+    padding: 0px;
+  }
+
 
   //BANNER IMAGE OR IMAGE MASTHEAD
 
@@ -332,7 +337,10 @@ body.public-facing {
 .logo-section{
   padding: 20px;
   text-align: right;
+  max-width: 40%;
+  float: right;
 }
+
 .catalog-logo-section{
   padding: 20px;
   text-align: left
