@@ -515,10 +515,16 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
     border: 2px solid $lightgrey;
     background-color: $white;
     border-radius: 5px;
-    margin: 10px;
+    margin-right: 0px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     padding: 10px 0px;
+    height: 100%;
+  }
+  .collection-card-container{
+    display: flex;
+    flex-direction: column;
   }
   .collection-label{
     border-top: 2px solid $lightgrey;
