@@ -16,6 +16,12 @@ module Hyrax
       template_fields(model_class).map { |t| [t[:label], t[:id]] }
     end
 
+    def self.select_options
+      authority.all.map do |element|
+        [element[:label], element[:id]]
+      end
+    end
+
     def self.label(id)
       authority.find(id).fetch('term', '[Error: Unknown value]' )
     end
