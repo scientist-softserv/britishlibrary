@@ -13,7 +13,7 @@
                <% if hash['creator_orcid'].present? %>
                  <% orcid_id = hash['creator_orcid'] %>
                    <a href='<%= render_isni_or_orcid_url("#{orcid_id}", "orcid") %>'  target="_blank">
-                   <img src="https://s3-eu-west-1.amazonaws.com/service-hyku-oar-importer/orcid_16x16.png" alt="ORCID"  height="16" width="16" class="img-responsive"  style="float:left"  >
+                   <%= image_tag 'orcid.png', class: "img-responsive", alt: 'ORCID', style: 'float:left', height: '16', width: '16' %>
                  </a>
                <% end %>
 
@@ -24,8 +24,7 @@
                <% if hash['creator_isni'].present? %>
                  <% isni_id = hash['creator_isni'] %>
                  <a href='<%= render_isni_or_orcid_url("#{isni_id}", "isni") %>'  target="_blank">
-                 <img src="
-                    https://s3-eu-west-1.amazonaws.com/service-hyku-oar-importer/logo_xml_isni-16.gif" alt="ISNI"  height="16" width="16" class="img-responsive" style="float:left"  >
+                  <%= image_tag 'isni.png', class: "img-responsive", alt: 'ISNI', style: 'float:left', height: '16', width: '26' %>
                  </a>
                <% end %>
 
