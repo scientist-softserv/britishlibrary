@@ -48,3 +48,10 @@ Account.all.each do |account|
   Site.instance.available_works = Hyrax.config.registered_curation_concern_types
   Site.instance.save
 end
+
+if Rails.env.development
+  user = find_or_create_by(email: 'admin@example.com') do |u|
+    u.password = 'testing123'
+  end
+  u.add_role(:superadmin)
+end
