@@ -106,6 +106,9 @@ hyku.review.stop:
     GIT_STRATEGY: none
   script:
     - delete
+  only:
+    refs:
+      - merge_requests
   tags:
     - kubernetes
 
