@@ -12,7 +12,7 @@ readinessProbe:
 ingress:
   enabled: true
   hosts:
-    - host: hyku-test.20.90.72.114.xip.io
+    - host: hyku-test.20.90.72.114.nip.io
       paths: ['/']
 
 imagePullSecrets:
