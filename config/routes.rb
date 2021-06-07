@@ -86,4 +86,9 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  # BL Routes
+  get '/work/sc/:id', to: 'work_redirect#show'
+  get '/work/sc/:id', to: 'work_redirect#show'
+  get '/work/:id', to: 'work_redirect#show'
 end
