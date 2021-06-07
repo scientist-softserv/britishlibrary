@@ -16,10 +16,21 @@ Jump In: [![Slack Status](http://slack.samvera.org/badge.svg)](http://slack.samv
 ## Table of Contents
 
   * [Running the stack](#running-the-stack)
-    * [For development](#for-development)
-    * [For testing](#for-testing)
-    * [On AWS](#on-aws)
+    * [Important URL's](#important-urls)
+    * [Dory](#dory)
     * [With Docker](#with-docker)
+      * [Install Docker](#install-docker)
+      * [Start the server](#start-the-server)
+      * [Seed the database](#seed-the-database)
+      * [Access the container](#access-the-container)
+      * [Stop the app and services](#stop-the-app-and-services)
+      * [Troubleshooting](#troubleshooting)
+      * [Rubocop](#rubocop)
+    * [Without Docker](#without-docker)
+      * [For development](#for-development)
+      * [For testing](#for-testing)
+    * [Working with Translations](#working-with-translations)
+    * [On AWS](#on-aws)
     * [With Vagrant](#with-vagrant)
     * [With Kubernetes](#with-kubernetes)
   * [Single Tenant Mode](#single-tenancy)
@@ -27,9 +38,9 @@ Jump In: [![Slack Status](http://slack.samvera.org/badge.svg)](http://slack.samv
   * [Development dependencies](#development-dependencies)
     * [Postgres](#postgres)
   * [Importing](#importing)
-    * [enable Bulkrax](#bulkrax)
-    * [from CSV](#from-csv)
-    * [from purl](#from-purl)
+    * [Enable Bulkrax](#bulkrax)
+    * [From CSV](#from-csv)
+    * [From purl](#from-purl)
   * [Compatibility](#compatibility)
   * [Product Owner](#product-owner)
   * [Help](#help)
@@ -38,34 +49,92 @@ Jump In: [![Slack Status](http://slack.samvera.org/badge.svg)](http://slack.samv
 ----
 
 ## Running the stack
+### Important URL's
+- Local site:
+  - With dory: hyku.test
+  - Without dory: localhost:3000
+- Production site: http://iro.bl.uk/
+- Solr: http://solr.hyku.test
 
-### For development / testing with Docker
+### Dory
+On OS X or Linux we recommend running [Dory](https://github.com/FreedomBen/dory). It acts as a proxy allowing you to access domains locally such as hyku.test or tenant.hyku.test, making multitenant development more straightforward and prevents the need to bind ports locally. Be sure to [adjust your ~/.dory.yml file to support the .test tld](https://github.com/FreedomBen/dory#config-file).
 
-#### Dory
-
-On OS X or Linux we recommend running [Dory](https://github.com/FreedomBen/dory). It acts as a proxy allowing you to access domains locally such as hyku.test or tenant.hyku.test, making multitenant development more straightforward and prevents the need to bind ports locally. Be sure to [adjust your ~/.dory.yml file to support the .test tld](https://github.com/FreedomBen/dory#config-file).  You can still run in development via docker with out Dory, but to do so please uncomment the ports section in docker-compose.yml and then find the running application at localhost:3000
+You can still run in development via docker with out Dory, but to do so please uncomment the ports section in docker-compose.yml
 
 ```bash
 gem install dory
 dory up
 ```
 
-#### Basic steps
+### With Docker
+We distribute two configuration files:
+- `docker-compose.yml` is set up for development / running the specs
+- `docker-compose.production.yml` is for running the Hyku stack in a production setting
 
+#### Install Docker
+- Download [Docker Desktop](https://www.docker.com/products/docker-desktop) and log in
+
+#### If this is your first time working in this repo or the Dockerfile has been updated you will need to pull your services first
+  ```bash
+  docker-compose pull
+  docker-compose build
+  ```
+
+#### Start the server
 ```bash
 docker-compose up web workers
 ```
-This command starts the whole stack in individual containers allowing Rails to be started or stopped independent of the other services.  Once that starts (you'll see the line `Passenger core running in multi-application mode.` to indicate a successful boot), you can view your app in a web browser with at either hyku.test or localhost:3000 (see above).  When done `docker-compose stop` shuts down everything.
+This command starts the web and workers containers allowing Rails to be started or stopped independent of the other services. Once that starts (you'll see the line `Listening on tcp://0.0.0.0:3000` to indicate a successful boot), you can view your app at one of the [dev URL's](#important-urls) above.
 
-#### Tests in Docker
-
-The full spec suite can be run in docker locally. There are several ways to do this, but one way is to run the following:
-
+#### Seed the database
 ```bash
-docker-compose exec web rake
+sc be rails db:seed
 ```
 
-### With out Docker
+#### Access the container
+- In a separate terminal window or tab than the running server, run:
+  ``` bash
+  dc exec web bash
+  ```
+
+- You need to be inside the container to:
+  - Access the rails console for debugging
+  ``` bash
+  rails c
+  ```
+
+  - Run [rspec](https://github.com/rspec/rspec-rails/tree/4-1-maintenance#running-specs)
+  ``` bash
+  rspec
+  ```
+
+#### Stop the app and services
+- Press `Ctrl + C` in the window where `docker-compose up web workers` is running
+- When that's done `docker-compose stop` shuts down the running containers
+- `dory down` stops Dory
+
+#### Troubleshooting
+- Was the Dockerfile changed on your most recent `git pull`? Refer to the instructions above
+- Double check your dory set up
+
+- Error: `No such file or directory @ rb_sysopen - /app/samvera/hyrax-webapp/log/indexing.log`
+- Solution:
+  ``` bash
+  mkdir /app/samvera/hyrax-webapp/log
+  touch /app/samvera/hyrax-webapp/log/indexing.log
+  ```
+#### Rubocop
+Rubocop can be run in docker locally using either of the options below:
+- Outside the container:
+  ```bash
+  docker-compose exec web rake
+  ```
+- Inside the container: (learn about the `-a` flag [here](https://docs.rubocop.org/rubocop/usage/basic_usage.html#auto-correcting-offenses))
+  ```bash
+  rubocop -a
+  ```
+
+### Without Docker
 #### For development
 
 ```bash
@@ -94,14 +163,6 @@ $ I18N_DEBUG=true bin/rails server
 AWS CloudFormation templates for the Hyku stack are available in a separate repository:
 
 https://github.com/hybox/aws
-
-### With Docker
-
-We distribute two `docker-compose.yml` configuration files.  The first is set up for development / running the specs. The other, `docker-compose.production.yml` is for running the Hyku stack in a production setting. . Once you have [docker](https://docker.com) installed and running, launch the stack using e.g.:
-
-```bash
-docker-compose up -d web workers
-```
 
 ### With Vagrant
 
@@ -136,7 +197,7 @@ AccountElevator.switch!('repo.example.com')
 Hyku supports multitenancy using the `apartment` gem. `apartment` works best with a postgres database.
 
 ## Importing
-### enable Bulkrax:
+### Enable Bulkrax:
 
 - Set bulkrax -> enabled to true in settings (via file or env variable)
 - Add `  require bulkrax/application` to app/assets/javascripts/application.js and app/assets/stylesheets/application.css files.
@@ -146,13 +207,13 @@ Hyku supports multitenancy using the `apartment` gem. `apartment` works best wit
 bundle exec rails db:migrate
 ```
 
-### from CSV:
+### From CSV:
 
 ```bash
 ./bin/import_from_csv localhost spec/fixtures/csv/gse_metadata.csv ../hyku-objects
 ```
 
-### from purl:
+### From purl:
 
 ```bash
 ./bin/import_from_purl ../hyku-objects bc390xk2647 bc402fk6835 bc483gc9313
