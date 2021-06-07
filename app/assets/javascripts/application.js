@@ -33,7 +33,7 @@
 //= require bootstrap-datepicker
 
 ///////////// BULKRAX - add eq sign to enable
-//require bulkrax/application
+//= require bulkrax/application
 /////////////////////////////////////////////
 //= require_tree ./ubiquity
 //= require hyrax

@@ -5,7 +5,9 @@ require 'i18n/debug' if ENV['I18N_DEBUG']
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(*Rails.groups)
+groups = Rails.groups
+groups += ['bulkrax'] if ENV['SETTINGS__BULKRAX__ENABLED'] # Settings obj is not available yet
+Bundler.require(*groups)
 
 module Hyku
   class Application < Rails::Application
@@ -47,9 +49,6 @@ module Hyku
           config.active_elastic_job.aws_credentials = lambda { Aws::InstanceProfileCredentials.new }
           config.active_elastic_job.secret_key_base = Rails.application.secrets[:secret_key_base]
         end
-      end
-      if Settings.bulkrax.enabled
-        Bundler.require('bulkrax')
       end
     end
   end

@@ -12,7 +12,7 @@
  *
 
  ///////////// BULKRAX - add astrix eq sign to enable
-  require bulkrax/application
+  *= require bulkrax/application
 /////////////////////////////////////////////
 
  *= require fontselect
