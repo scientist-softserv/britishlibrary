@@ -590,6 +590,10 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
     padding: 5px 40px;
   }
 
+  .footer-link a{
+    font-weight: 700;
+  }
+
   @media only screen and (max-width: 1100px) {
     .footer-link, div.navbar-text.text-right{
       text-align: center;
