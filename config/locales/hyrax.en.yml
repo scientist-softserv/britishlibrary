@@ -1,6 +1,7 @@
 ---
 en:
   hyrax:
+    home_button: "Shared Research Repository"
     product_name:           "Hyku"
     product_twitter_handle: "@HydraInABox"
     institution_name:       "Institution"
