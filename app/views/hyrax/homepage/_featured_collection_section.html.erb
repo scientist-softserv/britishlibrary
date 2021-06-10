@@ -1,11 +1,11 @@
-<div class="container-fluid pt-40 pb-40 px-home-content">
+<div class="container-fluid pt-40 pb-40 px-home-content section-contrast">
   <div class="row">
     <h2>Featured Collections</h2>
   </div>
   <div class="row pt-40 flex wrap collections-row pb-40">
     <%= render 'explore_collections', collections: @presenter.collections %>
   </div>
-    <%= link_to main_app.search_catalog_path(f: { human_readable_type_sim: ["Collection"]}), class: 'btn btn-default pull-right' do %>
+    <%= link_to main_app.search_catalog_path(f: { human_readable_type_sim: ["Collection"]}), class: 'btn btn-primary pull-right' do %>
       <%= t('hyrax.homepage.admin_sets.link') %>
       <span class="fa fa-caret-right"></span> 
     <% end %>

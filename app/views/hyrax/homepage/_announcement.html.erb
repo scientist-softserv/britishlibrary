@@ -1,0 +1,7 @@
+<%# OVERRIDE HYRAX 2.9.1 to remove css classes %>
+
+<% if display_content_block? @announcement_text %>
+  <div id="announcement" class= "center-block text-center">
+    <%= displayable_content_block @announcement_text%>
+  </div>
+<% end %>
