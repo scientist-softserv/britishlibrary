@@ -7,7 +7,7 @@ body.public-facing {
   font-family: "Noto Sans JP" !important;
   color: $darkgrey !important;
 
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2, h3, h4, h5 {
     font-family: "Noto Sans JP" !important;
     color: $darkgrey !important;
   }
@@ -16,23 +16,36 @@ body.public-facing {
     font-size: 34px;
     font-weight: 600;
   }
+
   h2{
     font-size: 28px;
     font-weight: 500;
   }
+
   h3{
     font-size: 24px;
   }
+
   h4{
     font-size: 22px;
     font-weight: 300;
   }
+
   h5{
-    font-size: 18px;
+    font-size: 16px;
   }
+
+  h6{
+    font-family: "Noto Sans JP" !important;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: $mediumgrey !important;
+    letter-spacing: 1pt;
+  }
+
   p{
     color: $darkgrey !important;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .home_marketing_text h1, .home_marketing_text h2{
