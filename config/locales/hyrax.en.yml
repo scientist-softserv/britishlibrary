@@ -818,6 +818,8 @@ en:
           depositor_missing: no depositor value
           keyword_label: Keywords
           keyword_missing: no keywords specified
+          creator_label: Creator
+          creator_missing: no creator specified
           title_label: Title
         drag: Drag
         no_works: No works have been featured
