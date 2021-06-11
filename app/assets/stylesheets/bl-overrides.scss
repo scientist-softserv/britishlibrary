@@ -134,7 +134,7 @@ body.public-facing {
     margin-top: 0;
     .navbar-header {
       margin-top: 12px;
-      margin-bottom: 5px;
+      margin-bottom: 12px;
     }
   }
 
@@ -152,29 +152,14 @@ body.public-facing {
     color: #ffffffe0 !important;
     text-decoration: none;
   }
+  
 
-  @media only screen and (max-width: 375px) {
-    .shared-research-repo-button{
-      font-size: 12px;
-    }
-  }
-
-  @media (min-width: 992px){
-    .navbar-nav > li {
-        padding-right: 20px;
-    }
-  }
 
   //DROPDOWN NAVBAR
   .navbar-inverse.navbar-collapse{
     border: none !important;
   }
 
-  div#top-navbar-collapse {
-    // background-color: $white;
-    color: $white !important;
-    border-radius: 5px;
-}
   .navbar-inverse .navbar-link {
     color: $white !important;
   }
@@ -183,8 +168,6 @@ body.public-facing {
   }
   .navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand {
     color: $white !important;
-    //adds a border to the dropdown links
-    // border-top: 2px solid $lightgrey;
   }
   .navbar-inverse .navbar-collapse{
     border-color: transparent;
@@ -196,7 +179,7 @@ body.public-facing {
   }
 
   .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-brand:hover {
-    color: $mediumgrey !important;
+    color: $lightgrey !important;
   }
   .navbar-inverse .navbar-text{
     color: $darkgrey !important;
@@ -222,6 +205,7 @@ body.public-facing {
   button.navbar-toggle, button.navbar-toggle.collapsed, button.navbar-toggle:focus, button.navbar-toggle.collapsed:focus {
     padding: 12px 10px;
     margin: -8px auto 0 auto;
+    margin-right: 10px;
     border: 2px solid rgba(255, 255, 255, .5);
     border-color: rgba(255, 255, 255, .5);
     border-radius: 5px;
@@ -232,7 +216,6 @@ body.public-facing {
     border-color: rgba(255, 255, 255, .5);
     background-color: rgba(255, 255, 255, .2) !important;
   }
-
 
 
 /* HOME PAGE SEARCH BAR NAV */
@@ -299,6 +282,70 @@ body.public-facing {
     float: none;
     padding: 0px;
   }
+
+
+// MOBILE NAVIGATION STYLES
+
+  @media (max-width: 992px){
+    button.navbar-toggle{
+      margin-right: 25px;
+    }
+    nav#masthead.navbar.navbar-inverse.navbar-static-top{
+      padding-left: 0px;
+      padding-right: 0px;
+      padding-bottom: 0px;
+    }
+    div#top-navbar-collapse {
+      background-color: $white;
+      border: 0px solid transparent;
+      border-radius: 0px;
+    }
+  
+    //changes color for mobile nav links
+    a.nav-link.dropdown-toggle, ul#user_utility_links li, .navbar-inverse .navbar-nav > li > a {
+      color: $darkgrey !important;
+      text-align: center;
+    }
+  
+    //changes hover cover for mobile nav links
+    a.nav-link.dropdown-toggle:hover, ul#user_utility_links li:hover, ul.nav.navbar-nav li:hover, .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > .active > a {
+      background-color: $lightgrey;
+      color: $darkgrey !important;
+      margin-bottom: 0px;
+      border-radius: 0px;
+    }
+
+    //background color of language picker dropdown for mobile
+    .navbar-nav .open .dropdown-menu{
+      background-color: $white;
+    }
+
+    ul#user_utility_links.navbar-nav.navbar-right, #masthead .navbar-right{
+      margin-left: 0px;
+      margin-right: 0px;
+      margin-top: 0px;
+    }
+
+    .navbar-collapse {
+      padding-right: 0px;
+      padding-left: 0px;
+  }
+
+  nav.navbar.navbar-default.navbar-static-top{
+    margin-bottom: 0px;
+  }
+
+  ul.nav.navbar-nav {
+    margin: 0px;
+}
+
+}
+
+@media only screen and (max-width: 375px) {
+  .shared-research-repo-button{
+    font-size: 12px;
+  }
+}
 
 
   //BANNER IMAGE OR IMAGE MASTHEAD
