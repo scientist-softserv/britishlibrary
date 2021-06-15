@@ -17,18 +17,24 @@
           <%= featured.title.first %>
         <% end %>
       </h5>
-      <% if featured.creator[0] %>
-        <p class="featured-field featured-item-depositor">
-          <%= ActiveSupport::JSON.decode(featured.creator[0])[0]["creator_family_name"] %>, <%= ActiveSupport::JSON.decode(featured.creator[0])[0]["creator_given_name"] %>
-        </p>
-      <%else%>
-        <p class="featured-field featured-item-depositor">
-          <%= t('hyrax.homepage.featured_works.document.creator_missing') %>
+        <% if ActiveSupport::JSON.decode(featured.creator[0])[0]["creator_family_name"] && ActiveSupport::JSON.decode(featured.creator[0])[0]["creator_given_name"] %>
+            <p class="creator-label">
+              <%= ActiveSupport::JSON.decode(featured.creator[0])[0]["creator_family_name"] %>, <%= ActiveSupport::JSON.decode(featured.creator[0])[0]["creator_given_name"] %>
+            </p>
+        <% elsif ActiveSupport::JSON.decode(featured.creator[0])[0]["creator_family_name"]%>
+          <p class="creator-label">
+              <%= ActiveSupport::JSON.decode(featured.creator[0])[0]["creator_family_name"] %>
+          </p>
+        <% elsif ActiveSupport::JSON.decode(featured.creator[0])[0]["creator_organization_name"]%>
+          <p class="creator-label">
+              <%= ActiveSupport::JSON.decode(featured.creator[0])[0]["creator_organization_name"] %>
+          </p>
+        <% end %>
+      <% if featured.keyword != [] %>
+        <p class="featured-field featured-item-keywords">
+          <span class="featured-label"><%= t('hyrax.homepage.featured_works.document.keyword_label') %>:</span> <%= link_to_facet_list(featured.keyword, 'keyword') %>
         </p>
       <% end %>
-      <p class="featured-field featured-item-keywords">
-        <span class="featured-label"><%= t('hyrax.homepage.featured_works.document.keyword_label') %>:</span> <%= link_to_facet_list(featured.keyword, 'keyword', t('hyrax.homepage.featured_works.document.keyword_missing')) %>
-      </p>
     </div>
   </div>
 </div>
