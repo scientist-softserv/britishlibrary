@@ -141,7 +141,7 @@ cd /data/bl-transfer
 git pull gitlab main
 dc build web workers
 dc up -d web workers
-dc exec web bash -l -c "DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile"
+dc exec web bash -l -c "DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile && bundle exec pumactl restart -p 1"
 ```
 
 ## Single Tenant Mode
