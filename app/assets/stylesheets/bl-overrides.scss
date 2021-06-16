@@ -571,6 +571,15 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
 
   // HOMEPAGE CONTENT SECTIONS
 
+  .creator-label{
+    color: $rust !important;
+    text-transform: capitalize;
+  }
+
+  .featured-label, .recent-label{
+    font-weight: 600
+  }
+
   // MARKETING TEXT SECTION
   .marketing-text p{
     font-size: 28px !important;
@@ -784,7 +793,7 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
     font-weight: 300;
   }
   dl.work-show{
-    font-weight: 400;
+    font-weight: 600;
   }
 
 
