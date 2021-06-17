@@ -1,4 +1,5 @@
 # Hyku, the Hydra-in-a-Box Repository Application
+#### Refer to [Repo-README](./Repo-README.md) for repository specific instructions
 
 Code:
 [![Build Status](https://circleci.com/gh/samvera/hyku.svg?style=svg)](https://circleci.com/gh/samvera/hyku)

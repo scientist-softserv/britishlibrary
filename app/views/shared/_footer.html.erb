@@ -24,17 +24,10 @@
     <%# END LINKS ONLY VISIBLE IN INDIVIDUAL TENANTS %>
     <%# BEGIN LINKS ONLY VISIBLE IN SPLASH CONTROLLER %>
         <% if admin_host? && !user_signed_in? %>
-        <div class = 'col-xs-6 footer-link' >
+        <div class = 'footer-link' >
           <%= link_to t('hyku.footer.admin_login', default: [:'hyrax.toolbar.profile.login']), main_app.new_user_session_path %>
         </div>
         <% end %>
-        <div class = 'col-xs-6 footer-link' >
-          <% if controller_name == 'splash' && !Settings.multitenancy.admin_only_tenant_creation || can?(:manage, Account) %>
-            <%= link_to t('hyku.splash.account_signup'), account_sign_up_path %>
-          <% elsif controller_name == 'splash' && !user_signed_in? %>
-            <%= link_to t('hyku.splash.account_login'), main_app.new_user_session_path %>
-          <% end %>
-        </div>
       <%# END LINKS ONLY VISIBLE IN SPLASH CONTROLLER %>
       </div><!-- /.nav -->
     </div>

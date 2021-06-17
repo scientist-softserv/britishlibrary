@@ -89,6 +89,9 @@ Rails.application.routes.draw do
 
   # BL Routes
   get '/work/sc/:id', to: 'work_redirect#show'
-  get '/work/sc/:id', to: 'work_redirect#show'
+  get '/work/ns/:id', to: 'work_redirect#show'
   get '/work/:id', to: 'work_redirect#show'
+
+  get '/search', to: redirect(path: '/catalog')
+  get '/collection/:id', to: redirect(path: '/collections/%{id}')
 end
