@@ -14,7 +14,7 @@ body.public-facing {
 
   h1{
     font-size: 34px;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   h2{
@@ -820,6 +820,57 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
     display: none;
   }
 
+// COLLECTIONS SHOW PAGE
+
+.hyc-generic .hyc-bugs div {
+  margin: 10px 0;
+}
+
+input#collection_search {
+  height: 36px;
+}
+
+.hyc-description {
+  padding: 0 15px;
+}
+
+.hyc-bl-results .table > thead > tr > th, .hyc-bl-results .table > thead > tr > td{
+  font-size: 13px;
+  text-transform: uppercase;
+  color: $mediumgrey !important;
+  letter-spacing: 1pt;
+  padding-top:20px;
+}
+
+.hyc-bl-results .table > tbody > tr > th, .hyc-bl-results .table > tbody > tr > td, .hyc-bl-results .table > tfoot > tr > th, .table > tfoot > tr > td {
+  padding: 30px 10px;
+}
+
+.hyc-blacklight {
+  padding: 0;
+}
+
+.gallery {
+  margin-top: 80px;
+}
+
+div#documents {
+  margin-top: 80px;
+}
+
+.masonry.document .caption a {
+  color: $darkgrey !important;
+  font-weight: 500;
+  text-shadow: none;
+}
+
+.masonry.document .caption a:hover {
+  color: $darkgrey !important;
+}
+
+.masonry.document .caption {
+  background-color: rgba(230, 230, 230, 0.8);
+}
 }
 
 
