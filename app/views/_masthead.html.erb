@@ -2,16 +2,16 @@
   <div class="container-fluid top-nav-container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
+      <% if controller_name !="splash" && body_class.match(/public-facing/) %>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-collapse" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <% if controller_name !="splash" && body_class.match(/public-facing/) %>
         <div>
           <%= link_to "//#{Settings.multitenancy.admin_host}", class: "shared-research-repo-button" do %>
-            <span class="fa fa-caret-left"></span> <%= t('.Shared Research Repository') %>
+            <span class="fa fa-caret-left"></span> <%= t("hyrax.home_button") %>
           <% end %>
         </div>
       <% end %>
