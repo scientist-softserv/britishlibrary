@@ -808,7 +808,17 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
 
   span.glyphicon.glyphicon-remove {
     color: $mediumgrey;
-}
+  }
+
+  //CROSS BROWSER
+
+  //makes homepage columns even on safari
+  .row.center-block.flex-center.works-row:before {
+    display: none;
+  }
+  .row.pt-40.flex.wrap.collections-row.pb-40:before {
+    display: none;
+  }
 
 }
 
