@@ -75,9 +75,9 @@ if Settings.bulkrax.enabled
 
     config.field_mappings['Bulkrax::ArticleCsvParser'] = basic_csv_mappings.merge({
       'abstract' => { from: ['abstract'], split: '\|' },
-      # 'access_control_id' => { from: ['access_control_id'], split: '\|' },
+      # 'access_control_id' => { from: [''], split: '\|' },
       'add_info' => { from: ['additional_information'], split: '\|' },
-      # 'admin_set_id' => { from: ['admin_set_id'], split: '\|' },
+      'admin_set_id' => { from: ['admin_set'], split: '\|' },
       # 'alt_title' => { from: ['alternative_title'], split: '\|' },
       # 'alternate_identifier' => { from: ['alternate_identifier'], split: '\|' },
       # 'alternate_identifier_type' ... # numbered
