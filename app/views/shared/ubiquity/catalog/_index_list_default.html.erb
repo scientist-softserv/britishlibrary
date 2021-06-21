@@ -21,7 +21,7 @@
 
         <% if ['resource_type_tesim', 'institution_tesim', "creator_tesim", "contributor_tesim" , "editor_tesim"].exclude? field_name %>
           <th class="search-meta-label"><span class="attribute-label h4"><%= render_index_field_label document, field: field_name %></span></th>
-          <td><%= doc_presenter.field_value field_name %></td>
+          <td><%= doc_presenter.field_value field %></td>
         <% end %>
 
         </tr>
@@ -33,7 +33,7 @@
          <% if document.to_h["has_model_ssim"].first == 'Collection' %>
          <td><%= document.to_h["has_model_ssim"].first %></td>
          <% else %>
-         <td><%= doc_presenter.field_value field_name %></td>
+         <td><%= doc_presenter.field_value field %></td>
         <% end %>
          </tr>
        <% end %>
