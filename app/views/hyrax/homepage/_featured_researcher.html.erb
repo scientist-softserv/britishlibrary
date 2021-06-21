@@ -1,0 +1,6 @@
+<% if @featured_researcher.value.present? %>
+  <div class="section-contrast container-fluid pt-40 pb-80 px-home-content">
+    <h2>Featured Researcher</h2>
+      <%= displayable_content_block @featured_researcher %>
+  </div>
+<% end %>
