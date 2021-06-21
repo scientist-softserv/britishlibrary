@@ -44,7 +44,7 @@ end
 
 
 Account.all.each do |account|
-  AccountElevator.switch!(account.cname)
+  Apartment::Tenant.switch!(account.tenant)
   Site.instance.available_works = Hyrax.config.registered_curation_concern_types
   Site.instance.save
 end
