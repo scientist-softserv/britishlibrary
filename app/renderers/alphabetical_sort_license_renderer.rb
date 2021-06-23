@@ -4,12 +4,12 @@ class AlphabeticalSortLicenseRenderer < Hyrax::Renderers::LicenseAttributeRender
     markup = ''
 
     return markup if values.blank? && !options[:include_empty]
-    markup << %(<tr><th>#{label}</th>\n<td><ul class='tabular'>)
+    markup << %(<div class='metadata-group'><dt>#{label}</dt>\n<dd><ul class='tabular'>)
     attributes = microdata_object_attributes(field).merge(class: "attribute attribute-#{field}")
     sort_by_term.each do |value|
       markup << "<li#{html_attributes(attributes)}>#{attribute_value_to_html(value.to_s)}</li>"
     end
-    markup << %(</ul></td></tr>)
+    markup << %(</ul></dd></tr></div>)
     markup.html_safe
   end
 

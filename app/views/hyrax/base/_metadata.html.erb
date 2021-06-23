@@ -5,10 +5,6 @@
 =end%>
 <dl class='work-show metadata-block <%= dom_class(presenter) %>' <%= presenter.microdata_type_to_html %>>
   <%= render 'attribute_rows', presenter: presenter %>
-  <div class="metadata-group flex">
-    <%= presenter.attribute_to_html(:embargo_release_date, render_as: :date, html_dl: true) %>
-  </div>
-  <div class="metadata-group flex">
-    <%= presenter.attribute_to_html(:lease_expiration_date, render_as: :date, html_dl: true) %>
-  </div>
+  <%= presenter.attribute_to_html(:embargo_release_date, render_as: :date, html_dl: true) %>
+  <%= presenter.attribute_to_html(:lease_expiration_date, render_as: :date, html_dl: true) %>
 </dl>
