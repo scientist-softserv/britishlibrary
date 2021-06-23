@@ -793,15 +793,6 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
     // -webkit-filter: grayscale(1);
   }
 
-  // WORK SHOW PAGE
-  ul.tabular{
-    font-weight: 300;
-  }
-  dl.work-show{
-    font-weight: 600;
-  }
-
-
   // ALERTS & GENERAL
 
   .alert-success, .alert-warning {
@@ -878,6 +869,25 @@ div#documents {
 }
 
 //WORK SHOW PAGE
+
+ul.tabular{
+  font-weight: 300;
+}
+
+.metadata-group ul.tabular{
+  margin-bottom: 0;
+  
+  li.attribute span a, li.attribute a{
+    color: $rust !important;
+  }
+  li.attribute span a:hover, li.attribute a:hover{
+    color: $mediumgrey !important;
+  }
+}
+
+dl.work-show{
+  font-weight: 600;
+}
 
 .breadcrumb {
   border: 0px solid transparent;
@@ -1014,23 +1024,26 @@ li.attribute.creator{
   }
 
   .work-show.metadata-block{
-    width: 500px !important;
+    .metadata-group{
+      display: flex;
+      padding: 10px
+    }
+    .metadata-group:nth-child(even){ 
+      background-color: $neutral;
+      border-radius: 5px;
+    }
+    .metadata-group:nth-child(odd){ 
+      background-color: $white;
+      border-radius: 5px;
+    }
   }
 
-  .metadata-group dt{ 
+  .metadata-group dt { 
     width: 30%; 
   }
-  .metadata-group dd, .metadata-group ul.tabular{ 
+  .metadata-group dd { 
     width: 70%; 
   }
-
-  // .metadata-group:nth-child(1) { 
-  //   width: 30%; 
-  // }
-  // .metadata-group:nth-child(2) { 
-  //   width: 70%; 
-  // }
-
 
 }
 
