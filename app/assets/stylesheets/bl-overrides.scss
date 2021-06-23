@@ -876,6 +876,162 @@ div#documents {
 .masonry.document .caption {
   background-color: rgba(230, 230, 230, 0.8);
 }
+
+//WORK SHOW PAGE
+
+.breadcrumb {
+  border: 0px solid transparent;
+  border-radius: 7px;
+  margin-top: 0;
+  padding: 1em;
+  background-color: $neutral;
+}
+
+.breadcrumb li + ::before {
+  height: 5px;
+  width: 5px;
+  background-color: $rust;
+  border-radius: 50%;
+  display: inline-block;
+  border-right: 0;
+}
+
+// these following 2 selectors extend the background color outside of the container
+.work-show-section-contrast {
+  position: relative;
+}
+
+.work-show-section-contrast:before {
+    content:"";
+    background-color:$neutral;
+    position: absolute;
+    height: 100%;
+    width: 200vw;
+    left: -100vw;
+    z-index: -1;
+    overflow-x: hidden;
+}
+
+
+//this styles the text of the abstract
+.pt-40.pb-40.work-show-abstract h3 ul.tabular{
+  padding: 0;
+  li.attribute.attribute-abstract{
+    font-weight: 300;
+    font-size: 14px;
+    padding-top: 40px;
+    line-height: 1.4;
+  }
+}
+
+//this selector changes the creator text under the header
+div.creator-work-show-header {
+  dt {
+    display: none
+  }
+  dd ul.tabular{
+    padding-left: 0;
+    display: flex;
+
+    li.attribute.creator{
+      padding-right: 20px;
+      color: $rust;
+      font-size: 16px;
+
+    }
+  }
+}
+
+li.attribute.creator{
+  span a img.img-responsive{
+    filter: grayscale(1);
+  }
+}
+
+.work-show-buttons{
+  justify-content: space-evenly
+}
+
+.social-media {
+  filter: grayscale(1);
+}
+
+.citations, .social-media {
+  padding: 15px 0;
+  .btn-group button.btn.btn-default.dropdown-toggle{
+    background-color: transparent;
+    border: none;
+    border-color: transparent;
+    border-radius: 0px;
+    color: #575757;
+    font-size: 18px;
+    border-bottom: 2px solid lightgrey;
+    padding: 6px 30px;
+  } 
+  .btn-group button.btn.btn-default.dropdown-toggle:hover{
+    color: #575757 !important;
+    background-color: #F6F6F6 !important;
+    border: none !important;
+    border-color: transparent !important;
+    border-bottom: 2px solid grey !important;
+  }
+  .btn-group button.btn.btn-default.dropdown-toggle:focus{
+    outline: none;
+  }
+  .btn-group button.btn.btn-default.dropdown-toggle:active, .btn-group button.btn.btn-default.dropdown-toggle:target, .btn-group.open .dropdown-toggle{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+}
+
+  .dropdown-menu > li.social-links > a{
+    padding: 0
+  }
+
+  .btn-group.open ul.dropdown-menu.social-link-menu{
+    display:flex;
+  }
+
+  .table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
+    vertical-align: middle;
+    border-top: none;
+    text-align: center;
+  }
+
+  td.thumbnail {
+    margin: 10px;
+    border-top: 1px solid #ddd !important;
+  }
+
+  table.table-striped.related-files{
+    margin-top: 40px;
+  }
+
+  .panel{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .work-show.metadata-block{
+    width: 500px !important;
+  }
+
+  .metadata-group dt{ 
+    width: 30%; 
+  }
+  .metadata-group dd, .metadata-group ul.tabular{ 
+    width: 70%; 
+  }
+
+  // .metadata-group:nth-child(1) { 
+  //   width: 30%; 
+  // }
+  // .metadata-group:nth-child(2) { 
+  //   width: 70%; 
+  // }
+
+
 }
 
 
