@@ -876,7 +876,7 @@ ul.tabular{
 
 .metadata-group ul.tabular{
   margin-bottom: 0;
-  
+
   li.attribute span a, li.attribute a{
     color: $rust !important;
   }
@@ -1003,10 +1003,17 @@ li.attribute.creator{
     display:flex;
   }
 
-  .table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
+  .table.related-files > thead > tr > th, .table.related-files > thead > tr > td, .table > tbody > tr > th, .table.related-files > tbody > tr > td, .table.related-files > tfoot > tr > th, .table.related-files > tfoot > tr > td {
     vertical-align: middle;
     border-top: none;
     text-align: center;
+  }
+  .table.related-files > thead > tr > th{
+    font-family: "Noto Sans JP" !important;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: $mediumgrey !important;
+    letter-spacing: 1pt;
   }
 
   td.thumbnail {
