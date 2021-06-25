@@ -1,0 +1,6 @@
+<%# OVERRIDE HYRAX 2.9.5 to change worktype h1 to an h6 on a work-show page %>
+
+<h6 class="work-type-tag">
+  <span class="<%= Hyrax::ModelIcon.css_class_for(presenter.model) %>" aria-hidden="true"></span>
+  <%= presenter.human_readable_type %>
+</h6>
