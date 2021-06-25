@@ -1,19 +1,16 @@
-class MultipleDatesAttributeRenderer < Hyrax::Renderers::AttributeRenderer
-
+# OVERRIDE FILE from Hyrax v2.9.5
+#
+# Override this class using #class_eval to avoid needing to copy the entire file over from
+# the dependency. For more info, see the "Overrides using #class_eval" section in the README.
+require_dependency Hyrax::Engine.root.join('app', 'renderers', 'hyrax', 'renderers', 'attribute_renderer').to_s
+Hyrax::Renderers::AttributeRenderer.class_eval do
   def render
     markup = ''
 
     return markup if values.blank? && !options[:include_empty]
     markup << %(<div class='metadata-group'><dt>#{label}</dt>\n<dd><ul class='tabular'>)
     attributes = microdata_object_attributes(field).merge(class: "attribute attribute-#{field}")
-    sorted_arr = Array(values).sort_by(&:downcase)
-    sorted_arr.each do |value|
-      # hide default values added to obtain a valid Date format; see 'all_models_virtual_fields'
-      if value[(5..9)] == '01-01'
-        value = value[(0..3)]
-      elsif value[(8..9)] == '01'
-        value = value[(0..6)]
-      end
+    Array(values).each do |value|
       markup << "<li#{html_attributes(attributes)}>#{attribute_value_to_html(value.to_s)}</li>"
     end
     markup << %(</ul></dd></div>)
