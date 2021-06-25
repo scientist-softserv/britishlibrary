@@ -1,15 +1,17 @@
 @import 'variables.scss';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 //TEXT STYLES
 
 body.public-facing {
-  font-family: "Noto Sans JP" !important;
+  font-family: "Noto Sans" !important;
   color: $darkgrey !important;
-  margin-bottom: 60px;
+  overflow-x: hidden;
+  // margin-bottom: 60px;
 
   h1, h2, h3, h4, h5 {
-    font-family: "Noto Sans JP" !important;
+    font-family: "Noto Sans" !important;
     color: $darkgrey !important;
   }
 
@@ -28,6 +30,7 @@ body.public-facing {
   }
 
   h4{
+    font-family: "Noto Sans JP" !important;
     font-size: 22px;
     font-weight: 300;
   }
@@ -71,6 +74,9 @@ body.public-facing {
   .pb-60 {
     padding-bottom: 60px;
   }
+  .pt-80 {
+    padding-top: 80px;
+  }
   .pb-80 {
     padding-bottom: 80px;
   }
@@ -103,6 +109,11 @@ body.public-facing {
 
   .mx-auto{
     margin: 0 auto
+  }
+
+  .mx-0{
+    margin-right: 0;
+    margin-left: 0;
   }
 
   .flex-center{
@@ -142,7 +153,9 @@ body.public-facing {
   }
 
   .navbar.navbar-inverse.navbar-static-top, nav.navbar.navbar-default.navbar-static-top div.container-fluid div.row ul.nav.navbar-nav li a {
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase !important;
   }
 
 
@@ -160,13 +173,15 @@ body.public-facing {
 
   .shared-research-repo-button{
     color: $white !important;
-    font-size: 18px;
+    font-size: 12px;
     background-color: transparent;
     border: 2px solid #ffffff87;
     border: 2px solid rgba(255, 255, 255, .5);
     border-radius: 5px;
     padding: 10px;
     margin: 0px 10px;
+    text-transform: none;
+    font-weight: 500;
   }
   .shared-research-repo-button:hover{
     color: #ffffffe0 !important;
@@ -424,7 +439,7 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
 }
 
 .col-xs-12.col-md-6.section-contrast {
-  border-left: 2px solid #E3E3E3;
+  border-left: 2px solid $lightgrey;
 }
 
 .row.image-masthead{
@@ -566,13 +581,17 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
   .panel-default > .panel-heading {
     color: $darkgrey;
     background-color: $white;
-    border-color: $neutral;
+    border-color: transparent;
   }
   .panel-default {
-    border-color: $neutral;
+    border-color: transparent;
   }
   .panel-heading.collapse-toggle .panel-title:after{
     color: $mediumgrey;
+  }
+
+  .panel{
+    border: none;
   }
 
 
@@ -589,6 +608,7 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
 
   // MARKETING TEXT SECTION
   .marketing-text p{
+    font-family: "Noto Sans JP" !important;
     font-size: 28px !important;
     font-weight: 300 !important;
     padding-top: 25px;
@@ -952,6 +972,12 @@ div.creator-work-show-header {
   }
 }
 
+.year-work-show-header h5{
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: $mediumgrey2 !important;
+}
+
 li.attribute.creator{
   span a img.img-responsive{
     filter: grayscale(1);
@@ -973,14 +999,14 @@ li.attribute.creator{
     border: none;
     border-color: transparent;
     border-radius: 0;
-    color: #575757;
+    color: $darkgrey;
     font-size: 18px;
     border-bottom: 2px solid lightgrey;
     padding: 6px 30px;
   } 
   .btn-group button.btn.btn-default.dropdown-toggle:hover{
-    color: #575757 !important;
-    background-color: #F6F6F6 !important;
+    color: $darkgrey !important;
+    background-color: $neutral !important;
     border: none !important;
     border-color: transparent !important;
     border-bottom: 2px solid grey !important;
@@ -996,7 +1022,7 @@ li.attribute.creator{
 }
 
   .dropdown-menu > li.social-links > a{
-    padding: 0;
+    padding: 0
   }
 
   .btn-group.open ul.dropdown-menu.social-link-menu{
@@ -1008,6 +1034,7 @@ li.attribute.creator{
     border-top: none;
     text-align: center;
   }
+  
   .table.related-files > thead > tr > th{
     font-family: "Noto Sans JP" !important;
     font-size: 13px;
@@ -1018,7 +1045,7 @@ li.attribute.creator{
 
   td.thumbnail {
     margin: 10px;
-    border-top: 1px solid #ddd !important;
+    border-top: 1px solid $lightgrey2 !important;
   }
 
   table.table-striped.related-files{
@@ -1051,6 +1078,20 @@ li.attribute.creator{
   .metadata-group dd { 
     width: 70%; 
   }
+
+  .work-show-abstract {
+      .metadata-group dd {
+        width: 100%;
+    }
+    .metadata-group dt {
+      font-size: 28px;
+      font-weight: 500;
+  }
+  }
+
+  .work-show-items .col-sm-12 {
+    overflow: scroll;
+}
 
 }
 

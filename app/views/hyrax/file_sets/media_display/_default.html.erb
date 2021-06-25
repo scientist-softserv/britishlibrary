@@ -1,8 +1,10 @@
+<%# OVERRIDE Hyrax 2.9.1 to add bootstrap class to thumbnail images for all files. %>
+
 <% if Hyrax.config.display_media_download_link? && can?(:download, file_set.id) %>
   <div>
     <h2 class="sr-only"><%= t('hyrax.file_set.show.downloadable_content.heading') %></h2>
     <%= image_tag thumbnail_url(file_set),
-       class: "representative-media",
+       class: "representative-media center-block",
        alt: "",
        role: "presentation" %>
     <%= link_to t('hyrax.file_set.show.downloadable_content.image_link'),
@@ -14,7 +16,7 @@
 <% else %>
   <div>
     <%= image_tag thumbnail_url(file_set),
-       class: "representative-media",
+       class: "representative-media center-block",
        alt: "",
        role: "presentation" %>
   </div>
