@@ -39,6 +39,39 @@ test:
   stage: test
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
   allow_failure: true
+  variables:
+    ALLOW_ANONYMOUS_LOGIN: "yes"
+    CONFDIR: "/app/samvera/hyrax-webapp/solr/config"
+    DATABASE_ADAPTER: postgresql
+    DATABASE_NAME: hyku
+    DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: "true"
+    DATABASE_HOST: db
+    DATABASE_URL: postgres://postgres:postgres@db/hyku
+    DATABASE_USER: postgres
+    POSTGRESQL_DATABASE: hyku
+    POSTGRESQL_PASSWORD: postgres
+    DB_PORT: 5432
+    DB_HOST: db
+    FCREPO_PORT: 8080
+    FCREPO_HOST: fcrepo
+    FEDORA_URL: http://fcrepo:8080/fcrepo/rest
+    REDIS_HOST: redis
+    SETTINGS__SOLR_URL: http://admin:admin@solr:8983/solr/hyku-test
+    SOLR_ADMIN_USER: admin
+    SOLR_ADMIN_USERNAME: admin
+    SOLR_ADMIN_PASSWORD: admin
+    SOLR_CONFIGSET_NAME: hyku
+    SOLR_COLLECTION_NAME: hyku-test
+    SOLR_CLOUD_BOOTSTRAP: "yes"
+    SOLR_ENABLE_CLOUD_MODE: "yes"
+    SOLR_ENABLE_AUTHENTICATION: "yes"
+    SOLR_PORT: 8983
+    SOLR_HOST: solr
+    SOLR_URL: http://admin:admin@solr:8983/solr/hyku-test
+    SOLR_ZK_HOSTS: zk:2181
+    ZOO_HEAP_SIZE: 128
+    ZOO_PORT_NUMBER: 2181
+    GIT_STRATEGY: none
   services:
     - name: bitnami/postgresql:12.6.0
       alias: db
@@ -46,17 +79,23 @@ test:
       alias: fcrepo
     - name: redis:5-alpine
       alias: redis
-    - name: solr:8.7
+    - name: bitnami/zookeeper:3
+      alias: zk
+    - name: bitnami/solr:8
       alias: solr
     - name: selenium/standalone-chrome:3.141
       alias: chrome
+  before_script:
+    - >-
+      solrcloud-upload-configset.sh /app/samvera/hyrax-webapp/solr/config;
+      solrcloud-assign-configset.sh;
   script:
     - bundle exec rspec
   only:
     refs:
       - merge_requests
   tags:
-    - docker
+    - kubernetes
 
 hyku.review:
   stage: review
@@ -84,8 +123,8 @@ hyku.review:
       --set ingress.hosts[0].paths={"/"}
   script:
     - helm registry login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - helm chart pull registry.gitlab.com/notch8/britishlibrary/hyrax:0.9.0
-    - helm chart export registry.gitlab.com/notch8/britishlibrary/hyrax:0.9.0
+    - helm chart pull ghcr.io/samvera/hyrax/hyrax-helm:0.17.0
+    - helm chart export ghcr.io/samvera/hyrax/hyrax-helm:0.17.0
     - deploy hyrax
   tags:
     - kubernetes
