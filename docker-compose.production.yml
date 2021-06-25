@@ -15,6 +15,10 @@ x-app: &app
     - .:/app/samvera/hyrax-webapp
   networks:
     internal:
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "3g"
 
 volumes:
   redis:
@@ -46,6 +50,7 @@ services:
     image: bitnami/solr:8
     environment:
       - OOM=script
+      - SOLR_HEAP=4g
       - SOLR_ADMIN_USERNAME=admin
       - SOLR_ADMIN_PASSWORD=admin
       - SOLR_COLLECTION=hydra-development
