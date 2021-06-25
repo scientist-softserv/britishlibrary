@@ -21,32 +21,32 @@
       <div class="row logo-grid">
         <div class="col-xs-6 col-md-4 text-center">
           <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'mola')}" do %>
-            <img class="tenant-logo" alt="MOLA" src="/system/logo_images/1/original/220px-MOLA__Museum_of_London_Archaeology__Logo.jpeg">
+            <%= image_tag("splash-logos/220px-MOLA_(Museum_of_London_Archaeology)_Logo.jpeg", class: "tenant-logo", alt: "MOLA") %>
           <% end %>
         </div>
         <div class="col-xs-6 col-md-4 text-center">
           <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'nms')}" do %>
-            <img class="tenant-logo" alt="National Museum of Scotland" src="/system/logo_images/1/original/NMSlogo1.png">
+            <%= image_tag("splash-logos/NMSlogo1.png", class: "tenant-logo", alt: "National Museum of Scotland") %>
           <% end %>
         </div>
         <div class="col-xs-12 col-md-4 text-center">
           <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'bl')}" do %>
-            <img class="tenant-logo" alt="British Library" src="/system/logo_images/1/original/BL_Logo_jpg.jpg">
+             <%= image_tag("splash-logos/britishlibrary.jpeg", class: "tenant-logo", alt: "British Library") %>
           <% end %>
         </div>
         <div class="col-xs-6 col-md-4 text-center">
           <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'kew')}" do %>
-            <img class="tenant-logo" alt="Kew Royal Botanic Gardens" src="/system/logo_images/1/original/Kew_Logo.png">
+            <%= image_tag("splash-logos/Kew_Logo.png", class: "tenant-logo", alt: "Kew Royal Botanic Gardens") %>
           <% end %>
         </div>
         <div class="col-xs-6 col-md-4 text-center">
           <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'tate')}" do %>
-            <img class="tenant-logo" alt="Tate Modern" src="/system/logo_images/1/original/Tate_Logo.png">
-          <% end %>
+            <%= image_tag("splash-logos/Tate_Logo.png", class: "tenant-logo", alt: "Tate Modern") %>
+            <% end %>
         </div>
         <div class="col-xs-12 col-md-4 text-center">
           <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'britishmuseum')}" do %>
-            <img class="tenant-logo" alt="The British Museum" src="/system/logo_images/1/original/BMlogo4.png">
+            <%= image_tag("splash-logos/BMlogo.png", class: "tenant-logo", alt: "The British Museum") %>
           <% end %>
         </div>
       </div>
