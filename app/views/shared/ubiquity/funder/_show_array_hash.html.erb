@@ -4,35 +4,33 @@
     <% array_of_hash.each do |hash| %>
       <li class="attribute funder name">
         <% if hash['funder_name'].present? %>
-          <%= "name: #{hash['funder_name']}" %>&nbsp;
+          <b>Name:</b> <%= "#{hash['funder_name']}" %>&nbsp;
         <% end %>
       </li>
       <li class="attribute funder doi">
         <% if hash['funder_doi'].present? %>
-          <%= "DOI: #{hash['funder_doi']}" %>&nbsp;
+          <b>DOI: </b><a href="<%= hash['funder_doi'] %>"><%= "#{hash['funder_doi'].split('g/')[1]}" %></a>&nbsp;
         <% end %>
       </li>
       <li class="attribute funder isni">
         <% if hash['funder_isni'].present? %>
-          <%= "ISNI: #{hash['funder_isni']}" %>&nbsp;
+          <b>ISNI: </b><%= "#{hash['funder_isni']}" %>&nbsp;
         <% end %>
       </li>
       <li class="attribute funder ror">
         <% if hash['funder_ror'].present? %>
-          <%= "ROR ID: #{hash['funder_ror']}" %>&nbsp;
+          <b>ROR ID: </b><%= "#{hash['funder_ror']}" %>&nbsp;
         <% end %>
       </li>
       <li>
         <% if hash['funder_award'].present? %>
-          Awards:
-          <% hash['funder_award'].each do |award| %>
+          <b>Awards:</b><% hash['funder_award'].each do |award| %>
             <span itemprop="funder" >
               <%= award %>
             </span>
           <% end %>
         <% end %>
       </li>
-      <br>
     <% end %>
   </ul>
 </dd>
