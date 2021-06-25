@@ -1,0 +1,31 @@
+<%# OVERRIDE Hyrax 2.9.1 to change bootstrap classes %>
+
+<% presenter.title.each_with_index do |title, index| %>
+    <div>
+      <% if index == 0 %>
+        <div class="row">
+          <div class="col-sm-10">
+            <h2><%= title %></h2>
+          </div>
+          <div class="col-sm-2 text-right">
+            <h3>
+              <small class="text-muted"><%= presenter.permission_badge %> <%= presenter.workflow.badge %></small>
+            </h3>
+          </div>
+        </div>
+        <div class="creator-work-show-header">
+          <%= render "shared/ubiquity/creator/show", presenter: presenter %>
+        </div>
+        <div class="year-work-show-header">
+          <% if presenter.date_published.present? %>
+            <h5><%= presenter.date_published[0].split('-')[0] %></h5>
+          <% end %>
+        </div>
+      <% else %>
+        <h2><%= title %></h2>
+      <% end %>
+    </div>
+    <% if index == 0 %>
+        <%= render "show_actions", presenter: presenter %>
+    <% end %>
+<% end %>
