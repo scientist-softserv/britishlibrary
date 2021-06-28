@@ -1093,6 +1093,26 @@ li.attribute.creator{
     overflow: scroll;
 }
 
+// SEARCH RESULTS
+div#search-results ul.list-unstyled.catalog li:nth-child(even){
+  background-color: $neutral;
+  border-radius: 5px;
+
+}
+div#search-results ul.list-unstyled.catalog li:nth-child(odd){ 
+  background-color: $white;
+  border-radius: 5px;
+}
+
+.page_links {
+  padding: 0;
+}
+
+#sortAndPerPage{
+  border-bottom: none;
+}
+
+
 }
 
 
