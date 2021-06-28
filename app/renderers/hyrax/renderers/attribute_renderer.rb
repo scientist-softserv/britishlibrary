@@ -2,6 +2,9 @@
 #
 # Override this class using #class_eval to avoid needing to copy the entire file over from
 # the dependency. For more info, see the "Overrides using #class_eval" section in the README.
+#
+# Additional OVERRIDE on this file to change the html markup so that each metadata item is wrapped by a div, and they use <dt> and <dd> tags instead of table tags. This prevents the html tags from getting ripped out my the html_safe markup method at the end, and makes it easier to style the metadata.
+
 require_dependency Hyrax::Engine.root.join('app', 'renderers', 'hyrax', 'renderers', 'attribute_renderer').to_s
 Hyrax::Renderers::AttributeRenderer.class_eval do
   def render
