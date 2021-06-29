@@ -606,6 +606,11 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
     font-weight: 600
   }
 
+    //adds padding to images in featured and recent works rows
+  .works-row a img {
+    padding: 10px;
+}
+
   // MARKETING TEXT SECTION
   .marketing-text p{
     font-family: "Noto Sans JP" !important;
@@ -992,6 +997,7 @@ li.attribute.creator{
   filter: grayscale(1);
 }
 
+//this selector edits the citations and social media buttons in the abstract section
 .citations, .social-media {
   padding: 15px 0;
   .btn-group button.btn.btn-default.dropdown-toggle{
