@@ -46,6 +46,12 @@ module Hyku
       solr_document['date_submitted_tesim']
     end
 
+    def check_file_licence_count
+      work_id = solr_document['id']
+      work = ActiveFedora::Base.find(work_id)
+      work.file_sets.map {|file_set| file_set.license.count}.sum
+    end
+
     private
 
       def extract_from_identifier(rgx)

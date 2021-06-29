@@ -43,8 +43,9 @@ unless Settings.multitenancy.enabled
 end
 
 
-Account.all.each do |account|
+Account.find_each do |account|
   Apartment::Tenant.switch!(account.tenant)
+  next if Site.instance.available_works.present?
   Site.instance.available_works = Hyrax.config.registered_curation_concern_types
   Site.instance.save
 end
@@ -54,4 +55,9 @@ if Rails.env.development?
     u.password = 'testing123'
   end
   u.add_role(:superadmin)
+end
+
+# make sure expire jobs are set for every existing account
+Account.find_each do |account|
+  CreateAccount.new(account).schedule_recurring_jobs
 end
