@@ -1,0 +1,27 @@
+<!--
+ OVERRIDE 2.9.0 https://github.com/samvera/hyrax/blob/v2.0.2/app/views/hyrax/base/_items.html.erb
+ add license feature
+-->
+<% license_count = @presenter.check_file_licence_count.positive? %>
+
+<% if presenter.member_presenters.present? %>
+  <table class="table table-striped related-files">
+    <thead>
+      <tr>
+        <th><%= t('.thumbnail') %></th>
+        <th><%= t('.title') %></th>
+        <% if license_count %>
+          <th><%= t('.licence') %></th>
+        <% end %>
+        <th><%= t('.date_uploaded') %></th>
+        <th><%= t('.visibility') %></th>
+        <th><%= t('.actions') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'member', collection: presenter.member_presenters %>
+    </tbody>
+  </table>
+<% elsif can? :edit, presenter.id %>
+    <div class="alert alert-warning" role="alert"><%= t('.empty', type: presenter.human_readable_type) %></div>
+<% end %>
