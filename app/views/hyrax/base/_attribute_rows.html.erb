@@ -3,7 +3,7 @@
 
 <%# display contributor using the show partial  -->
 <%# presenter.attribute_to_html(:contributor, render_as: :faceted) %>
-  
+
 <%= presenter.attribute_to_html(:alt_title, label: "Alternative Title",  render_as: :string) %>
 
 <%= presenter.attribute_to_html(:resource_type, render_as: :resource_type) %>
@@ -15,7 +15,7 @@
 <%# elsif check_should_not_use_fedora_association(request.original_url) != "true" && presenter.member_of_collection_presenters.present?  %>
 <%# render 'shared/ubiquity/collections/show_collection_list', presenter: presenter %>
 <%# end %>
-<% if presenter.creator.present?%>
+<% if presenter.creator_hash.present?%>
   <div class="metadata-group">
     <%= render "shared/ubiquity/creator/show", presenter: presenter %>
   </div>
