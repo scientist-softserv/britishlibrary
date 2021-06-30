@@ -50,6 +50,9 @@ terms:
 - id: HScD
   term: HScD
   active: true
+- id: LLM
+  term: LLM
+  active: true
 - id: MA
   term: MA
   active: true
@@ -61,6 +64,9 @@ terms:
   active: true
 - id: MLitt
   term: MLitt
+  active: true
+- id: MPhil
+  term: MPhil
   active: true
 - id: MRes
   term: MRes
