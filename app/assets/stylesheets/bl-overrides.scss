@@ -462,6 +462,12 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
   }
 }
 
+@media (max-width: 570px){
+  input#search-field-header::placeholder{
+    font-size: 11px;
+  }
+}
+
 .catalog-page-search {
   width: 50%;
 }
