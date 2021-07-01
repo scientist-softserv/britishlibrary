@@ -1124,6 +1124,20 @@ div#search-results ul.list-unstyled.catalog li:nth-child(odd){
   border-bottom: none;
 }
 
+.search-result-wrapper {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding: 40px;
+}
+
+.search-results-page-metadata table tbody tr td, .search-results-page-metadata table tbody tr th.search-meta-label{
+  border-top: none;
+  text-align: left;
+}
+
+h3.panel-title.facet-field-heading a {
+  font-size: 18px;
+}
 
 }
 
