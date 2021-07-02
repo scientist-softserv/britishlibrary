@@ -1,4 +1,4 @@
-<%# OVERRIDE Hyrax 2.9.1 to change bootstrap classes %>
+<%# OVERRIDE Hyrax 2.9.1 to change bootstrap classes and add the date and creator to the header section of the work-show page %>
 
 <% presenter.title.each_with_index do |title, index| %>
     <div>
@@ -16,7 +16,7 @@
         <div class="creator-work-show-header">
           <%= render "shared/ubiquity/creator/show", presenter: presenter %>
         </div>
-        <div class="year-work-show-header">
+        <div class="year-published">
           <% if presenter.date_published.present? %>
             <h5><%= presenter.date_published[0].split('-')[0] %></h5>
           <% end %>
