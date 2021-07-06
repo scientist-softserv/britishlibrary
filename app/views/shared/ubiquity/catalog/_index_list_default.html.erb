@@ -9,6 +9,11 @@
       <%= document.human_readable_type %></h6>
     <h4 class="search-result-title">
       <%= link_to document.title_or_label, document %></h4>
+  <% if document.abstract.present? %>
+    <div class="abstract-search-results">
+      <small><span><b>Abstract: </b></span><%= document.abstract[0] %></small>
+    </div>
+  <% end %>
   </div>
   <% end %>
   <table class="table">
@@ -16,11 +21,10 @@
     <% index_fields(document).each_with_index do |(field_name, field), index| %>
         <% if should_render_index_field? document, field %>
           <% if ["creator_tesim"].include? field_name %>
-            <span class= "creator-search-results""><%= display_json_fields(document, field_name)%></span>
+            <span class= "creator-search-results"><small><%= display_json_fields(document, field_name)%></small></span>
           <% end %>
           <% if ["keyword_tesim"].include? field_name %>
-
-            <p class="keywords-search-results""><%= doc_presenter.field_value field %></p>
+            <p class="keywords-search-results"><%= doc_presenter.field_value field %></p>
           <% end %>
           <%# Removed Ubiquity's code here because we don't need these index fields with the current layout%>
             <%# NOTE ~alignment: comment out due to being related to cross-tenant search %>
@@ -29,9 +33,7 @@
               <%# <td><%= link_to_facet_list(document.institution.sort, 'institution', '', '; ').html_safe</td> %>
             <%# end %>
           <%# Removed Ubiquity's code here because we don't need these index fields with the current layout%>
-
         <% end %>
-
     <% if field_name == 'resource_type_tesim'  %>
       <%# Removed Ubiquity's code here to remove the resource type from non-collection results & use human_readable_type instead. %>
       <% if document.to_h["has_model_ssim"].first == 'Collection' %>
