@@ -1131,10 +1131,11 @@ div#search-results ul.list-unstyled.catalog li:nth-child(odd){
     display: flex;
     flex-wrap: wrap;
     flex-direction: row-reverse;
+    justify-content: center;
     border: 2px solid $neutral;
     border-radius: 4px;
     padding: 20px;
-    width: 75%;
+    width: 60%;
     div#sort-dropdown.btn-group, div#per_page-dropdown.btn-group, div.view-type div.view-type-group.btn-group{
       button.btn.btn-default, button.btn.btn-default:hover, button.btn.btn-default:focus, button.btn.btn-default:active, a.btn.btn-default, a.btn.btn-default:hover, a.btn.btn-default:focus, a.btn.btn-default:active{
         border: none !important;
@@ -1152,6 +1153,18 @@ div#search-results ul.list-unstyled.catalog li:nth-child(odd){
       }
     }
 }
+@media (max-width: 767px){
+  .search-widgets, .search-text{
+    float: none;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .search-widgets{
+    margin-top: 40px;
+  }
+}
+
 
 .search-result-wrapper {
   border-bottom: none;
@@ -1174,6 +1187,10 @@ h3.panel-title.facet-field-heading a {
 }
 .keywords-search-results{
   margin: 10px 0px;
+}
+
+.abstract-search-results {
+  margin: 20px 0;
 }
 
 .year-published.text-center h5 {
