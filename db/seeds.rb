@@ -56,8 +56,3 @@ if Rails.env.development?
   end
   u.add_role(:superadmin)
 end
-
-# make sure expire jobs are set for every existing account
-Account.find_each do |account|
-  CreateAccount.new(account).schedule_recurring_jobs
-end
