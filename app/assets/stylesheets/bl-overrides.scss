@@ -321,7 +321,7 @@ body.public-facing {
 
 // MOBILE NAVIGATION STYLES
 
-  @media (max-width: 992px){
+  @media (max-width: 991px){
     button.navbar-toggle{
       margin-right: 25px;
     }
@@ -472,6 +472,11 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
   width: 50%;
 }
 
+div.catalog-page-search form#search-form-header{
+  padding-top: 40px;
+  margin-top: 0;
+}
+
 .pages-nav{
   border-bottom: 2px solid $lightgrey !important;
   align-items: center;
@@ -548,9 +553,9 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
   }
   .btn-default:hover {
     color: $darkgrey !important;
-    background-color: $neutral !important;
-    border: 2px solid $mediumgrey !important;
-    border-color: $mediumgrey !important;
+    background-color: $lightgrey !important;
+    border: none !important;
+    border-color: none !important;
   }
   .btn-default:active,
   .btn-default.active {
@@ -586,7 +591,7 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
   /* FACET PANEL STYLES */
   .panel-default > .panel-heading {
     color: $darkgrey;
-    background-color: $white;
+    background-color: transparent;
     border-color: transparent;
   }
   .panel-default {
@@ -596,8 +601,15 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
     color: $mediumgrey;
   }
 
-  .panel{
+  .panel {
     border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .panel.facet_limit {
+    border: 2px solid $lightgrey;
+    margin: 20px 0px;
   }
 
 
@@ -983,13 +995,13 @@ div.creator-work-show-header {
   }
 }
 
-.year-work-show-header h5{
+.year-published h5{
   font-weight: bold;
   letter-spacing: 1px;
   color: $mediumgrey2 !important;
 }
 
-li.attribute.creator{
+li.attribute.creator, li.attribute.contributor {
   span a img.img-responsive{
     filter: grayscale(1);
   }
@@ -1064,11 +1076,6 @@ li.attribute.creator{
     margin-top: 40px;
   }
 
-  .panel{
-    -webkit-box-shadow: none;
-    box-shadow: none;
-  }
-
   .work-show.metadata-block{
     .metadata-group{
       display: flex;
@@ -1104,6 +1111,189 @@ li.attribute.creator{
   .work-show-items .col-sm-12 {
     overflow: scroll;
 }
+
+// SEARCH RESULTS
+
+#sortAndPerPage{
+  border-bottom: none;
+  padding-bottom: 20px;
+}
+
+div#search-header:before, div.catalog-only.catalog-page-search:before{
+  content:"";
+  background-color:$neutral;
+  position: absolute;
+  height: 100%;
+  width: 200vw;
+  left: -100vw;
+  z-index: -1;
+  overflow-x: hidden;
+}
+
+div#search-header:before {
+  border-bottom: 2px solid $lightgrey;
+}
+
+div#search-header {
+  margin-bottom: 40px;
+}
+
+@media (max-width: 991px){
+  div#appliedParams {
+    border-bottom: 2px solid $lightgrey;
+  }
+}
+
+div#search-results ul.list-unstyled.catalog li:nth-child(even){
+  background-color: $neutral;
+  border-radius: 5px;
+
+}
+div#search-results ul.list-unstyled.catalog li:nth-child(odd){ 
+  background-color: $white;
+  border-radius: 5px;
+}
+
+.page_links {
+  padding: 0;
+}
+
+.search-widgets {
+    float: right;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    justify-content: center;
+    border: 2px solid $lightgrey;
+    border-radius: 4px;
+    padding: 20px;
+    width: 60%;
+    div#sort-dropdown.btn-group, div#per_page-dropdown.btn-group, div.view-type div.view-type-group.btn-group{
+      button.btn.btn-default, button.btn.btn-default:hover, button.btn.btn-default:focus, button.btn.btn-default:active, a.btn.btn-default, a.btn.btn-default:hover, a.btn.btn-default:focus, a.btn.btn-default:active{
+        border: none !important;
+        background-color: transparent !important;
+        outline: none !important;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      button.btn.btn-default:hover, button.btn.btn-default:focus{
+        text-decoration: underline;
+      }
+
+      a.btn.btn-default:focus, a.btn.btn-default:hover{
+        color: $mediumgrey !important;
+      }
+    }
+}
+@media (max-width: 767px){
+  .search-widgets, .search-text{
+    float: none;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .search-widgets{
+    margin-top: 40px;
+  }
+}
+
+.constraints-container{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+a.btn.btn-default.btn-sm.remove.dropdown-toggle, span.constraint-value.btn.btn-sm.btn-default.btn-disabled {
+  border: 2px solid $lightgrey;
+}
+
+span.constraint-value.btn.btn-sm.btn-default.btn-disabled {
+  border-right: 0
+}
+
+a#startOverLink {
+  border: 2px solid $lightgrey;
+  border-radius: 4px;
+  background-color: $white;
+}
+
+
+.search-result-wrapper {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding: 40px;
+}
+
+.search-results-page-metadata table tbody tr td, .search-results-page-metadata table tbody tr th.search-meta-label{
+  border-top: none;
+  text-align: left;
+}
+
+h3.panel-title.facet-field-heading a, h2.facets-heading {
+  font-size: 16px;
+}
+
+.creator-search-results{
+  color: $rust;
+  font-size: 16px;
+}
+.keywords-search-results{
+  margin: 10px 0;
+}
+
+.abstract-search-results {
+  margin: 20px 0;
+}
+
+.year-published.text-center h5 {
+  margin: 0;
+  font-size: 20px;
+}
+
+@media (max-width: 767px){
+  .year-published.text-center h5 {
+    text-align: left
+  }
+}
+
+h4.search-result-title{
+  font-size: 18px;
+}
+
+div.top-panel-heading.panel-heading h2.facets-heading {
+  display: none
+  }
+
+@media (max-width: 991px){
+  div.top-panel-heading.panel-heading {
+    h2.facets-heading {
+      display: block;
+      font-size: 18px;
+      margin: 0;
+    }
+    button.facets-toggle, button.facets-toggle:focus-visible{
+      margin: 0;
+      padding: 0;
+      border: none;
+      margin-top: 3px;
+      transition: .2s;
+      outline: none;
+    }
+    button.facets-toggle:hover{
+      transform: scale3d(1.1, 1.1, 1.1);
+    }
+  }
+
+  #facets .top-panel-heading {
+      border: 2px solid $lightgrey;
+      margin-bottom: 0;
+      border-radius: 4px;
+  }
+}
+
+ .text-success, .facet-values li .selected {
+ color: $rust;
+}
+
 }
 
 
