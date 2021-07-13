@@ -20,6 +20,7 @@ hyku.build:
   only:
     refs:
       - merge_requests
+      - main
   tags:
     - local
 
@@ -95,6 +96,7 @@ test:
   only:
     refs:
       - merge_requests
+      - main
   tags:
     - kubernetes
 
@@ -123,9 +125,8 @@ hyku.review:
       --set ingress.hosts[0].host=hyku-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
       --set ingress.hosts[0].paths={"/"}
   script:
-    - helm registry login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - helm chart pull ghcr.io/samvera/hyrax/hyrax-helm:0.17.0
-    - helm chart export ghcr.io/samvera/hyrax/hyrax-helm:0.17.0
+    - helm chart pull ghcr.io/samvera/hyrax/hyrax-helm:0.18.0
+    - helm chart export ghcr.io/samvera/hyrax/hyrax-helm:0.18.0
     - deploy hyrax
   tags:
     - kubernetes
@@ -221,7 +222,7 @@ hyku.staging.stop:
 
   function delete() {
     echo "Deleting release: $HELM_RELEASE_NAME..."
-    helm delete --namespace "$KUBE_NAMESPACE" "$HELM_RELEASE_NAME"
+    helm --kubeconfig $KUBECONFIG_BL --namespace "$KUBE_NAMESPACE" delete "$HELM_RELEASE_NAME"
   }
 
 .deploy:
