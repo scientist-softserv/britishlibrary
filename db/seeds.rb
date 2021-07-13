@@ -14,13 +14,13 @@ unless Settings.multitenancy.enabled
       CreateAccount.new(single_tenant_default).save
       single_tenant_default = single_tenant_default.reload
     end
-  # Rescue from any errors during creation
+    # Rescue from any errors during creation
   rescue
   end
   AccountElevator.switch!(single_tenant_default.cname)
 
   puts "\n== Creating default admin set"
-  admin_set = AdminSet.find(AdminSet::DEFAULT_ID)
+  admin_set = AdminSet.find(AdminSet.find_or_create_default_admin_set_id)
 
   puts "\n== Creating default collection types"
   Hyrax::CollectionType.find_or_create_default_collection_type
@@ -34,7 +34,7 @@ unless Settings.multitenancy.enabled
   puts "\n== Creating permission template"
   begin
     permission_template = admin_set.permission_template
-  # If the permission template is missing we will need to run the creete service
+    # If the permission template is missing we will need to run the creete service
   rescue
     Hyrax::AdminSetCreateService.new(admin_set: admin_set, creating_user: nil).create
   end
@@ -50,9 +50,9 @@ Account.find_each do |account|
   Site.instance.save
 end
 
-if Rails.env.development?
-  user = find_or_create_by(email: 'admin@example.com') do |u|
-    u.password = 'testing123'
+if ENV['INITIAL_ADMIN_EMAIL'] && ENV['INITIAL_ADMIN_PASSWORD']
+  u = User.find_or_create_by(email: ENV['INITIAL_ADMIN_EMAIL']) do |u|
+    u.password = ENV['INITIAL_ADMIN_PASSWORD']
   end
   u.add_role(:superadmin)
 end
