@@ -29,10 +29,16 @@ extraEnvVars:
     value: "%{tenant}.hyku-staging.20.90.72.114.xip.io"
   - name: SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION
     value: "false"
+  - name: CONFDIR
+    value: "/app/samvera/hyrax-webapp/solr/config"
   - name: RAILS_LOG_TO_STDOUT
     value: "true"
   - name: SOLR_CONFIGSET_NAME
     value: hyku
+  - name: INITIAL_ADMIN_EMAIL
+    value: support@notch8.com
+  - name: INITIAL_ADMIN_PASSWORD
+    value: testing123
 
 worker:
   extraEnvVars:

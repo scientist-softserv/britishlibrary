@@ -56,9 +56,9 @@ We distribute two configuration files:
 
 #### Start the server
 ```bash
-docker-compose up web workers
+docker-compose up web
 ```
-This command starts the web and workers containers allowing Rails to be started or stopped independent of the other services. Once that starts (you'll see the line `Listening on tcp://0.0.0.0:3000` to indicate a successful boot), you can view your app at one of the [dev URL's](#important-urls) above.
+This command starts the web and worker containers allowing Rails to be started or stopped independent of the other services. Once that starts (you'll see the line `Listening on tcp://0.0.0.0:3000` to indicate a successful boot), you can view your app at one of the [dev URL's](#important-urls) above.
 
 #### Seed the database
 ```bash
@@ -83,7 +83,7 @@ sc be rails db:seed
   ```
 
 #### Stop the app and services
-- Press `Ctrl + C` in the window where `docker-compose up web workers` is running
+- Press `Ctrl + C` in the window where `docker-compose up web` is running
 - When that's done `docker-compose stop` shuts down the running containers
 - `dory down` stops Dory
 
@@ -139,8 +139,9 @@ $ I18N_DEBUG=true bin/rails server
 ssh -t azureuser@51.140.4.10 "tmux new-session -A -s main"
 cd /data/bl-transfer
 git pull gitlab main
-dc build web workers
-dc up -d web workers
+dc build web
+dc build worker
+dc up -d web
 dc exec web bash -l -c "DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile && bundle exec pumactl restart -p 1"
 ```
 
