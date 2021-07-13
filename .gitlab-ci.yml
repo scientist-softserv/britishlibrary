@@ -58,7 +58,7 @@ test:
     DB_HOST: db
     DB_PORT: 5432
     FCREPO_HOST: fcrepo
-    FCREPO_PORT: 8080
+    FCREPO_PORT: 8081
     FEDORA_URL: http://fcrepo:8081/rest
     FF_NETWORK_PER_BUILD: 1
     GIT_STRATEGY: none
@@ -214,7 +214,7 @@ hyku.staging:
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
     DEPLOY_TAG: $CI_COMMIT_SHORT_SHA
-    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/worker
+    WORKER_IMAGE: $CI_REGISTRY_IMAGE/worker
     HELM_EXPERIMENTAL_OCI: 1
     HELM_RELEASE_NAME: hyku-staging
     KUBE_NAMESPACE: hyku-staging
