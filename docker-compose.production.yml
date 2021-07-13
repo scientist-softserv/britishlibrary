@@ -6,7 +6,7 @@ x-app: &app
     context: .
     target: hyku-base
     args:
-      - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre
+      - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync
   image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
   env_file:
     - .env.production
@@ -112,15 +112,15 @@ services:
       - zoo1
       - chrome
       - initialize_app
-      - db_migrate
+      - worker
     expose:
       - 3000
     ports:
       - 3000:3000
 
-  workers:
+  worker:
     <<: *app
-    image: registry.gitlab.com/notch8/britishlibrary/workers:${TAG:-latest}
+    image: registry.gitlab.com/notch8/britishlibrary/worker:${TAG:-latest}
     build:
       context: .
       target: hyku-worker
@@ -136,7 +136,6 @@ services:
       - redis
       - zoo1
       - initialize_app
-      - db_migrate
 
 
   # Do not recurse through all of tmp. derivitives will make booting
@@ -158,18 +157,14 @@ services:
     entrypoint: ["sh", "-c"]
     command:
       - >
-        solrcloud-upload-configset.sh /app/samvera/hyrax-webapp/solr/config;
-        solrcloud-assign-configset.sh;
-        SOLR_COLLECTION_NAME=hydra-test solrcloud-assign-configset.sh;
-    depends_on:
-      - solr
-
-  db_migrate:
-    <<: *app
-    entrypoint: ["sh", "-c"]
-    command: db-migrate-seed.sh
+        solrcloud-upload-configset.sh /app/samvera/hyrax-webapp/solr/config &&
+        solrcloud-assign-configset.sh &&
+        SOLR_COLLECTION_NAME=hydra-test solrcloud-assign-configset.sh &&
+        db-migrate-seed.sh
     depends_on:
       - db
+      - solr
+      - fcrepo
 
   redis:
     image: redis:5
