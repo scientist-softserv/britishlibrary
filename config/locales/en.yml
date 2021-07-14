@@ -112,8 +112,8 @@ en:
       appearances:
         show:
           hints:
-            banner_image: 'To use an image as a masthead background, you should use an image (JPG, GIF or PNG) that is at least 400 pixels tall and 1200 pixels wide. For best results, use an image at least 2000 pixels wide.'
-            logo_image: 'To use an image as the logo, you should use an image (JPG, GIF or PNG) that is no taller than the header and no wider than 400 pixels wide.'
+            banner_image: 'To use an image as a masthead background, you should use an image (JPG, GIF or PNG). For best results, use an image that is at least 400px tall and 1200 px wide, or an aspect ratio of 3:1. If the image is larger, the resolution will be better at large screen sizes.'
+            logo_image: 'To use an image as the logo, you should use a JPG or PNG that is a minimum of 100px tall (to retain image resolution) and has an aspect ratio between 3:2 and 2:1'
             directory_image: 'To use an image as the directory image, you should use an image (JPG, GIF or PNG) that is no taller than the header and no wider than 400 pixels wide.'
             default_image: 'For default images, you should use an image (JPG, GIF or PNG) that has equal height and width dimensions (100 pixels wide and 100 pixels tall)'
           tabs:

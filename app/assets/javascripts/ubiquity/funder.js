@@ -10,8 +10,8 @@ $(document).on("turbolinks:load", function(){
     cloneUbiDiv.find('ul li').not('li:first').remove();
 
     //increment hidden_field counter after cloning
-    var lastInputCount = $('.ubiquity-funder-score:last').val();
-    var hiddenInput = $(cloneUbiDiv).find('.ubiquity-funder-score');
+    var lastInputCount = $('.ubiquity_funder_position:last').val();
+    var hiddenInput = $(cloneUbiDiv).find('.ubiquity_funder_position');
     hiddenInput.val(parseInt(lastInputCount) + 1);
     $(ubiquityFunderClass +  ':last').after(cloneUbiDiv)
     activateAutocompleteForFunderName();

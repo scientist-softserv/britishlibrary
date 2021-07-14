@@ -1,46 +1,74 @@
+<%# OVERRIDE hyrax 2.9.5 to change bootstrap classes %>
+
 <% content_for(:extra_body_classes, 'works-show ') %>
 
 <% provide :page_title, @presenter.page_title %>
 
 <%= render 'shared/citations' %>
 <%= render './shared/additional_citations' %>
-<div class="row work-type">
-  <div class="col-xs-12">
-    <%= render 'work_type', presenter: @presenter %>
-  </div>
-  <div class="col-xs-12">&nbsp;</div>
+<div class="row work-type pt-40">
   <div itemscope itemtype="http://schema.org/CreativeWork" class="col-xs-12">
     <div class="panel panel-default">
-      <div class="panel-heading">
-        <%= render 'work_title', presenter: @presenter %>
+      <%= render 'work_type', presenter: @presenter %>
+      <%= render 'work_title', presenter: @presenter %>
+      <div class="section-contrast work-show-section-contrast mt-40">
+        <div class="pt-40 pb-40 work-show-abstract">
+          <h3>
+          <%= @presenter.attribute_to_html(:abstract, render_as: :string) %>
+          </h3>
+          <div class='row work-show-buttons'>
+            <div class='col-sm-6'>
+              <%= render 'citations', presenter: @presenter %>
+            </div>
+            <div class="col-sm-6">
+              <div class="social-media">
+                <div class='btn-group'>
+                  <button button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <%= "Share" %> <span class="caret"></span>
+                  </button>
+                  <%= render 'social_media' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="panel-body">
-        <div class="row">
+      <div class="row pt-40 pb-40 work-show-items">
+        <div class="col-sm-12">
+          <%= render 'items', presenter: @presenter %>
+          <%# TODO: we may consider adding these partials in the future %>
+          <%# = render 'sharing_with', presenter: @presenter %>
+          <%# = render 'user_activity', presenter: @presenter %>
+        </div>
+      </div>
+      <div class="section-contrast work-show-section-contrast mt-40">
+        <div class="row pb-40 pt-40">
           <%= render 'workflow_actions_widget', presenter: @presenter %>
+          <h2>Metadata</h2>
           <% if @presenter.universal_viewer? %>
-            <div class="col-sm-12">
+            <div class="col-sm-6 pt-40">
               <%= render 'representative_media', presenter: @presenter, viewer: true %>
             </div>
+            <div class="col-sm-6 pt-40">
+              <%= render 'work_description', presenter: @presenter %>
+              <%= render 'metadata', presenter: @presenter %>
+            </div>
+            <%else%>
+            <div class="col-sm-7 pt-40">
+              <%= render 'work_description', presenter: @presenter %>
+              <%= render 'metadata', presenter: @presenter %>
+            </div>
+            <div class="col-sm-5 text-center pt-40">
+              <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.universal_viewer? %>
+            </div>
           <% end %>
-          <div class="col-sm-3 text-center">
-            <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.universal_viewer? %>
-            <%= render 'citations', presenter: @presenter %>
-            <%= render 'social_media' %>
-          </div>
-          <div class="col-sm-9">
-            <%= render 'work_description', presenter: @presenter %>
-            <%= render 'metadata', presenter: @presenter %>
-          </div>
-          <div class="col-sm-12">
-            <%= render 'relationships', presenter: @presenter %>
-            <%= render 'items', presenter: @presenter %>
-            <%# TODO: we may consider adding these partials in the future %>
-            <%# = render 'sharing_with', presenter: @presenter %>
-            <%# = render 'user_activity', presenter: @presenter %>
-          </div>
+        </div>
+      </div>
+      <div class="row pt-40">
+        <div class="col-sm-12">
+          <%= render 'relationships', presenter: @presenter %>
         </div>
       </div>
     </div>
   </div>
 </div>
-

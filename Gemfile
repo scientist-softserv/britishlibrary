@@ -120,6 +120,10 @@ group :aws do
   gem 'aws-sdk-sqs'
 end
 
+# Sentry-raven for error handling
+# Sentry-raven for error handling
+gem "sentry-raven"
+
 gem 'sidekiq'
 
 gem 'secure_headers'

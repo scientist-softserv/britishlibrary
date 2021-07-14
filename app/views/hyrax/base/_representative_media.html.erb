@@ -1,3 +1,4 @@
+<%# OVERRIDE Hyrax 2.9 to add bootstrap classes %>
 <% if presenter.representative_id.present? && presenter.representative_presenter.present? %>
   <% if defined?(viewer) && viewer %>
     <%= iiif_viewer_display presenter %>
@@ -5,5 +6,5 @@
     <%= media_display presenter.representative_presenter %>
   <% end %>
 <% else %>
-  <%= image_tag 'no-files.png', class: "canonical-image", alt: 'default representative image' %>
+  <%= image_tag 'no-files.png', class: "canonical-image center-block", alt: 'default representative image' %>
 <% end %>

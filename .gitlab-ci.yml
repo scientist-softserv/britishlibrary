@@ -3,9 +3,10 @@ stages:
   - build
   - test
   - review
+  - staging
 
 before_script:
-  - export TAG=${CI_COMMIT_SHA}
+  - export TAG=${CI_COMMIT_SHORT_SHA}
   - export BRANCH=${CI_COMMIT_REF_NAME}
   - export REGISTRY_HOST=${CI_REGISTRY}
   - export REGISTRY_URI="/${CI_PROJECT_PATH}"
@@ -14,31 +15,73 @@ hyku.build:
   stage: build
   script:
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - docker build . -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker-compose build web
+    - docker-compose build worker
+    - docker-compose push web
+    - docker-compose push worker
+
   only:
     refs:
       - merge_requests
+      - main
   tags:
     - local
 
 lint:
   stage: test
-  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   allow_failure: true
   script:
+    - cd /app/samvera/hyrax-webapp
     - bundle check || bundle
     - bundle exec rubocop
   only:
     refs:
       - merge_requests
   tags:
-    - docker
+    - kubernetes
 
 test:
   stage: test
-  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   allow_failure: true
+  variables:
+    ALLOW_ANONYMOUS_LOGIN: "yes"
+    CONFDIR: "/app/samvera/hyrax-webapp/solr/config"
+    CHROME_HOSTNAME: chrome
+    DATABASE_ADAPTER: postgresql
+    DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: "true"
+    DATABASE_HOST: db
+    DATABASE_NAME: hyku
+    DATABASE_URL: postgres://postgres:postgres@db/hyku
+    DATABASE_USER: postgres
+    DB_HOST: db
+    DB_PORT: 5432
+    FCREPO_HOST: fcrepo
+    FCREPO_PORT: 8081
+    FEDORA_URL: http://fcrepo:8081/rest
+    FF_NETWORK_PER_BUILD: 1
+    GIT_STRATEGY: none
+    JAVA_OPTIONS: -Djetty.port=8081
+    IN_DOCKER: "true"
+    POSTGRESQL_DATABASE: hyku
+    POSTGRESQL_PASSWORD: postgres
+    REDIS_HOST: redis
+    SETTINGS__SOLR__URL: http://admin:admin@solr:8983/solr/
+    SOLR_ADMIN_PASSWORD: admin
+    SOLR_ADMIN_USER: admin
+    SOLR_ADMIN_USERNAME: admin
+    SOLR_CLOUD_BOOTSTRAP: "yes"
+    SOLR_COLLECTION_NAME: hyku-test
+    SOLR_CONFIGSET_NAME: hyku
+    SOLR_ENABLE_AUTHENTICATION: "yes"
+    SOLR_ENABLE_CLOUD_MODE: "yes"
+    SOLR_HOST: solr
+    SOLR_PORT: 8983
+    SOLR_URL: http://admin:admin@solr:8983/solr/
+    SOLR_ZK_HOSTS: zk:2181
+    ZOO_HEAP_SIZE: 128
+    ZOO_PORT_NUMBER: 2181
   services:
     - name: bitnami/postgresql:12.6.0
       alias: db
@@ -46,17 +89,40 @@ test:
       alias: fcrepo
     - name: redis:5-alpine
       alias: redis
-    - name: solr:8.7
+    - name: bitnami/zookeeper:3
+      alias: zk
+    - name: bitnami/solr:8
       alias: solr
     - name: selenium/standalone-chrome:3.141
       alias: chrome
+  before_script:
+    - >-
+      solrcloud-upload-configset.sh /app/samvera/hyrax-webapp/solr/config &&
+      SOLR_COLLECTION_NAME=hydra-test solrcloud-assign-configset.sh &&
+      solrcloud-assign-configset.sh
   script:
-    - bundle exec rspec
+    - rm -f /home/app/webapp/tmp/capybara/*
+    - rm -rf $CI_PROJECT_DIR/capybara
+    - cd /app/samvera/hyrax-webapp
+    # debugging tip: un-comment the sleep below in order to use k8's or docker to log into the actual running container
+    # - sleep 30m
+    - rspec --format progress --tag ~speed:slow --format RspecJunitFormatter --out rspec.xml
+  after_script:
+    - test -e /home/app/webapp/tmp/capybara && cp -r /home/app/webapp/tmp/capybara $CI_PROJECT_DIR/capybara
+    - test -e /home/app/webapp/rspec.xml && cp /home/app/webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
   only:
     refs:
       - merge_requests
+      - main
+  artifacts:
+    when: always
+    paths:
+      - capybara/*.html
+      - rspec.xml
+    reports:
+      junit: rspec.xml
   tags:
-    - docker
+    - kubernetes
 
 hyku.review:
   stage: review
@@ -73,19 +139,41 @@ hyku.review:
       - merge_requests
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
-    DEPLOY_TAG: $CI_COMMIT_SHA
+    DEPLOY_TAG: $CI_COMMIT_SHORT_SHA
+    WORKER_IMAGE: $CI_REGISTRY_IMAGE/worker
     HELM_EXPERIMENTAL_OCI: 1
     HELM_RELEASE_NAME: hyku-$CI_MERGE_REQUEST_ID
     KUBE_NAMESPACE: hyku-review
     HELM_EXTRA_ARGS: >
-      --values review-deploys.yaml
+      --values ops/review-deploys.yaml
       --set ingress.enabled=true
       --set ingress.hosts[0].host=hyku-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
-      --set ingress.hosts[0].paths={"/"}
+      --set ingress.hosts[0].paths[0].path="/"
+      --set ingress.hosts[1].host=*.hyku-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+      --set ingress.hosts[1].paths[0].path="/"
+      --set extraEnvVars[0].name=SETTINGS__MULTITENANCY__ADMIN_HOST
+      --set extraEnvVars[0].value=hyku-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+      --set extraEnvVars[1].name=SETTINGS__MULTITENANCY__ROOT_HOST
+      --set extraEnvVars[1].value=hyku-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+      --set extraEnvVars[2].name=SETTINGS__MULTITENANCY__DEFAULT_HOST
+      --set extraEnvVars[2].value=%{tenant}.hyku-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
+      --set extraEnvVars[3].name=SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION
+      --set extraEnvVars[3].value="false"
+      --set extraEnvVars[4].name=CONFDIR
+      --set extraEnvVars[4].value="/app/samvera/hyrax-webapp/solr/config"
+      --set extraEnvVars[5].name=RAILS_LOG_TO_STDOUT
+      --set extraEnvVars[5].value="true"
+      --set extraEnvVars[6].name=INITIAL_ADMIN_EMAIL
+      --set extraEnvVars[6].value=support@notch8.com
+      --set extraEnvVars[7].name=INITIAL_ADMIN_PASSWORD
+      --set extraEnvVars[7].value=testing123
+      --set extraEnvVars[8].name=SETTINGS__SOLR__COLLECTION_OPTIONS__COLLECTION__CONFIG_NAME
+      --set extraEnvVars[8].value=$CI_COMMIT_SHORT_SHA
+      --set extraEnvVars[9].name=SOLR_CONFIGSET_NAME
+      --set extraEnvVars[9].value=$CI_COMMIT_SHORT_SHA
   script:
-    - helm registry login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - helm chart pull registry.gitlab.com/notch8/britishlibrary/hyrax:0.9.0
-    - helm chart export registry.gitlab.com/notch8/britishlibrary/hyrax:0.9.0
+    - helm chart pull ghcr.io/samvera/hyrax/hyrax-helm:0.18.0
+    - helm chart export ghcr.io/samvera/hyrax/hyrax-helm:0.18.0
     - deploy hyrax
   tags:
     - kubernetes
@@ -112,6 +200,52 @@ hyku.review.stop:
   tags:
     - kubernetes
 
+hyku.staging:
+  stage: staging
+  extends:
+    - .deploy
+  environment:
+    name: hyku.staging
+    url: http://hyku-staging.20.90.72.114.xip.io
+    on_stop: hyku.staging.stop
+  only:
+    refs:
+      - main
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
+    DEPLOY_TAG: $CI_COMMIT_SHORT_SHA
+    WORKER_IMAGE: $CI_REGISTRY_IMAGE/worker
+    HELM_EXPERIMENTAL_OCI: 1
+    HELM_RELEASE_NAME: hyku-staging
+    KUBE_NAMESPACE: hyku-staging
+    HELM_EXTRA_ARGS: >
+      --values ops/staging-deploy.yaml
+  script:
+    - helm chart pull ghcr.io/samvera/hyrax/hyrax-helm:0.18.0
+    - helm chart export ghcr.io/samvera/hyrax/hyrax-helm:0.18.0
+    - deploy hyrax
+  tags:
+    - kubernetes
+
+hyku.staging.stop:
+  stage: staging
+  extends:
+    - .deploy
+  environment:
+    name: hyku.staging
+    url: http://hyku-staging.20.90.72.114.xip.io
+    action: stop
+  when: manual
+  allow_failure: true
+  variables:
+    HELM_RELEASE_NAME: hyku-staging
+    KUBE_NAMESPACE: hyku-staging
+    GIT_STRATEGY: none
+  script:
+    - delete
+  tags:
+    - kubernetes
+
 .deploy_helpers: &deploy_helpers |
   function deploy() {
     helm repo update
@@ -125,6 +259,8 @@ hyku.review.stop:
         --timeout 15m0s \
         --set image.repository="$DEPLOY_IMAGE" \
         --set image.tag="$DEPLOY_TAG" \
+        --set worker.image.repository="$WORKER_IMAGE" \
+        --set worker.image.tag="$DEPLOY_TAG" \
         $HELM_EXTRA_ARGS \
         --namespace="$KUBE_NAMESPACE" \
         --create-namespace \
@@ -134,7 +270,7 @@ hyku.review.stop:
 
   function delete() {
     echo "Deleting release: $HELM_RELEASE_NAME..."
-    helm delete --namespace "$KUBE_NAMESPACE" "$HELM_RELEASE_NAME"
+    helm --kubeconfig $KUBECONFIG_BL --namespace "$KUBE_NAMESPACE" delete "$HELM_RELEASE_NAME"
   }
 
 .deploy:

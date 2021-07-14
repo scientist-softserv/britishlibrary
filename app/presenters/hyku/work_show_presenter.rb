@@ -4,6 +4,7 @@ module Hyku
   class WorkShowPresenter < Hyrax::WorkShowPresenter
     Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::FileSetPresenter
 
+    include MultipleMetadataFieldsHelper
     delegate :extent, :rendering_ids, :isni, :institution, :org_unit, :refereed, :doi, :isbn, :issn, :eissn,
              :funder, :fndr_project_ref, :add_info,
              :journal_title, :alternative_journal_title, :issue, :volume, :pagination, :article_num, :project_name, :rights_holder,
@@ -44,6 +45,21 @@ module Hyku
       date = solr_document['date_submitted_dtsim']
       return formatted_date(date) if date.present?
       solr_document['date_submitted_tesim']
+    end
+
+    def check_file_licence_count
+      work_id = solr_document['id']
+      work = ActiveFedora::Base.find(work_id)
+      work.file_sets.map {|file_set| file_set.license.count}.sum
+    end
+
+    def creator
+      array_of_hash = get_model(self.creator_hash, self.model, 'creator', 'creator_position')
+      array_of_hash.map { |c| [c['creator_family_name'], c['creator_given_name']].join(', ') }
+    end
+
+    def creator_hash
+      solr_document.creator
     end
 
     private
