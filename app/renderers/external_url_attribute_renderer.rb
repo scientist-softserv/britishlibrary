@@ -10,7 +10,7 @@ class ExternalUrlAttributeRenderer < Hyrax::Renderers::AttributeRenderer
   private
 
     def arr_of_li_values(value)
-      markup = %(<tr><th>#{label}</th>\n<td><ul class='tabular'>)
+      markup = %(<div class='metadata-group'><dt>#{label}</dt>\n<dd><ul class='tabular'>)
       attributes = microdata_object_attributes(field).merge(class: "attribute attribute-#{field}")
       markup << "<li#{html_attributes(attributes)}>"
       sorted_arr = value.sort_by(&:downcase)
@@ -23,7 +23,7 @@ class ExternalUrlAttributeRenderer < Hyrax::Renderers::AttributeRenderer
         end
       end
       markup << links.join('<br/>')
-      markup << %(</li></ul></td></tr>)
+      markup << %(</li></ul></dd></div>)
       markup.html_safe
     end
 

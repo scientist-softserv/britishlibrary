@@ -74,14 +74,16 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
+    config.add_index_field solr_name("human_readable_type", :stored_searchable), label: "Resource Type", link_to_search: solr_name("resource_type", :facetable)
     config.add_index_field solr_name("title", :stored_searchable), label: "Title", itemprop: 'name', if: false
     config.add_index_field solr_name("description", :stored_searchable), itemprop: 'description', helper_method: :iconify_auto_link
-    config.add_index_field solr_name("keyword", :stored_searchable), itemprop: 'keywords', link_to_search: solr_name("keyword", :facetable)
     config.add_index_field solr_name("subject", :stored_searchable), itemprop: 'about', link_to_search: solr_name("subject", :facetable)
     config.add_index_field solr_name("creator", :stored_searchable), itemprop: 'creator', link_to_search: solr_name("creator", :facetable)
     config.add_index_field solr_name("contributor", :stored_searchable), itemprop: 'contributor', link_to_search: solr_name("contributor", :facetable)
+    config.add_index_field solr_name("keyword", :stored_searchable), itemprop: 'keywords', link_to_search: solr_name("keyword", :facetable)
     config.add_index_field solr_name("proxy_depositor", :symbol), label: "Depositor", helper_method: :link_to_profile
-    config.add_index_field solr_name("depositor"), label: "Owner", helper_method: :link_to_profile
+    # OVERRIDE here for BL to remove the owner attribute from the search results metadata display
+    # config.add_index_field solr_name("depositor"), label: "Owner", helper_method: :link_to_profile
     config.add_index_field solr_name("publisher", :stored_searchable), itemprop: 'publisher', link_to_search: solr_name("publisher", :facetable)
     config.add_index_field solr_name("date_published", :stored_searchable), label: "Date Published"
     config.add_index_field solr_name("based_near_label", :stored_searchable), itemprop: 'contentLocation', link_to_search: solr_name("based_near_label", :facetable)
@@ -91,7 +93,6 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name("date_created", :stored_searchable), itemprop: 'dateCreated'
     config.add_index_field solr_name("rights_statement", :stored_searchable), label: 'Rights Statement', helper_method: :rights_statement_links
     config.add_index_field solr_name("license", :stored_searchable), label: 'License', helper_method: :license_links
-    config.add_index_field solr_name("resource_type", :stored_searchable), label: "Resource Type", link_to_search: solr_name("resource_type", :facetable)
     config.add_index_field solr_name("file_format", :stored_searchable), link_to_search: solr_name("file_format", :facetable)
     config.add_index_field solr_name("identifier", :stored_searchable), helper_method: :index_field_link, field_name: 'identifier'
     config.add_index_field solr_name("embargo_release_date", :stored_sortable, type: :date), label: "Embargo release date", helper_method: :human_readable_date

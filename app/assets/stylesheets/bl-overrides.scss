@@ -1,20 +1,23 @@
 @import 'variables.scss';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 //TEXT STYLES
 
 body.public-facing {
-  font-family: "Noto Sans JP" !important;
+  font-family: "Noto Sans" !important;
   color: $darkgrey !important;
+  overflow-x: hidden;
+  // margin-bottom: 60px;
 
   h1, h2, h3, h4, h5 {
-    font-family: "Noto Sans JP" !important;
+    font-family: "Noto Sans" !important;
     color: $darkgrey !important;
   }
 
   h1{
     font-size: 34px;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   h2{
@@ -27,6 +30,7 @@ body.public-facing {
   }
 
   h4{
+    font-family: "Noto Sans JP" !important;
     font-size: 22px;
     font-weight: 300;
   }
@@ -67,6 +71,15 @@ body.public-facing {
   .pb-40 {
     padding-bottom: 40px;
   }
+  .pb-60 {
+    padding-bottom: 60px;
+  }
+  .pt-80 {
+    padding-top: 80px;
+  }
+  .pb-80 {
+    padding-bottom: 80px;
+  }
   .px-home-content {
     padding-right: 80px;
     padding-left: 80px;
@@ -96,6 +109,11 @@ body.public-facing {
 
   .mx-auto{
     margin: 0 auto
+  }
+
+  .mx-0{
+    margin-right: 0;
+    margin-left: 0;
   }
 
   .flex-center{
@@ -135,7 +153,9 @@ body.public-facing {
   }
 
   .navbar.navbar-inverse.navbar-static-top, nav.navbar.navbar-default.navbar-static-top div.container-fluid div.row ul.nav.navbar-nav li a {
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase !important;
   }
 
 
@@ -153,13 +173,15 @@ body.public-facing {
 
   .shared-research-repo-button{
     color: $white !important;
-    font-size: 18px;
+    font-size: 12px;
     background-color: transparent;
     border: 2px solid #ffffff87;
     border: 2px solid rgba(255, 255, 255, .5);
     border-radius: 5px;
     padding: 10px;
     margin: 0px 10px;
+    text-transform: none;
+    font-weight: 500;
   }
   .shared-research-repo-button:hover{
     color: #ffffffe0 !important;
@@ -299,7 +321,7 @@ body.public-facing {
 
 // MOBILE NAVIGATION STYLES
 
-  @media (max-width: 992px){
+  @media (max-width: 991px){
     button.navbar-toggle{
       margin-right: 25px;
     }
@@ -417,7 +439,7 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
 }
 
 .col-xs-12.col-md-6.section-contrast {
-  border-left: 2px solid #E3E3E3;
+  border-left: 2px solid $lightgrey;
 }
 
 .row.image-masthead{
@@ -440,8 +462,19 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
   }
 }
 
+@media (max-width: 570px){
+  input#search-field-header::placeholder{
+    font-size: 11px;
+  }
+}
+
 .catalog-page-search {
   width: 50%;
+}
+
+div.catalog-page-search form#search-form-header{
+  padding-top: 40px;
+  margin-top: 0;
 }
 
 .pages-nav{
@@ -520,9 +553,9 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
   }
   .btn-default:hover {
     color: $darkgrey !important;
-    background-color: $neutral !important;
-    border: 2px solid $mediumgrey !important;
-    border-color: $mediumgrey !important;
+    background-color: $lightgrey !important;
+    border: none !important;
+    border-color: none !important;
   }
   .btn-default:active,
   .btn-default.active {
@@ -558,21 +591,47 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
   /* FACET PANEL STYLES */
   .panel-default > .panel-heading {
     color: $darkgrey;
-    background-color: $white;
-    border-color: $neutral;
+    background-color: transparent;
+    border-color: transparent;
   }
   .panel-default {
-    border-color: $neutral;
+    border-color: transparent;
   }
   .panel-heading.collapse-toggle .panel-title:after{
     color: $mediumgrey;
   }
 
+  .panel {
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .panel.facet_limit {
+    border: 2px solid $lightgrey;
+    margin: 20px 0px;
+  }
+
 
   // HOMEPAGE CONTENT SECTIONS
 
+  .creator-label{
+    color: $rust !important;
+    text-transform: capitalize;
+  }
+
+  .featured-label, .recent-label{
+    font-weight: 600
+  }
+
+    //adds padding to images in featured and recent works rows
+  .works-row a img {
+    padding: 10px;
+}
+
   // MARKETING TEXT SECTION
   .marketing-text p{
+    font-family: "Noto Sans JP" !important;
     font-size: 28px !important;
     font-weight: 300 !important;
     padding-top: 25px;
@@ -619,9 +678,7 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
   }
 
   //RECENT WORKS
-  .container-fluid.pt-40.pb-40.px-home-content .remove-empty-space{
-    margin-bottom: -150px;
-  }
+
 
   //ANNOUNCEMENT BLOCK
   div#announcement {
@@ -779,15 +836,6 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
     // -webkit-filter: grayscale(1);
   }
 
-  // WORK SHOW PAGE
-  ul.tabular{
-    font-weight: 300;
-  }
-  dl.work-show{
-    font-weight: 400;
-  }
-
-
   // ALERTS & GENERAL
 
   .alert-success, .alert-warning {
@@ -799,6 +847,451 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
 
   span.glyphicon.glyphicon-remove {
     color: $mediumgrey;
+  }
+
+  //CROSS BROWSER
+
+  //makes homepage columns even on safari
+  .row.center-block.flex-center.works-row:before {
+    display: none;
+  }
+  .row.pt-40.flex.wrap.collections-row.pb-40:before {
+    display: none;
+  }
+
+// COLLECTIONS SHOW PAGE
+
+.hyc-generic .hyc-bugs div {
+  margin: 10px 0;
+}
+
+input#collection_search {
+  height: 36px;
+}
+
+.hyc-description {
+  padding: 0 15px;
+}
+
+.hyc-bl-results .table > thead > tr > th, .hyc-bl-results .table > thead > tr > td{
+  font-size: 13px;
+  text-transform: uppercase;
+  color: $mediumgrey !important;
+  letter-spacing: 1pt;
+  padding-top:20px;
+}
+
+.hyc-bl-results .table > tbody > tr > th, .hyc-bl-results .table > tbody > tr > td, .hyc-bl-results .table > tfoot > tr > th, .table > tfoot > tr > td {
+  padding: 30px 10px;
+}
+
+.hyc-blacklight {
+  padding: 0;
+}
+
+.gallery {
+  margin-top: 80px;
+}
+
+div#documents {
+  margin-top: 80px;
+}
+
+.masonry.document .caption a {
+  color: $darkgrey !important;
+  font-weight: 500;
+  text-shadow: none;
+}
+
+.masonry.document .caption a:hover {
+  color: $darkgrey !important;
+}
+
+.masonry.document .caption {
+  background-color: rgba(230, 230, 230, 0.8);
+}
+
+//WORK SHOW PAGE
+
+ul.tabular{
+  font-weight: 300;
+}
+
+.metadata-group ul.tabular{
+  margin-bottom: 0;
+
+  li.attribute span a, li.attribute a{
+    color: $rust !important;
+  }
+  li.attribute span a:hover, li.attribute a:hover{
+    color: $mediumgrey !important;
+  }
+}
+
+dl.work-show{
+  font-weight: 600;
+}
+
+.breadcrumb {
+  border: 0 solid transparent;
+  border-radius: 7px;
+  margin-top: 0;
+  padding: 1em;
+  background-color: $neutral;
+}
+
+.breadcrumb li + ::before {
+  height: 5px;
+  width: 5px;
+  background-color: $rust;
+  border-radius: 50%;
+  display: inline-block;
+  border-right: 0;
+}
+
+// these following 2 selectors extend the background color outside of the container
+.work-show-section-contrast {
+  position: relative;
+}
+
+.work-show-section-contrast:before {
+    content:"";
+    background-color:$neutral;
+    position: absolute;
+    height: 100%;
+    width: 200vw;
+    left: -100vw;
+    z-index: -1;
+    overflow-x: hidden;
+}
+
+
+//this styles the text of the abstract
+.pt-40.pb-40.work-show-abstract h3 ul.tabular{
+  padding: 0;
+  li.attribute.attribute-abstract{
+    font-weight: 300;
+    font-size: 14px;
+    padding-top: 40px;
+    line-height: 1.4;
+  }
+}
+
+//this selector changes the creator text under the header
+div.creator-work-show-header {
+  dt {
+    display: none
+  }
+  dd ul.tabular{
+    padding-left: 0;
+    display: flex;
+
+    li.attribute.creator{
+      padding-right: 20px;
+      color: $rust;
+      font-size: 16px;
+
+    }
+  }
+}
+
+.year-published h5{
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: $mediumgrey2 !important;
+}
+
+li.attribute.creator, li.attribute.contributor {
+  span a img.img-responsive{
+    filter: grayscale(1);
+  }
+}
+
+.work-show-buttons{
+  justify-content: space-evenly
+}
+
+.social-media {
+  filter: grayscale(1);
+}
+
+//this selector edits the citations and social media buttons in the abstract section
+.citations, .social-media {
+  padding: 15px 0;
+  .btn-group button.btn.btn-default.dropdown-toggle{
+    background-color: transparent;
+    border: none;
+    border-color: transparent;
+    border-radius: 0;
+    color: $darkgrey;
+    font-size: 18px;
+    border-bottom: 2px solid lightgrey;
+    padding: 6px 30px;
+  } 
+  .btn-group button.btn.btn-default.dropdown-toggle:hover{
+    color: $darkgrey !important;
+    background-color: $neutral !important;
+    border: none !important;
+    border-color: transparent !important;
+    border-bottom: 2px solid grey !important;
+  }
+  .btn-group button.btn.btn-default.dropdown-toggle:focus{
+    outline: none;
+  }
+  .btn-group button.btn.btn-default.dropdown-toggle:active, .btn-group button.btn.btn-default.dropdown-toggle:target, .btn-group.open .dropdown-toggle{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+}
+
+  .dropdown-menu > li.social-links > a{
+    padding: 0
+  }
+
+  .btn-group.open ul.dropdown-menu.social-link-menu{
+    display:flex;
+  }
+
+  .table.related-files > thead > tr > th, .table.related-files > thead > tr > td, .table > tbody > tr > th, .table.related-files > tbody > tr > td, .table.related-files > tfoot > tr > th, .table.related-files > tfoot > tr > td {
+    vertical-align: middle;
+    border-top: none;
+    text-align: center;
+  }
+  
+  .table.related-files > thead > tr > th{
+    font-family: "Noto Sans JP" !important;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: $mediumgrey !important;
+    letter-spacing: 1pt;
+  }
+
+  td.thumbnail {
+    margin: 10px;
+    border-top: 1px solid $lightgrey2 !important;
+  }
+
+  table.table-striped.related-files{
+    margin-top: 40px;
+  }
+
+  .work-show.metadata-block{
+    .metadata-group{
+      display: flex;
+      padding: 10px
+    }
+    .metadata-group:nth-child(even){ 
+      background-color: $neutral;
+      border-radius: 5px;
+    }
+    .metadata-group:nth-child(odd){ 
+      background-color: $white;
+      border-radius: 5px;
+    }
+  }
+
+  .metadata-group dt { 
+    width: 30%; 
+  }
+  .metadata-group dd { 
+    width: 70%; 
+  }
+
+  .work-show-abstract {
+      .metadata-group dd {
+        width: 100%;
+    }
+    .metadata-group dt {
+      font-size: 28px;
+      font-weight: 500;
+  }
+  }
+
+  .work-show-items .col-sm-12 {
+    overflow: scroll;
+}
+
+// SEARCH RESULTS
+
+#sortAndPerPage{
+  border-bottom: none;
+  padding-bottom: 20px;
+}
+
+div#search-header:before, div.catalog-only.catalog-page-search:before{
+  content:"";
+  background-color:$neutral;
+  position: absolute;
+  height: 100%;
+  width: 200vw;
+  left: -100vw;
+  z-index: -1;
+  overflow-x: hidden;
+}
+
+div#search-header:before {
+  border-bottom: 2px solid $lightgrey;
+}
+
+div#search-header {
+  margin-bottom: 40px;
+}
+
+@media (max-width: 991px){
+  div#appliedParams {
+    border-bottom: 2px solid $lightgrey;
+  }
+}
+
+div#search-results ul.list-unstyled.catalog li:nth-child(even){
+  background-color: $neutral;
+  border-radius: 5px;
+
+}
+div#search-results ul.list-unstyled.catalog li:nth-child(odd){ 
+  background-color: $white;
+  border-radius: 5px;
+}
+
+.page_links {
+  padding: 0;
+}
+
+.search-widgets {
+    float: right;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    justify-content: center;
+    border: 2px solid $lightgrey;
+    border-radius: 4px;
+    padding: 20px;
+    width: 60%;
+    div#sort-dropdown.btn-group, div#per_page-dropdown.btn-group, div.view-type div.view-type-group.btn-group{
+      button.btn.btn-default, button.btn.btn-default:hover, button.btn.btn-default:focus, button.btn.btn-default:active, a.btn.btn-default, a.btn.btn-default:hover, a.btn.btn-default:focus, a.btn.btn-default:active{
+        border: none !important;
+        background-color: transparent !important;
+        outline: none !important;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      button.btn.btn-default:hover, button.btn.btn-default:focus{
+        text-decoration: underline;
+      }
+
+      a.btn.btn-default:focus, a.btn.btn-default:hover{
+        color: $mediumgrey !important;
+      }
+    }
+}
+@media (max-width: 767px){
+  .search-widgets, .search-text{
+    float: none;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .search-widgets{
+    margin-top: 40px;
+  }
+}
+
+.constraints-container{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+a.btn.btn-default.btn-sm.remove.dropdown-toggle, span.constraint-value.btn.btn-sm.btn-default.btn-disabled {
+  border: 2px solid $lightgrey;
+}
+
+span.constraint-value.btn.btn-sm.btn-default.btn-disabled {
+  border-right: 0
+}
+
+a#startOverLink {
+  border: 2px solid $lightgrey;
+  border-radius: 4px;
+  background-color: $white;
+}
+
+
+.search-result-wrapper {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding: 40px;
+}
+
+.search-results-page-metadata table tbody tr td, .search-results-page-metadata table tbody tr th.search-meta-label{
+  border-top: none;
+  text-align: left;
+}
+
+h3.panel-title.facet-field-heading a, h2.facets-heading {
+  font-size: 16px;
+}
+
+.creator-search-results{
+  color: $rust;
+  font-size: 16px;
+}
+.keywords-search-results{
+  margin: 10px 0;
+}
+
+.abstract-search-results {
+  margin: 20px 0;
+}
+
+.year-published.text-center h5 {
+  margin: 0;
+  font-size: 20px;
+}
+
+@media (max-width: 767px){
+  .year-published.text-center h5 {
+    text-align: left
+  }
+}
+
+h4.search-result-title{
+  font-size: 18px;
+}
+
+div.top-panel-heading.panel-heading h2.facets-heading {
+  display: none
+  }
+
+@media (max-width: 991px){
+  div.top-panel-heading.panel-heading {
+    h2.facets-heading {
+      display: block;
+      font-size: 18px;
+      margin: 0;
+    }
+    button.facets-toggle, button.facets-toggle:focus-visible{
+      margin: 0;
+      padding: 0;
+      border: none;
+      margin-top: 3px;
+      transition: .2s;
+      outline: none;
+    }
+    button.facets-toggle:hover{
+      transform: scale3d(1.1, 1.1, 1.1);
+    }
+  }
+
+  #facets .top-panel-heading {
+      border: 2px solid $lightgrey;
+      margin-bottom: 0;
+      border-radius: 4px;
+  }
+}
+
+ .text-success, .facet-values li .selected {
+ color: $rust;
 }
 
 }
@@ -813,5 +1306,11 @@ body.splash.splash-index.public-facing {
     background-image: linear-gradient(
       180deg
       , $neutral 30%, $white 70%);
+  }
+}
+
+@media (max-width: 992px){
+body.public-facing {
+    margin-bottom: 160px;
   }
 }

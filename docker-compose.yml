@@ -5,7 +5,7 @@ x-app: &app
     context: .
     target: hyku-base
     args:
-      - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre
+      - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync
   image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
   env_file:
     - .env
@@ -17,7 +17,6 @@ x-app: &app
     - .:/app/samvera/hyrax-webapp
   networks:
     internal:
-
 
 volumes:
   fcrepo:
@@ -74,19 +73,18 @@ services:
     expose:
       - 8983
     volumes:
-      - .:/app
       - solr:/bitnami
     networks:
       internal:
 
   fcrepo:
-    image: cbeer/fcrepo4:4.7
+    image: ghcr.io/samvera/fcrepo4:4.7.5
+    volumes:
+      - fcrepo:/data:cached
     env_file:
       - .env
     expose:
       - 8080
-    volumes:
-      - fcrepo:/data
     environment:
       - JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
     networks:
@@ -119,20 +117,21 @@ services:
       - zoo1
       - chrome
       - initialize_app
-      - db_migrate
+      - worker
     expose:
       - 3000
 
-  workers:
+  worker:
     <<: *app
-    image: registry.gitlab.com/notch8/britishlibrary/workers:${TAG:-latest}
     build:
       context: .
       target: hyku-worker
       args:
-        - EXTRA_WORKER_APK_PACKAGES=ffmpeg
-        - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre
-    command: bundle exec sidekiq
+        - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync
+      cache_from:
+        - registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
+        - registry.gitlab.com/notch8/britishlibrary/worker:${TAG:-latest}
+    image: registry.gitlab.com/notch8/britishlibrary/worker:${TAG:-latest}
     depends_on:
       - check_volumes
       - db
@@ -141,8 +140,6 @@ services:
       - redis
       - zoo1
       - initialize_app
-      - db_migrate
-
 
   # Do not recurse through all of tmp. derivitives will make booting
   # very slow and eventually just time out as data grows
@@ -163,18 +160,14 @@ services:
     entrypoint: ["sh", "-c"]
     command:
       - >
-        solrcloud-upload-configset.sh /app/samvera/hyrax-webapp/solr/config;
-        solrcloud-assign-configset.sh;
-        SOLR_COLLECTION_NAME=hydra-test solrcloud-assign-configset.sh;
-    depends_on:
-      - solr
-
-  db_migrate:
-    <<: *app
-    entrypoint: ["sh", "-c"]
-    command: db-migrate-seed.sh
+        solrcloud-upload-configset.sh /app/samvera/hyrax-webapp/solr/config &&
+        solrcloud-assign-configset.sh &&
+        SOLR_COLLECTION_NAME=hydra-test solrcloud-assign-configset.sh &&
+        db-migrate-seed.sh
     depends_on:
       - db
+      - solr
+      - fcrepo
 
   redis:
     image: redis:5

@@ -19,7 +19,7 @@
       <%= content_for(:navbar) %>
     <% end %>
 
-    <% if controller_name == 'catalog' || controller_name == 'articles' || controller_name == 'book_contributions' || controller_name == 'books' || controller_name == 'conference_items' || controller_name == 'datasets' || controller_name == 'exhibition_items' || controller_name == 'generic_works' || controller_name == 'images' || controller_name == 'reports' || controller_name == 'thesis_or_dissertations' || controller_name == 'time_based_medias'%>
+    <% if controller_name == 'catalog' || controller_name == 'articles' || controller_name == 'book_contributions' || controller_name == 'books' || controller_name == 'conference_items' || controller_name == 'datasets' || controller_name == 'exhibition_items' || controller_name == 'generic_works' || controller_name == 'images' || controller_name == 'reports' || controller_name == 'thesis_or_dissertations' || controller_name == 'time_based_medias' || controller_name == 'collections'%>
       <%= render "hyrax/homepage/banner_section"%>
     <% end %>
 

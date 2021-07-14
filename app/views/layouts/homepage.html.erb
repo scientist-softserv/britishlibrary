@@ -1,15 +1,18 @@
 <%# OVERRIDE for homepage layout hyrax 2.9.1 - adds updated banner section, marketing text container, and home content containers%>
 <% content_for(:navbar) do %>
 <%# BEGIN homepage, about, contact, and help page banner section  %>
-<%= render "hyrax/homepage/banner_section" if controller_name == 'homepage' || controller_name == 'pages'|| controller_name == 'contact_form' %>
-<%# END homepage, about, contact, and help page banner section  %>
+  <%= render "hyrax/homepage/banner_section" if controller_name == 'homepage' || controller_name == 'pages'|| controller_name == 'contact_form' %>
+  <%# END homepage, about, contact, and help page banner section  %>
 
 
-<%# BEGIN HOMEPAGE CONTENT SECTIONS  %>
-<%= render "hyrax/homepage/marketing_text_section" if controller_name == 'homepage' %>
-<%= render "hyrax/homepage/featured_works_section" if controller_name == 'homepage' %>
-<%= render "hyrax/homepage/featured_collection_section" if controller_name == 'homepage' %>
-<%= render "hyrax/homepage/recently_uploaded" if controller_name == 'homepage' %>
+  <%# BEGIN HOMEPAGE CONTENT SECTIONS  %>
+  <%= render "hyrax/homepage/marketing_text_section" if controller_name == 'homepage' %>
+  <%= render "hyrax/homepage/featured_works_section" if controller_name == 'homepage' %>
+  <%= render "hyrax/homepage/featured_collection_section" if controller_name == 'homepage' %>
+  <%= render "hyrax/homepage/recently_uploaded" if controller_name == 'homepage' %>
+  <% if @presenter&.display_featured_researcher? %>
+    <%= render "hyrax/homepage/featured_researcher" if controller_name == 'homepage' %>
+  <% end %>
 
 <% end %>
 <%# END HOMEPAGE CONTENT SECTIONS  %>

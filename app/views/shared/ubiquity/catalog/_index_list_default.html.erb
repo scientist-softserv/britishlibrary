@@ -1,44 +1,46 @@
 <%# This is a Blacklight file copied to Hyrax by Hyrax maintainers and then copied here from Hyrax
     hyrax/app/views/catalog/_index_list_default.html.erb to add ability to display json metadata fields  %>
-<div class="metadata">
+
+<%# OVERRIDE hyrax 2.9 here to edit bootstrap classes and change the layout of the metadata. %>
+<div class="search-results-page-metadata col-md-10">
+  <% if document.to_h["has_model_ssim"].first != 'Collection' %>
+  <div class="search-results-row">
+    <h6 class="search-result-worktype">
+      <%= document.human_readable_type %></h6>
+    <h4 class="search-result-title">
+      <%= link_to document.title_or_label, document %></h4>
+  <% if document.abstract.present? %>
+    <div class="abstract-search-results">
+      <small><span><b>Abstract: </b></span><%= document.abstract[0] %></small>
+    </div>
+  <% end %>
+  </div>
+  <% end %>
   <table class="table">
     <% doc_presenter = index_presenter(document) %>
-
     <% index_fields(document).each_with_index do |(field_name, field), index| %>
-
-      <% if should_render_index_field? document, field %>
-        <tr>
-        <% if ["creator_tesim", "contributor_tesim" , "editor_tesim"].include? field_name %>
-          <th class="search-meta-label"><span class="attribute-label h4"><%= render_index_field_label document, field: field_name %></span></th>
-          <td><%= display_json_fields(document, field_name) %></td>
+        <% if should_render_index_field? document, field %>
+          <% if ["creator_tesim"].include? field_name %>
+            <span class= "creator-search-results"><small><%= display_json_fields(document, field_name)%></small></span>
+          <% end %>
+          <% if ["keyword_tesim"].include? field_name %>
+            <p class="keywords-search-results"><%= doc_presenter.field_value field %></p>
+          <% end %>
+          <%# Removed Ubiquity's code here because we don't need these index fields with the current layout%>
+            <%# NOTE ~alignment: comment out due to being related to cross-tenant search %>
+            <%# if check_is_parent_shared_search_page.present? && field_name == 'institution_tesim'  %>
+              <%# <th class="search-meta-label"><span class="attribute-label h4"><%= render_index_field_label document, field: field_name </span></th> %>
+              <%# <td><%= link_to_facet_list(document.institution.sort, 'institution', '', '; ').html_safe</td> %>
+            <%# end %>
+          <%# Removed Ubiquity's code here because we don't need these index fields with the current layout%>
         <% end %>
-
-        <%# NOTE ~alignment: comment out due to being related to cross-tenant search %>
-        <%# if check_is_parent_shared_search_page.present? && field_name == 'institution_tesim'  %>
-          <%# <th class="search-meta-label"><span class="attribute-label h4"><%= render_index_field_label document, field: field_name </span></th> %>
-          <%# <td><%= link_to_facet_list(document.institution.sort, 'institution', '', '; ').html_safe</td> %>
-        <%# end %>
-
-        <% if ['resource_type_tesim', 'institution_tesim', "creator_tesim", "contributor_tesim" , "editor_tesim"].exclude? field_name %>
-          <th class="search-meta-label"><span class="attribute-label h4"><%= render_index_field_label document, field: field_name %></span></th>
-          <td><%= doc_presenter.field_value field_name %></td>
-        <% end %>
-
-        </tr>
+    <% if field_name == 'resource_type_tesim'  %>
+      <%# Removed Ubiquity's code here to remove the resource type from non-collection results & use human_readable_type instead. %>
+      <% if document.to_h["has_model_ssim"].first == 'Collection' %>
+        <td><%= document.to_h["has_model_ssim"].first %></td>
       <% end %>
-
-      <% if field_name == 'resource_type_tesim'  %>
-        <tr>
-         <th class="search-meta-label"><span class="attribute-label h4"> <%= render_index_field_label document, field: field_name %> </span></th>
-         <% if document.to_h["has_model_ssim"].first == 'Collection' %>
-         <td><%= document.to_h["has_model_ssim"].first %></td>
-         <% else %>
-         <td><%= doc_presenter.field_value field_name %></td>
-        <% end %>
-         </tr>
-       <% end %>
-
     <% end %>
+  <% end %>
 
   </table>
 </div>
