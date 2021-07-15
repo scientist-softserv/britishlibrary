@@ -134,7 +134,6 @@ body.public-facing {
     transition: .1s ease-in-out;
   }
   a:hover {
-    color: $mediumgrey !important;
     text-decoration: none;
   }
   a:focus{
@@ -366,14 +365,13 @@ body.public-facing {
       padding-left: 0px;
   }
 
-  nav.navbar.navbar-default.navbar-static-top{
-    margin-bottom: 0px;
-  }
-
   ul.nav.navbar-nav {
     margin: 0px;
 }
+}
 
+nav.navbar.navbar-default.navbar-static-top{
+  margin-bottom: 0;
 }
 
 @media only screen and (max-width: 375px) {
@@ -554,7 +552,7 @@ div.catalog-page-search form#search-form-header{
   .btn-default:hover {
     color: $darkgrey !important;
     background-color: $lightgrey !important;
-    border: none !important;
+    border: 2px solid transparent;
     border-color: none !important;
   }
   .btn-default:active,
@@ -624,10 +622,15 @@ div.catalog-page-search form#search-form-header{
     font-weight: 600
   }
 
-    //adds padding to images in featured and recent works rows
-  .works-row a img {
-    padding: 10px;
-}
+  //makes the thumbnails on the homepage square so it looks more consistent
+  div.homepage-work-thumbnail a img {
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid $neutral;
+    margin: 10px 20px;
+  }
+
 
   // MARKETING TEXT SECTION
   .marketing-text p{
@@ -686,7 +689,7 @@ div.catalog-page-search form#search-form-header{
     background-color: $white;
     padding-right: 10px;
     padding-left: 10px;
-    border: 2px solid #fab433a5;
+    border: 2px solid $lightmustard;
     border-radius: 0px;
   }
   div#announcement.center-block.text-center div p{
@@ -932,6 +935,17 @@ dl.work-show{
   font-weight: 600;
 }
 
+.alert.alert-warning.no-items-available {
+  border: 2px solid $lightmustard;
+  border-radius: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+  font-weight: bold;
+  color: $mediumgrey2;
+}
+
 .breadcrumb {
   border: 0 solid transparent;
   border-radius: 7px;
@@ -949,6 +963,15 @@ dl.work-show{
   border-right: 0;
 }
 
+@media (max-width: 767px){ 
+  .permission-badges{
+    float: left;
+    padding-bottom: 10px;
+    h3 {
+      margin-top: 5px;
+    }
+  }
+}
 // these following 2 selectors extend the background color outside of the container
 .work-show-section-contrast {
   position: relative;
@@ -985,6 +1008,7 @@ div.creator-work-show-header {
   dd ul.tabular{
     padding-left: 0;
     display: flex;
+    flex-wrap: wrap;
 
     li.attribute.creator{
       padding-right: 20px;
@@ -1001,21 +1025,17 @@ div.creator-work-show-header {
   color: $mediumgrey2 !important;
 }
 
-li.attribute.creator, li.attribute.contributor {
+li.attribute.creator, li.attribute.contributor, li.attribute.editor {
   span a img.img-responsive{
     filter: grayscale(1);
   }
 }
 
-.work-show-buttons{
-  justify-content: space-evenly
-}
-
-.social-media {
-  filter: grayscale(1);
-}
-
 //this selector edits the citations and social media buttons in the abstract section
+.work-show-buttons{
+  justify-content: space-between
+}
+
 .citations, .social-media {
   padding: 15px 0;
   .btn-group button.btn.btn-default.dropdown-toggle{
@@ -1042,7 +1062,21 @@ li.attribute.creator, li.attribute.contributor {
     -webkit-box-shadow: none;
     box-shadow: none;
   }
+}
 
+.social-media, .citations {
+  filter: grayscale(1);
+  text-align: center;
+}
+@media (min-width: 768px){
+  .social-media {
+    float: right;
+  }
+}
+@media (min-width: 768px){
+  .citations {
+    float: left;
+  }
 }
 
   .dropdown-menu > li.social-links > a{
@@ -1105,10 +1139,10 @@ li.attribute.creator, li.attribute.contributor {
     .metadata-group dt {
       font-size: 28px;
       font-weight: 500;
-  }
+    }
   }
 
-  .work-show-items .col-sm-12 {
+  .work-show-items {
     overflow: scroll;
 }
 
