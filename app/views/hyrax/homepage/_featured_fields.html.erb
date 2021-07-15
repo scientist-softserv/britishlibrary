@@ -5,7 +5,7 @@
   <%= t('hyrax.homepage.featured_works.document.title_label') %>
   </div>
   <div class="flex">
-    <div>
+    <div class= 'homepage-work-thumbnail'>
       <%= link_to [main_app, featured] do %>
           <%= render_thumbnail_tag(featured, {width: 90}, {suppress_link: true}) %>
         <% end %>
