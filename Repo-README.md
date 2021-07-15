@@ -129,6 +129,13 @@ You can log all of the I18n lookups to the Rails logger by setting the I18N_DEBU
 $ I18N_DEBUG=true bin/rails server
 ```
 
+## Account (tenant) creation
+- From the home page click on "Accounts" in the upper left corner
+- Press "Create New Account"
+- Give the account a short name
+- Access the tenant at "<short-name>.hyku.test"
+NOTE: Although there are institutional logo's on the home page, all accounts are not created by default. If you would like to create an account for one of them, hover over its logo to see the url in the bottom left corner of the screen. Use the subdomain as the "short name" in the process above.
+
 ## Rescue Server Deploy
 - This is a single large box with everything running in docker-compose. All files for the app are at `/data/bl-transfer`
 - Tmux on this box uses default settings; "ctrl-b" is the leader command
