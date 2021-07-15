@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_220007) do
+ActiveRecord::Schema.define(version: 2021_07_14_161321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -236,7 +236,7 @@ ActiveRecord::Schema.define(version: 2020_11_17_220007) do
   end
 
   create_table "featured_works", id: :serial, force: :cascade do |t|
-    t.integer "order", default: 5
+    t.integer "order", default: 6
     t.string "work_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

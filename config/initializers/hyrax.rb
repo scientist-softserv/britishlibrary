@@ -123,19 +123,17 @@ Hyrax.config do |config|
 
   # Temporary path to hold uploads before they are ingested into FCrepo.
   # This must be a lambda that returns a Pathname
-  if Settings.multitenancy.enabled
-   config.upload_path = ->() do
-     if Settings.s3.upload_bucket
-       "uploads/#{Apartment::Tenant.current}"
-     else
-       Rails.root + 'public' + 'uploads' + Apartment::Tenant.current
-     end
-   end
+  config.upload_path = ->() do
+    if Settings.s3.upload_bucket
+      "uploads/#{Apartment::Tenant.current}"
+    else
+      ENV['HYRAX_UPLOAD_PATH'].present? ? Pathname.new(File.join(ENV['HYRAX_UPLOAD_PATH'], Apartment::Tenant.current)) : Rails.root.join('public', 'uploads', Apartment::Tenant.current)
+    end
   end
 
   # Location on local file system where derivatives will be stored.
   # If you use a multi-server architecture, this MUST be a shared volume.
-  # config.derivatives_path = File.join(Rails.root, 'tmp', 'derivatives')
+  config.derivatives_path = ENV['HYRAX_DERIVATIVES_PATH'].present? ? ENV['HYRAX_DERIVATIVES_PATH'] :  File.join(Rails.root, 'tmp', 'derivatives')
 
   # Should schema.org microdata be displayed?
   # config.display_microdata = true
@@ -179,18 +177,18 @@ Hyrax.config do |config|
   #   config.browse_everything = nil
   # end
   config.browse_everything = nil
-  
+
   config.iiif_image_server = true
-  
+
   config.iiif_image_url_builder = lambda do |file_id, base_url, size|
     Riiif::Engine.routes.url_helpers.image_url(file_id, host: base_url, size: size)
   end
-  
+
   config.iiif_info_url_builder = lambda do |file_id, base_url|
     uri = Riiif::Engine.routes.url_helpers.info_url(file_id, host: base_url)
     uri.sub(%r{/info\.json\Z}, '')
   end
-  
+
 end
 
 Date::DATE_FORMATS[:standard] = "%m/%d/%Y"

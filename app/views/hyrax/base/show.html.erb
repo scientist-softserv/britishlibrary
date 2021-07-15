@@ -33,18 +33,16 @@
           </div>
         </div>
       </div>
-      <div class="row pt-40 pb-40 work-show-items">
-        <div class="col-sm-12">
+      <div class="row pt-40">
           <%= render 'items', presenter: @presenter %>
           <%# TODO: we may consider adding these partials in the future %>
           <%# = render 'sharing_with', presenter: @presenter %>
           <%# = render 'user_activity', presenter: @presenter %>
-        </div>
       </div>
       <div class="section-contrast work-show-section-contrast mt-40">
         <div class="row pb-40 pt-40">
           <%= render 'workflow_actions_widget', presenter: @presenter %>
-          <h2>Metadata</h2>
+          <h2 class="col-sm-12">Metadata</h2>
           <% if @presenter.universal_viewer? %>
             <div class="col-sm-6 pt-40">
               <%= render 'representative_media', presenter: @presenter, viewer: true %>
