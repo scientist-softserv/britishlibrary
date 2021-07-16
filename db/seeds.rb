@@ -63,7 +63,11 @@ if ENV['SEED_EXTRA_DATA']
       name = File.basename(file).split("~").first
       CreateAccount.new(Account.new(name: name), [u]).save
       a = Account.find_by(name: name)
-      %x{bin/import_from_fedora #{file} #{File.join(ENV['FEDORA_URL'], a.fcrepo_endpoint.base_path)}}
+      cmd = "bin/import_from_fedora #{file} #{File.join(ENV['FEDORA_URL'], a.fcrepo_endpoint.base_path)}"
+      puts cmd
+      system(cmd, out: $stdout, err: $stderr)
+      Apartment::Tenant.switch!(a.tenant)
+      ActiveFedora::Base.reindex_everything
     end
   end
 end
