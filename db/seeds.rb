@@ -56,3 +56,13 @@ if ENV['INITIAL_ADMIN_EMAIL'] && ENV['INITIAL_ADMIN_PASSWORD']
   end
   u.add_role(:superadmin)
 end
+
+if ENV['SEED_EXTRA_DATA']
+  if Account.count.zero?
+    Dir.glob(Rails.root.join('data/*')).each do |file|
+      name = File.basename(file).split("~").first
+      a = CreateAccount.new(Account.new(name: name), [u]).save
+      %x{bin/import_from_fedora #{file} #{File.join(ENV['FEDORA_URL'], a.fcrepo_endpoint.base_path)}}
+    end
+  end
+end
