@@ -29,5 +29,10 @@ run cmd
 cmd = "java -jar fcrepo-import-export-0.3.0.jar --mode import --resource #{destination_url} --dir ./tmp/export --binaries --map #{source_url},#{destination_url} --legacyMode"
 run cmd
 
-cmd = %Q{bundle exec rails runner 'Apartment::Tenant.switch!(Account.find_by(name: "#{name}").tenant); ActiveFedora::Base.reindex_everything'}
-run cmd
+puts "Dont for get to reindex!"
+
+cmd = %q{bundle exec rails runner 'apartment::tenant.switch!(account.find_by(name: "#{source_name}").tenant); activefedora::base.reindex_everything'}
+puts cmd
+
+# moved reindex to the seeds so we dont load rails twice. leaving this as a note
+# run cmd
