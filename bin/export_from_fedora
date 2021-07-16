@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+# ./bin/export_from_fedora NAME SOURCE_URL
+# This exports straight from Fedora in the format expected for import_from_fedora
+# It is meant to copy FCREPO from one Samvera app to another
+# NAME should be the name of the account
+# SOURCE_URL should be a full fedora repo path such as
+#   http://fcrepo:8080/fcrepo/rest/ea85bcf6-b590-4d40-9541-d15134cb2694
+
+
+def run(cmd)
+  puts cmd
+  system(cmd, out: $stdout, err: $stderr)
+end
+
+name = ARGV[0]
+source_url = ARGV[1]
+basename = File.basename(source_url)
+
+cmd = "java -jar fcrepo-import-export-0.3.0.jar --mode export --resource #{source_url} --dir ./hyrax-webapp/tmp/export --binaries"
+run cmd
+
+cmd = "tar zcfv data/#{name}~#{basename}.tgz tmp/export"
+run cmd
