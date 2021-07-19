@@ -68,3 +68,5 @@ docker/local-docker-compose-2.yml
 # Ignore local VS Code history
 /.history
 .vscode/settings.json
+data/**
+fcrepo-import-export-*
