@@ -3,6 +3,7 @@
 # Apartment middleware for switching tenants based on the
 # CNAME entry for an account.
 class AccountElevator < Apartment::Elevators::Generic
+  include AccountSwitch
   # @return [String] The tenant to switch to
   def parse_tenant_name(request)
     account = Account.from_request(request)
@@ -10,14 +11,4 @@ class AccountElevator < Apartment::Elevators::Generic
     account&.tenant
   end
 
-  def self.switch!(cname)
-    account = Account.joins(:domain_names).find_by(domain_names: {is_active: true, cname: Account.canonical_cname(cname)})
-    if account
-      Apartment::Tenant.switch!(account.tenant)
-    elsif Account.any?
-      raise "No tenant found for #{cname}"
-    else
-      Rails.logger.info "It looks like we're in single tenant mode. No tenant found for #{cname}"
-    end
-  end
 end
