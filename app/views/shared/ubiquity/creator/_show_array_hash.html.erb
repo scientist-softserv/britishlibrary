@@ -8,7 +8,7 @@
           <%= display_data_with_comma_separated(hash, order_ary)%>
          </span>
          <span itemprop="creator">
-           <% if display_paren?(hash.keys, ["creator_orcid", 'creator_isni', 'creator_ror', 'creator_grid', 'creator_wikidata']) %>
+           <% if display_paren?(hash.keys, ["creator_orcid", 'creator_isni', 'creator_ror']) %>
              <span style="float:left" >&nbsp;(</span>
                <% if hash['creator_orcid'].present? %>
                  <% orcid_id = hash['creator_orcid'] %>
@@ -28,7 +28,7 @@
                  </a>
                <% end %>
 
-               <% hash.slice(*["creator_ror",  "creator_grid", "creator_wikidata"]).each do |key, value| %>
+               <% hash.slice(*["creator_ror"]).each do |key, value| %>
 
                  <% if add_image_space?(hash.keys) %>
                    <span style="float:left" >&nbsp;</span>
@@ -40,11 +40,11 @@
                  <% if hash[key].present? && contains_full_url_path?(value) %>
 
                    <a href='<%= "#{value}" %>'  target="_blank">
-                     <img src=" " alt=<%= "#{hash_key.upcase}" %>  class="img-responsive" style="float:left" >
+                     <%= image_tag 'ror_identifier.png', class: "img-responsive", alt: "#{hash_key.upcase}", style: 'float:left; border-radius: 4px', height: '16', width: '36'  %>
                    </a>
                  <% elsif hash[key].present?  %>
                    <a href='<%= "#{match_key_to_url(hash_key)}" + "#{value}" %>'  target="_blank">
-                     <img src=" " alt='<%= "#{hash_key.upcase}" %>'  class="img-responsive" style="float:left" >
+                     <%= image_tag 'ror_identifier.png', class: "img-responsive", alt: "#{hash_key.upcase}", style: 'float:left; border-radius: 4px', height: '16', width: '36'  %>
                    </a>
                  <% end  %>
                <% end %>
