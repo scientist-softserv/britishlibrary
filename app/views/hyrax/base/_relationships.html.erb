@@ -3,11 +3,11 @@
 
 <%# Render presenters which aren't specified in the 'presenter_types' %>
 <% if presenter.grouped_presenters.present? %>
+  <div class="row pt-40 pb-40">
+    <div class="col-sm-12">
+      <h2 class="pb-40"><%= t('.header') %></h2>
 
-  <% if !current_user %>
-    <div class="row pt-40 pb-40">
-      <div class="col-sm-12">
-        <h2 class="pb-40"><%= t('.header') %></h2>
+      <% if !current_user %>
         <% presenter.grouped_presenters(except: presenter.presenter_types).each_pair do |model_name, items| %>
           <%= render 'relationships_parent_row', type: model_name, items: items, presenter: presenter %>
         <% end %>
@@ -17,14 +17,9 @@
             <%= render 'relationships_parent_row', type: type, items: items, presenter: presenter %>
           <% end %>
         <% end %>
-      </div>
-    </div>
-  <% end %>
+      <% end %>
 
-  <% if current_user %>
-    <div class="row pt-40 pb-60">
-      <div class="col-sm-12">
-        <h2 class="pb-60"><%= t('.header') %></h2>
+      <% if current_user %>
         <%= presenter.attribute_to_html(:admin_set, render_as: :faceted, html_dl: true) %>
         <% presenter.grouped_presenters(except: presenter.presenter_types).each_pair do |model_name, items| %>
           <%= render 'relationships_parent_row', type: model_name, items: items, presenter: presenter %>
@@ -35,8 +30,8 @@
             <%= render 'relationships_parent_row', type: type, items: items, presenter: presenter %>
           <% end %>
         <% end %>
-      </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 
 <% end %>
