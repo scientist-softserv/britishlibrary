@@ -1079,12 +1079,10 @@ li.attribute.creator, li.attribute.contributor, li.attribute.editor {
   }
 }
 
-  .dropdown-menu > li.social-links > a{
-    padding: 0
-  }
-
-  .btn-group.open ul.dropdown-menu.social-link-menu{
+  .btn-group ul.social-link-menu{
     display:flex;
+    list-style-type: none;
+    padding-left: 0;
   }
 
   .table.related-files > thead > tr > th, .table.related-files > thead > tr > td, .table > tbody > tr > th, .table.related-files > tbody > tr > td, .table.related-files > tfoot > tr > th, .table.related-files > tfoot > tr > td {
