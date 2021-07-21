@@ -4,18 +4,18 @@
     <ul class="tabular">
       <li class="attribute related_identifier">
         <% if hash['related_identifier'] %>
-          <%= "identifier: #{hash['related_identifier']}" %>&nbsp;
+          <b>identifier: </b><%="#{hash['related_identifier']}" %>&nbsp;
         <% end %>
       </li>
       <li class="attribute related_identifier_type">
         <% if hash['related_identifier_type'] %>
-          <%= "type: #{hash['related_identifier_type']}" %>
+          <b>type: </b><%="#{hash['related_identifier_type']}" %>
         <% end %>
       </li>
       <li class="attribute relation_type">
         <% if hash['relation_type'] %>
           <% array_list = RelationTypeService.new.select_active_options.uniq %>
-          <%= "relation: " + array_list.select{|e| e[1] == hash['relation_type']}.first[0] %>
+           <b>relation: </b><%= + array_list.select{|e| e[1] == hash['relation_type']}.first[0] %>
         <% end %>
       </li>
     </ul>
