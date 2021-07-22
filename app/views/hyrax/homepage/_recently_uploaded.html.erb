@@ -10,7 +10,7 @@
         <%= render partial: "recent_document", collection: @recent_documents %>
       </div>
   <% end %>
-    <%= link_to main_app.search_catalog_path(:locale =>"en" , :sort=>"system_create_dtsi desc"), class: 'btn btn-default pull-right' do %>
+    <%= link_to main_app.search_catalog_path(:sort=>"system_create_dtsi desc"), class: 'btn btn-default pull-right' do %>
       <%= t('hyrax.homepage.recent_button') %>
       <span class="fa fa-caret-right"></span> 
     <% end %>
