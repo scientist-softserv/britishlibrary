@@ -11,7 +11,7 @@
       <%= link_to document.title_or_label, document %></h4>
   <% if document.abstract.present? %>
     <div class="abstract-search-results">
-      <small><span><b>Abstract: </b></span><%= document.abstract[0] %></small>
+      <small><span><b>Abstract: </b></span><%= document.abstract[0].truncate_words(50) %></small>
     </div>
   <% end %>
   </div>
