@@ -58,7 +58,8 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
-  config.active_job.queue_adapter     = Settings.active_job.queue_adapter
+  # TODO(alishaevn): revert the inline comment below when done testing
+  config.active_job.queue_adapter     = :inline # Settings.active_job.queue_adapter
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
