@@ -11,7 +11,22 @@ if Settings.bulkrax.enabled
 
     # Field to use during import to identify if the Work or Collection already exists.
     # Default is 'source'.
-    # config.system_identifier_field = 'source'
+    # field used to look up the result of a work (what's used by the "find" method)
+    config.system_identifier_field = 'doi'
+
+    # Field_mapping for establishing the source_identifier
+    # This value IS NOT used for OAI, so setting the OAI Entries here will have no effect
+    # The mapping is supplied per Entry, provide the full class name as a string, eg. 'Bulkrax::CsvEntry'
+    # Example:
+    #   {
+    #     'Bulkrax::RdfEntry'  => 'http://opaquenamespace.org/ns/identifier',
+    #     'Bulkrax::CsvEntry'  => 'MyIdentifierField'
+    #   }
+    # The default value for CSV is 'source_identifier'
+    # which csv field are we setting as the source_identifier?
+    config.source_identifier_field_mapping = {
+      'Bulkrax::ArticleCsvEntry' => 'doi'
+    }
 
     # WorkType to use as the default if none is specified in the import
     # Default is the first returned by Hyrax.config.curation_concerns
@@ -54,136 +69,145 @@ if Settings.bulkrax.enabled
     basic_csv_mappings = {
       # TODO(alishaevn): move the overlapping values from all parser's here
 
-      # 'based_near' => { from: ['location'], split: '\|' },
-      # 'contributor' => { from: ['contributor'], split: '\|' },
-      # 'creator' => { from: ['creator'], split: '\|' },
-      # 'date_created' => { from: ['date_created'], split: '\|' },
-      # 'description' => { from: ['description'], split: '\|' },
-      # 'file' => { from: ['item'], split: '\|' }
-      # 'identifier' => { from: ['identifier'], split: '\|' },
-      # 'keyword' => { from: ['keyword'], split: '\|' },
-      # 'language' => { from: ['language'], split: '\|' },
-      # 'license' => { from: ['license'], split: '\|' },
-      # 'publisher' => { from: ['publisher'], split: '\|' },
-      # 'related_url' => { from: ['related_url'], split: '\|' },
-      # 'resource_type' => { from: ['type'], split: '\|' },
-      # 'subject' => { from: ['subject'], split: '\|' },
-      # 'title' => { from: ['title'], split: '\|' },
+      # 'based_near' => { from: ['location'] },
+      # 'contributor' => { from: ['contributor'] },
+      # 'creator' => { from: ['creator'] },
+      # 'date_created' => { from: ['date_created'] },
+      # 'description' => { from: ['description'] },
+      # 'file' => { from: ['item'] }
+      # 'identifier' => { from: ['identifier'] },
+      # 'keyword' => { from: ['keyword'] },
+      # 'language' => { from: ['language'] },
+      # 'license' => { from: ['license'] },
+      # 'publisher' => { from: ['publisher'] },
+      # 'related_url' => { from: ['related_url'] },
+      # 'resource_type' => { from: ['type'] },
+      # 'subject' => { from: ['subject'] },
+      # 'title' => { from: ['title'] },
     }
 
     config.field_mappings['Bulkrax::CsvParser'] = basic_csv_mappings
 
+    # TODO(alishaevn):
+      # - customize contributor and creator to the following format: "object_name"=> ["[{...}, {...}]"]
+        # unsure if editor needs the same configuration
+      # - update "funder" after bulkrax can handle nested objects
     config.field_mappings['Bulkrax::ArticleCsvParser'] = basic_csv_mappings.merge({
-      'abstract' => { from: ['abstract'], split: '\|' },
-      # 'access_control_id' => { from: [''], split: '\|' },
-      'add_info' => { from: ['additional_information'], split: '\|' },
-      'admin_set_id' => { from: ['admin_set'], split: '\|' },
-      # 'alt_title' => { from: ['alternative_title'], split: '\|' },
-      # 'alternate_identifier' => { from: ['alternate_identifier'], split: '\|' },
-      # 'alternate_identifier_type' ... # numbered
-      'alternative_journal_title' => { from: ['alternative_journal_title'], split: '\|' },
-      # 'arkivo_checksum' => { from: ['arkivo_checksum'], split: '\|' },
-      'article_num' => { from: ['article_number'], split: '\|' },
-      # 'based_near' => { from: ['based_near'], split: '\|' },
-      # 'bibliographic_citation' => { from: ['bibliographic_citation'], split: '\|' },
-      'book_title' => { from: ['book_title'], split: '\|' },
-      # 'collection_id' => { from: ['collection_id'], split: '\|' },
-      # 'collection_names' => { from: ['collection_names'], split: '\|' },
-      # 'contributor' => { from: ['contributor'], split: '\|' },
-          # 'contributor_family_name' # numbered
-          # 'contributor_given_name' # numbered
-          # 'contributor_grid' # numbered
-          # 'contributor_isni' # numbered
-          # 'contributor_name_type' # numbered
-          # 'contributor_orchid' # numbered
-          # 'contributor_organization_name' # numbered
-          # 'contributor_researchassociate' # numbered
-          # 'contributor_staffmember' # numbered
-          # 'contributor_type' # numbered
-          # 'contributor_wikidata' # numbered
-      # 'creator' => { from: ['creator'], split: '\|' },
-      # 'creator_search' => { from: ['creator_search'], split: '\|' },
-      'current_he_institution' => { from: ['current_he_institution'], split: '\|' },
-      'date_accepted' => { from: ['date_accepted'], split: '\|' },
-      'date_modified' => { from: ['date_modified'], split: '\|' },
-      'date_published' => { from: ['date_published_1'], split: '\|' },
-      'date_submitted' => { from: ['date_submitted'], split: '\|' },
-      'date_uploaded' => { from: ['date_uploaded'], split: '\|' },
-      # 'depositor' => { from: ['depositor'], split: '\|' },
-      # 'description' => { from: ['description'], split: '\|' },
-      'dewey' => { from: ['dewey_classification'], split: '\|' },
-      # 'disable_draft_doi' => { from: ['disable_draft_doi'], split: '\|' },
-      'doi' => { from: ['doi'], split: '\|' },
-      # 'doi_options' => { from: ['doi_options'], split: '\|' },
-      # 'draft_doi' => { from: ['draft_doi'], split: '\|' },
-      # 'duration' => { from: ['duration'], split: '\|' },
-      'edition' => { from: ['edition'], split: '\|' },
-      # 'editor' => { from: ['editor'], split: '\|' },
-      'eissn' => { from: ['eissn'], split: '\|' },
-      # 'embargo_id' => { from: ['embargo_id'], split: '\|' },
-      # # 'embargo_end_date' # yes
-      # 'event_date' => { from: ['event_date'], split: '\|' },
-      # 'event_location' => { from: ['event_location'], split: '\|' },
-      # 'event_title' => { from: ['event_title'], split: '\|' },
-      # # 'file' # numbered
-      # 'file_availability' => { from: ['file_availability'], split: '\|' },
-      # 'fndr_project_ref' => { from: ['funder_project_reference'], split: '\|' },
-      # 'funder' => { from: ['funder_name'], split: '\|' },
-      # 'head' => { from: ['head'], split: '\|' },
-      'id' => { from: ['id'], split: '\|' },
-      # 'identifier' => { from: ['identifier'], split: '\|' },
-      # 'import_url' => { from: ['import_url'], split: '\|' },
-      # 'institution' => { from: ['institution'], split: '\|' },
-      'isbn' => { from: ['isbn'], split: '\|' },
-      'issn' => { from: ['issn'], split: '\|' },
-      'issue' => { from: ['issue'], split: '\|' },
-      'journal_title' => { from: ['journal_title'], split: '\|' },
-      # 'keyword' => { from: ['keyword'], split: '\|' },
-      # 'label' => { from: ['label'], split: '\|' },
-      # 'language' => { from: ['language'], split: '\|' },
-      # 'lease_id' => { from: ['lease_id'], split: '\|' },
-      # 'lease_end_date' # yes
-      'library_of_congress_classification' => { from: ['library_of_congress_classification'], split: '\|' },
-      # 'license' => { from: ['license'], split: '\|' },
-      'media' => { from: ['material_media'], split: '\|' },
-      'official_link' => { from: ['official_url'], split: '\|' },
-      # 'on_behalf_of' => { from: ['on_behalf_of'], split: '\|' },
-      # 'org_unit' => { from: ['organisational_unit'], split: '\|' },
-      # 'owner' => { from: ['owner'], split: '\|' },
-      'pagination' => { from: ['pagination'], split: '\|' },
-      # 'peer_reviewed' # yes
-      # 'place_of_publication' => { from: ['place_of_publication'], split: '\|' },
-      # 'project_name' => { from: ['project_name'], split: '\|' },
-      # 'proxy_depositor' => { from: ['proxy_depositor'], split: '\|' },
-      'publisher' => { from: ['publisher'], split: '\|' },
-      'qualification_level' => { from: ['qualification_level'], split: '\|' },
-      'qualification_name' => { from: ['qualification_name'], split: '\|' },
-      # 'refereed' => { from: ['refereed'], split: '\|' },
-      # 'related_exhibition' => { from: ['related_exhibition'], split: '\|' },
-      # 'related_exhibition_date' => { from: ['related_exhibition_date'], split: '\|' },
-      # 'related_exhibition_venue' => { from: ['related_exhibition_venue'], split: '\|' },
-      # 'related_identifier' => { from: ['related_identifier'], split: '\|' },
-      # # 'related_identifier_type' ... # numbered
-      # # 'relation_type' ... # numbered
-      # 'related_url' => { from: ['related_url'], split: '\|' },
-      # 'relative_path' => { from: ['relative_path'], split: '\|' },
-      # 'rendering_ids' => { from: ['rendering_ids'], split: '\|' },
-      # 'representative_id' => { from: ['representative_id'], split: '\|' },
-      'resource_type' => { from: ['resource_type'], split: '\|' },
-      # 'rights_holder' => { from: ['rights_holder'], split: '\|' },
-      'rights_statement' => { from: ['rights_statement'], split: '\|' },
-      # 'series_name' => { from: ['series_name'], split: '\|' },
-      # 'source' => { from: ['source'], split: '\|' },
-      # 'state' => { from: ['state'], split: '\|' },
-      # 'subject' => { from: ['subject'], split: '\|' },
-      # 'tail' => { from: ['tail'], split: '\|' },
-      # 'thumbnail_id' => { from: ['thumbnail_id'], split: '\|' },
-      'title' => { from: ['title'], split: '\|' },
-      'version' => { from: ['version'], split: '\|' },
-      # 'version_number' => { from: ['version_number'], split: '\|' },
-      # visibility # yes
-      'volume' => { from: ['volume'], split: '\|' },
-      # 'work_type' # yes
+      'abstract' => { from: ['abstract'] },
+      'access_control_id' => { excluded: true },
+      'add_info' => { from: ['additional_information'] },
+      'admin_set_id' => { from: ['admin_set'] },
+      'alt_title' => { from: ['alternative_title'] },
+      'alternate_identifier' => { from: ['alternate_identifier'] },
+      'alternate_identifier_type' => { from: ['alternate_identifier_type'] },
+      'alternative_journal_title' => { from: ['alternative_journal_title'] },
+      'arkivo_checksum' => { excluded: true },
+      'article_num' => { from: ['article_number'] },
+      'based_near' => { excluded: true },
+      'bibliographic_citation' => { excluded: true },
+      'book_title' => { from: ['book_title'] },
+      'collection_id' => { from: ['collection_id'] },
+      'collection_names' => { excluded: true },
+      # "contributor_name_type" => { from: ["contributor_name_type"], object: "contributor" },
+      # "contributor_family_name" => { from: ["contributor_family_name"], object: "contributor" },
+      # "contributor_given_name" => { from: ["contributor_given_name"], object: "contributor" },
+      # "contributor_orcid" => { from: ["contributor_orcid"], object: "contributor" },
+      # "contributor_isni" => { from: ["contributor_isni"], object: "contributor" },
+      # "contributor_grid" => { from: ["contributor_grid"], object: "contributor" },
+      # "contributor_organization_name" => { from: ["contributor_organization_name"], object: "contributor" },
+      # "contributor_researchassociate" => { from: ["contributor_researchassociate"], object: "contributor" },
+      # "contributor_ror" => { from: ["contributor_ror"], object: "contributor" },
+      # "contributor_staffmember" => { from: ["contributor_staffmember"], object: "contributor" },
+      # "contributor_type" => { from: ["contributor_type"], object: "contributor" },
+      # "contributor_wikidata" => { from: ["contributor_wikidata"], object: "contributor" },
+      # "creator_name_type" => { from: ["creator_name_type"], object: "creator" },
+      # "creator_family_name" => { from: ["creator_family_name"], object: "creator" },
+      # "creator_given_name" => { from: ["creator_given_name"], object: "creator" },
+      # "creator_grid" => { from: ["creator_grid"], object: "creator" },
+      # "creator_orcid" => { from: ["creator_orcid"], object: "creator" },
+      # "creator_organization_name" => { from: ["creator_organization_name"], object: "creator" },
+      # "creator_isni" => { from: ["creator_isni"], object: "creator" },
+      # "creator_researchassociate" => { from: ["creator_researchassociate"], object: "creator" },
+      # "creator_ror" => { from: ["creator_ror"], object: "creator" },
+      # "creator_staffmember" => { from: ["creator_staffmember"], object: "creator" },
+      # "creator_type" => { from: ["creator_type"], object: "creator" },
+      # "creator_wikidata" => { from: ["creator_wikidata"], object: "creator" },
+      # "creator_family_name" => { from: ["creator_family_name"], object: "creator_search" },
+      # "creator_given_name" => { from: ["creator_given_name"], object: "creator_search" },
+      'current_he_institution' => { from: ['current_he_institution'] },
+      'date_accepted' => { from: ['date_accepted'] },
+      'date_modified' => { from: ['date_modified'] },
+      'date_published' => { from: ['date_published_1'] },
+      'date_submitted' => { from: ['date_submitted'] },
+      'date_uploaded' => { from: ['date_uploaded'] },
+      'depositor' => { excluded: true },
+      'description' => { excluded: true },
+      'dewey' => { from: ['dewey_classification'] },
+      'disable_draft_doi' => { excluded: true },
+      'doi' => { from: ['doi'] },
+      'doi_options' => { excluded: true },
+      'draft_doi' => { excluded: true },
+      'duration' => { from: ['duration'] },
+      'edition' => { from: ['edition'] },
+      # 'editor' => { from: ['editor'] },
+      'eissn' => { from: ['eissn'] },
+      'embargo_id' => { excluded: true },
+      'event_date' => { excluded: true },
+      'event_location' => { from: ['event_location'] },
+      'event_title' => { from: ['event_title'] },
+      'file_availability' => { excluded: true },
+      'fndr_project_ref' => { excluded: true },
+      # 'funder' => { from: ['funder_name'] },
+      'head' => { excluded: true },
+      'id' => { from: ['id'] },
+      'identifier' => { excluded: true },
+      'institution' => { from: ['institution'] },
+      'isbn' => { from: ['isbn'] },
+      'issn' => { from: ['issn'] },
+      'issue' => { from: ['issue'] },
+      'journal_title' => { from: ['journal_title'] },
+      'keyword' => { from: ['keyword'] },
+      'label' => { excluded: true },
+      'language' => { excluded: true },
+      'lease_id' => { excluded: true },
+      'library_of_congress_classification' => { from: ['library_of_congress_classification'] },
+      'license' => { from: ['license'] },
+      'media' => { from: ['material_media'] },
+      'official_link' => { from: ['official_url'] },
+      'on_behalf_of' => { excluded: true },
+      'org_unit' => { from: ['organisational_unit'] },
+      'owner' => { excluded: true },
+      'pagination' => { from: ['pagination'] },
+      'place_of_publication' => { from: ['place_of_publication'] },
+      'project_name' => { from: ['project_name'] },
+      'proxy_depositor' => { excluded: true },
+      'publisher' => { from: ['publisher'] },
+      'qualification_level' => { from: ['qualification_level'] },
+      'qualification_name' => { from: ['qualification_name'] },
+      'refereed' => { from: ['peer_reviewed'] },
+      'related_exhibition' => { from: ['related_exhibition'] },
+      'related_exhibition_date' => { excluded: true },
+      'related_exhibition_venue' => { from: ['related_exhibition_venue'] },
+      "related_identifier" => { from: ["related_identifier"], object: "related_identifier" }
+      "related_identifier_type" => { from: ["related_identifier_type"], object: "related_identifier" }
+      "relation_type" => { from: ["relation_type"], object: "related_identifier" }
+      'related_url' => { from: ['related_url'] },
+      'relative_path' => { excluded: true },
+      'rendering_ids' => { excluded: true },
+      'representative_id' => { excluded: true },
+      'resource_type' => { from: ['resource_type'] },
+      'rights_holder' => { from: ['rights_holder'] },
+      'rights_statement' => { from: ['rights_statement'] },
+      'series_name' => { from: ['series_name'] },
+      'source' => { excluded: true },
+      'state' => { excluded: true },
+      'subject' => { excluded: true },
+      'tail' => { excluded: true },
+      'thumbnail_id' => { excluded: true },
+      'title' => { from: ['title'] },
+      'version' => { from: ['version'] },
+      'version_number' => { excluded: true },
+      'volume' => { from: ['volume'] },
     })
 
 
@@ -200,3 +224,45 @@ if Settings.bulkrax.enabled
     # config.reserved_properties += ['my_field']
   end
 end
+
+# OBJECT WITH MULTIPLES
+# "creator"=> ["[
+#   {
+#     "creator_given_name":"Creator given name 1",
+#     "creator_family_name":"Creator family name 1",
+#     "creator_name_type":"Personal",
+#     "creator_orcid":"reator1",
+#     "creator_isni":"reator1",
+#     "creator_position":"0",
+#     "creator_institutional_relationship":["Staff member"]
+#   }, {
+#     "creator_given_name":"Creator given name 2",
+#     "creator_family_name":"Creator family name 2",
+#     "creator_name_type":"Personal",
+#     "creator_orcid":"reator2",
+#     "creator_isni":"reator2",
+#     "creator_position":"1",
+#     "creator_institutional_relationship":["Research associate"]
+#   }, {
+#     "creator_organization_name":"Creator organisation name 3",
+#     "creator_name_type":"Organisational",
+#     "creator_isni":"reator3",
+#     "creator_ror":"www.Creator-organisation-ROR-3.com",
+#     "creator_grid":"www.Creator-organisation-GRID-3.com",
+#     "creator_wikidata":"www.Creator-organisation-Wikidata-3.com",
+#     "creator_position":"2"
+#   }
+# ]"]
+
+# OBJECT WITH SINGLE VALUE
+# "creator"=> ["[
+#   {
+#     "creator_given_name":"Creator given name 1",
+#     "creator_family_name":"Creator family name 1",
+#     "creator_name_type":"Personal",
+#     "creator_orcid":"reator1",
+#     "creator_isni":"reator1",
+#     "creator_position":"1",
+#     "creator_institutional_relationship":["Staff member"]
+#   }
+# ]"]
