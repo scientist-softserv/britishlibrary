@@ -806,7 +806,7 @@ en:
         link: View All Collections
         tab_label: Explore Collections
         title: Explore Collections
-      items_button: Explore All Featured Items
+      items_button: Explore All Items
       recent_button: View All Recent Additions
       featured_researcher:
         missing: No researchers have been featured.

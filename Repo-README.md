@@ -50,17 +50,22 @@ We distribute two configuration files:
 
 #### If this is your first time working in this repo or the Dockerfile has been updated you will need to pull your services first
   ```bash
-  docker-compose pull
-  docker-compose build
+  sc pull
+  sc build
+  # run the solr setup and seeds. do this again any time you do `down -v`
+  sc up -s initialize_app
   ```
 
 #### Start the server
 ```bash
-docker-compose up web
+sc up
 ```
 This command starts the web and worker containers allowing Rails to be started or stopped independent of the other services. Once that starts (you'll see the line `Listening on tcp://0.0.0.0:3000` to indicate a successful boot), you can view your app at one of the [dev URL's](#important-urls) above.
 
 #### Seed the database
+
+if you want to automatically create a dataset, place the exported file in data/ before beginning.  These files should not be added to the repo as they are often quite large.
+
 ```bash
 sc be rails db:seed
 ```
@@ -68,7 +73,7 @@ sc be rails db:seed
 #### Access the container
 - In a separate terminal window or tab than the running server, run:
   ``` bash
-  dc exec web bash
+  sc sh
   ```
 
 - You need to be inside the container to:
@@ -83,8 +88,8 @@ sc be rails db:seed
   ```
 
 #### Stop the app and services
-- Press `Ctrl + C` in the window where `docker-compose up web` is running
-- When that's done `docker-compose stop` shuts down the running containers
+- Press `Ctrl + C` in the window where `sc up` is running
+- When that's done `sc stop` shuts down the running containers
 - `dory down` stops Dory
 
 #### Troubleshooting
@@ -102,24 +107,16 @@ sc be rails db:seed
 Rubocop can be run in docker locally using either of the options below:
 - Outside the container:
   ```bash
-  docker-compose exec web rake
+  sc be rake
   ```
-- Inside the container: (learn about the `-a` flag [here](https://docs.rubocop.org/rubocop/usage/basic_usage.html#auto-correcting-offenses))
+- With autocorrect: (learn about the `-a` flag [here](https://docs.rubocop.org/rubocop/usage/basic_usage.html#auto-correcting-offenses))
+  ```bash
+  sc exec rubocop -a
+  ```
+- Inside the container:
   ```bash
   rubocop -a
   ```
-
-### Without Docker
-#### For development
-```bash
-solr_wrapper
-fcrepo_wrapper
-postgres -D ./db/postgres
-redis-server /usr/local/etc/redis.conf
-bin/setup
-DISABLE_REDIS_CLUSTER=true bundle exec sidekiq
-DISABLE_REDIS_CLUSTER=true bundle exec rails server -b 0.0.0.0
-```
 
 ### Working with Translations
 
@@ -128,6 +125,13 @@ You can log all of the I18n lookups to the Rails logger by setting the I18N_DEBU
 ```console
 $ I18N_DEBUG=true bin/rails server
 ```
+
+## Account (tenant) creation
+- From the home page click on "Accounts" in the upper left corner
+- Press "Create New Account"
+- Give the account a short name
+- Access the tenant at "<short-name>.hyku.test"
+NOTE: Although there are institutional logo's on the home page, all accounts are not created by default. If you would like to create an account for one of them, hover over its logo to see the url in the bottom left corner of the screen. Use the subdomain as the "short name" in the process above.
 
 ## Rescue Server Deploy
 - This is a single large box with everything running in docker-compose. All files for the app are at `/data/bl-transfer`
