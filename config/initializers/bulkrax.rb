@@ -88,10 +88,7 @@ if Settings.bulkrax.enabled
 
     config.field_mappings['Bulkrax::CsvParser'] = basic_csv_mappings
 
-    # TODO(alishaevn):
-      # - customize contributor and creator to the following format: "object_name"=> ["[{...}, {...}]"]
-        # unsure if editor needs the same configuration
-      # - update "funder" after bulkrax can handle nested objects
+    # TODO(alishaevn): customize contributor and creator to the following format: "object_name"=> ["[{...}, {...}]"]
     config.field_mappings['Bulkrax::ArticleCsvParser'] = basic_csv_mappings.merge({
       'abstract' => { from: ['abstract'] },
       'access_control_id' => { excluded: true },
