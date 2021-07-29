@@ -4,14 +4,10 @@ if Settings.bulkrax.enabled
 
   Bulkrax.setup do |config|
     # Add local parsers
-    config.parsers += [
-      # { name: 'MODS - My Local MODS parser', class_name: 'Bulkrax::ModsXmlParser', partial: 'mods_fields'},
-      { name: 'CSV - Article', class_name: 'Bulkrax::ArticleCsvParser', partial: 'csv_fields' }
-    ]
+    # config.parsers += []
 
     # Field to use during import to identify if the Work or Collection already exists.
     # Default is 'source'.
-    # field used to look up the result of a work (what's used by the "find" method)
     config.system_identifier_field = 'doi'
 
     # Field_mapping for establishing the source_identifier
@@ -23,9 +19,8 @@ if Settings.bulkrax.enabled
     #     'Bulkrax::CsvEntry'  => 'MyIdentifierField'
     #   }
     # The default value for CSV is 'source_identifier'
-    # which csv field are we setting as the source_identifier?
     config.source_identifier_field_mapping = {
-      'Bulkrax::ArticleCsvEntry' => 'doi'
+      'Bulkrax::CsvEntry' => 'doi'
     }
 
     # WorkType to use as the default if none is specified in the import
@@ -66,45 +61,21 @@ if Settings.bulkrax.enabled
     #     'Bulkrax::OaiDcParser' => { **individual field mappings go here*** }
     #   }
 
-    basic_csv_mappings = {
-      # TODO(alishaevn): move the overlapping values from all parser's here
-
-      # 'based_near' => { from: ['location'] },
-      # 'contributor' => { from: ['contributor'] },
-      # 'creator' => { from: ['creator'] },
-      # 'date_created' => { from: ['date_created'] },
-      # 'description' => { from: ['description'] },
-      # 'file' => { from: ['item'] }
-      # 'identifier' => { from: ['identifier'] },
-      # 'keyword' => { from: ['keyword'] },
-      # 'language' => { from: ['language'] },
-      # 'license' => { from: ['license'] },
-      # 'publisher' => { from: ['publisher'] },
-      # 'related_url' => { from: ['related_url'] },
-      # 'resource_type' => { from: ['type'] },
-      # 'subject' => { from: ['subject'] },
-      # 'title' => { from: ['title'] },
-    }
-
-    config.field_mappings['Bulkrax::CsvParser'] = basic_csv_mappings
-
-    # TODO(alishaevn): customize contributor and creator to the following format: "object_name"=> ["[{...}, {...}]"]
-    config.field_mappings['Bulkrax::ArticleCsvParser'] = basic_csv_mappings.merge({
+    config.field_mappings['Bulkrax::CsvParser'] = {
       'abstract' => { from: ['abstract'] },
       'access_control_id' => { excluded: true },
       'add_info' => { from: ['additional_information'] },
       'admin_set_id' => { from: ['admin_set'] },
       'alt_title' => { from: ['alternative_title'] },
-      'alternate_identifier' => { from: ['alternate_identifier'] },
-      'alternate_identifier_type' => { from: ['alternate_identifier_type'] },
+      'alternate_identifier' => { from: ['alternate_identifier'], object: "alternate_identifier" },
+      'alternate_identifier_type' => { from: ['alternate_identifier_type'], object: "alternate_identifier" },
       'alternative_journal_title' => { from: ['alternative_journal_title'] },
       'arkivo_checksum' => { excluded: true },
       'article_num' => { from: ['article_number'] },
       'based_near' => { excluded: true },
       'bibliographic_citation' => { excluded: true },
       'book_title' => { from: ['book_title'] },
-      'collection_id' => { from: ['collection_id'] },
-      'collection_names' => { excluded: true },
+      'collection_id' => { excluded: true },
       "contributor_name_type" => { from: ["contributor_name_type"], object: "contributor" },
       "contributor_family_name" => { from: ["contributor_family_name"], object: "contributor" },
       "contributor_given_name" => { from: ["contributor_given_name"], object: "contributor" },
@@ -158,6 +129,7 @@ if Settings.bulkrax.enabled
       'event_location' => { from: ['event_location'] },
       'event_title' => { from: ['event_title'] },
       'file_availability' => { excluded: true },
+      'file_url' => { from: ['file_url'] },
       'fndr_project_ref' => { excluded: true },
       'funder_name' => { from: ['funder_name'], object: "funder" },
       'funder_doi' => { from: ['funder_doi'], object: "funder" },
@@ -179,6 +151,7 @@ if Settings.bulkrax.enabled
       'library_of_congress_classification' => { from: ['library_of_congress_classification'] },
       'license' => { from: ['license'] },
       'media' => { from: ['material_media'] },
+      'model' => { from: ['work_type'] },
       'official_link' => { from: ['official_url'] },
       'on_behalf_of' => { excluded: true },
       'org_unit' => { from: ['organisational_unit'] },
@@ -214,7 +187,7 @@ if Settings.bulkrax.enabled
       'version' => { from: ['version'] },
       'version_number' => { excluded: true },
       'volume' => { from: ['volume'] },
-    })
+    }
 
 
 
