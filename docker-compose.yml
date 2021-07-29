@@ -168,6 +168,7 @@ services:
       - db
       - solr
       - fcrepo
+      - redis
 
   redis:
     image: redis:5

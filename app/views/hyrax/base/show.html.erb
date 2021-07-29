@@ -6,9 +6,9 @@
 
 <%= render 'shared/citations' %>
 <%= render './shared/additional_citations' %>
-<div class="row work-type pt-40">
+<div class="row pt-40">
   <div itemscope itemtype="http://schema.org/CreativeWork" class="col-xs-12">
-    <div class="panel panel-default">
+    <div>
       <%= render 'work_type', presenter: @presenter %>
       <%= render 'work_title', presenter: @presenter %>
       <div class="section-contrast work-show-section-contrast mt-40">
@@ -23,9 +23,6 @@
             <div class="col-sm-6">
               <div class="social-media">
                 <div class='btn-group'>
-                  <button button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <%= "Share" %> <span class="caret"></span>
-                  </button>
                   <%= render 'social_media' %>
                 </div>
               </div>
@@ -34,10 +31,10 @@
         </div>
       </div>
       <div class="row pt-40">
-          <%= render 'items', presenter: @presenter %>
-          <%# TODO: we may consider adding these partials in the future %>
-          <%# = render 'sharing_with', presenter: @presenter %>
-          <%# = render 'user_activity', presenter: @presenter %>
+        <%= render 'items', presenter: @presenter %>
+        <%# TODO: we may consider adding these partials in the future %>
+        <%# = render 'sharing_with', presenter: @presenter %>
+        <%# = render 'user_activity', presenter: @presenter %>
       </div>
       <div class="section-contrast work-show-section-contrast mt-40">
         <div class="row pb-40 pt-40">
@@ -62,11 +59,7 @@
           <% end %>
         </div>
       </div>
-      <div class="row pt-40">
-        <div class="col-sm-12">
-          <%= render 'relationships', presenter: @presenter %>
-        </div>
-      </div>
+      <%= render 'relationships', presenter: @presenter %>
     </div>
   </div>
 </div>

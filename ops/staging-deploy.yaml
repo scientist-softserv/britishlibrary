@@ -261,3 +261,7 @@ solr:
   collectionReplicas: 1
   zookeeper:
     replicaCount: 1
+
+fcrepo:
+  storage:
+    size: 105Gi
