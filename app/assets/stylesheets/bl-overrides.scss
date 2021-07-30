@@ -945,6 +945,31 @@ div#documents {
   padding-bottom: 20px;
 }
 
+.hyc-metadata div, .hyc-metadata dl {
+  border-bottom: 0;
+  border-top: 0;
+}
+
+.hyc-metadata div{
+  padding: 10px
+}
+.hyc-metadata div:nth-child(even){ 
+  background-color: $white;
+  border-radius: 5px;
+}
+.hyc-metadata div:nth-child(odd){ 
+  background-color: $neutral;
+  border-radius: 5px;
+}
+
+.hyc-bl-sort {
+  margin-bottom: 2em;
+  margin-top: 2em;
+  .view-type.pull-right {
+    padding-bottom: 20px;
+  }
+}
+
 
 //WORK SHOW PAGE
 
