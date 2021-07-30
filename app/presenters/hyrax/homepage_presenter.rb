@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Override from hyrax 2.5.1 to add method to hide featured researcher
 module Hyrax
   class HomepagePresenter

@@ -50,11 +50,11 @@ module Hyku
     def check_file_licence_count
       work_id = solr_document['id']
       work = ActiveFedora::Base.find(work_id)
-      work.file_sets.map {|file_set| file_set.license.count}.sum
+      work.file_sets.map { |file_set| file_set.license.count }.sum
     end
 
     def creator
-      array_of_hash = get_model(self.creator_hash, self.model, 'creator', 'creator_position')
+      array_of_hash = get_model(creator_hash, model, 'creator', 'creator_position')
       array_of_hash.map { |c| [c['creator_family_name'], c['creator_given_name']].join(', ') }
     end
 

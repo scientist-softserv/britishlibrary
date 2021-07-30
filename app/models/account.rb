@@ -38,7 +38,7 @@ class Account < ApplicationRecord
 
   def self.tenants(tenant_list)
     return Account.all if tenant_list.blank?
-    joins(:domain_names).where(domain_names: {cname: tenant_list})
+    joins(:domain_names).where(domain_names: { cname: tenant_list })
   end
 
   attr_readonly :tenant
@@ -67,7 +67,7 @@ class Account < ApplicationRecord
   end
 
   def self.from_cname(cname)
-    joins(:domain_names).find_by(domain_names: {is_active: true, cname: canonical_cname(cname)})
+    joins(:domain_names).find_by(domain_names: { is_active: true, cname: canonical_cname(cname) })
   end
 
   # @return [Account] a placeholder account using the default connections configured by the application
@@ -80,6 +80,7 @@ class Account < ApplicationRecord
     end
     @single_tenant_default
   end
+
   def self.global_tenant?
     # Global tenant only exists when multitenancy is enabled and NOT in test environment
     # (In test environment tenant switching is currently not possible)
@@ -138,7 +139,7 @@ class Account < ApplicationRecord
 
   # Writer to convert old cname in to new domain name child object
   def cname=(value)
-    self.domain_names.build(cname: value) unless self.domain_names.detect { |dn| dn.cname == value }
+    domain_names.build(cname: value) unless domain_names.detect { |dn| dn.cname == value }
   end
 
   private
@@ -146,5 +147,4 @@ class Account < ApplicationRecord
     def default_cname(piece = name)
       self.class.default_cname(piece)
     end
-
 end

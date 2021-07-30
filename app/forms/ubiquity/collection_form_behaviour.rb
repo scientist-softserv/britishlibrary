@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ubiquity
   module CollectionFormBehaviour
     Hyrax::Forms::CollectionForm.terms.push(:account_cname)
@@ -14,8 +16,7 @@ module Ubiquity
          identifier
          based_near
          related_url
-         account_cname
-       ]
+         account_cname]
     end
   end
 end

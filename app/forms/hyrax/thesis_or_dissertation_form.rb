@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Generated via
 #  `rails generate hyrax:work ThesisOrDissertation`
 module Hyrax
@@ -14,7 +16,6 @@ module Hyrax
                      publisher current_he_institution date_accepted date_submitted official_link
                      related_url language license rights_statement
                      rights_holder doi draft_doi qualification_name qualification_level alternate_identifier related_identifier refereed keyword dewey
-                     library_of_congress_classification add_info rendering_ids
-                    ]
+                     library_of_congress_classification add_info rendering_ids]
   end
 end

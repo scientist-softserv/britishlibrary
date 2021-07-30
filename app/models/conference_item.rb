@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ConferenceItem < ActiveFedora::Base
   include Hyrax::WorkBehavior
   include Ubiquity::UniversalMetadata
