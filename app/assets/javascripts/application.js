@@ -35,6 +35,7 @@
 ///////////// BULKRAX - add eq sign to enable
 //= require bulkrax/application
 /////////////////////////////////////////////
+
 //= require_tree ./ubiquity
 //= require hyrax
 //= require jquery.flot.pie
