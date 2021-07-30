@@ -11,8 +11,8 @@
  * file per style scope.
  *
 
- ///////////// BULKRAX - add astrix eq sign to enable
-  *= require bulkrax/application
+ ///////////// BULKRAX - add asterik eq sign to enable
+  *= require 'bulkrax/application'
 /////////////////////////////////////////////
 
  *= require fontselect
