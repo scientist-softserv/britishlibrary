@@ -936,7 +936,8 @@ en:
             label_short: My Works
         q:
           label: Search %{application_name}
-          placeholder: Explore Our Research Repository
+          placeholder_long: Explore Our Research Repository
+          placeholder_short: Explore
     select_type:
       description: General purpose worktype
       name: Work
