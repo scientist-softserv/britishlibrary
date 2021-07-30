@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ubiquity
   module SharedMetadata
     extend ActiveSupport::Concern
@@ -94,7 +96,6 @@ module Ubiquity
       property :editor, predicate: ::RDF::Vocab::SCHEMA.Person do |index|
         index.as :stored_searchable
       end
-
     end
   end
 end

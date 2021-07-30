@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ubiquity
   class ParseJson
     attr_accessor :data
@@ -20,19 +22,17 @@ module Ubiquity
 
     def fetch_value_based_on_key(key_field, seperator = nil)
       value_arr = []
-      if parsed_json
-        parsed_json.map do |hash|
-          # we are using the union literal  '|' which is used to combine the unique values of two arrays
-          #This means the script is idempotent, which for our use case means that you can re-run it several times without creating duplicates
-          value = []
-          if hash["#{key_field}_family_name"].present? ||  hash["#{key_field}_given_name"].present?
-            value << hash["#{key_field}_family_name"].try(:strip)
-            value << hash["#{key_field}_given_name"].try(:strip)
-          elsif hash["#{key_field}_organization_name"].present?
-            value << hash["#{key_field}_organization_name"].try(:strip)
-          end
-          value_arr << value.compact.reject(&:blank?).join(', ')
+      parsed_json&.map do |hash|
+        # we are using the union literal  '|' which is used to combine the unique values of two arrays
+        # This means the script is idempotent, which for our use case means that you can re-run it several times without creating duplicates
+        value = []
+        if hash["#{key_field}_family_name"].present? || hash["#{key_field}_given_name"].present?
+          value << hash["#{key_field}_family_name"].try(:strip)
+          value << hash["#{key_field}_given_name"].try(:strip)
+        elsif hash["#{key_field}_organization_name"].present?
+          value << hash["#{key_field}_organization_name"].try(:strip)
         end
+        value_arr << value.compact.reject(&:blank?).join(', ')
       end
       return value_arr.join(seperator) if seperator.present?
       value_arr
@@ -42,7 +42,7 @@ module Ubiquity
       value_arr = []
       parsed_json.map do |hash|
         # we are using the union literal  '|' which is used to combine the unique values of two arrays
-        #This means the script is idempotent, which for our use case means that you can re-run it several times without creating duplicates
+        # This means the script is idempotent, which for our use case means that you can re-run it several times without creating duplicates
         value = []
         value |= [hash["creator_family_name"].to_s]
         value |= [', '] if hash["creator_family_name"].present? && hash["creator_given_name"].present?

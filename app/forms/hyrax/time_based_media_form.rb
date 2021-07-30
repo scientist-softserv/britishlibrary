@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Generated via
 #  `rails generate hyrax:work TimeBasedMedia`
 module Hyrax
@@ -16,7 +18,6 @@ module Hyrax
                      publisher place_of_publication date_accepted date_submitted official_link
                      related_url related_exhibition related_exhibition_venue related_exhibition_date language license rights_statement
                      rights_holder doi draft_doi alternate_identifier related_identifier refereed keyword dewey
-                     library_of_congress_classification add_info rendering_ids
-                    ]
+                     library_of_congress_classification add_info rendering_ids]
   end
 end

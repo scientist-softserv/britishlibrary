@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ubiquity
   module VersionMetadataFormBehaviour
     extend ActiveSupport::Concern
@@ -9,10 +11,9 @@ module Ubiquity
     class_methods do
       def build_permitted_params
         super.tap do |permitted_params|
-          permitted_params << {version_number: []}
+          permitted_params << { version_number: [] }
         end
       end
     end
-
   end
 end

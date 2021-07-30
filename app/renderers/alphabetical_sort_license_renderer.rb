@@ -1,5 +1,6 @@
-class AlphabeticalSortLicenseRenderer < Hyrax::Renderers::LicenseAttributeRenderer
+# frozen_string_literal: true
 
+class AlphabeticalSortLicenseRenderer < Hyrax::Renderers::LicenseAttributeRenderer
   def render
     markup = ''
 
@@ -33,7 +34,7 @@ class AlphabeticalSortLicenseRenderer < Hyrax::Renderers::LicenseAttributeRender
 
   private
 
-  def attribute_value_to_html(value)
-    %(<span itemprop="resource_type">#{::LicenseService.label(value)}</span>)
-  end
+    def attribute_value_to_html(value)
+      %(<span itemprop="resource_type">#{::LicenseService.label(value)}</span>)
+    end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ubiquity
   class ParseDate
     attr_reader :data, :date_field
@@ -46,17 +48,17 @@ module Ubiquity
 
     private
 
-    def transform_date_group(date)
-      date_parts =  date.split('-')
-      year = "#{date_field}_year"
-      month = "#{date_field}_month"
-      day = "#{date_field}_day"
-      if date_parts.count > 2
-        #returns a hash in the form {"date_published_year"=>"2017", "date_published_month"=>"02", "date_published_day"=>"02"}
-        Hash[[ [year,  date_parts.first], [month,  date_parts[1]], [day,  date_parts.last]  ]]
-      else
-        Hash[[ [year,  date_parts.first], [month,  date_parts[1]] ]]
+      def transform_date_group(date)
+        date_parts = date.split('-')
+        year = "#{date_field}_year"
+        month = "#{date_field}_month"
+        day = "#{date_field}_day"
+        if date_parts.count > 2
+          # returns a hash in the form {"date_published_year"=>"2017", "date_published_month"=>"02", "date_published_day"=>"02"}
+          Hash[[[year,  date_parts.first], [month,  date_parts[1]], [day, date_parts.last]]]
+        else
+          Hash[[[year,  date_parts.first], [month,  date_parts[1]]]]
+        end
       end
-    end
   end
 end
