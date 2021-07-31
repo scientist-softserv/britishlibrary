@@ -47,10 +47,12 @@ module Hyku
       solr_document['date_submitted_tesim']
     end
 
-    def check_file_licence_count
-      work_id = solr_document['id']
-      work = ActiveFedora::Base.find(work_id)
-      work.file_sets.map {|file_set| file_set.license.count}.sum
+    def file_licenses?
+      unless @file_licenses_run
+        @file_licenses = member_presenters.detect { |member| member&.license&.present? }
+        @file_licenses_run = true
+      end
+      @file_licenses
     end
 
     def creator
