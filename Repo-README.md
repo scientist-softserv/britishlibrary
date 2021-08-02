@@ -32,6 +32,7 @@
 - Staging site: http://bl-staging.notch8.cloud/
 - Production site: http://iro.bl.uk/
 - Solr: http://solr.hyku.test
+  - Check the `SOLR_ADMIN_USER` and `SOLR_ADMIN_PASSWORD` in "docker-compose.yml"
 - Sidekiq: http://hyku.test/sidekiq
 
 ### Dory
@@ -123,6 +124,7 @@ Rubocop can be run in docker locally using either of the options below:
   ```
 
 ### Admin User
+This is for the admin login on the Shared Research Repository page or when logging in to a specific tenant
 - Local: `INITIAL_ADMIN_EMAIL` and `INITIAL_ADMIN_PASSWORD` in ".env"
 - Staging: `INITIAL_ADMIN_EMAIL` and `INITIAL_ADMIN_PASSWORD` in "staging-deploy.yaml"
 
