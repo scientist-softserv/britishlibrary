@@ -462,8 +462,24 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
 
 @media (max-width: 570px){
   input#search-field-header::placeholder{
-    font-size: 11px;
+    font-size: 12px;
   }
+}
+
+// Hide short text by default (resolution > 435px)
+.search-field-header-small { 
+  display: none; 
+}
+
+// When resolution <= 435px, hide full text and show short text
+@media (max-width: 450px) {
+    .search-field-header-small { 
+      display: inline-block; 
+      font-size: 15px;
+    }
+    .search-field-header-large { 
+      display: none; 
+    }
 }
 
 .catalog-page-search {
