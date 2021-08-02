@@ -1,6 +1,5 @@
-# frozen_string_literal: true
-
 class MultipleDatesAttributeRenderer < Hyrax::Renderers::AttributeRenderer
+
   def render
     markup = ''
 

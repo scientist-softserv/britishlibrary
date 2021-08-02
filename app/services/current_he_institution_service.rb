@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-# class RightsStatementService < QaSelectService
+#class RightsStatementService < QaSelectService
 
 class CurrentHeInstitutionService < Hyrax::QaSelectService
   mattr_accessor :authority
@@ -23,7 +21,7 @@ class CurrentHeInstitutionService < Hyrax::QaSelectService
   end
 
   def self.terms
-    subauthority_hash = YAML.safe_load(File.read(subauthority_filename))
+    subauthority_hash = YAML.load(File.read(subauthority_filename))
     terms = subauthority_hash.with_indifferent_access.fetch(:terms, [])
   end
 
@@ -32,4 +30,5 @@ class CurrentHeInstitutionService < Hyrax::QaSelectService
       { id: res[:id], label: res[:term], isni: res[:isni], ror: res[:ror], active: res.fetch(:active, true) }.with_indifferent_access
     end
   end
+
 end

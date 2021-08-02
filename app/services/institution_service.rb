@@ -1,12 +1,10 @@
 
-# frozen_string_literal: true
-# frozen_string_literal: true
-
-# Provide select options for the copyright status (edm:rights) field
-# class RightsStatementService < QaSelectService
-#
+  # Provide select options for the copyright status (edm:rights) field
+  #class RightsStatementService < QaSelectService
+  #
 class InstitutionService < Hyrax::QaSelectService
   def initialize(_authority_name = nil)
-    super('institution')
+     super('institution')
   end
 end
+

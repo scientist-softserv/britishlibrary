@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # retrieve TERM instead of ID to display as documented here:
 # http://samvera.github.io/customize-metadata-show-page.html#write-a-property-specific-custom-renderer
 
