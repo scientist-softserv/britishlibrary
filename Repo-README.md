@@ -132,6 +132,7 @@ $ I18N_DEBUG=true bin/rails server
 - Give the account a short name
 - Access the tenant at "<short-name>.hyku.test"
 NOTE: Although there are institutional logo's on the home page, all accounts are not created by default. If you would like to create an account for one of them, hover over its logo to see the url in the bottom left corner of the screen. Use the subdomain as the "short name" in the process above.
+- Check the `authenticate_if_needed` method in application_controller.rb for the current username/password combination
 
 ## Rescue Server Deploy
 - This is a single large box with everything running in docker-compose. All files for the app are at `/data/bl-transfer`
