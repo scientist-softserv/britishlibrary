@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # overrides hyrax/app/services/hyrax/resource_types_service.rb
 module Hyrax
   module ResourceTypesService
@@ -23,7 +25,7 @@ module Hyrax
     end
 
     def self.label(id)
-      authority.find(id).fetch('term', '[Error: Unknown value]' )
+      authority.find(id).fetch('term', '[Error: Unknown value]')
     end
 
     def self.select_default(model_class)
@@ -31,7 +33,7 @@ module Hyrax
       default.first["id"] if default.present?
     end
 
-      ##
+    ##
     # @param [String, nil] id identifier of the resource type
     #
     # @return [String] a schema.org type. Gives the default type if `id` is nil.

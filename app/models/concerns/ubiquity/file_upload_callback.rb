@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ubiquity
   module FileUploadCallback
     extend ActiveSupport::Concern

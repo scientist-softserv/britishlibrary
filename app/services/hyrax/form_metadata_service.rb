@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # copied over from Hyrax to make `rights_statement` multiple
 module Hyrax
   # Answers queries about the cardinality of each field on the form.
