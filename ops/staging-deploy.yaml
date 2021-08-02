@@ -12,6 +12,14 @@ derivativesVolume:
 uploadsVolume:
   storageClass: azurefile
 
+extraVolumeMounts:
+  - name: uploads
+    mountPath: /app/samvera/hyrax-webapp/tmp/imports
+    subPath: imports
+  - name: uploads
+    mountPath: /app/samvera/hyrax-webapp/tmp/exports
+    subPath: exports
+
 ingress:
   enabled: true
   hosts:
