@@ -14,11 +14,14 @@
       * [Rubocop](#rubocop)
     * [Without Docker](#without-docker)
       * [For development](#for-development)
+  * [Admin User](#admin-user)
   * [Rescue Server Deploy](#rescue-server-deploy)
   * [Single Tenant Mode](#single-tenancy)
   * [Switching accounts](#switching-accounts)
   * [Importing](#importing)
-    * [Enable Bulkrax](#bulkrax)
+    * [Enable Bulkrax](#enable-bulkrax)
+    * [Disable Bulkrax](#disable-bulkrax)
+    * [Create an Importer](#create-an-importer)
 ----
 
 ## Running the stack
@@ -26,6 +29,7 @@
 - Local site:
   - With dory: hyku.test
   - Without dory: localhost:3000
+- Staging site: http://bl-staging.notch8.cloud/
 - Production site: http://iro.bl.uk/
 - Solr: http://solr.hyku.test
 - Sidekiq: http://hyku.test/sidekiq
@@ -118,6 +122,10 @@ Rubocop can be run in docker locally using either of the options below:
   rubocop -a
   ```
 
+### Admin User
+- Local: `INITIAL_ADMIN_EMAIL` and `INITIAL_ADMIN_PASSWORD` in ".env"
+- Staging: `INITIAL_ADMIN_EMAIL` and `INITIAL_ADMIN_PASSWORD` in "staging-deploy.yaml"
+
 ### Working with Translations
 
 You can log all of the I18n lookups to the Rails logger by setting the I18N_DEBUG environment variable to true. This will add a lot of chatter to the Rails logger (but can be very helpful to zero in on what I18n key you should or could use).
@@ -131,14 +139,14 @@ $ I18N_DEBUG=true bin/rails server
 - Press "Create New Account"
 - Give the account a short name
 - Access the tenant at "<short-name>.hyku.test"
-NOTE: Although there are institutional logo's on the home page, all accounts are not created by default. If you would like to create an account for one of them, hover over its logo to see the url in the bottom left corner of the screen. Use the subdomain as the "short name" in the process above.
+  NOTE: Although there are institutional logo's on the home page, all accounts are not created by default. If you would like to create an account for one of them, hover over its logo to see the url in the bottom left corner of the screen. Use the subdomain as the "short name" in the process above.
 - Check the `authenticate_if_needed` method in application_controller.rb for the current username/password combination
 
 ## Rescue Server Deploy
 - This is a single large box with everything running in docker-compose. All files for the app are at `/data/bl-transfer`
 - Tmux on this box uses default settings; "ctrl-b" is the leader command
 - Your ssh key should work
-- This attaches to a shared session so you can see if anyone is running a special job and we dont step on each other
+- This attaches to a shared session so you can see if anyone is running a special job and we don't step on each other
 
 ``` bash
 ssh -t azureuser@51.140.4.10 "tmux new-session -A -s main"
@@ -162,15 +170,32 @@ To change from single- to multi-tenant mode, change the multitenancy/enabled fla
 
 ## Switching accounts
 
-The recommend way to switch your current session from one account to another is by doing:
+There are multiple ways to switch your current session from one account to another:
 
 ```ruby
-AccountElevator.switch!('repo.example.com')
+switch!(Account.first)
+# or
+switch!('my.site.com')
+# or
+switch!('myaccount')
+
 ```
 
 ## Importing
 ### Enable Bulkrax:
-- Change `SETTINGS__BULKRAX__ENABLED` to `true` in the .env file
-- Change `//require bulkrax/application` to `//= require bulkrax/application` in application.js
-- Change `require bulkrax/application` to `*= require bulkrax/application` in application.css
+- Change `SETTINGS__BULKRAX__ENABLED` to `true` in ".env"
+- Change `//require bulkrax/application` to `//= require bulkrax/application` in "application.js"
+- Change `require bulkrax/application` to `*= require bulkrax/application` in "application.css"
+- Change `SETTINGS__BULKRAX__ENABLED` to `true` in "docker-compose.yml" (it's in there more than once)
+- Change the value under `name: SETTINGS__BULKRAX__ENABLED` to `true` in "staging-deploy.yaml" (it's in there more than once)
 - Restart the server
+
+### Disable Bulkrax:
+- Revert each of the changes above
+- Restart the server
+
+### Create an Importer
+- Choose "Importers" from the left navbar
+- Click "New"
+- Fill in the required fields
+  (Refer to this [Wiki article](https://github.com/samvera-labs/bulkrax/wiki/Bulkrax-User-Interface---Importers) for more details about the fields and save options)
