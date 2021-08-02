@@ -1,5 +1,6 @@
-class AlphabeticalSortAttributeRenderer < Hyrax::Renderers::AttributeRenderer
+# frozen_string_literal: true
 
+class AlphabeticalSortAttributeRenderer < Hyrax::Renderers::AttributeRenderer
   def render
     markup = ''
 

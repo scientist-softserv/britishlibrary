@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Hyrax
   class ArticleForm < Hyrax::Forms::WorkForm
     include Hyrax::FormTerms
@@ -9,8 +11,7 @@ module Hyrax
                      article_num publisher place_of_publication issn eissn date_accepted date_submitted
                      official_link related_url language license rights_statement rights_holder doi draft_doi
                      alternate_identifier related_identifier refereed keyword dewey library_of_congress_classification
-                     add_info rendering_ids
-                    ]
+                     add_info rendering_ids]
     # self.required_fields += %i[journal_title]
   end
 end

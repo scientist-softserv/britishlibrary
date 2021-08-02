@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RefereedService
   mattr_accessor :authority
   self.authority = Qa::Authorities::Local.subauthority_for('refereed')
@@ -11,6 +13,4 @@ module RefereedService
   def self.label(id)
     authority.find(id).fetch('term')
   end
-
-
 end

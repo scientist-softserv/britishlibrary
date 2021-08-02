@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExhibitionItem < ActiveFedora::Base
   include Hyrax::WorkBehavior
   include Ubiquity::UniversalMetadata

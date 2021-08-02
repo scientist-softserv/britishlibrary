@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # overrides hyrax/app/services/hyrax/license_service.rb
 
 module LicenseService
@@ -5,7 +7,7 @@ module LicenseService
   self.authority = Qa::Authorities::Local.subauthority_for('licenses')
 
   def self.active?(id)
-    authority.find(id).fetch('term', nil )
+    authority.find(id).fetch('term', nil)
   end
 
   def self.active_elements
@@ -13,7 +15,7 @@ module LicenseService
   end
 
   def self.label(id)
-    authority.find(id).fetch('term', '[Error: Unknown value]' )
+    authority.find(id).fetch('term', '[Error: Unknown value]')
   end
 
   def self.select_active_options
@@ -27,5 +29,4 @@ module LicenseService
     end
     [render_options, html_options]
   end
-
 end
