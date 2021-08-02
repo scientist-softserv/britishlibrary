@@ -143,6 +143,13 @@ worker:
     runAsGroup: 101
     fsGroup: 101
     fsGroupChangePolicy: "OnRootMismatch"
+  extraVolumeMounts:
+    - name: uploads
+      mountPath: /app/samvera/hyrax-webapp/tmp/imports
+      subPath: imports
+    - name: uploads
+      mountPath: /app/samvera/hyrax-webapp/tmp/exports
+      subPath: exports
   extraEnvVars:
   - name: SETTINGS__MULTITENANCY__ADMIN_HOST
     value: bl-staging.notch8.cloud
