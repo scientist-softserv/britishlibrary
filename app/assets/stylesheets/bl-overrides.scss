@@ -930,6 +930,67 @@ div#documents {
   background-color: rgba(230, 230, 230, 0.8);
 }
 
+
+.hyc-container {
+  margin-top: -22px;
+  .hyc-header {
+    margin-bottom: 2em;
+    .col-md-12 header.hyc-banner{
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      border-bottom-right-radius: 5px;
+      border-bottom-left-radius: 5px;
+      min-height: 200px;
+      border-top: 2px solid $lightgrey;
+    }
+  }
+}
+
+.hyc-logos{
+  bottom: 0;
+  left: 0;
+  img {
+    height: 100px;
+    padding: 0;
+  }
+}
+
+.hyc-badges{
+  right: 0;
+  top: 40px;
+  padding-bottom: 20px;
+}
+
+.hyc-last-updated {
+  padding-left: 10px !important;
+}
+
+.hyc-metadata div, .hyc-metadata dl {
+  border-bottom: 0;
+  border-top: 0;
+}
+
+.hyc-metadata div{
+  padding: 10px
+}
+.hyc-metadata div:nth-child(even){ 
+  background-color: $white;
+  border-radius: 5px;
+}
+.hyc-metadata div:nth-child(odd){ 
+  background-color: $neutral;
+  border-radius: 5px;
+}
+
+.hyc-bl-sort {
+  margin-bottom: 2em;
+  margin-top: 2em;
+  .view-type.pull-right {
+    padding-bottom: 20px;
+  }
+}
+
+
 //WORK SHOW PAGE
 
 ul.tabular{
@@ -1341,9 +1402,7 @@ div.top-panel-heading.panel-heading h2.facets-heading {
  .text-success, .facet-values li .selected {
  color: $rust;
 }
-
 }
-
 
 body.splash.splash-index.public-facing {
   background-image: linear-gradient(90deg, $neutral 50%, $white 50%);
