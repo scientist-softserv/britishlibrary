@@ -2,7 +2,6 @@
  OVERRIDE 2.9.1 https://github.com/samvera/hyrax/blob/v2.0.2/app/views/hyrax/base/_items.html.erb
  add license feature
 -->
-<% license_count = @presenter.check_file_licence_count.positive? %>
 
 <% if presenter.member_presenters.present? %>
   <div class="col-sm-12 work-show-items">
@@ -12,7 +11,7 @@
         <tr>
           <th><%= t('.thumbnail') %></th>
           <th><%= t('.title') %></th>
-          <% if license_count %>
+          <% if presenter.file_licenses? %>
             <th><%= t('.licence') %></th>
           <% end %>
           <th><%= t('.date_uploaded') %></th>
@@ -21,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= render partial: 'member', collection: presenter.member_presenters %>
+        <%= render partial: 'member', collection: presenter.member_presenters, locals: { parent_presenter: presenter } %>
       </tbody>
     </table>
   </div>
