@@ -125,6 +125,8 @@ extraEnvVars:
     value: cram_md5
   - name: SETTINGS__FILE_ACL
     value: "false"
+  - name: SETTINGS__BULKRAX__ENABLED
+    value: "true"
 
 worker:
   replicaCount: 1
@@ -236,6 +238,8 @@ worker:
     value: cram_md5
   - name: SETTINGS__FILE_ACL
     value: "false"
+  - name: SETTINGS__BULKRAX__ENABLED
+    value: "true"
 
 podSecurityContext:
   runAsUser: 1001
@@ -263,5 +267,9 @@ solr:
     replicaCount: 1
 
 fcrepo:
+<<<<<<< Updated upstream
+=======
+  enabled: true
+>>>>>>> Stashed changes
   storage:
     size: 105Gi
