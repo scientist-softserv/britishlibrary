@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class SharedIndexer < Hyrax::WorkIndexer
   def generate_solr_document
     super.tap do |solr_doc|

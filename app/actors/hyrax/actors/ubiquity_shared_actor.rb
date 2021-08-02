@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Hyrax
   module Actors
     class UbiquitySharedActor < Hyrax::Actors::BaseActor
@@ -14,19 +12,21 @@ module Hyrax
         end
         env.curation_concern.attributes = new_attributes
         env.curation_concern.date_modified = TimeService.time_in_utc
-      rescue ActiveFedora::UnknownAttributeError => e
+
+      rescue  ActiveFedora::UnknownAttributeError => e
         puts "in ubiquity_shared_actor #{e.inspect}"
       end
 
-      # We are ensuring json fields are saved and the search facet created, if the json  is coming via csv import or other source beside the UI
+      #We are ensuring json fields are saved and the search facet created, if the json  is coming via csv import or other source beside the UI
       def process_json_value(key, new_attributes)
-        split_key = key.split('_')
-        field_name = split_key.length >= 2 ? split_key.join('_') : split_key.first
-        group_field_name = "#{field_name}_group"
-        if new_attributes[key].first.present? && new_attributes[group_field_name].blank?
-          new_attributes[group_field_name] = JSON.parse(new_attributes[key].first)
-        end
+         split_key = key.split('_')
+         field_name = split_key.length >= 2 ? split_key.join('_') : split_key.first
+         group_field_name  = "#{field_name}_group"
+         if new_attributes[key].first.present? && !new_attributes[group_field_name].present?
+           new_attributes[group_field_name] = JSON.parse(new_attributes[key].first)
+         end
       end
+
     end
   end
 end

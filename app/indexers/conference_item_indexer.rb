@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ConferenceItemIndexer < SharedIndexer
   # This indexes the default metadata. You can remove it if you want to
   # provide your own metadata and indexing.
