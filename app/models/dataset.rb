@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Dataset < ActiveFedora::Base
   include Hyrax::WorkBehavior
   include Ubiquity::UniversalMetadata

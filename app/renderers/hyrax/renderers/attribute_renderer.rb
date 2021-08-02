@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # OVERRIDE FILE from Hyrax v2.9.5
 #
 # Override this class using #class_eval to avoid needing to copy the entire file over from
@@ -36,4 +34,5 @@ Hyrax::Renderers::AttributeRenderer.class_eval do
 
     markup.html_safe
   end
+
 end

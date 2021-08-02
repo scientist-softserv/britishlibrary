@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Hyrax
   class ArticlePresenter < ::Hyku::WorkShowPresenter
     # Override to inject work_type for proper i18n lookup

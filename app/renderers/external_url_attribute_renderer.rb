@@ -1,9 +1,8 @@
-# frozen_string_literal: true
-
 class ExternalUrlAttributeRenderer < Hyrax::Renderers::AttributeRenderer
+
   def render
     markup = ''
-    values&.delete("") # delete an empty string in array or it would display
+    values.delete("") if values # delete an empty string in array or it would display
     return markup if values.blank? && !options[:include_empty]
     arr_of_li_values(values) if values.is_a?(Array)
   end
@@ -27,4 +26,5 @@ class ExternalUrlAttributeRenderer < Hyrax::Renderers::AttributeRenderer
       markup << %(</li></ul></dd></div>)
       markup.html_safe
     end
+
 end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # April's note: overriding Hyrax 2.9 template for client theming
 
 class Hyrax::HomepageController < ApplicationController
@@ -30,24 +28,24 @@ class Hyrax::HomepageController < ApplicationController
 
   private
 
-    # April's Note: Default was to return 5 collections -- this was overidden to return 6 collections on the homepage per client approved wireframes
-    def collections(rows: 6)
-      builder = Hyrax::CollectionSearchBuilder.new(self).rows(rows)
-      response = repository.search(builder)
-      response.documents
-    rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
-      []
-    end
+  # April's Note: Default was to return 5 collections -- this was overidden to return 6 collections on the homepage per client approved wireframes
+  def collections(rows: 6)
+    builder = Hyrax::CollectionSearchBuilder.new(self).rows(rows)
+    response = repository.search(builder)
+    response.documents
+  rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
+    []
+  end
 
-    def recent
-      # grab any recent documents
-      # summer's note: changes recent works to return 6 recent works
-      (_, @recent_documents) = search_results(q: '', sort: sort_field, rows: 6)
-    rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
-      @recent_documents = []
-    end
+  def recent
+    # grab any recent documents
+    # summer's note: changes recent works to return 6 recent works
+    (_, @recent_documents) = search_results(q: '', sort: sort_field, rows: 6)
+  rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
+    @recent_documents = []
+  end
 
-    def sort_field
-      "#{Solrizer.solr_name('date_uploaded', :stored_sortable, type: :date)} desc"
-    end
+  def sort_field
+    "#{Solrizer.solr_name('date_uploaded', :stored_sortable, type: :date)} desc"
+  end
 end

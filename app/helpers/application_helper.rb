@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# TODO: ~alignment: Bring over remaining methods from BL
+# TODO ~alignment: Bring over remaining methods from BL
 module ApplicationHelper
   include ::HyraxHelper
   include Hyrax::OverrideHelperBehavior
@@ -13,6 +13,8 @@ module ApplicationHelper
 
   def ubiquity_url_parser(original_url)
     full_url = URI.parse(original_url)
-    full_url.host.split('.').first if full_url.host.present? && full_url.host.class == String
+    if full_url.host.present? && full_url.host.class == String
+      full_url.host.split('.').first
+    end
   end
 end
