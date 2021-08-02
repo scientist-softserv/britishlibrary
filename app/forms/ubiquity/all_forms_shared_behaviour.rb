@@ -1,10 +1,9 @@
-# frozen_string_literal: true
-
 module Ubiquity
   module AllFormsSharedBehaviour
     extend ActiveSupport::Concern
 
-    # TODO: this has multi-tenant search stuff include(::Ubiquity::HyraxWorkFormOverride)
+    # TODO this has multi-tenant search stuff include(::Ubiquity::HyraxWorkFormOverride)
+
 
     included do
       attr_accessor :contributor_group, :contributor_name_type, :contributor_type, :contributor_given_name,
@@ -51,18 +50,22 @@ module Ubiquity
     end
 
     class_methods do
+
       def build_permitted_params
         super.tap do |permitted_params|
-          permitted_params << { contributor_group: [:contributor_organization_name, :contributor_given_name,
-                                                    :contributor_family_name, :contributor_name_type, :contributor_orcid, :contributor_isni, :contributor_ror, :contributor_grid,
-                                                    :contributor_wikidata, :contributor_position, :contributor_type, contributor_institutional_relationship: []] }
+          permitted_params << {contributor_group: [:contributor_organization_name, :contributor_given_name,
+            :contributor_family_name, :contributor_name_type, :contributor_orcid, :contributor_isni, :contributor_ror, :contributor_grid,
+            :contributor_wikidata, :contributor_position, :contributor_type, :contributor_institutional_relationship => []
+          ]}
 
-          permitted_params << { creator_group: [:creator_organization_name, :creator_given_name,
-                                                :creator_family_name, :creator_name_type, :creator_orcid, :creator_isni,  :creator_ror, :creator_grid,
-                                                :creator_wikidata, :creator_position, creator_institutional_relationship: []] }
+          permitted_params << {creator_group: [:creator_organization_name, :creator_given_name,
+            :creator_family_name, :creator_name_type, :creator_orcid, :creator_isni,  :creator_ror, :creator_grid,
+            :creator_wikidata, :creator_position, :creator_institutional_relationship => []
+          ]}
 
-          permitted_params << { funder_group: [:funder_name, :funder_doi, :funder_position,
-                                               :funder_isni, :funder_ror, funder_award: []] }
+          permitted_params << {funder_group: [:funder_name, :funder_doi, :funder_position,
+            :funder_isni, :funder_ror, :funder_award => []
+          ]}
 
           permitted_params << { alternate_identifier_group: %i[alternate_identifier alternate_identifier_type] }
 
@@ -79,7 +82,7 @@ module Ubiquity
                                                                  current_he_institution_isni
                                                                  current_he_institution_ror] }
 
-          permitted_params << :doi_options
+            permitted_params << :doi_options
         end
       end
     end # closes class class_methods

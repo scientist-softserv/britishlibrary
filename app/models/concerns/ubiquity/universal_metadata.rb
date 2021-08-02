@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-
 module Ubiquity
   module UniversalMetadata
     extend ActiveSupport::Concern
-    # include Ubiquity::CsvExportUtil
-    # include Ubiquity::WorkAndCollectionMetadata
-    # include Ubiquity::WorkDoiLifecycle
-    # include Ubiquity::TrackDoiOptions
+    #include Ubiquity::CsvExportUtil
+    #include Ubiquity::WorkAndCollectionMetadata
+    #include Ubiquity::WorkDoiLifecycle
+    #include Ubiquity::TrackDoiOptions
 
     # include here properties (fields) shared across all templates
     # also see SharedMetadata
@@ -91,6 +89,8 @@ module Ubiquity
       property :collection_names, predicate: ::RDF::Vocab::DC11.term(:collect) do |index|
         index.as :stored_searchable, :facetable
       end
+
     end
+
   end
 end

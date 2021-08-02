@@ -1,6 +1,5 @@
-# frozen_string_literal: true
-
 class AlphabeticalSortRightsStatementRenderer < Hyrax::Renderers::RightsStatementAttributeRenderer
+
   def render
     markup = ''
 

@@ -1,9 +1,7 @@
-# frozen_string_literal: true
-
-# class RightsStatementService < QaSelectService
+#class RightsStatementService < QaSelectService
 
 class QualificationLevelService < Hyrax::QaSelectService
   def initialize(_authority_name = nil)
-    super('qualification_level')
+     super('qualification_level')
   end
 end
