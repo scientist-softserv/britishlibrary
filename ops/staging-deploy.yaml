@@ -267,9 +267,5 @@ solr:
     replicaCount: 1
 
 fcrepo:
-<<<<<<< Updated upstream
-=======
-  enabled: true
->>>>>>> Stashed changes
   storage:
     size: 105Gi
