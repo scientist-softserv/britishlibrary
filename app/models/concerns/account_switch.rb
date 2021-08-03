@@ -9,7 +9,7 @@ module AccountSwitch
                 elsif cname_or_name_or_account.match(/^((?!-)[A-Za-z0-9-]{1, 63}(?<!-)\\.)+[A-Za-z]{2, 6}$”/)
                   Account.joins(:domain_names).find_by(domain_names: {is_active: true, cname: Account.canonical_cname(cname)})
                 else
-                  Account.find_by(name: cname_or_name_account)
+                  Account.find_by(name: cname_or_name_or_account)
                 end
       if account
         Apartment::Tenant.switch!(account.tenant)
