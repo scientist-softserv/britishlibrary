@@ -102,10 +102,19 @@ sc be rails db:seed
 - Double check your dory set up
 
 - Error: `No such file or directory @ rb_sysopen - /app/samvera/hyrax-webapp/log/indexing.log`
-- Solution:
+- Try:
   ``` bash
   mkdir /app/samvera/hyrax-webapp/log
   touch /app/samvera/hyrax-webapp/log/indexing.log
+  ```
+
+- Error: Could not find <gem> in any of the sources (Bundler::GemNotFound)
+- Try:
+  ``` bash
+  docker-compose down -v
+  sc build
+  sc up -s initialize_app
+  sc up
   ```
 
 #### Rubocop
