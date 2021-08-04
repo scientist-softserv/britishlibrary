@@ -186,7 +186,7 @@ body.public-facing {
     color: #ffffffe0 !important;
     text-decoration: none;
   }
-  
+
 
 
   //DROPDOWN NAVBAR
@@ -334,13 +334,13 @@ body.public-facing {
       border: 0px solid transparent;
       border-radius: 0px;
     }
-  
+
     //changes color for mobile nav links
     a.nav-link.dropdown-toggle, ul#user_utility_links li, .navbar-inverse .navbar-nav > li > a {
       color: $darkgrey !important;
       text-align: center;
     }
-  
+
     //changes hover cover for mobile nav links
     a.nav-link.dropdown-toggle:hover, ul#user_utility_links li:hover, ul.nav.navbar-nav li:hover, .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > .active > a {
       background-color: $lightgrey;
@@ -460,27 +460,12 @@ div.col-md-6.logo-section, div.col-xs-12.logo-section, div.col-md-6.catalog-logo
   }
 }
 
-@media (max-width: 570px){
+@media (max-width: 767px){
   input#search-field-header::placeholder{
     font-size: 12px;
   }
 }
 
-// Hide short text by default (resolution > 435px)
-.search-field-header-small { 
-  display: none; 
-}
-
-// When resolution <= 435px, hide full text and show short text
-@media (max-width: 450px) {
-    .search-field-header-small { 
-      display: inline-block; 
-      font-size: 15px;
-    }
-    .search-field-header-large { 
-      display: none; 
-    }
-}
 
 .catalog-page-search {
   width: 50%;
@@ -973,11 +958,11 @@ div#documents {
 .hyc-metadata div{
   padding: 10px
 }
-.hyc-metadata div:nth-child(even){ 
+.hyc-metadata div:nth-child(even){
   background-color: $white;
   border-radius: 5px;
 }
-.hyc-metadata div:nth-child(odd){ 
+.hyc-metadata div:nth-child(odd){
   background-color: $neutral;
   border-radius: 5px;
 }
@@ -1040,7 +1025,7 @@ dl.work-show{
   border-right: 0;
 }
 
-@media (max-width: 767px){ 
+@media (max-width: 767px){
   .permission-badges{
     float: left;
     padding-bottom: 10px;
@@ -1124,7 +1109,7 @@ li.attribute.creator, li.attribute.contributor, li.attribute.editor {
     font-size: 18px;
     border-bottom: 2px solid lightgrey;
     padding: 6px 30px;
-  } 
+  }
   .btn-group button.btn.btn-default.dropdown-toggle:hover{
     color: $darkgrey !important;
     background-color: $neutral !important;
@@ -1167,7 +1152,7 @@ li.attribute.creator, li.attribute.contributor, li.attribute.editor {
     border-top: none;
     text-align: center;
   }
-  
+
   .table.related-files > thead > tr > th{
     font-family: "Noto Sans JP" !important;
     font-size: 13px;
@@ -1190,21 +1175,21 @@ li.attribute.creator, li.attribute.contributor, li.attribute.editor {
       display: flex;
       padding: 10px
     }
-    .metadata-group:nth-child(even){ 
+    .metadata-group:nth-child(even){
       background-color: $neutral;
       border-radius: 5px;
     }
-    .metadata-group:nth-child(odd){ 
+    .metadata-group:nth-child(odd){
       background-color: $white;
       border-radius: 5px;
     }
   }
 
-  .metadata-group dt { 
-    width: 30%; 
+  .metadata-group dt {
+    width: 30%;
   }
-  .metadata-group dd { 
-    width: 70%; 
+  .metadata-group dd {
+    width: 70%;
   }
 
   .work-show-abstract {
@@ -1258,7 +1243,7 @@ div#search-results ul.list-unstyled.catalog li:nth-child(even){
   border-radius: 5px;
 
 }
-div#search-results ul.list-unstyled.catalog li:nth-child(odd){ 
+div#search-results ul.list-unstyled.catalog li:nth-child(odd){
   background-color: $white;
   border-radius: 5px;
 }
