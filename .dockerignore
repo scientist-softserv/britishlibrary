@@ -7,7 +7,11 @@
 ./importer
 ./log
 ./pg
-./public
+./public/assets
+./public/branding
+./public/packs
+./public/system
+./public/uploads
 ./tmp
 .coveralls.yml
 .ebextensions
