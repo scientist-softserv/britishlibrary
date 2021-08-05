@@ -12,9 +12,9 @@
       * [Stop the app and services](#stop-the-app-and-services)
       * [Troubleshooting](#troubleshooting)
       * [Rubocop](#rubocop)
-    * [Without Docker](#without-docker)
-      * [For development](#for-development)
+    * [Working with Translations](#working-with-translations)
   * [Admin User](#admin-user)
+  * [Account (tenant) Creation](#account-tenant-creation)
   * [Rescue Server Deploy](#rescue-server-deploy)
   * [Single Tenant Mode](#single-tenancy)
   * [Switching accounts](#switching-accounts)
@@ -102,10 +102,19 @@ sc be rails db:seed
 - Double check your dory set up
 
 - Error: `No such file or directory @ rb_sysopen - /app/samvera/hyrax-webapp/log/indexing.log`
-- Solution:
+- Try:
   ``` bash
   mkdir /app/samvera/hyrax-webapp/log
   touch /app/samvera/hyrax-webapp/log/indexing.log
+  ```
+
+- Error: Could not find <gem> in any of the sources (Bundler::GemNotFound)
+- Try:
+  ``` bash
+  docker-compose down -v
+  sc build
+  sc up -s initialize_app
+  sc up
   ```
 
 #### Rubocop
@@ -123,11 +132,6 @@ Rubocop can be run in docker locally using either of the options below:
   rubocop -a
   ```
 
-### Admin User
-This is for the admin login on the Shared Research Repository page or when logging in to a specific tenant
-- Local: `INITIAL_ADMIN_EMAIL` and `INITIAL_ADMIN_PASSWORD` in ".env"
-- Staging: `INITIAL_ADMIN_EMAIL` and `INITIAL_ADMIN_PASSWORD` in "staging-deploy.yaml"
-
 ### Working with Translations
 
 You can log all of the I18n lookups to the Rails logger by setting the I18N_DEBUG environment variable to true. This will add a lot of chatter to the Rails logger (but can be very helpful to zero in on what I18n key you should or could use).
@@ -135,6 +139,11 @@ You can log all of the I18n lookups to the Rails logger by setting the I18N_DEBU
 ```console
 $ I18N_DEBUG=true bin/rails server
 ```
+
+## Admin User
+This is for the admin login on the Shared Research Repository page or when logging in to a specific tenant
+- Local: `INITIAL_ADMIN_EMAIL` and `INITIAL_ADMIN_PASSWORD` in ".env"
+- Staging: `INITIAL_ADMIN_EMAIL` and `INITIAL_ADMIN_PASSWORD` in "staging-deploy.yaml"
 
 ## Account (tenant) creation
 - From the home page click on "Accounts" in the upper left corner
