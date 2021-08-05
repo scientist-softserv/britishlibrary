@@ -9,8 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 2588d1f12d3905172a2b47ba1be38b415f448487
-  branch: invalid_record_work
+  revision: fd7703e95b21156ea5a2b46d45b3ec7c658c4037
   specs:
     bulkrax (0.1.0)
       bagit (~> 0.4)
@@ -1093,4 +1092,4 @@ DEPENDENCIES
   xray-rails
 
 BUNDLED WITH
-   2.2.20
+   2.2.23
