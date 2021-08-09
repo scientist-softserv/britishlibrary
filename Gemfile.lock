@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: fd7703e95b21156ea5a2b46d45b3ec7c658c4037
+  revision: b366734130256cbf55ec7a3a08afff82e2b501bb
   specs:
     bulkrax (0.1.0)
       bagit (~> 0.4)
@@ -657,12 +657,12 @@ GEM
       redic
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
-    nio4r (2.5.7)
+    nio4r (2.5.8)
     noid (0.9.0)
     noid-rails (3.0.3)
       actionpack (>= 5.0.0, < 7)
       noid (~> 0.9)
-    nokogiri (1.12.0)
+    nokogiri (1.12.2)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     nokogumbo (2.0.5)
@@ -1015,8 +1015,6 @@ GEM
     xml-simple (1.1.8)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    xray-rails (0.3.2)
-      rails (>= 3.1.0)
 
 PLATFORMS
   ruby
@@ -1089,7 +1087,6 @@ DEPENDENCIES
   webdrivers (~> 4.0)
   webmock
   willow_sword!
-  xray-rails
 
 BUNDLED WITH
    2.2.23
