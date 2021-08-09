@@ -81,7 +81,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'scss_lint', require: false
-  gem 'xray-rails'
+  # TODO this is not working gem 'xray-rails'
 end
 
 # Bulkrax
