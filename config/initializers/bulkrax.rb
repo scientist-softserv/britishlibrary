@@ -6,23 +6,6 @@ if Settings.bulkrax.enabled
     # Add local parsers
     # config.parsers += []
 
-    # Field to use during import to identify if the Work or Collection already exists.
-    # Default is 'source'.
-    config.system_identifier_field = 'doi'
-
-    # Field_mapping for establishing the source_identifier
-    # This value IS NOT used for OAI, so setting the OAI Entries here will have no effect
-    # The mapping is supplied per Entry, provide the full class name as a string, eg. 'Bulkrax::CsvEntry'
-    # Example:
-    #   {
-    #     'Bulkrax::RdfEntry'  => 'http://opaquenamespace.org/ns/identifier',
-    #     'Bulkrax::CsvEntry'  => 'MyIdentifierField'
-    #   }
-    # The default value for CSV is 'source_identifier'
-    config.source_identifier_field_mapping = {
-      'Bulkrax::CsvEntry' => 'doi'
-    }
-
     # WorkType to use as the default if none is specified in the import
     # Default is the first returned by Hyrax.config.curation_concerns
     # config.default_work_type = MyWork
@@ -61,47 +44,47 @@ if Settings.bulkrax.enabled
     #     'Bulkrax::OaiDcParser' => { **individual field mappings go here*** }
     #   }
 
+    config.fill_in_blank_source_identifiers = ->(obj, index) { "#{Site.instance.account.name}-#{obj.importerexporter.id}-#{index}"}
     config.field_mappings['Bulkrax::CsvParser'] = {
       'abstract' => { from: ['abstract'] },
       'access_control_id' => { excluded: true },
       'add_info' => { from: ['additional_information'] },
       'admin_set_id' => { from: ['admin_set'] },
       'alt_title' => { from: ['alternative_title'] },
-      'alternate_identifier' => { from: ['alternate_identifier'], object: "alternate_identifier" },
-      'alternate_identifier_type' => { from: ['alternate_identifier_type'], object: "alternate_identifier" },
+      'alternate_identifier' => { from: ['alternate_identifier'], object: 'alternate_identifier' },
+      'alternate_identifier_type' => { from: ['alternate_identifier_type'], object: 'alternate_identifier' },
       'alternative_journal_title' => { from: ['alternative_journal_title'] },
       'arkivo_checksum' => { excluded: true },
       'article_num' => { from: ['article_number'] },
       'based_near' => { excluded: true },
       'bibliographic_citation' => { excluded: true },
       'book_title' => { from: ['book_title'] },
-      'collection_id' => { excluded: true },
-      "contributor_name_type" => { from: ["contributor_name_type"], object: "contributor" },
-      "contributor_family_name" => { from: ["contributor_family_name"], object: "contributor" },
-      "contributor_given_name" => { from: ["contributor_given_name"], object: "contributor" },
-      "contributor_orcid" => { from: ["contributor_orcid"], object: "contributor" },
-      "contributor_isni" => { from: ["contributor_isni"], object: "contributor" },
-      "contributor_grid" => { from: ["contributor_grid"], object: "contributor" },
-      "contributor_organization_name" => { from: ["contributor_organization_name"], object: "contributor" },
-      "contributor_researchassociate" => { from: ["contributor_researchassociate"], object: "contributor" },
-      "contributor_ror" => { from: ["contributor_ror"], object: "contributor" },
-      "contributor_staffmember" => { from: ["contributor_staffmember"], object: "contributor" },
-      "contributor_type" => { from: ["contributor_type"], object: "contributor" },
-      "contributor_wikidata" => { from: ["contributor_wikidata"], object: "contributor" },
-      "creator_name_type" => { from: ["creator_name_type"], object: "creator" },
-      "creator_family_name" => { from: ["creator_family_name"], object: "creator" },
-      "creator_given_name" => { from: ["creator_given_name"], object: "creator" },
-      "creator_grid" => { from: ["creator_grid"], object: "creator" },
-      "creator_orcid" => { from: ["creator_orcid"], object: "creator" },
-      "creator_organization_name" => { from: ["creator_organization_name"], object: "creator" },
-      "creator_isni" => { from: ["creator_isni"], object: "creator" },
-      "creator_researchassociate" => { from: ["creator_researchassociate"], object: "creator" },
-      "creator_ror" => { from: ["creator_ror"], object: "creator" },
-      "creator_staffmember" => { from: ["creator_staffmember"], object: "creator" },
-      "creator_type" => { from: ["creator_type"], object: "creator" },
-      "creator_wikidata" => { from: ["creator_wikidata"], object: "creator" },
-      "creator_family_name" => { from: ["creator_family_name"], object: "creator_search" },
-      "creator_given_name" => { from: ["creator_given_name"], object: "creator_search" },
+      'bulkrax_identifier' => { from: ['bulkrax_identifier'], source_identifier: true },
+      'collections' => { from: ['collection_id'] },
+      'contributor_family_name' => { from: ['contributor_family_name'], object: 'contributor' },
+      'contributor_given_name' => { from: ['contributor_given_name'], object: 'contributor' },
+      'contributor_grid' => { from: ['contributor_grid'], object: 'contributor' },
+      'contributor_isni' => { from: ['contributor_isni'], object: 'contributor' },
+      'contributor_name_type' => { from: ['contributor_name_type'], object: 'contributor' },
+      'contributor_orcid' => { from: ['contributor_orcid'], object: 'contributor' },
+      'contributor_organization_name' => { from: ['contributor_organization_name'], object: 'contributor' },
+      'contributor_researchassociate' => { from: ['contributor_researchassociate'], object: 'contributor' },
+      'contributor_ror' => { from: ['contributor_ror'], object: 'contributor' },
+      'contributor_staffmember' => { from: ['contributor_staffmember'], object: 'contributor' },
+      'contributor_type' => { from: ['contributor_type'], object: 'contributor' },
+      'contributor_wikidata' => { from: ['contributor_wikidata'], object: 'contributor' },
+      'creator_family_name' => { from: ['creator_family_name'], object: 'creator' },
+      'creator_given_name' => { from: ['creator_given_name'], object: 'creator' },
+      'creator_grid' => { from: ['creator_grid'], object: 'creator' },
+      'creator_isni' => { from: ['creator_isni'], object: 'creator' },
+      'creator_name_type' => { from: ['creator_name_type'], object: 'creator' },
+      'creator_orcid' => { from: ['creator_orcid'], object: 'creator' },
+      'creator_organization_name' => { from: ['creator_organization_name'], object: 'creator' },
+      'creator_researchassociate' => { from: ['creator_researchassociate'], object: 'creator' },
+      'creator_ror' => { from: ['creator_ror'], object: 'creator' },
+      'creator_staffmember' => { from: ['creator_staffmember'], object: 'creator' },
+      'creator_type' => { from: ['creator_type'], object: 'creator' },
+      'creator_wikidata' => { from: ['creator_wikidata'], object: 'creator' },
       'current_he_institution' => { from: ['current_he_institution'] },
       'date_accepted' => { from: ['date_accepted'] },
       'date_published' => { from: ['date_published_1'] },
@@ -115,14 +98,14 @@ if Settings.bulkrax.enabled
       'draft_doi' => { excluded: true },
       'duration' => { from: ['duration'] },
       'edition' => { from: ['edition'] },
-      "editor_name_type" => { from: ["editor_name_type"], object: "editor" },
-      "editor_family_name" => { from: ["editor_family_name"], object: "editor" },
-      "editor_given_name" => { from: ["editor_given_name"], object: "editor" },
-      "editor_orcid" => { from: ["editor_orcid"], object: "editor" },
-      "editor_isni" => { from: ["editor_isni"], object: "editor" },
-      "editor_organization_name" => { from: ["editor_organization_name"], object: "editor" },
-      "editor_researchassociate" => { from: ["editor_researchassociate"], object: "editor" },
-      "editor_staffmember" => { from: ["editor_staffmember"], object: "editor" },
+      'editor_family_name' => { from: ['editor_family_name'], object: 'editor' },
+      'editor_given_name' => { from: ['editor_given_name'], object: 'editor' },
+      'editor_isni' => { from: ['editor_isni'], object: 'editor' },
+      'editor_name_type' => { from: ['editor_name_type'], object: 'editor' },
+      'editor_orcid' => { from: ['editor_orcid'], object: 'editor' },
+      'editor_organization_name' => { from: ['editor_organization_name'], object: 'editor' },
+      'editor_researchassociate' => { from: ['editor_researchassociate'], object: 'editor' },
+      'editor_staffmember' => { from: ['editor_staffmember'], object: 'editor' },
       'eissn' => { from: ['eissn'] },
       'embargo_id' => { excluded: true },
       'event_date' => { excluded: true },
@@ -131,12 +114,12 @@ if Settings.bulkrax.enabled
       'file_availability' => { excluded: true },
       'file_url' => { from: ['file_url'] },
       'fndr_project_ref' => { excluded: true },
-      'funder_name' => { from: ['funder_name'], object: "funder" },
-      'funder_doi' => { from: ['funder_doi'], object: "funder" },
-      'funder_position' => { from: ['funder_position'], object: "funder" },
-      'funder_isni' => { from: ['funder_isni'], object: "funder" },
-      'funder_ror' => { from: ['funder_ror'], object: "funder" },
       'funder_award' => { from: ['funder_award'], object: "funder", nested_type: 'Array' },
+      'funder_doi' => { from: ['funder_doi'], object: "funder" },
+      'funder_isni' => { from: ['funder_isni'], object: "funder" },
+      'funder_name' => { from: ['funder_name'], object: "funder" },
+      'funder_position' => { from: ['funder_position'], object: "funder" },
+      'funder_ror' => { from: ['funder_ror'], object: "funder" },
       'head' => { excluded: true },
       'identifier' => { excluded: true },
       'institution' => { from: ['institution'] },
@@ -167,10 +150,10 @@ if Settings.bulkrax.enabled
       'related_exhibition' => { from: ['related_exhibition'] },
       'related_exhibition_date' => { excluded: true },
       'related_exhibition_venue' => { from: ['related_exhibition_venue'] },
-      "related_identifier" => { from: ["related_identifier"], object: "related_identifier" },
-      "related_identifier_type" => { from: ["related_identifier_type"], object: "related_identifier" },
-      "relation_type" => { from: ["relation_type"], object: "related_identifier" },
+      'related_identifier' => { from: ['related_identifier'], object: 'related_identifier' },
+      'related_identifier_type' => { from: ['related_identifier_type'], object: 'related_identifier' },
       'related_url' => { from: ['related_url'] },
+      'relation_type' => { from: ['relation_type'], object: 'related_identifier' },
       'relative_path' => { excluded: true },
       'rendering_ids' => { excluded: true },
       'representative_id' => { excluded: true },
@@ -186,7 +169,7 @@ if Settings.bulkrax.enabled
       'title' => { from: ['title'] },
       'version' => { from: ['version'] },
       'version_number' => { excluded: true },
-      'volume' => { from: ['volume'] },
+      'volume' => { from: ['volume'] }
     }
 
 
