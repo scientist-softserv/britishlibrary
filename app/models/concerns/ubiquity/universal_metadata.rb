@@ -9,6 +9,9 @@ module Ubiquity
     # include here properties (fields) shared across all templates
     # also see SharedMetadata
     included do
+      property :bulkrax_identifier, predicate: ::RDF::URI("https://iro.bl.uk/resource#bulkraxIdentifier"), multiple: false do |index|
+        index.as :stored_searchable, :facetable
+      end
       property :institution, predicate: ::RDF::Vocab::ORG.organization do |index|
         index.as :stored_searchable, :facetable
       end
