@@ -60,7 +60,7 @@ if Settings.bulkrax.enabled
       'bibliographic_citation' => { excluded: true },
       'book_title' => { from: ['book_title'] },
       'bulkrax_identifier' => { from: ['bulkrax_identifier'], source_identifier: true },
-      'collection_id' => { excluded: true },
+      'collections' => { from: ['collection_id'] },
       'contributor_family_name' => { from: ['contributor_family_name'], object: 'contributor' },
       'contributor_given_name' => { from: ['contributor_given_name'], object: 'contributor' },
       'contributor_grid' => { from: ['contributor_grid'], object: 'contributor' },
