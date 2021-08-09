@@ -7,7 +7,7 @@ x-app: &app
     args:
       - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync
       - SETTINGS__BULKRAX__ENABLED=true
-  command: sh -l -c "bundle && bundle exec puma -v -b tcp://0.0.0.0:3000"
+  # command: sh -l -c "bundle && bundle exec puma -v -b tcp://0.0.0.0:3000"
   image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
   env_file:
     - .env
@@ -124,7 +124,7 @@ services:
       - 3000
 
   worker:
-    command: sh -l -c "bundle && bundle exec sidekiq"
+    # command: sh -l -c "bundle && bundle exec sidekiq"
     <<: *app
     build:
       context: .
