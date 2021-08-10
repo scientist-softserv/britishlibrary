@@ -967,6 +967,17 @@ div#documents {
   border-radius: 5px;
 }
 
+.hyc-metadata div dt {
+  flex-basis: auto;
+  width: 30%;
+}
+
+.hyc-metadata div dd {
+  width: 70%;
+  padding-left: 10px;
+  word-wrap: break-word;
+}
+
 .hyc-bl-sort {
   margin-bottom: 2em;
   margin-top: 2em;
