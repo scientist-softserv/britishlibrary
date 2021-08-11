@@ -12,8 +12,7 @@
       <% end %>
       <% unless @presenter.total_viewable_items.blank? %>
           <div class="hyc-bugs">
-            <% unless @presenter.logo_record.blank? %>
-              <% unless @presenter.banner_file.blank? %>
+            <% if !@presenter.logo_record.blank? && !@presenter.banner_file.blank? %>
                 <div class="hyc-logos">
                   <% @presenter.logo_record.each_with_index  do |lr, i| %>
                       <% if lr[:linkurl].blank? %>
@@ -25,7 +24,6 @@
                       <% end %>
                   <% end %>
                 </div>
-              <% end %>
             <% end %>
             <div class="hyc-item-count">
               <b><%= @presenter.total_viewable_items %></b>
