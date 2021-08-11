@@ -961,7 +961,6 @@ div#documents {
 .hyc-badges{
   right: 0;
   top: 40px;
-  padding-bottom: 20px;
 }
 
 .hyc-last-updated {
@@ -997,6 +996,15 @@ div#documents {
   }
 }
 
+.hyc-metadata.opposite-colors {
+  div:nth-child(even) {
+    background-color: $neutral;
+  }
+  div:nth-child(odd) {
+    background-color: $white;
+  }
+}
+
 @media (max-width: 991px){
   .hyc-metadata {
     padding-top: 40px;
@@ -1009,6 +1017,10 @@ div#documents {
   .view-type.pull-right {
     padding-bottom: 20px;
   }
+}
+
+.hyc-bl-search {
+  background-color: $white;
 }
 
 
