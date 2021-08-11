@@ -42,20 +42,18 @@
           </div>
       <% end %>
       </header>
-      <% if @presenter.banner_file.blank? %>
-        <% unless @presenter.logo_record.blank? %>
-          <div class="hyc-logos-no-banner">
-            <% @presenter.logo_record.each_with_index  do |lr, i| %>
-                <% if lr[:linkurl].blank? %>
+      <% if @presenter.banner_file.blank? && @presenter.logo_record.present? %>
+        <div class="hyc-logos-no-banner">
+          <% @presenter.logo_record.each_with_index  do |lr, i| %>
+              <% if lr[:linkurl].blank? %>
+                  <img alt="<%= lr[:alttext] %>" src="<%= lr[:file_location] %>" />
+              <% else %>
+                  <a href="<%= lr[:linkurl] %>">
                     <img alt="<%= lr[:alttext] %>" src="<%= lr[:file_location] %>" />
-                <% else %>
-                    <a href="<%= lr[:linkurl] %>">
-                      <img alt="<%= lr[:alttext] %>" src="<%= lr[:file_location] %>" />
-                    </a>
-                <% end %>
-            <% end %>
-          </div>
-        <% end %>
+                  </a>
+              <% end %>
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>
