@@ -852,12 +852,12 @@ div.catalog-page-search form#search-form-header{
     color: $darkgrey;
     background-color: $white;
     border-color: $lightgrey;
-}
+  }
 
-.simple_form.form-horizontal .alert.alert-danger {
-  margin-right: 0;
-  margin-left: 0;
-}
+  .simple_form.form-horizontal .alert.alert-danger {
+    margin-right: 0;
+    margin-left: 0;
+  }
 
   span.glyphicon.glyphicon-remove {
     color: $mediumgrey;
@@ -1395,7 +1395,7 @@ div.top-panel-heading.panel-heading h2.facets-heading {
 }
 
  .text-success, .facet-values li .selected {
-  color: $rust;
+    color: $rust;
   }
 
   //DEVISE
@@ -1412,7 +1412,7 @@ div.top-panel-heading.panel-heading h2.facets-heading {
     }
     label.control-label {
       padding-top: 0;
-  }
+    }
   }
 }
 
