@@ -6,6 +6,7 @@
 
 body.public-facing {
   font-family: "Noto Sans" !important;
+  font-size: 13px;
   color: $darkgrey !important;
   overflow-x: hidden;
   margin-bottom: 75px;
@@ -16,22 +17,22 @@ body.public-facing {
   }
 
   h1{
-    font-size: 34px;
+    font-size: 30px;
     font-weight: 500;
   }
 
   h2{
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 500;
   }
 
   h3{
-    font-size: 24px;
+    font-size: 20px;
   }
 
   h4{
     font-family: "Noto Sans JP" !important;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 300;
   }
 
@@ -49,7 +50,11 @@ body.public-facing {
 
   p{
     color: $darkgrey !important;
-    font-size: 14px;
+    font-size: 13px;
+  }
+
+  hr {
+    border-top: 2px solid $lightgrey;
   }
 
   .home_marketing_text h1, .home_marketing_text h2{
@@ -95,6 +100,11 @@ body.public-facing {
     padding-left: 10px;
     padding-right: 10px
   }
+
+  .mt-0 {
+    margin-top: 0;
+  }
+
   .mt-40{
     margin-top: 40px;
   }
@@ -130,15 +140,18 @@ body.public-facing {
 
   /* LINK COLORS */
   a {
-    color: $darkgrey !important;
+    color: $darkgrey;
     transition: .1s ease-in-out;
   }
-  a:hover {
-    text-decoration: none;
-  }
+
   a:focus{
-    outline: none !important;
+    outline: none;
   }
+
+  a:hover{
+    color: $mediumgrey2;
+  }
+
   #sort-dropdown .dropdown-toggle, #per_page-dropdown .dropdown-toggle {
     color: $darkgrey !important;
   }
@@ -155,8 +168,16 @@ body.public-facing {
     font-weight: 600;
     letter-spacing: 1px;
     text-transform: uppercase !important;
+    transition: .2s
   }
 
+  nav.navbar.navbar-default.navbar-static-top div.container-fluid div.row ul.nav.navbar-nav li a:active {
+    transform: scale(.95)
+  }
+
+  nav.navbar.navbar-default.navbar-static-top div.container-fluid div.row ul.nav.navbar-nav li a:hover {
+    text-decoration: underline;
+  }
 
   nav#masthead {
     margin-bottom: 0px;
@@ -181,12 +202,12 @@ body.public-facing {
     margin: 0px 10px;
     text-transform: none;
     font-weight: 500;
+    transition: .2s;
   }
   .shared-research-repo-button:hover{
-    color: #ffffffe0 !important;
+    color: #ffffffa9 !important;
     text-decoration: none;
   }
-
 
 
   //DROPDOWN NAVBAR
@@ -253,13 +274,13 @@ body.public-facing {
 
 
 /* HOME PAGE SEARCH BAR NAV */
-.image-masthead .navbar {
-  background-color: transparent !important;
-}
-.image-masthead .navbar .active > a, .image-masthead .navbar .active > a:hover, .image-masthead .navbar .active > a:focus {
+  .image-masthead .navbar {
     background-color: transparent !important;
-    color: $mediumgrey !important;
   }
+  .image-masthead .navbar .active > a, .image-masthead .navbar .active > a:hover, .image-masthead .navbar .active > a:focus {
+      background-color: transparent !important;
+      color: $mediumgrey !important;
+    }
   .image-masthead .navbar .navbar-nav a {
     color: $darkgrey;
     text-transform: none !important;
@@ -278,7 +299,7 @@ body.public-facing {
   button#search-submit-header {
     color: $darkgrey;
     background-color: $white;
-    padding: 12px 12px;
+    padding: 11px 12px;
     border-top: 2px solid $lightgrey !important;
     border-bottom: 2px solid $lightgrey !important;
     border-right: 2px solid $lightgrey !important;
@@ -332,6 +353,7 @@ body.public-facing {
     div#top-navbar-collapse {
       background-color: $white;
       border: 0px solid transparent;
+      border-bottom: 2px solid $lightgrey;
       border-radius: 0px;
     }
 
@@ -363,7 +385,7 @@ body.public-facing {
     .navbar-collapse {
       padding-right: 0px;
       padding-left: 0px;
-  }
+    }
 
     ul.nav.navbar-nav {
       margin: 0px;
@@ -388,7 +410,7 @@ body.public-facing {
     margin-bottom: 0px;
   }
 
-  // makes the columns in the masthead the same height
+    // makes the columns in the masthead the same height
 
   .image-masthead.row{
     display: flex;
@@ -502,73 +524,75 @@ body.public-facing {
 
   /* PRIMARY BUTTON STYLES */
   .btn-primary {
-    background-color: $neutral;
-    border: 2px solid $mediumgrey;
-    border-color: $mediumgrey;
+    background-color: transparent;
+    border: 0;
+    border-color: transparent;
     color: $darkgrey;
-  }
-  .btn-primary:focus,
-  .btn-primary.focus {
-    background-color: $neutral;
-    border: 2px solid $mediumgrey;
-    border-color: $mediumgrey;
-  }
-  .btn-primary:hover {
-    background-color: $white;
-    border-color: $mediumgrey;
-    border: 2px solid $mediumgrey;
+    font-size: 16px;
   }
   .btn-primary:active,
-  .btn-primary.active {
-    background-color: $neutral;
-    border: 2px solid $mediumgrey;
-    border-color: $mediumgrey;
+  .btn-primary.active, .btn-primary:focus,
+  .btn-primary.focus, .btn-primary:focus-visible,
+  .btn-primary.focus-visible{
+    background-color: transparent;
+    border: 0;
+    border-color: transparent;
+    outline: 0;
   }
-  .btn-primary:active:hover,
+  .btn-primary:hover, .btn-primary:active:hover,
   .btn-primary:active:focus,
   .btn-primary:active.focus,
   .btn-primary.active:hover,
   .btn-primary.active:focus,
-  .btn-primary.active.focus{
-    background-color: $neutral;
-    border: 2px solid $mediumgrey;
-    border-color: $mediumgrey;
+  .btn-primary.active.focus {
+    background-color: transparent;
+    border-color: transparent;
+    border: 0;
+    text-decoration: underline;
+    color: $darkgrey;
   }
+
   .btn-primary.disabled:hover,
   .btn-primary.disabled:focus,
   .btn-primary.disabled.focus,
   .btn-primary[disabled]:hover,
   .btn-primary[disabled]:focus,
   .btn-primary[disabled].focus {
-    background-color: $lightgrey;
-    border-color: $neutral;
+    background-color: transparent;
+    border-color: transparent;
+    color: $lightgrey;
   }
 
   /* DEFAULT BUTTON STYLES */
   .btn-default {
-    background-color: $white;
-    border: 2px solid $neutral;
-    border-color: $neutral;
-    color: $darkgrey;;
+    background-color: transparent;
+    border: 0;
+    border-color: transparent;
+    color: $darkgrey;
+    font-size: 16px;
+    transition: .2s
   }
   .btn-default:focus,
   .btn-default.focus {
     color: $darkgrey !important;
-    background-color: $white;
-    border: 2px solid $neutral;
-    border-color: $neutral;
+    background-color: transparent;
+    border: 0;
+    border-color: transparent;
   }
   .btn-default:hover {
     color: $darkgrey !important;
-    background-color: $lightgrey !important;
-    border: 2px solid transparent;
-    border-color: none !important;
+    background-color: transparent !important;
+    border: 0;
+    border-color: transparent !important;
+    text-decoration: underline;
   }
   .btn-default:active,
   .btn-default.active {
-    background-color: $white;
-    border: 2px solid $mediumgrey;
-    border-color: $mediumgrey;
+    background-color: transparent;
+    border: 0;
+    border-color: transparent;
+    box-shadow: none;
+    transform: scale(.95)
   }
   .btn-default:active:hover,
   .btn-default:active:focus,
@@ -576,9 +600,10 @@ body.public-facing {
   .btn-default.active:hover,
   .btn-default.active:focus,
   .btn-default.active.focus{
-    background-color: $white;
-    border: 2px solid $mediumgrey;
-    border-color: $mediumgrey;
+    background-color: transparent;
+    border: 0;
+    border-color: transparent;
+    text-decoration: underline;
   }
   .btn-default.disabled:hover,
   .btn-default.disabled:focus,
@@ -586,9 +611,14 @@ body.public-facing {
   .btn-default[disabled]:hover,
   .btn-default[disabled]:focus,
   .btn-default[disabled].focus {
-    background-color: $white;
-    border: 2px solid $neutral;
-    border-color: $neutral;
+    background-color: transparent;
+    border: 0;
+    border-color: transparent;
+  }
+
+  .btn:active, .facets-toggle:active, td.toggle input[type=submit]:active, .btn.active, .active.facets-toggle, td.toggle input.active[type=submit] {
+    box-shadow: none;
+    -webkit-box-shadow: none;
   }
 
   a.btn.btn-danger{
@@ -616,7 +646,7 @@ body.public-facing {
 
   .panel.facet_limit {
     border: 2px solid $lightgrey;
-    margin: 20px 0px;
+    margin: 10px 0;
   }
 
 
@@ -644,7 +674,7 @@ body.public-facing {
   // MARKETING TEXT SECTION
   .marketing-text p{
     font-family: "Noto Sans JP" !important;
-    font-size: 28px !important;
+    font-size: 24px !important;
     font-weight: 300 !important;
     padding-top: 25px;
   }
@@ -689,8 +719,6 @@ body.public-facing {
     flex-wrap: wrap;
   }
 
-  //RECENT WORKS
-
 
   //ANNOUNCEMENT BLOCK
   div#announcement {
@@ -705,8 +733,17 @@ body.public-facing {
     font-size: 11px !important;
   }
 
+  // CONTACT PAGE
+
+  form#new_contact_form {
+    padding-bottom: 40px;
+  }
 
   // FOOTER STYLES
+
+  footer.navbar {
+    font-size: 1em;
+  }
 
   .navbar.navbar-inverse.site-footer {
     border-top: 2px solid $lightgrey !important;
@@ -721,6 +758,12 @@ body.public-facing {
 
   .footer-link a{
     font-weight: 700;
+    transition: .2s;
+    text-decoration: none;
+  }
+
+  .footer-link a:active {
+    transform: scale(.95)
   }
 
   @media only screen and (max-width: 1100px) {
@@ -861,6 +904,13 @@ body.public-facing {
     color: $mediumgrey;
   }
 
+  .alert.alert-info {
+    background-color: $white;
+    color: $darkgrey;
+    margin: 20px 0;
+    border: 2px solid $lightgrey;
+}
+
   //CROSS BROWSER
 
   //makes homepage columns even on safari
@@ -877,12 +927,18 @@ body.public-facing {
     margin: 10px 0;
   }
 
+  header.hyc-generic {
+    padding-left: 5px;
+    padding-top: 10px;
+  }
+
   input#collection_search {
     height: 36px;
   }
 
   .hyc-description {
-    padding: 0 15px;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 
   .hyc-bl-results .table > thead > tr > th, .hyc-bl-results .table > thead > tr > td{
@@ -943,15 +999,22 @@ body.public-facing {
     bottom: 0;
     left: 0;
     img {
-      height: 100px;
+      height: 70px;
       padding: 0;
+      padding-right: 20px;
     }
+  }
+
+  .hyc-logos-no-banner img {
+    height: 70px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
   }
 
   .hyc-badges{
     right: 0;
     top: 40px;
-    padding-bottom: 20px;
   }
 
   .hyc-last-updated {
@@ -963,16 +1026,43 @@ body.public-facing {
     border-top: 0;
   }
 
-  .hyc-metadata div{
-    padding: 10px
+  .hyc-metadata {
+    padding: 0;
+    div {
+      padding: 10px;
+    }
+    div:nth-child(even) {
+      background-color: $white;
+      border-radius: 5px;
+    }
+    div:nth-child(odd) {
+      background-color: $neutral;
+      border-radius: 5px;
+    }
+    div dt {
+      flex-basis: auto;
+      width: 30%;
+    }
+    div dd {
+      width: 70%;
+      padding-left: 10px;
+      word-wrap: break-word;
+    }
   }
-  .hyc-metadata div:nth-child(even){
-    background-color: $white;
-    border-radius: 5px;
+
+  .hyc-metadata.opposite-colors {
+    div:nth-child(even) {
+      background-color: $neutral;
+    }
+    div:nth-child(odd) {
+      background-color: $white;
+    }
   }
-  .hyc-metadata div:nth-child(odd){
-    background-color: $neutral;
-    border-radius: 5px;
+
+  @media (max-width: 991px){
+    .hyc-metadata {
+      padding-top: 40px;
+    }
   }
 
   .hyc-bl-sort {
@@ -981,6 +1071,10 @@ body.public-facing {
     .view-type.pull-right {
       padding-bottom: 20px;
     }
+  }
+
+  .hyc-bl-search {
+    background-color: $white;
   }
 
 
@@ -995,9 +1089,6 @@ body.public-facing {
 
     li.attribute span a, li.attribute a{
       color: $rust !important;
-    }
-    li.attribute span a:hover, li.attribute a:hover{
-      color: $mediumgrey !important;
     }
   }
 
@@ -1043,11 +1134,11 @@ body.public-facing {
     }
   }
   // these following 2 selectors extend the background color outside of the container
-  .work-show-section-contrast {
+  .extended-section-contrast {
     position: relative;
   }
 
-  .work-show-section-contrast:before {
+  .extended-section-contrast:before {
       content:"";
       background-color:$neutral;
       position: absolute;
@@ -1205,7 +1296,7 @@ body.public-facing {
         width: 100%;
     }
     .metadata-group dt {
-      font-size: 28px;
+      font-size: 22px;
       font-weight: 500;
     }
   }
@@ -1213,6 +1304,11 @@ body.public-facing {
   .work-show-items {
     overflow: scroll;
   }
+
+  .work-title h1 {
+    font-size: 24px;
+  }
+
 
   // SEARCH RESULTS
 
