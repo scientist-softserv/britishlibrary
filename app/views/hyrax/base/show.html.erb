@@ -11,7 +11,7 @@
     <div>
       <%= render 'work_type', presenter: @presenter %>
       <%= render 'work_title', presenter: @presenter %>
-      <div class="section-contrast work-show-section-contrast mt-40">
+      <div class="section-contrast extended-section-contrast mt-40">
         <div class="pt-40 pb-40 work-show-abstract">
           <h3>
           <%= @presenter.attribute_to_html(:abstract, render_as: :string) %>
@@ -36,7 +36,7 @@
         <%# = render 'sharing_with', presenter: @presenter %>
         <%# = render 'user_activity', presenter: @presenter %>
       </div>
-      <div class="section-contrast work-show-section-contrast mt-40">
+      <div class="section-contrast extended-section-contrast mt-40">
         <div class="row pb-40 pt-40">
           <%= render 'workflow_actions_widget', presenter: @presenter %>
           <h2 class="col-sm-12">Metadata</h2>
