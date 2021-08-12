@@ -1015,74 +1015,22 @@ body.public-facing {
     }
   }
 
-.hyc-logos-no-banner img {
-  height: 70px;
-  padding-right: 20px;
-  padding-bottom: 10px;
-  padding-top: 10px;
-}
-
-.hyc-badges{
-  right: 0;
-  top: 40px;
-}
-
-.hyc-last-updated {
-  padding-left: 10px !important;
-}
-
-.hyc-metadata div, .hyc-metadata dl {
-  border-bottom: 0;
-  border-top: 0;
-}
-
-.hyc-metadata {
-  padding: 0;
-  div {
-    padding: 10px;
-  }
-  div:nth-child(even) {
-    background-color: $white;
-    border-radius: 5px;
-  }
-  div:nth-child(odd) {
-    background-color: $neutral;
-    border-radius: 5px;
-  }
-  div dt {
-    flex-basis: auto;
-    width: 30%;
-  }
-  div dd {
-    width: 70%;
-    padding-left: 10px;
-    word-wrap: break-word;
-  }
-}
-
-.hyc-metadata.opposite-colors {
-  div:nth-child(even) {
-    background-color: $neutral;
-  }
-  div:nth-child(odd) {
-    background-color: $white;
-  }
-}
-
-@media (max-width: 991px){
-  .hyc-metadata {
-    padding-top: 40px;
-  }
-}
-
-  .hyc-last-updated {
-    padding-left: 10px !important;
+  .hyc-logos-no-banner img {
+    height: 70px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
   }
 
-.hyc-bl-search {
-  background-color: $white;
-}
+  .hyc-badges{
+    right: 0;
+    top: 40px;
+  }
 
+  .hyc-metadata div, .hyc-metadata dl {
+    border-bottom: 0;
+    border-top: 0;
+  }
 
   .hyc-metadata {
     padding: 0;
@@ -1123,6 +1071,14 @@ body.public-facing {
     }
   }
 
+  .hyc-last-updated {
+    padding-left: 10px !important;
+  }
+
+  .hyc-bl-search {
+    background-color: $white;
+  }
+
   .hyc-bl-sort {
     margin-bottom: 2em;
     margin-top: 2em;
@@ -1131,16 +1087,12 @@ body.public-facing {
     }
   }
 
-  .hyc-bl-search {
-    background-color: $white;
-  }
-
 
   //WORK SHOW PAGE
 
-  ul.tabular{
-    font-weight: 300;
-  }
+    ul.tabular{
+      font-weight: 300;
+    }
 
   .metadata-group ul.tabular{
     margin-bottom: 0;
@@ -1547,11 +1499,6 @@ body.public-facing {
   }
 
   .text-success, .facet-values li .selected {
-  color: $rust;
-  }
-}
-
- .text-success, .facet-values li .selected {
     color: $rust;
   }
 
