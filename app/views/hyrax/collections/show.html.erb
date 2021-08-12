@@ -4,15 +4,14 @@
 <div class="hyc-container" itemscope itemtype="http://schema.org/CollectionPage">
   <div class="row hyc-header">
     <div class="col-md-12">
-
-      <% unless @presenter.banner_file.blank? %>
-          <header class="hyc-banner" style="background-image:url(<%= @presenter.banner_file %>)">
-      <% else %>
-          <header class="hyc-generic">
-      <% end %>
-      <% unless @presenter.total_viewable_items.blank? %>
-          <div class="hyc-bugs">
-            <% unless @presenter.logo_record.blank? %>
+        <% unless @presenter.banner_file.blank? %>
+        <header class="hyc-banner" style="background-image:url(<%= @presenter.banner_file %>)">
+        <% else %>
+        <header class="hyc-generic">
+        <% end %>
+        <% unless @presenter.total_viewable_items.blank? %>
+        <div class="hyc-bugs">
+          <% if !@presenter.logo_record.blank? && !@presenter.banner_file.blank? %>
               <div class="hyc-logos">
                 <% @presenter.logo_record.each_with_index  do |lr, i| %>
                     <% if lr[:linkurl].blank? %>
@@ -24,50 +23,92 @@
                     <% end %>
                 <% end %>
               </div>
-            <% end %>
-            <div class="hyc-item-count">
-              <b><%= @presenter.total_viewable_items %></b>
-              <%= 'Item'.pluralize(@presenter.total_viewable_items) %>
-            </div>
-            <div class="hyc-badges">
-              <%= @presenter.collection_type_badge %>
-              <%= @presenter.permission_badge %>
-            </div>
-            <% unless @presenter.creator.blank? %>
-                <div class="hyc-created-by">Created by: <%= @presenter.creator.first %></div>
-            <% end %>
-            <% unless @presenter.modified_date.blank? %>
-                <div class="hyc-last-updated">Last Updated: <%= @presenter.modified_date %></div>
+          <% end %>
+          <div class="hyc-item-count">
+            <b><%= @presenter.total_viewable_items %></b>
+            <%= 'Item'.pluralize(@presenter.total_viewable_items) %>
+          </div>
+          <div class="hyc-badges">
+            <%= @presenter.collection_type_badge %>
+            <%= @presenter.permission_badge %>
+          </div>
+          <% unless @presenter.creator.blank? %>
+              <div class="hyc-created-by">
+                Created by: <%= @presenter.creator.first %>
+              </div>
+          <% end %>
+          <% unless @presenter.modified_date.blank? %>
+              <div class="hyc-last-updated">
+                Last Updated: <%= @presenter.modified_date %>
+              </div>
+          <% end %>
+        </div>
+        <% end %>
+        </header>
+      <% if @presenter.banner_file.blank? && @presenter.logo_record.present? %>
+          <div class="hyc-logos-no-banner">
+            <% @presenter.logo_record.each_with_index  do |lr, i| %>
+                <% if lr[:linkurl].blank? %>
+                    <img alt="<%= lr[:alttext] %>" src="<%= lr[:file_location] %>" />
+                <% else %>
+                    <a href="<%= lr[:linkurl] %>">
+                      <img alt="<%= lr[:alttext] %>" src="<%= lr[:file_location] %>" />
+                    </a>
+                <% end %>
             <% end %>
           </div>
       <% end %>
-
-      </header>
-      <div>
-        <h1 class="pt-40"><%= @presenter.title.first %></h1>
-      </div>
     </div>
   </div>
 
+  <% if @presenter.banner_file.blank? && @presenter.logo_record.present? %>
+  <div class="row hyc-body work-show-section-contrast">
+  <% else %>
   <div class="row hyc-body">
+  <% end %>
+  <% if @presenter.banner_file %>
+    <div class="col-md-7 hyc-description pt-20">
+  <% else %>
     <div class="col-md-7 hyc-description">
-      <%= render 'collection_description', presenter: @presenter %>
+  <% end %>
+      <div>
+        <% if @presenter.banner_file.blank? && @presenter.logo_record.present? %>
+        <h1 class="mt-0 pt-40"><%= @presenter.title.first %></h1>
+        <% else %>
+        <h1 class="mt-0"><%= @presenter.title.first %></h1>
+        <% end %>
+      </div>
+      <div class="pt-20">
+        <%= render 'collection_description', presenter: @presenter %>
+      </div>
       <% if @presenter.collection_type_is_nestable? && @presenter.total_parent_collections > 0 %>
-          <div class="hyc-blacklight hyc-bl-title">
-            <h2>
-              <%= t('.parent_collection_header') %> (<%= @presenter.total_parent_collections %>)
-            </h2>
-          </div>
-          <div class="hyc-blacklight hyc-bl-results">
-            <%= render 'show_parent_collections', presenter: @presenter %>
-          </div>
+        <div class="hyc-blacklight hyc-bl-title">
+          <h2>
+            <%= t('.parent_collection_header') %> (<%= @presenter.total_parent_collections %>)
+          </h2>
+        </div>
+        <div class="hyc-blacklight hyc-bl-results">
+          <%= render 'show_parent_collections', presenter: @presenter %>
+        </div>
       <% end %>
 
     </div>
-    <div class="col-md-4 col-md-offset-1 hyc-metadata">
+    <% if @presenter.banner_file %>
+    <div class="col-md-4 col-md-offset-1 pt-20">
+    <% elsif @presenter.banner_file.blank? && @presenter.logo_record.present? %>
+    <div class="col-md-4 col-md-offset-1 pt-40 pb-40">
+    <% else %>
+    <div class="col-md-4 col-md-offset-1">
+    <% end %>
       <% unless has_collection_search_parameters? %>
-          <h3><%= t('hyrax.dashboard.collections.show.metadata_header') %></h3>
+        <% if @presenter.banner_file.blank? && @presenter.logo_record.present? %>
+        <div class="hyc-metadata opposite-colors">
+        <% else %>
+        <div class="hyc-metadata">
+        <% end %>
+          <h3 class="mt-0"><%= t('hyrax.dashboard.collections.show.metadata_header') %></h3>
           <%= render 'show_descriptions' %>
+        </div>
       <% end %>
     </div>
   </div>
