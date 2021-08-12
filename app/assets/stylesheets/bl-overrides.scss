@@ -848,6 +848,16 @@ div.catalog-page-search form#search-form-header{
     border-color: none;
     border: none;
   }
+  .alert-danger {
+    color: $darkgrey;
+    background-color: $white;
+    border-color: $lightgrey;
+  }
+
+  .simple_form.form-horizontal .alert.alert-danger {
+    margin-right: 0;
+    margin-left: 0;
+  }
 
   span.glyphicon.glyphicon-remove {
     color: $mediumgrey;
@@ -1385,8 +1395,25 @@ div.top-panel-heading.panel-heading h2.facets-heading {
 }
 
  .text-success, .facet-values li .selected {
- color: $rust;
-}
+    color: $rust;
+  }
+
+  //DEVISE
+  div#error_explanation {
+    border: 2px solid $lightgrey;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin: 20px 0;
+  }
+
+  @media (min-width: 992px){
+    .required-tag {
+      vertical-align: baseline;
+    }
+    label.control-label {
+      padding-top: 0;
+    }
+  }
 }
 
 body.splash.splash-index.public-facing {
