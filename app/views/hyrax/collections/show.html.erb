@@ -1,4 +1,5 @@
 <%# OVERRIDE Hyrax 2.9.5 to change layout of collections page for BL layout %>
+<%# OVERRIDE Hyrax 2.9.5 to change layout of collections page for BL layout %>
 
 <% provide :page_title, construct_page_title(@presenter.title) %>
 <div class="hyc-container" itemscope itemtype="http://schema.org/CollectionPage">
@@ -62,7 +63,7 @@
   </div>
 
   <% if @presenter.banner_file.blank? && @presenter.logo_record.present? %>
-  <div class="row hyc-body work-show-section-contrast">
+  <div class="row hyc-body extended-section-contrast">
   <% else %>
   <div class="row hyc-body">
   <% end %>
