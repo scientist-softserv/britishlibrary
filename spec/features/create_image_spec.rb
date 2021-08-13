@@ -57,9 +57,12 @@ RSpec.describe 'Create a Image', js: true do
         attach_file("files[]", File.join(fixture_path, 'hyrax', 'jp2_fits.xml'), visible: false)
       end
       click_link "Descriptions" # switch tab
-      fill_in('Title', with: 'My Test Work')
-      fill_in('Creator', with: 'Doe, Jane')
-      fill_in('Keyword', with: 'testing')
+      fill_in('image[title][]', with: 'My Test Work')
+      select('Personal', from: 'image[creator_group][][creator_name_type]')
+      find('body').click
+      fill_in('image[creator_group][][creator_family_name]', with: 'Doe')
+      fill_in('image[creator_group][][creator_given_name]', with: 'Jane')
+      
       select('In Copyright', from: 'Rights statement')
 
       # With selenium and the chrome driver, focus remains on the

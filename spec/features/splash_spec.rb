@@ -8,14 +8,15 @@ RSpec.describe "The splash page", multitenant: true do
     Capybara.default_host = default_host
   end
 
-  it "shows the page, displaying the Hyku version" do
+  # OVERRIDE: updated specs to match BL theming
+  it "shows the page, displaying Shared Research Repository header" do
     visit '/'
-    expect(page).to have_link 'Login to get started', href: main_app.new_user_session_path(locale: 'en')
+    expect(page).to have_link 'Admin', href: main_app.new_user_session_path(locale: 'en')
 
     within 'footer' do
       expect(page).to have_link 'Admin'
     end
 
-    expect(page).to have_content("Hyku v#{Hyku::VERSION}")
+    expect(page).to have_content("Shared Research Repository")
   end
 end
