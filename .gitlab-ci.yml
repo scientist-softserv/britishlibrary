@@ -28,13 +28,13 @@ hyku.build:
     - local
 
 lint:
-  stage: test
+  stage: lint
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   allow_failure: true
   script:
     - cd /app/samvera/hyrax-webapp
     - bundle check || bundle
-    - bundle exec rubocop
+    - bundle exec rubocop -P
   only:
     refs:
       - merge_requests
