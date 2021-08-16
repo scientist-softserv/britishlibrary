@@ -462,7 +462,9 @@ Metrics/MethodLength:
 # Offense count: 1
 # Configuration parameters: CountComments.
 Metrics/ModuleLength:
-  Max: 223
+  Exclude:
+    - 'app/models/concerns/ubiquity/all_models_virtual_fields.rb'
+
 
 # Offense count: 11
 Metrics/PerceivedComplexity:
@@ -724,6 +726,11 @@ Style/IfUnlessModifier:
     - 'app/helpers/application_helper.rb'
     - 'app/helpers/multiple_metadata_fields_helper.rb'
     - 'app/models/concerns/ubiquity/all_models_virtual_fields.rb'
+    - 'app/actors/hyrax/actors/ubiquity_shared_actor.rb'
+    - 'app/controllers/hyku/invitations_controller.rb'
+    - 'app/services/ubiquity/parse_date.rb'
+    - 'lib/importer/csv_parser.rb'
+    - 'spec/factories/collections.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
