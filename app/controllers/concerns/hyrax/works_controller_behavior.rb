@@ -1,3 +1,5 @@
+      # OVERRIDE: British Libraries override to Hyrax v.2.9.5 so that a new work defaults to a "public" visibility
+
 require 'iiif_manifest'
 
 module Hyrax
