@@ -20,7 +20,6 @@ hyku.build:
     - docker-compose build worker
     - docker-compose push web
     - docker-compose push worker
-
   only:
     refs:
       - merge_requests
@@ -278,4 +277,3 @@ hyku.staging.stop:
   image: dtzar/helm-kubectl:3.5.3
   before_script:
     - *deploy_helpers
-    
