@@ -110,6 +110,8 @@ gem 'rolify'
 gem 'flipflop', '~> 2.3'
 gem 'lograge'
 
+gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git'
+
 gem 'mods', '~> 2.4'
 
 group :aws, :test do

@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
   mount Blacklight::Engine => '/'
   mount Hyrax::Engine, at: '/'
+  mount Hyrax::DOI::Engine, at: '/doi', as: 'hyrax_doi'
   if Settings.bulkrax.enabled
     mount Bulkrax::Engine, at: '/'
   end
