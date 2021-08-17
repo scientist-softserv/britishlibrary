@@ -34,7 +34,7 @@ Rails/DynamicFindBy:
     - 'lib/importer/factory/object_factory.rb'
 
 Metrics/LineLength:
-  # Commenting this out until all the cops are fixed in the rubocop todo
+  # TODO: Un-comment/adjust the max rule below when the `Metrics/LineLength` style has been fixed in the rubocop todo
   # Max: 120
   # These exclusions are intentional, we do not need to fix these because they should stay consistent with Hyku.
   Exclude:
