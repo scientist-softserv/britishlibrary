@@ -81,7 +81,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'scss_lint', require: false
-  # TODO this is not working gem 'xray-rails'
+    # TODO: when using this gem, know that sidekiq will not work
+    # gem 'xray-rails'
 end
 
 # Bulkrax
