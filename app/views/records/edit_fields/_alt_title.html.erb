@@ -1,2 +1,4 @@
-<br>
-<%= f.input :alt_title, as: :multi_value, input_html: { class: 'ubiquity-alternative-title form-control', multiple: true }, label: 'Alternative Title', required: f.object.required?(key) %>
+<% my_model_name = f.object.model.class.to_s.underscore %>
+<div class="<%= my_model_name %>_alt_title form-group">
+  <%= f.input :alt_title, as: :multi_value, input_html: { class: 'ubiquity-alternative-title form-control', multiple: true }, label: 'Alternative Title', required: f.object.required?(key) %>
+</div>

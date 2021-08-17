@@ -1,8 +1,9 @@
 <% creator_name_type_service = NameTypeService.new %>
+<% my_model_name = f.object.model.class.to_s.underscore %>
 
-
-
-<%= f.input :creator_name_type,
-            collection: creator_name_type_service.select_active_options,
-            include_blank: true,
-            input_html: { class: 'form-control', multiple: true } %>
+<div class="<%= my_model_name %>_creator_name_type form-group">
+  <%= f.input :creator_name_type,
+              collection: creator_name_type_service.select_active_options,
+              include_blank: true,
+              input_html: { class: 'form-control', multiple: true } %>
+</div>
