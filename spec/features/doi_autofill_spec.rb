@@ -82,16 +82,9 @@ RSpec.describe 'autofilling the form from DOI', js: true do
       click_link "doi-autofill-btn"
     end
     expect(text).to eq('This operation is destructive and will replace any information already filled in on this form.')
-    # Selenium::WebDriver::Error::UnexpectedAlertOpenError:
-    # unexpected alert open: {Alert text : Form fields autofilled}
-    second_text = accept_alert do
-      click_link "OK"
-    end
-    expect(second_text).to eq('Some form fields prefilled. Please check for accuracy.')
-    third_text = accept_alert do
-      click_link "OK"
-    end
-    expect(third_text).to eq('Form fields autofilled')
+
+    accept_alert "Form fields autofilled"
+
     click_link 'Descriptions'
     expect(page).to have_field('article_title', with: 'Test DOI ')
     expect(page).to have_field('article_creator', with: 'Bradford, Lea Ann')
