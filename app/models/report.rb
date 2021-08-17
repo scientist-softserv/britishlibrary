@@ -6,6 +6,10 @@ class Report < ActiveFedora::Base
   # include Ubiquity::UpdateSharedIndex
   include Ubiquity::FileAvailabilityFaceting
   # include ::Ubiquity::CachingSingle
+  # Adds behaviors for hyrax-doi plugin.
+  include Hyrax::DOI::DOIBehavior
+  # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
+  include Hyrax::DOI::DataCiteDOIBehavior
 
   self.indexer = ReportIndexer
   # Change this to restrict which works can be added as a child.
