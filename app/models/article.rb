@@ -19,3 +19,5 @@ class Article < ActiveFedora::Base
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
 end
+
+
