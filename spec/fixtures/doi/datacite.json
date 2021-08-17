@@ -1,0 +1,52 @@
+{
+  "id": "https://doi.org/10.21242/ncj4-nq90",
+  "doi": "10.21242/NCJ4-NQ90",
+  "url": "http://bl-demo.bl-staging.notch8.cloud/",
+  "types": {
+    "ris": "COMP",
+    "bibtex": "misc",
+    "citeproc": "article",
+    "schemaOrg": "SoftwareSourceCode",
+    "resourceTypeGeneral": "Software"
+  },
+  "creators": [
+    {
+      "name": "Bradford, Lea Ann",
+      "nameType": "Personal",
+      "givenName": "Lea Ann",
+      "familyName": "Bradford",
+      "affiliation": [],
+      "nameIdentifiers": [
+        {
+          "schemeUri": null,
+          "nameIdentifier": "Lea Ann Bradford",
+          "nameIdentifierScheme": "Other"
+        }
+      ]
+    }
+  ],
+  "titles": [
+    {
+      "lang": "en",
+      "title": "Test DOI ",
+      "titleType": null
+    }
+  ],
+  "publisher": "Random",
+  "subjects": [],
+  "contributors": [],
+  "dates": [],
+  "publicationYear": 2000,
+  "identifiers": [],
+  "sizes": [],
+  "formats": [],
+  "rightsList": [],
+  "descriptions": [],
+  "geoLocations": [],
+  "fundingReferences": [],
+  "relatedIdentifiers": [],
+  "providerId": "ryun",
+  "clientId": "ryun.ycawpb",
+  "agency": "datacite",
+  "state": "findable"
+}

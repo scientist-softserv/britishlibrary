@@ -183,6 +183,14 @@ services:
       internal:
 
   chrome:
-    image: selenium/standalone-chrome:3.141
+    image: selenium/standalone-chrome-debug:3.141.59-20201010
+    logging:
+      driver: none
+    volumes:
+      - /dev/shm:/dev/shm
+    shm_size: 2G
     networks:
       internal:
+    ports:
+      - "4444"
+      - "5959:5900"
