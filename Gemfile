@@ -111,6 +111,7 @@ gem 'flipflop', '~> 2.3'
 gem 'lograge'
 
 gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git'
+gem 'bolognese', '1.9.7'
 
 gem 'mods', '~> 2.4'
 
@@ -137,3 +138,5 @@ gem 'riiif', '~> 1.1'
 gem 'bootstrap-datepicker-rails'
 gem 'parser', '~> 2.5.3'
 gem 'tether-rails'
+# gem 'hyrax-doi', path: 'vendor/engines/hyrax-doi'
+# gem 'bolognese', path: 'vendor/engines/bolognese'
