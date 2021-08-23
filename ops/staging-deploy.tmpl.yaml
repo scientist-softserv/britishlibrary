@@ -19,6 +19,15 @@ extraVolumeMounts:
   - name: uploads
     mountPath: /app/samvera/hyrax-webapp/tmp/exports
     subPath: exports
+  - name: uploads
+    mountPath: /app/samvera/hyrax-webapp/public/system
+    subPath: public-system
+  - name: uploads
+    mountPath: /app/samvera/hyrax-webapp/public/uploads
+    subPath: public-uploads
+  - name: uploads
+    mountPath: /app/samvera/hyrax-webapp/tmp/network_files
+    subPath: network-files
 
 ingress:
   enabled: true
@@ -37,8 +46,6 @@ extraEnvVars:
     value: bl-staging.notch8.cloud
   - name: SETTINGS__MULTITENANCY__DEFAULT_HOST
     value: "%{tenant}.bl-staging.notch8.cloud"
-  - name: SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION
-    value: "false"
   - name: CONFDIR
     value: "/app/samvera/hyrax-webapp/solr/config"
   - name: INITIAL_ADMIN_EMAIL
@@ -150,6 +157,15 @@ worker:
     - name: uploads
       mountPath: /app/samvera/hyrax-webapp/tmp/exports
       subPath: exports
+    - name: uploads
+      mountPath: /app/samvera/hyrax-webapp/public/system
+      subPath: public-system
+    - name: uploads
+      mountPath: /app/samvera/hyrax-webapp/public/uploads
+      subPath: public-uploads
+    - name: uploads
+      mountPath: /app/samvera/hyrax-webapp/tmp/network_files
+      subPath: network-files
   extraEnvVars:
   - name: SETTINGS__MULTITENANCY__ADMIN_HOST
     value: bl-staging.notch8.cloud
@@ -157,8 +173,6 @@ worker:
     value: bl-staging.notch8.cloud
   - name: SETTINGS__MULTITENANCY__DEFAULT_HOST
     value: "%{tenant}.bl-staging.notch8.cloud"
-  - name: SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION
-    value: "false"
   - name: CONFDIR
     value: "/app/samvera/hyrax-webapp/solr/config"
   - name: INITIAL_ADMIN_EMAIL
