@@ -3,6 +3,7 @@
 require "spec_helper"
 
 RSpec.describe "splash/index.html.erb", type: :view do
+  before { skip 'BL has a custom splash page' }
   let(:page) { Capybara::Node::Simple.new(rendered) }
 
   context 'Anonymous or non-Admin user with admin_only_tenant_creation=false' do
