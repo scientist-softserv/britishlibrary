@@ -34,13 +34,16 @@ Rails/DynamicFindBy:
     - 'lib/importer/factory/object_factory.rb'
 
 Metrics/LineLength:
-  Max: 120
+  # TODO: Un-comment/adjust the max rule below when the `Metrics/LineLength` style has been fixed in the rubocop todo
+  # Max: 120
+  # These exclusions are intentional, we do not need to fix these because they should stay consistent with Hyku.
   Exclude:
     - 'app/controllers/catalog_controller.rb'
     - 'spec/controllers/curation_concerns/generic_works_controller_spec.rb'
     - 'spec/services/iiif_collection_thumbnail_path_service_spec.rb'
     - 'spec/services/iiif_work_thumbnail_path_service_spec.rb'
     - 'spec/routing/proprietor/accounts_routing_spec.rb'
+
 
 Layout/IndentationConsistency:
   EnforcedStyle: rails
