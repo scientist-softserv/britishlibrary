@@ -76,12 +76,20 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 
   gem 'listen', '>= 3.0.5', '< 3.2'
+  # Pronto adds comments to MRs in gitlab when rubocop offenses are made.
+  gem 'pronto'
+  gem 'pronto-brakeman', require: false
+  gem 'pronto-flay', require: false
+  gem 'pronto-rails_best_practices', require: false
+  gem 'pronto-rails_schema', require: false
+  gem 'pronto-rubocop', require: false
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '~> 1.7'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'scss_lint', require: false
-  # TODO this is not working gem 'xray-rails'
+    # TODO: when using this gem, know that sidekiq will not work
+    # gem 'xray-rails'
 end
 
 # Bulkrax
