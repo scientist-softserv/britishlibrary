@@ -1,6 +1,7 @@
 ---
 stages:
   - build
+  - lint
   - test
   - review
   - staging
@@ -19,7 +20,6 @@ hyku.build:
     - docker-compose build worker
     - docker-compose push web
     - docker-compose push worker
-
   only:
     refs:
       - merge_requests
@@ -28,13 +28,13 @@ hyku.build:
     - local
 
 lint:
-  stage: test
+  stage: lint
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-  allow_failure: true
+  allow_failure: false
   script:
     - cd /app/samvera/hyrax-webapp
     - bundle check || bundle
-    - bundle exec rubocop
+    - bundle exec rubocop -P
   only:
     refs:
       - merge_requests
