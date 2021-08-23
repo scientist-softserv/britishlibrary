@@ -23,6 +23,8 @@
 .idea
 .internal_test_app/*
 .solr_wrapper
+
+node_modules/*
 solr/solr/*
 fcrpo/*
 pg/*

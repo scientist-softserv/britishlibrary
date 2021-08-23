@@ -1,7 +1,6 @@
 ---
 stages:
   - build
-  - lint
   - test
   - review
   - staging
@@ -28,7 +27,7 @@ hyku.build:
     - local
 
 lint:
-  stage: lint
+  stage: test
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   variables:
     PRONTO_GITLAB_API_ENDPOINT: "https://gitlab.com/api/v4"
@@ -150,7 +149,7 @@ hyku.review:
     HELM_RELEASE_NAME: hyku-$CI_MERGE_REQUEST_ID
     KUBE_NAMESPACE: hyku-review
     HELM_EXTRA_ARGS: >
-      --values ops/review-deploys.yaml
+      --values ops/review-deploy.yaml
       --set ingress.enabled=true
       --set ingress.hosts[0].host=hyku-$CI_MERGE_REQUEST_ID.$KUBE_INGRESS_BASE_DOMAIN
       --set ingress.hosts[0].paths[0].path="/"
@@ -177,8 +176,8 @@ hyku.review:
       --set extraEnvVars[9].name=SOLR_CONFIGSET_NAME
       --set extraEnvVars[9].value=$CI_COMMIT_SHORT_SHA
   script:
-    - helm chart pull ghcr.io/samvera/hyrax/hyrax-helm:0.18.0
-    - helm chart export ghcr.io/samvera/hyrax/hyrax-helm:0.18.0
+    - envsubst < ops/review-deploy.tmpl.yaml > ops/review-deploy.yaml
+    - ./bin/helm_deploy hyku-$CI_MERGE_REQUEST_ID review
     - deploy hyrax
   tags:
     - kubernetes
@@ -198,7 +197,7 @@ hyku.review.stop:
     KUBE_NAMESPACE: hyku-review
     GIT_STRATEGY: none
   script:
-    - delete
+    - .//bin/helm_delete hyku-$CI_MERGE_REQUEST_ID review
   only:
     refs:
       - merge_requests
@@ -226,8 +225,8 @@ hyku.staging:
     HELM_EXTRA_ARGS: >
       --values ops/staging-deploy.yaml
   script:
-    - helm chart pull ghcr.io/samvera/hyrax/hyrax-helm:0.18.0
-    - helm chart export ghcr.io/samvera/hyrax/hyrax-helm:0.18.0
+    - envsubst < ops/staging-deploy.tmpl.yaml > ops/staging-deploy.yaml
+    - ./bin/helm_deploy hyku-staging staging
     - deploy hyrax
   tags:
     - kubernetes
@@ -238,47 +237,54 @@ hyku.staging.stop:
     - .deploy
   environment:
     name: hyku.staging
-    url: http://hyku-staging.20.90.72.114.xip.io
+    url: http://hyku-staging.$KUBE_INGRESS_BASE_DOMAIN
     action: stop
   when: manual
   allow_failure: true
-  variables:
-    HELM_RELEASE_NAME: hyku-staging
-    KUBE_NAMESPACE: hyku-staging
-    GIT_STRATEGY: none
   script:
-    - delete
+    - .//bin/helm_delete hyku-staging staging
   tags:
     - kubernetes
 
-.deploy_helpers: &deploy_helpers |
-  function deploy() {
-    helm repo update
+hyku.production:
+  stage: staging
+  extends:
+    - .deploy
+  environment:
+    name: hyku.production
+    url: http://hyku-production.example.com
+    on_stop: hyku.production.stop
+  only:
+    refs:
+      - main
+  when: manual
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
+    DEPLOY_TAG: $CI_COMMIT_SHORT_SHA
+    WORKER_IMAGE: $CI_REGISTRY_IMAGE/worker
+    HELM_EXPERIMENTAL_OCI: 1
+    HELM_EXTRA_ARGS: >
+      --values ops/production-deploy.yaml
+  script:
+    - envsubst < ops/production-deploy.tmpl.yaml > ops/production-deploy.yaml
+    - ./bin/helm_deploy hyku-production production
+  tags:
+    - kubernetes
 
-    chart="${1}"
-
-    helm upgrade \
-        --kubeconfig $KUBECONFIG_BL \
-        --install \
-        --atomic \
-        --timeout 15m0s \
-        --set image.repository="$DEPLOY_IMAGE" \
-        --set image.tag="$DEPLOY_TAG" \
-        --set worker.image.repository="$WORKER_IMAGE" \
-        --set worker.image.tag="$DEPLOY_TAG" \
-        $HELM_EXTRA_ARGS \
-        --namespace="$KUBE_NAMESPACE" \
-        --create-namespace \
-        "$HELM_RELEASE_NAME" \
-        "${chart}"
-  }
-
-  function delete() {
-    echo "Deleting release: $HELM_RELEASE_NAME..."
-    helm --kubeconfig $KUBECONFIG_BL --namespace "$KUBE_NAMESPACE" delete "$HELM_RELEASE_NAME"
-  }
+hyku.production.stop:
+  stage: staging
+  extends:
+    - .deploy
+  environment:
+    name: hyku.production
+    url: http://hyku-production.example.com
+    action: stop
+  when: manual
+  allow_failure: true
+  script:
+    - .//bin/helm_delete hyku-production production
+  tags:
+    - kubernetes
 
 .deploy:
   image: dtzar/helm-kubectl:3.5.3
-  before_script:
-    - *deploy_helpers
