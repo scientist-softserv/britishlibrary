@@ -8,6 +8,7 @@
 require_dependency Hyrax::Engine.root.join('app', 'renderers', 'hyrax', 'renderers', 'attribute_renderer').to_s
 Hyrax::Renderers::AttributeRenderer.class_eval do
   def render
+    values&.delete("")
     markup = ''
 
     return markup if values.blank? && !options[:include_empty]
@@ -21,6 +22,7 @@ Hyrax::Renderers::AttributeRenderer.class_eval do
   end
 
   def render_dl_row
+    values&.delete("")
     return '' if values.blank? && !options[:include_empty]
 
     markup = %(<div class='metadata-group'><dt>#{label}</dt>\n<dd><ul class='tabular'>)

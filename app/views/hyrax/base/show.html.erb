@@ -14,7 +14,7 @@
       <div class="section-contrast extended-section-contrast mt-40">
         <div class="pt-40 pb-40 work-show-abstract">
           <h3>
-          <%= @presenter.attribute_to_html(:abstract, render_as: :string) %>
+            <%= @presenter.attribute_to_html(:abstract, render_as: :string, include_empty: false) %>
           </h3>
           <div class='row work-show-buttons'>
             <div class='col-sm-6'>

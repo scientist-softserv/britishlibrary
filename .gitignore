@@ -72,3 +72,4 @@ docker/local-docker-compose-2.yml
 .vscode/settings.json
 data/**
 fcrepo-import-export-*
+solr_db_initialized
