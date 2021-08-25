@@ -26,6 +26,7 @@ class SolrDocument
   # Do content negotiation for AF models.
   use_extension(Hydra::ContentNegotiation)
 
+  attribute :resource_type_label, Solr::Array, 'resource_type_label_ssim'
   attribute :extent, Solr::Array, solr_name('extent')
   attribute :rendering_ids, Solr::Array, solr_name('hasFormat', :symbol)
   attribute :isni, Solr::Array, solr_name('isni')
