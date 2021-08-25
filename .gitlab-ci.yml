@@ -148,6 +148,7 @@ hyku.staging:
     HELM_EXTRA_ARGS: >
       --values ops/staging-deploy.yaml
   script:
+    - export KUBECONFIG=$KUBECONFIG_BL
     - envsubst < ops/staging-deploy.tmpl.yaml > ops/staging-deploy.yaml
     - ./bin/helm_deploy hyku-staging staging
     - deploy hyrax
@@ -165,6 +166,7 @@ hyku.staging.stop:
   when: manual
   allow_failure: true
   script:
+    - export KUBECONFIG=$KUBECONFIG_BL
     - .//bin/helm_delete hyku-staging staging
   tags:
     - kubernetes
