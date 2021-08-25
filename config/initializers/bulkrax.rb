@@ -112,7 +112,7 @@ if Settings.bulkrax.enabled
       'event_location' => { from: ['event_location'] },
       'event_title' => { from: ['event_title'] },
       'file_availability' => { excluded: true },
-      'file_url' => { from: ['file_url'] },
+      'remote_files' => { from: ['file_url'], parsed: true },
       'fndr_project_ref' => { excluded: true },
       'funder_award' => { from: ['funder_award'], object: "funder", nested_type: 'Array' },
       'funder_doi' => { from: ['funder_doi'], object: "funder" },
