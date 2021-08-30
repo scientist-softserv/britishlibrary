@@ -43,19 +43,19 @@ function removeubiquityCreator(self, creatorDiv) {
 $(document).on("turbolinks:load", function(){
  return $("body").on("change", ".ubiquity_creator_name_type, .additional-fields", function(event){
    if (event.target.value == 'Personal') {
-      var _this = $(this);
+      var _this = $(this.parentElement);
       hideCreatorOrganization(_this);
-     $(this).siblings(".ubiquity_personal_fields").show();
-     _this =  $(this).siblings(".ubiquity_personal_fields")
+     $(this.parentElement).siblings(".ubiquity_personal_fields").show();
+     _this =  $(this.parentElement).siblings(".ubiquity_personal_fields")
      creatorAddOrRemoveRequiredAndMessage(_this)
 
    } else {
 
-    var _this = $(this);
+    var _this = $(this.parentElement);
     hideCreatorPersonal(_this);
-    $(this).siblings(".ubiquity_personal_fields").hide();
-    $(this).siblings(".ubiquity_organization_fields").show();
-    var _this = $(this).siblings('.ubiquity_organization_fields:last');
+    $(this.parentElement).siblings(".ubiquity_personal_fields").hide();
+    $(this.parentElement).siblings(".ubiquity_organization_fields").show();
+    var _this = $(this.parentElement).siblings('.ubiquity_organization_fields:last');
     creatorOrganizationAddOrRemoveRequiredAndMessage(_this);
    }
   });
