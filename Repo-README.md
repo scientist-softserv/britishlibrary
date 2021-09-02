@@ -101,20 +101,30 @@ sc be rails db:seed
 - Was the Dockerfile changed on your most recent `git pull`? Refer to the instructions above
 - Double check your dory set up
 
-- Error: `No such file or directory @ rb_sysopen - /app/samvera/hyrax-webapp/log/indexing.log`
+- Issue: `No such file or directory @ rb_sysopen - /app/samvera/hyrax-webapp/log/indexing.log`
 - Try:
   ``` bash
   mkdir /app/samvera/hyrax-webapp/log
   touch /app/samvera/hyrax-webapp/log/indexing.log
   ```
 
-- Error: Could not find <gem> in any of the sources (Bundler::GemNotFound)
+- Issue: Could not find <gem> in any of the sources (Bundler::GemNotFound)
 - Try:
   ``` bash
   docker-compose down -v
   sc build
   sc up -s initialize_app
   sc up
+  ```
+
+- Issue: Want to follow the logs during the `initialize_app` phase
+- Try: `dc logs -f initialize_app`
+
+- Issue: Sidekiq isn't working (e.g.: importer/exporter status stays stuck at "pending")
+- Try:
+  ``` bash
+  docker-compose exec web bash # or `sc sh`
+  bundle exec sidekiq
   ```
 
 #### Rubocop
