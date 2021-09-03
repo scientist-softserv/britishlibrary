@@ -11,7 +11,7 @@ module Bolognese
     # m.hyrax_work
     module HyraxWorkWriter
       def hyrax_work
-        byebug
+        # byebug
         attributes = {
             'identifier' => Array(identifiers).reject { |id| id["identifierType"] == "DOI" }.pluck("identifier"),
             'doi' => build_hyrax_work_doi,
@@ -23,9 +23,13 @@ module Bolognese
             'creator_organization_name' => build_hyrax_work_creator('creator_organization_name'),
             'creator_ror' => build_hyrax_work_creator('creator_ror'),
             'creator_position' => build_hyrax_work_creator('creator_position'),
-            #'creator' => [build_hyrax_work_creator.to_s],
-            # 'creator_group' => build_hyrax_work_creator,
-            'contributor' => contributors&.pluck("name"),
+            'contributor_name_type' => build_hyrax_work_contributor('contributor_name_type'),
+            'contributor_family_name' => build_hyrax_work_contributor('contributor_family_name'),
+            'contributor_given_name' => build_hyrax_work_contributor('contributor_given_name'),
+            'contributor_organization_name' => build_hyrax_work_contributor('contributor_organization_name'),
+            'contributor_ror' => build_hyrax_work_contributor('contributor_ror'),
+            'contributor_type' => build_hyrax_work_contributor('contributor_type'),
+            'contributor_position' => build_hyrax_work_contributor('contributor_position'),
             'publisher' => Array(publisher),
             'date_created' => publication_year.present? ? [EDTF.parse(publication_year).strftime] : [],
             'description' => build_hyrax_work_description,
@@ -79,6 +83,25 @@ module Bolognese
           }
         end.sort_by { |c| c["creator_position"].to_i }
         @build_hyrax_work_creator.map{ |c| c[creator_id]}
+      end
+
+      def build_hyrax_work_contributor(contributor_id)
+        @build_hyrax_work_contributor ||= contributors.each_with_index.map do |contributor, i|
+          { "contributor_organization_name" => contributor["name"],
+            "contributor_family_name" => contributor["familyName"],
+            "contributor_given_name" => contributor["givenName"],
+            "contributor_name_type" => contributor["nameType"].sub("Organizational", "Organisational"),
+            "contributor_ror" => contributor["affiliation"].map{|a| a["affiliationIdentifier"].split("/").last}.first,
+            "contributor_type" => contributor["contributorType"],
+            "contributor_position" => i.to_s
+            #"creator_isni":creators&.pluck("name"),
+            #"creator_grid":creators&.pluck("name"),
+            #"creator_wikidata":creators&.pluck("name"),
+            #"creator_orcid":creators&.pluck("name"),
+            #"creator_institutional_relationship":[""],
+          }
+        end.sort_by { |c| c["contributor_position"].to_i }
+        @build_hyrax_work_contributor.map{ |c| c[contributor_id]}
       end
     end
   end
