@@ -77,7 +77,7 @@ module Hyrax
 
       # TODO: Move this out to a partial that gets rendered?
       def autofill_js(doi)
-        byebug
+        # byebug
         # TODO: Need to wipe old data or is this just supplemental?
         js = hyrax_work_from_doi(doi).collect { |k, v| autofill_field(k, v) }.reject(&:blank?).join("\n")
         js << "document.location = '#metadata';"
@@ -96,6 +96,7 @@ module Hyrax
         Array(value).each_with_index do |v, index|
             # Is this the right way to do this?
             # Need to be smarter to see if all repeated fields are filled before trying to create a new one by clicking?
+            js << "document.querySelectorAll('a.add_#{attribute_name.split('_')&.first}')[#{index}].click();" if ubiquity_js_fields.include?(attribute_name) && index < Array(value).length-1
             unless index.zero?
               js << "if(doi_button_var[0] != undefined) {"
               js << "document.querySelectorAll('#{field_selector(attribute_name)} button.add')[0].click();"
@@ -104,9 +105,9 @@ module Hyrax
 
             js << "if(doi_form_var[#{index}] != undefined) {"
             js << "document.querySelectorAll('#{field_selector(attribute_name)} .form-control')[#{index}].value = '#{helpers.escape_javascript(v)}';"
-            js << "$(document.querySelectorAll('#{field_selector(attribute_name.sub('fire_change_', ''))} .form-control')[#{index}]).change();" if ubiquity_js_fields.include?(attribute_name)
+            js << "$(document.querySelectorAll('#{field_selector(attribute_name)} .form-control')[#{index}]).change();" if ubiquity_js_fields.include?(attribute_name)
             js << "}"
-            js << "document.querySelectorAll('a.add_#{attribute_name.sub('_position', '')}')[0].click();" if(attribute_name.include?('_position') && v.to_i > 0)
+            # js << "document.querySelectorAll('a.add_#{attribute_name.sub('_position', '')}')[#{index}].click();" if(attribute_name.include?('_position') && index > 0)
         end
         js.reject(&:blank?).join("\n")
       end
