@@ -21,6 +21,8 @@ RUN mkdir -p /app/fits && \
     rm fits.zip && \
     chmod a+x /app/fits/fits.sh
 ENV PATH="${PATH}:/app/fits"
+# Change the order so exif tool is better positioned
+COPY --chown=1001:101 $APP_PATH/ops/fits.xml /app/fits/xml/fits.xml
 
 COPY --chown=1001:101 $APP_PATH/Gemfile* /app/samvera/hyrax-webapp/
 RUN bundle install --jobs "$(nproc)"
