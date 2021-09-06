@@ -6,7 +6,7 @@
   <% if document.to_h["has_model_ssim"].first != 'Collection' %>
   <div class="search-results-row">
     <h6 class="search-result-worktype">
-      <%= document.human_readable_type %></h6>
+      <%= document.resource_type_label&.first %></h6>
     <h4 class="search-result-title">
       <%= link_to document.title_or_label, document %></h4>
   <% if document.abstract.present? %>
