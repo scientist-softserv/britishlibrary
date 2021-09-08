@@ -8,6 +8,25 @@ GIT
       rubyzip (>= 1.0.0)
 
 GIT
+  remote: https://github.com/samvera-labs/bulkrax.git
+  revision: 96d5a54b76f2b4e2de00e3003ca488cc574e9b7b
+  branch: 321-export-all-headers
+  specs:
+    bulkrax (1.0.2)
+      bagit (~> 0.4)
+      coderay
+      iso8601 (~> 0.9.0)
+      kaminari
+      language_list (~> 1.2, >= 1.2.1)
+      libxml-ruby (~> 3.1.0)
+      loofah (>= 2.2.3)
+      oai (>= 0.4, < 2.x)
+      rack (>= 2.0.6)
+      rails (>= 5.1.6)
+      rdf (>= 2.0.2, < 4.0)
+      simple_form
+
+GIT
   remote: https://github.com/samvera-labs/samvera-nesting_indexer.git
   revision: 8f87880846e75fe4d44787a373fadec8889e291e
   branch: skip_failure_option
@@ -181,19 +200,6 @@ GEM
       signet (~> 0.8)
       typhoeus
     builder (3.2.4)
-    bulkrax (1.0.2)
-      bagit (~> 0.4)
-      coderay
-      iso8601 (~> 0.9.0)
-      kaminari
-      language_list (~> 1.2, >= 1.2.1)
-      libxml-ruby (~> 3.1.0)
-      loofah (>= 2.2.3)
-      oai (>= 0.4, < 2.x)
-      rack (>= 2.0.6)
-      rails (>= 5.1.6)
-      rdf (>= 2.0.2, < 4.0)
-      simple_form
     byebug (11.1.3)
     cancancan (1.17.0)
     capybara (3.33.0)
@@ -672,7 +678,7 @@ GEM
     noid-rails (3.0.3)
       actionpack (>= 5.0.0, < 7)
       noid (~> 0.9)
-    nokogiri (1.12.3)
+    nokogiri (1.12.4)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     nokogumbo (2.0.5)
@@ -1079,7 +1085,7 @@ DEPENDENCIES
   blacklight (~> 6.7)
   blacklight_oai_provider (~> 6.1, >= 6.1.1)
   bootstrap-datepicker-rails
-  bulkrax (~> 1.0.2)
+  bulkrax!
   byebug
   capybara
   carrierwave-aws (~> 1.3)
@@ -1146,4 +1152,4 @@ DEPENDENCIES
   willow_sword!
 
 BUNDLED WITH
-   2.2.23
+   2.2.27
