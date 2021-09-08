@@ -9,6 +9,7 @@ class SharedIndexer < Hyrax::WorkIndexer
       solr_doc[Solrizer.solr_name('abstract_oai', :stored_searchable)] = object.abstract.presence
       solr_doc[Solrizer.solr_name('official_link_oai', :stored_searchable)] = object.official_link.presence
       solr_doc[Solrizer.solr_name('doi_oai', :stored_searchable)] = object.doi.presence
+      solr_doc[Solrizer.solr_name('bulkrax_identifier', :facetable)] = object.bulkrax_identifier
     end
   end
 end
