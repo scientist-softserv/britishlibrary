@@ -583,9 +583,9 @@ body.public-facing {
   }
   .btn-default:hover {
     color: $darkgrey !important;
-    background-color: transparent !important;
+    background-color: transparent;
     border: 0;
-    border-color: transparent !important;
+    border-color: transparent;
     text-decoration: underline;
   }
   .btn-default:active,
@@ -1519,6 +1519,12 @@ body.public-facing {
     label.control-label {
       padding-top: 0;
     }
+  }
+
+  .btn.btn-primary.devise-button, .btn.btn-default.devise-button {
+    border: 2px solid $lightgrey;
+    border-color: $lightgrey;
+    background-color: $neutral;
   }
 }
 

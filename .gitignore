@@ -8,6 +8,8 @@ capybara-*.html
 /db/postgres
 pg_upgrade_*.log
 /public/system
+/public/uv
+/node_modules
 /coverage/
 /spec/tmp
 **.orig
@@ -60,7 +62,7 @@ supervisord.log
 supervisord.pid
 .dockerignore
 Dockerfile-local
-docker/docker-compose-2.dev.yml
+docker-compose.override.yml
 docker/local-docker-compose-2.yml
 
 # mac add on
@@ -70,3 +72,4 @@ docker/local-docker-compose-2.yml
 .vscode/settings.json
 data/**
 fcrepo-import-export-*
+solr_db_initialized

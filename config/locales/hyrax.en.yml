@@ -17,6 +17,15 @@ en:
       models:
         generic_work: "Work"
         image: "Image"
+        article: "Article"
+        book: "Book"
+        book_contribution: "Book Contribution"
+        conference_item: "Conference Item"
+        dataset: "Dataset"
+        exhibition_item: "Exhibition Item"
+        report: "Report"
+        thesis_or_dissertation: "Thesis or Dissertation"
+        time_based_media: "Time Based Media"
     active_consent_to_agreement: I have read and agree to the
     admin:
       admin_sets:
