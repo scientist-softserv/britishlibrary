@@ -13,6 +13,7 @@ RSpec.describe 'Creating a new Work', :clean do
   end
 
   it 'creates the work' do
+    skip 'Share your work button is removed for BL'
     visit '/'
     click_link "Share Your Work"
     expect(page).to have_button "Create work"

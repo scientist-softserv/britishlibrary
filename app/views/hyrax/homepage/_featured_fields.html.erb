@@ -11,13 +11,13 @@
         <% end %>
     </div>
     <div>
-    <h6><%= featured.human_readable_type %></h6>
+      <h6><%= featured.resource_type_label&.first %></h6>
       <h5>
         <%= link_to [main_app, featured] do %>
           <%= featured.title.first %>
         <% end %>
       </h5>
-        <% featured_creator = ActiveSupport::JSON.decode(featured.creator[0])[0]
+        <% featured_creator = ActiveSupport::JSON.decode(featured.creator_hash[0])[0]
           if featured_creator["creator_family_name"] && featured_creator["creator_given_name"] %>
             <p class="creator-label">
               <%= featured_creator["creator_family_name"] %>, <%= featured_creator["creator_given_name"] %>

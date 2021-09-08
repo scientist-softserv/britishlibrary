@@ -10,7 +10,7 @@
         <% end %>
       </div>
       <div>
-        <h6><%= recent_document.human_readable_type %></h6>
+        <h6><%= recent_document.resource_type_label&.first %></h6>
         <h5>
           <%= link_to [main_app, recent_document] do %>
             <%= recent_document.to_s %>

@@ -55,7 +55,7 @@ class CatalogController < ApplicationController
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
     config.add_facet_field solr_name("human_readable_type", :facetable), label: "Type", limit: 5
-    config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 5
+    config.add_facet_field "resource_type_label_ssim", label: "Resource Type", limit: 5
     config.add_facet_field solr_name("creator_search", :facetable), label: "Creator",  limit: 5
     # config.add_facet_field solr_name("creator", :facetable), limit: 5
     # config.add_facet_field solr_name("contributor", :facetable), label: "Contributor", limit: 5
@@ -346,10 +346,10 @@ class CatalogController < ApplicationController
     # except in the relevancy case).
     # label is key, solr field is value
     config.add_sort_field "score desc, #{uploaded_field} desc", label: "relevance"
-    config.add_sort_field "#{uploaded_field} desc", label: "date uploaded \u25BC"
-    config.add_sort_field "#{uploaded_field} asc", label: "date uploaded \u25B2"
-    config.add_sort_field "#{modified_field} desc", label: "date modified \u25BC"
-    config.add_sort_field "#{modified_field} asc", label: "date modified \u25B2"
+    config.add_sort_field "#{uploaded_field} desc", label: "date uploaded \u2193"
+    config.add_sort_field "#{uploaded_field} asc", label: "date uploaded \u2191"
+    config.add_sort_field "#{modified_field} desc", label: "date modified \u2193"
+    config.add_sort_field "#{modified_field} asc", label: "date modified \u2191"
 
     config.oai = {
       provider: {

@@ -58,9 +58,13 @@ RSpec.describe 'Create a GenericWork', js: true do
         attach_file("files[]", File.join(fixture_path, 'hyrax', 'jp2_fits.xml'), visible: false)
       end
       click_link "Descriptions" # switch tab
-      fill_in('Title', with: 'My Test Work')
-      fill_in('Creator', with: 'Doe, Jane')
-      fill_in('Keyword', with: 'testing')
+      fill_in('generic_work[title][]', with: 'My Test Work')
+      select('Personal', from: 'generic_work[creator_group][][creator_name_type]')
+      find('body').click
+      fill_in('generic_work[creator_group][][creator_family_name]', with: 'Doe')
+      fill_in('generic_work[creator_group][][creator_given_name]', with: 'Jane')
+      select('Blog post', from: 'generic_work[resource_type][]')
+      find('body').click
       select('In Copyright', from: 'Rights statement')
 
       # With selenium and the chrome driver, focus remains on the
@@ -71,7 +75,7 @@ RSpec.describe 'Create a GenericWork', js: true do
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
       check('agreement')
 
-      click_on('Save')
+      click_on('save_with_files')
       expect(page).to have_content('My Test Work')
       expect(page).to have_content "Your files are being processed by Hyku in the background."
     end
