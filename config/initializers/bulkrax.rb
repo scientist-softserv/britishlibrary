@@ -122,6 +122,7 @@ if Settings.bulkrax.enabled
       'funder_ror' => { from: ['funder_ror'], object: "funder" },
       'head' => { excluded: true },
       'identifier' => { excluded: true },
+      'id' => { from: ['id'] },
       'institution' => { from: ['institution'] },
       'isbn' => { from: ['isbn'] },
       'issn' => { from: ['issn'] },

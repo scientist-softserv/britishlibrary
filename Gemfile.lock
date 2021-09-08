@@ -9,8 +9,8 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 96d5a54b76f2b4e2de00e3003ca488cc574e9b7b
-  branch: 321-export-all-headers
+  revision: c86cb4899949975103893834c8aab20db9c633e5
+  branch: 321-super-branch
   specs:
     bulkrax (1.0.2)
       bagit (~> 0.4)
