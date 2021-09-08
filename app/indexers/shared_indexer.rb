@@ -11,6 +11,7 @@ class SharedIndexer < Hyrax::WorkIndexer
       solr_doc[Solrizer.solr_name('doi_oai', :stored_searchable)] = object.doi.presence
       solr_doc["resource_type_label_ssim"] = object.resource_type.map do |rt|
         Hyrax::ResourceTypesService.label(rt)
+      solr_doc[Solrizer.solr_name('bulkrax_identifier', :facetable)] = object.bulkrax_identifier
       end
     end
   end
