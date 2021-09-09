@@ -25,6 +25,8 @@ ENV PATH="${PATH}:/app/fits"
 # size exists in an image file (pyramidal tifs mostly)
 COPY --chown=1001:101 $APP_PATH/ops/fits.xml /app/fits/xml/fits.xml
 COPY --chown=1001:101 $APP_PATH/ops/exiftool_image_to_fits.xslt /app/fits/xml/exiftool/exiftool_image_to_fits.xslt
+RUN ln -sf /usr/lib/libmediainfo.so.0 /app/fits/tools/mediainfo/linux/libmediainfo.so.0 && \
+  ln -s /usr/lib/libzen.so.0 /app/fits/tools/mediainfo/linux/libzen.so.0
 
 COPY --chown=1001:101 $APP_PATH/Gemfile* /app/samvera/hyrax-webapp/
 RUN bundle install --jobs "$(nproc)"
