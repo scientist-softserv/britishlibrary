@@ -9,18 +9,21 @@ class CreateSolrCollectionJob < ApplicationJob
   def perform(account)
     name = account.tenant.parameterize
 
-    unless collection_exists? name
+    perform_for_cross_search_tenant(account, name) if account.is_shared_search_enabled? && account.tenant_list.present?
+    perform_for_normal_tenant(account, name) unless account.is_shared_search_enabled? && account.tenant_list.present?
+
+    account.add_parent_id_to_child
+  end
+
+  def without_account(name, tenant_list = '')
+    return if collection_exists?(name)
+    if tenant_list.present?
+      client.get '/solr/admin/collections', params: collection_options.merge(action: 'CREATEALIAS',
+                                                                             name: name, collections: tenant_list)
+    else
       client.get '/solr/admin/collections', params: collection_options.merge(action: 'CREATE',
                                                                              name: name)
     end
-
-    account.create_solr_endpoint(url: collection_url(name), collection: name)
-  end
-
-  def without_account(name)
-    return if collection_exists?(name)
-    client.get '/solr/admin/collections', params: collection_options.merge(action: 'CREATE',
-                                                                           name: name)
   end
 
   # Transform settings from nested, snaked-cased options to flattened, camel-cased options
@@ -87,5 +90,40 @@ class CreateSolrCollectionJob < ApplicationJob
       uri = URI(normalized_uri) + name
 
       uri.to_s
+    end
+
+    def add_solr_endpoint_to_account(account, name)
+      account.create_solr_endpoint(url: collection_url(name), collection: name)
+    end
+
+    def perform_for_normal_tenant(account, name)
+      unless collection_exists? name
+        client.get '/solr/admin/collections', params: collection_options.merge(action: 'CREATE',
+                                                                               name: name)
+      end
+       add_solr_endpoint_to_account(account, name)
+    end
+
+    def perform_for_cross_search_tenant(account, name)
+      account_children = account.children.map(&:tenant)
+      tenants_from_edit = account.tenant_list - account_children
+      tenant_list = account.tenant_list.join(',')
+
+      if tenants_from_edit.present?
+        solr_options = account.solr_endpoint.connection_options.dup
+        RemoveSolrCollectionJob.perform_now(name, solr_options, 'cross_search_tenant')
+        create_shared_search_collection(tenant_list, name)
+        account.solr_endpoint.update(url: collection_url(name), collection: name)
+      else
+        create_shared_search_collection(tenant_list, name)
+        account.create_solr_endpoint(url: collection_url(name), collection: name)
+      end
+    end
+
+    def create_shared_search_collection(tenant_list, name)
+      unless collection_exists? name
+        client.get '/solr/admin/collections', params: collection_options.merge(action: 'CREATEALIAS',
+                                                                               name: name, collections: tenant_list)
+      end
     end
 end
