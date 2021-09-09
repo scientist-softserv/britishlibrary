@@ -21,8 +21,10 @@ RUN mkdir -p /app/fits && \
     rm fits.zip && \
     chmod a+x /app/fits/fits.sh
 ENV PATH="${PATH}:/app/fits"
-# Change the order so exif tool is better positioned
+# Change the order so exif tool is better positioned and use the biggest size if more than one
+# size exists in an image file (pyramidal tifs mostly)
 COPY --chown=1001:101 $APP_PATH/ops/fits.xml /app/fits/xml/fits.xml
+COPY --chown=1001:101 $APP_PATH/ops/exiftool_image_to_fits.xslt /app/fits/xml/exiftool/exiftool_image_to_fits.xslt
 
 COPY --chown=1001:101 $APP_PATH/Gemfile* /app/samvera/hyrax-webapp/
 RUN bundle install --jobs "$(nproc)"
