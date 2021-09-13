@@ -81,9 +81,9 @@ terms:
   - id: ConferenceItem default Conference paper (unpublished)
     term: Conference paper (unpublished)
   - id: ConferenceItem Conference poster (published)
-    term: Conference poster (published)
+    term: Poster (published)
   - id: ConferenceItem Conference poster (unpublished)
-    term: Conference poster (unpublished)
+    term: Poster (unpublished)
   - id: ConferenceItem Lecture
     term: Lecture
   - id: ConferenceItem Presentation
@@ -134,6 +134,8 @@ terms:
     term: Website
   - id: GenericWork Workflow
     term: Workflow
+  - id: GenericWork Journal issue
+    term: Journal Issue
   - id: GenericWork Other
     term: Other
   - id: Image Moving image
