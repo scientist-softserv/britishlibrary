@@ -22,3 +22,21 @@ terms:
   - id: Tate
     term: Tate
     active: true
+  - id: Barts Health NHS Trust
+    term: Barts Health NHS Trust
+    active: true
+  - id: Black Country Health Libraries Consortium
+    term: Black Country Health Libraries Consortium
+    active: true
+  - id: Birmingham and Solihull Mental Health NHS Foundation Trust
+    term: Birmingham and Solihull Mental Health NHS Foundation Trust
+    active: true
+  - id: Gloucestershire Hospitals NHS Foundation Trust
+    term: Gloucestershire Hospitals NHS Foundation Trust
+    active: true
+  - id: Norfolk and Waveney Strategic Transformation Partnership
+    term: Norfolk and Waveney Strategic Transformation Partnership
+    active: true
+  - id: Somerset NHS Foundation Trust
+    term: Somerset NHS Foundation Trust
+    active: true
