@@ -80,10 +80,18 @@ terms:
     term: Conference paper (published)
   - id: ConferenceItem default Conference paper (unpublished)
     term: Conference paper (unpublished)
+    #  Conference poster (published) & Conference poster (unpublished) have to be kept as `active: false` (i.e. not to display/chose from)
+    #  else any record already saved with one of them will throw an error
   - id: ConferenceItem Conference poster (published)
     term: Conference poster (published)
+    active: false
   - id: ConferenceItem Conference poster (unpublished)
     term: Conference poster (unpublished)
+    active: false
+  - id: ConferenceItem Conference poster (published)
+    term: Poster (published)
+  - id: ConferenceItem Conference poster (unpublished)
+    term: Poster (unpublished)
   - id: ConferenceItem Lecture
     term: Lecture
   - id: ConferenceItem Presentation
@@ -94,6 +102,14 @@ terms:
     term: Research report
   - id: Report Technical report
     term: Technical report
+  - id: Report Guideline
+    term: Guideline
+  - id: Report Service evaluation report
+    term: Service evaluation report
+  - id: Report Policy report
+    term: Policy report
+  - id: Report Serious incident report
+    term: Serious incident report
   - id: Dataset Numerical dataset
     term: Numerical dataset
   - id: Dataset Geographical dataset
@@ -134,6 +150,14 @@ terms:
     term: Website
   - id: GenericWork Workflow
     term: Workflow
+  - id: GenericWork Journal issue
+    term: Journal Issue
+  - id: GenericWork Newsletter
+    term: Newsletter
+  - id: GenericWork Policy
+    term: Policy
+  - id: GenericWork Journal issue
+    term: Journal Issue
   - id: GenericWork Other
     term: Other
   - id: Image Moving image
