@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# All settings have a presedence order as follows
+# Per Tenant Setting > ENV['HYKU_SETTING_NAME'] > ENV['HYRAX_SETTING_NAME'] > default
+
 module AccountSettings
   extend ActiveSupport::Concern
   # rubocop:disable Metrics/BlockLength
@@ -14,7 +17,8 @@ module AccountSettings
     setting :allow_signup, type: 'boolean', default: true
     setting :bulkrax_validations, type: 'boolean'
     setting :cache_api, type: 'boolean', default: false
-    setting :contact_email, type: 'string'
+    setting :contact_email, type: 'string', default: 'change-me-in-settings@example.com'
+    setting :contact_email_to, type: 'string', default: 'change-me-in-settings@example.com'
     setting :doi_reader, type: 'boolean', default: false
     setting :doi_writer, type: 'boolean', default: false
     setting :email_format, type: 'array'
@@ -29,7 +33,7 @@ module AccountSettings
     setting :oai_prefix, type: 'string'
     setting :oai_sample_identifier, type: 'string'
     setting :shared_login, type: 'boolean'
-    setting :smtp_settings, type: 'hash', private: true
+    setting :smtp_settings, type: 'hash', private: true, default: {}
     setting :weekly_email_list, type: 'array'
     setting :yearly_email_list, type: 'array'
 
@@ -56,6 +60,14 @@ module AccountSettings
       send("#{args[:type]}_settings") << name
       all_settings[name] = args
       private_settings << name if args[:private]
+
+      define_method(name) do
+        value = super()
+        value ||= ENV.fetch("HYKU_#{name.upcase}", nil)
+        value ||= ENV.fetch("HYRAX_#{name.upcase}", nil)
+        value ||= args[:default]
+        set_type(value, (args[:type]).to_s)
+      end
     end
   end
 
@@ -64,6 +76,19 @@ module AccountSettings
   end
 
   private
+
+    def set_type(value, to_type)
+      case to_type
+      when 'array'
+        value.is_a?(String) ? value.split(',') : Array.wrap(value)
+      when 'boolean'
+        value.is_a?(String) ? ['1', 'true'].include?(value) : value
+      when 'hash'
+        value.is_a?(String) ? JSON.parse(value) : value
+      when 'string'
+        value.to_s
+      end
+    end
 
     def validate_email_format
       return if settings['email_format'].blank?

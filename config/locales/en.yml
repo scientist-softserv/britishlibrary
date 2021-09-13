@@ -142,7 +142,8 @@ en:
       doi_reader: Show ability to read from Datacite to populate records. WIP do not use
       doi_writer: Write DOIs for records. WIP do not use
       cache_api: Turns on cache for API endpoints. Experimental
-
+      email_subjet_prefix: String to put in front of system email subjects.
+      contact_email_to: Email address that should receive contact emails
   hyrax:
     admin:
       appearances:
