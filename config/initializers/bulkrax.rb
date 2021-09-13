@@ -85,7 +85,7 @@ if Settings.bulkrax.enabled
       'creator_staffmember' => { from: ['creator_staffmember'], object: 'creator' },
       'creator_type' => { from: ['creator_type'], object: 'creator' },
       'creator_wikidata' => { from: ['creator_wikidata'], object: 'creator' },
-      'current_he_institution_name' => { from: ['current_he_institution_name'], object: 'current_he_institution' },
+      'current_he_institution_name' => { from: ['current_he_institution'], object: 'current_he_institution' },
       'date_accepted' => { from: ['date_accepted'] },
       'date_published' => { from: ['date_published_1'] },
       'date_submitted' => { from: ['date_submitted'] },
