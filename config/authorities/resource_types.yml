@@ -80,6 +80,14 @@ terms:
     term: Conference paper (published)
   - id: ConferenceItem default Conference paper (unpublished)
     term: Conference paper (unpublished)
+    #  Conference poster (published) & Conference poster (unpublished) have to be kept as `active: false` (i.e. not to display/chose from)
+    #  else any record already saved with one of them will throw an error
+  - id: ConferenceItem Conference poster (published)
+    term: Conference poster (published)
+    active: false
+  - id: ConferenceItem Conference poster (unpublished)
+    term: Conference poster (unpublished)
+    active: false
   - id: ConferenceItem Conference poster (published)
     term: Poster (published)
   - id: ConferenceItem Conference poster (unpublished)
