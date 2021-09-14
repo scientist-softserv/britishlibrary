@@ -33,7 +33,7 @@ RSpec.configure do |config|
     @default_host = ENV['HYKU_DEFAULT_HOST']
 
     if example.metadata[:multitenant]
-      ENV['HYKU_MULTITENANT'] = true
+      ENV['HYKU_MULTITENANT'] = "true"
       if ENV['WEB_HOST']
         ENV['HYKU_ADMIN_HOST'] = ENV['WEB_HOST']
         # rubocop:disable Style/FormatStringToken
@@ -43,7 +43,7 @@ RSpec.configure do |config|
       Rails.application.reload_routes!
     elsif example.metadata[:singletenant] || example.metadata[:type] == :feature
       example.metadata[:singletenant] = true if example.metadata[:type] == :feature # flag for cleanup later
-      ENV['HYKU_MULTITENANT'] = false
+      ENV['HYKU_MULTITENANT'] = "false"
       Rails.application.reload_routes!
     end
 
