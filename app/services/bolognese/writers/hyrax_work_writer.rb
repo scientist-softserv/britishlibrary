@@ -11,10 +11,10 @@ module Bolognese
     # m.hyrax_work
     module HyraxWorkWriter
       def hyrax_work
-        # byebug
+        byebug
         attributes = {
             'identifier' => Array(identifiers).reject { |id| id["identifierType"] == "DOI" }.pluck("identifier"),
-            'doi' => build_hyrax_work_doi,
+            'doi' => build_hyrax_work_doi(doi),
             'title' => titles&.pluck("title"),
             # FIXME: This may not roundtrip since datacite normalizes the creator name
             'creator_name_type' => build_hyrax_work_creator('creator_name_type'),
@@ -30,15 +30,23 @@ module Bolognese
             'contributor_ror' => build_hyrax_work_contributor('contributor_ror'),
             'contributor_type' => build_hyrax_work_contributor('contributor_type'),
             'contributor_position' => build_hyrax_work_contributor('contributor_position'),
+            'funder_name' => build_hyrax_work_funder('funder_name'),
+            'funder_doi' => build_hyrax_work_funder('funder_doi'),
+            'funder_ror' => build_hyrax_work_funder('funder_ror'),
+            'funder_isni' => build_hyrax_work_funder('funder_isni'),
+            'funder_position' => build_hyrax_work_funder('funder_position'),
+            'funder_award' => build_hyrax_work_funder('funder_award'),
             'publisher' => Array(publisher),
             'date_created' => publication_year.present? ? [EDTF.parse(publication_year).strftime] : [],
             'description' => build_hyrax_work_description,
             'abstract' => build_hyrax_work_description&.join("\n"),
             'keyword' => subjects&.pluck("subject")
         }
-        # hyrax_work_class = determine_hyrax_work_class
+        # byebug
+        _hyrax_work_class = determine_hyrax_work_class
         # Only pass attributes that the work type knows about
         # hyrax_work_class.new(attributes.slice(*hyrax_work_class.attribute_names))
+        attributes
       end
 
       private
@@ -57,8 +65,8 @@ module Bolognese
         end
       end
 
-      def build_hyrax_work_doi
-        Array(doi&.sub('https://doi.org/', ''))
+      def build_hyrax_work_doi(doi_uri)
+        Array(doi_uri&.sub('https://doi.org/', ''))
       end
 
       def build_hyrax_work_description
@@ -67,41 +75,55 @@ module Bolognese
         descriptions.pluck("description").map { |d| Array(d).join("\n") }
       end
 
+      def build_hyrax_work_child(field_name: ,field:, index: )
+        { "#{field_name}_organization_name" => field["name"],
+          "#{field_name}_family_name" => field["familyName"],
+          "#{field_name}_given_name" => field["givenName"],
+          "#{field_name}_name_type" => field["nameType"].sub("Organizational", "Organisational"),
+          "#{field_name}_ror" => field["affiliation"].map{|a| a["affiliationIdentifier"].split("/").last}.first,
+          "#{field_name}_position" => index.to_s
+          #"creator_isni":creators&.pluck("name"),
+          #"creator_grid":creators&.pluck("name"),
+          #"creator_wikidata":creators&.pluck("name"),
+          #"creator_orcid":creators&.pluck("name"),
+          #"creator_institutional_relationship":[""],
+        }
+      end
+
       def build_hyrax_work_creator(creator_id)
         @build_hyrax_work_creator ||= creators.each_with_index.map do |creator, i|
-          { "creator_organization_name" => creator["name"],
-            "creator_family_name" => creator["familyName"],
-            "creator_given_name" => creator["givenName"],
-            "creator_name_type" => creator["nameType"].sub("Organizational", "Organisational"),
-            "creator_ror" => creator["affiliation"].map{|a| a["affiliationIdentifier"].split("/").last}.first,
-            "creator_position" => i.to_s
-            #"creator_isni":creators&.pluck("name"),
-            #"creator_grid":creators&.pluck("name"),
-            #"creator_wikidata":creators&.pluck("name"),
-            #"creator_orcid":creators&.pluck("name"),
-            #"creator_institutional_relationship":[""],
-          }
+          build_hyrax_work_child(field_name: 'creator', field: creator, index: i )
         end.sort_by { |c| c["creator_position"].to_i }
         @build_hyrax_work_creator.map{ |c| c[creator_id]}
       end
 
       def build_hyrax_work_contributor(contributor_id)
         @build_hyrax_work_contributor ||= contributors.each_with_index.map do |contributor, i|
-          { "contributor_organization_name" => contributor["name"],
-            "contributor_family_name" => contributor["familyName"],
-            "contributor_given_name" => contributor["givenName"],
-            "contributor_name_type" => contributor["nameType"].sub("Organizational", "Organisational"),
-            "contributor_ror" => contributor["affiliation"].map{|a| a["affiliationIdentifier"].split("/").last}.first,
-            "contributor_type" => contributor["contributorType"],
-            "contributor_position" => i.to_s
-            #"creator_isni":creators&.pluck("name"),
-            #"creator_grid":creators&.pluck("name"),
-            #"creator_wikidata":creators&.pluck("name"),
-            #"creator_orcid":creators&.pluck("name"),
-            #"creator_institutional_relationship":[""],
-          }
+          build_hyrax_work_child(field_name: 'contributor', field: contributor, index: i )
+              .merge({
+                         "contributor_type" => contributor["contributorType"]
+                     })
         end.sort_by { |c| c["contributor_position"].to_i }
         @build_hyrax_work_contributor.map{ |c| c[contributor_id]}
+      end
+
+      def funder_identifier(funder)
+        funder_id = {}
+        funder_id = { "funder_doi" => funder["funderIdentifier"] } if(funder['funderIdentifierType'] == 'Crossref Funder ID')
+        funder_id = { "funder_ror" => funder["funderIdentifier"] } if(funder['funderIdentifierType'] == 'ROR')
+        funder_id = { "funder_isni" => funder["funderIdentifier"] } if(funder['funderIdentifierType'] == 'ISNI')
+        funder_id
+      end
+
+      def build_hyrax_work_funder(funder_id)
+        @build_hyrax_work_funder ||= funding_references.each_with_index.map do |funder, i|
+          {
+              "funder_name" => funder["funderName"],
+              "funder_award" => funder["awardNumber"],
+              "funder_position" => i.to_s
+          }.merge(funder_identifier(funder))
+        end.sort_by { |c| c["funder_position"].to_i }
+        @build_hyrax_work_funder.map{ |c| c[funder_id]}
       end
     end
   end
