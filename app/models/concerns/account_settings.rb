@@ -23,6 +23,7 @@ module AccountSettings
     setting :doi_writer, type: 'boolean', default: false
     setting :file_acl, type: 'boolean', default: true
     setting :email_format, type: 'array'
+    setting :email_subject_prefix, type: 'string'
     setting :enable_oai_metadata, type: 'string', disabled: true
     setting :file_size_limit, type: 'string', default: 5.gigabytes.to_s
     setting :google_analytics_id, type: 'string'
@@ -167,6 +168,12 @@ module AccountSettings
         CarrierWave.configure do |config|
           config.permissions = nil
           config.directory_permissions = nil
+        end
+      else
+        CarrierWave.configure do |config|
+          config.storage = :file
+          config.permissions = 420
+          config.directory_permissions = 493
         end
       end
 
