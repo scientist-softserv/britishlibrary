@@ -9,7 +9,7 @@ ENV['HYKU_ADMIN_HOST'] = 'test.host'
 ENV['HYKU_ROOT_HOST'] = 'test.host'
 ENV['HYKU_ADMIN_ONLY_TENANT_CREATION'] = nil
 ENV['HYKU_DEFAULT_HOST'] = nil
-ENV['HYKU_MULTITENANT'] = nil
+ENV['HYKU_MULTITENANT'] = 'true'
 
 require 'simplecov'
 SimpleCov.start('rails')
