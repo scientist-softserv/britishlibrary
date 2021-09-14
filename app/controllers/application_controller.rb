@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
   private
 
     def require_active_account!
-      return if singltenant?
+      return if singletenant?
       return if devise_controller?
       raise Apartment::TenantNotFound, "No tenant for #{request.host}" unless current_account.persisted?
     end
@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
     end
 
     def multitenant?
-      @multitenant ||= ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_MUTLTITENANT', false))
+      @multitenant ||= ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_MULTITENANT', false))
     end
 
     def singletenant?
