@@ -4,7 +4,8 @@
 <% array_of_hash.each_with_index do |hash, index| %>
   <div class="ubiquity-meta-funder" >
 
-    <label class="control-label multi_value optional" for="#{template}_funder_name">
+    <div class="<%= "#{template}_funder_name" %>">
+      <label class="control-label multi_value optional" for="<%= "#{template}" %>_funder_name">
       Funder Name</label>
 
     <%= text_field_tag "#{template}[funder_group][][funder_name]", hash.dig("funder_name"),
@@ -16,8 +17,10 @@
                           'autocomplete' => "funder",
                         }
     %>
+    </div>
     <br/>
-    <label class="control-label multi_value optional" for="#{template}funder_doi">
+    <div class="<%= "#{template}_funder_doi" %>">
+      <label class="control-label multi_value optional" for="<%= "#{template}" %>_funder_doi">
       Funder DOI</label>
 
     <%= text_field_tag "#{template}[funder_group][][funder_doi]",  hash.dig("funder_doi"),
@@ -26,8 +29,10 @@
                        name: "#{template}[funder_group][][funder_doi]",
                        data: {field_name:'ubiquity_funder_doi'}
     %>
+    </div>
     <br/>
-    <label class="control-label multi_value optional" for="#{template}funder_isni">
+    <div class="<%= "#{template}_funder_isni" %>">
+      <label class="control-label multi_value optional" for="<%= "#{template}" %>_funder_isni">
       Funder ISNI</label>
 
     <%= text_field_tag "#{template}[funder_group][][funder_isni]",  hash.dig("funder_isni"),
@@ -36,8 +41,10 @@
                        name: "#{template}[funder_group][][funder_isni]",
                        data: {field_name:'ubiquity_funder_isni'}
     %>
+    </div>
     <br/>
-    <label class="control-label multi_value optional" for="#{template}funder_ror">
+    <div class="<%= "#{template}_funder_ror" %>">
+     <label class="control-label multi_value optional" for="<%= "#{template}" %>_funder_ror">
       Funder ROR</label>
 
     <%= text_field_tag "#{template}[funder_group][][funder_ror]",  hash.dig("funder_ror"),
@@ -46,9 +53,11 @@
                        name: "#{template}[funder_group][][funder_ror]",
                        data: {field_name:'ubiquity_funder_ror'}
     %>
+    </div>
     <br/>
     <div class='form-group'>
-      <label class="control-label multi_value optional" for="#{template}_funder_award">
+      <div class="<%= "#{template}_funder_award" %>">
+        <label class="control-label multi_value optional" for="<%= "#{template}" %>_funder_award">
         Funder Awards </label>
       <ul class="listing funder_awards_input_fields_wrap" style='padding-left: 0px;'>
         <% funder_award_list = hash.dig("funder_award").presence || [] %>
@@ -69,12 +78,14 @@
                                 placeholder: "Please enter the award number",
                                 name: "#{template}[funder_group][][funder_award][]",
                                 data: {field_name:'ubiquity_funder_awards'} %>
+          </li>
         <%end%>
       </ul>
-      <a href='#' class="add_another_funder_awards_button form-group">
-        <span class="glyphicon glyphicon-plus"></span>
-        Add another Award number
-      </a>
+        <a href='#' class="add_another_funder_awards_button <%= "#{template}" %>_funder_award form-group">
+          <span class="glyphicon glyphicon-plus"></span>
+          Add another Award number
+        </a>
+      </div>
     </div>
 
   <%= hidden_field_tag "#{template}[funder_group][][funder_position]", index, class: 'ubiquity_funder_position'  %>

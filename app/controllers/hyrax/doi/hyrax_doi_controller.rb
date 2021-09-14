@@ -84,29 +84,34 @@ module Hyrax
       end
 
       def ubiquity_js_fields
-        %w(creator_name_type contributor_name_type)
+        %w(creator_name_type contributor_name_type funder_name)
       end
 
       # TODO: Move this out to a partial that gets rendered?
       def autofill_field(attribute_name, value)
         js = []
         # TODO: add error handling in the JS so an error doesn't leave the autofilling incomplete
-        js << "doi_button_var = document.querySelectorAll('#{field_selector(attribute_name)} button.add');"
-        js << "doi_form_var = document.querySelectorAll('#{field_selector(attribute_name)} .form-control');"
+        position = attribute_name if attribute_name == funder_position
+        js << "  doi_button_var = document.querySelectorAll('#{field_selector(attribute_name)} button.add');"
         Array(value).each_with_index do |v, index|
             # Is this the right way to do this?
             # Need to be smarter to see if all repeated fields are filled before trying to create a new one by clicking?
-            js << "document.querySelectorAll('a.add_#{attribute_name.split('_')&.first}')[#{index}].click();" if ubiquity_js_fields.include?(attribute_name) && index < Array(value).length-1
             unless index.zero?
               js << "if(doi_button_var[0] != undefined) {"
               js << "document.querySelectorAll('#{field_selector(attribute_name)} button.add')[0].click();"
               js << "}"
+              js << "document.querySelectorAll('.add_another_funder_awards_button')[#{position}].click();" if attribute_name == 'funder_award'
             end
 
-            js << "if(doi_form_var[#{index}] != undefined) {"
-            js << "document.querySelectorAll('#{field_selector(attribute_name)} .form-control')[#{index}].value = '#{helpers.escape_javascript(v)}';"
-            js << "$(document.querySelectorAll('#{field_selector(attribute_name)} .form-control')[#{index}]).change();" if ubiquity_js_fields.include?(attribute_name)
-            js << "}"
+
+            js << "$.when(document.querySelectorAll('a.add_#{attribute_name.split('_')&.first}')[#{index}].click()).then(function() {" if ubiquity_js_fields.include?(attribute_name) && index < Array(value).length-1
+            js << "  doi_form_var = document.querySelectorAll('#{field_selector(attribute_name)} .form-control');"
+            js << "  if(doi_form_var[#{index}] != undefined) {"
+            js << "    document.querySelectorAll('#{field_selector(attribute_name)} .form-control')[#{index}].value = '#{helpers.escape_javascript(v)}';"
+            js << "    $(document.querySelectorAll('#{field_selector(attribute_name)} .form-control')[#{index}]).change();" if ubiquity_js_fields.include?(attribute_name)
+            js << "  }"
+            js << "})" if ubiquity_js_fields.include?(attribute_name) && index < Array(value).length-1
+
             # js << "document.querySelectorAll('a.add_#{attribute_name.sub('_position', '')}')[#{index}].click();" if(attribute_name.include?('_position') && index > 0)
         end
         js.reject(&:blank?).join("\n")
