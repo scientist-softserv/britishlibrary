@@ -7,7 +7,7 @@ module Bulkrax::HasLocalProcessing
   def add_local
     parsed_metadata['creator_search'] = parsed_metadata&.[]('creator_search')&.map {|c| c.values.join(', ')}
 
-    ['funder', 'creator', 'contributor', 'editor', 'alternate_identifier', 'related_identifier'].each do |key|
+    ['funder', 'creator', 'contributor', 'editor', 'alternate_identifier', 'related_identifier', 'current_he_institution'].each do |key|
       parsed_metadata[key] = [parsed_metadata[key].to_json] if parsed_metadata[key].present?
     end
   end
