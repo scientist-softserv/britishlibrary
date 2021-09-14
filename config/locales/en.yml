@@ -144,6 +144,10 @@ en:
       cache_api: Turns on cache for API endpoints. Experimental
       email_subjet_prefix: String to put in front of system email subjects.
       contact_email_to: Email address that should receive contact emails
+      geonames_username: Register at http://www.geonames.org/manageaccount
+      file_acl: Turn off if using a file system like samba or nfs that does not support setting access control lists
+      ssl_configured: Set it true if using https
+
   hyrax:
     admin:
       appearances:

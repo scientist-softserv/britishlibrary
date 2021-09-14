@@ -1,6 +1,6 @@
 require 'carrierwave'
 
-if Settings.s3.upload_bucket
+if Site.instance.account.s3_bucket
   CarrierWave.configure do |config|
     # config.fog_provider = 'fog/aws' # we use carrierwave-aws instead of fog now
     # config.fog_credentials = {
@@ -8,10 +8,10 @@ if Settings.s3.upload_bucket
     #   use_iam_profile: true
     # }
     config.storage = :aws
-    config.aws_bucket = Settings.s3.upload_bucket
+    config.aws_bucket = Site.instance.account.s3_bucket
     config.aws_acl = 'bucket-owner-full-control'
   end
-elsif !Settings.file_acl || Settings.file_acl == 'false'
+elsif !Site.instance.account.file_acl
   CarrierWave.configure do |config|
     config.permissions = nil
     config.directory_permissions = nil

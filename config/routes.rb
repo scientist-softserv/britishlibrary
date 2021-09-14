@@ -42,7 +42,7 @@ Rails.application.routes.draw do
 
   mount Blacklight::Engine => '/'
   mount Hyrax::Engine, at: '/'
-  if Settings.bulkrax.enabled
+  if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
     mount Bulkrax::Engine, at: '/'
   end
 

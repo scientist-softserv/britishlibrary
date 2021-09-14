@@ -46,7 +46,7 @@ module Hyku
 
       Object.include(AccountSwitch)
 
-      if Settings.bulkrax.enabled
+      if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
         Bundler.require('bulkrax')
       end
     end

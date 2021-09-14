@@ -15,27 +15,31 @@ module AccountSettings
     end
 
     setting :allow_signup, type: 'boolean', default: true
-    setting :bulkrax_validations, type: 'boolean'
+    setting :bulkrax_validations, type: 'boolean', disabled: true
     setting :cache_api, type: 'boolean', default: false
     setting :contact_email, type: 'string', default: 'change-me-in-settings@example.com'
     setting :contact_email_to, type: 'string', default: 'change-me-in-settings@example.com'
     setting :doi_reader, type: 'boolean', default: false
     setting :doi_writer, type: 'boolean', default: false
+    setting :file_acl, type: 'boolean', default: true
     setting :email_format, type: 'array'
-    setting :enable_oai_metadata, type: 'string'
-    setting :file_size_limit, type: 'string'
+    setting :enable_oai_metadata, type: 'string', disabled: true
+    setting :file_size_limit, type: 'string', default: 5.gigabytes.to_s
     setting :google_analytics_id, type: 'string'
-    setting :google_scholarly_work_types, type: 'string'
+    setting :google_scholarly_work_types, type: 'string', disabled: true
+    setting :geonames_username, type: 'string', default: ''
     setting :gtm_id, type: 'string'
-    setting :locale_name, type: 'string'
-    setting :monthly_email_list, type: 'array'
-    setting :oai_admin_email, type: 'string'
-    setting :oai_prefix, type: 'string'
-    setting :oai_sample_identifier, type: 'string'
-    setting :shared_login, type: 'boolean'
+    setting :locale_name, type: 'string', disabled: true
+    setting :monthly_email_list, type: 'array', disabled: true
+    setting :oai_admin_email, type: 'string', default: 'changeme@example.com'
+    setting :oai_prefix, type: 'string', default: 'oai:hyku'
+    setting :oai_sample_identifier, type: 'string', default: '806bbc5e-8ebe-468c-a188-b7c14fbe34df'
+    setting :s3_bucket, type: 'string'
+    setting :ssl_configured, type: 'boolean', default: false
+    setting :shared_login, type: 'boolean', disabled: true
     setting :smtp_settings, type: 'hash', private: true, default: {}
-    setting :weekly_email_list, type: 'array'
-    setting :yearly_email_list, type: 'array'
+    setting :weekly_email_list, type: 'array', disabled: true
+    setting :yearly_email_list, type: 'array', disabled: true
 
     store :settings, coder: JSON, accessors: all_settings.keys
 
@@ -108,6 +112,7 @@ module AccountSettings
 
     def initialize_settings
       set_smtp_settings
+      reload_library_config
     end
 
     def set_smtp_settings
@@ -115,5 +120,20 @@ module AccountSettings
       self.smtp_settings = current_smtp_settings.with_indifferent_access.reverse_merge!(
         PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h
       )
+    end
+
+    def reload_library_config
+      Hyrax.config do |config|
+        config.contact_email = contact_email
+        config.analytics = google_analytics_id.present?
+        config.google_analytics_id = google_analytics_id
+        config.geonames_username = geonames_username
+        config.uploader[:maxFileSize] = file_size_limit
+      end
+
+      Devise.mailer_sender = contact_email
+      return unless ssl_configured
+      ActionMailer::Base.default_url_options ||= {}
+      ActionMailer::Base.default_url_options[:protocol] = 'https'
     end
 end
