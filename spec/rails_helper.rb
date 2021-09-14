@@ -5,10 +5,11 @@ ENV['RAILS_ENV'] ||= 'test'
 
 # In test most, unset some variables that can cause trouble
 # before booting up Rails
-ENV['SETTINGS__MULTITENANCY__ADMIN_HOST'] = nil
-ENV['SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION'] = nil
-ENV['SETTINGS__MULTITENANCY__DEFAULT_HOST'] = nil
-ENV['SETTINGS__MULTITENANCY__ENABLED'] = nil
+ENV['HYKU_ADMIN_HOST'] = 'test.host'
+ENV['HYKU_ROOT_HOST'] = 'test.host'
+ENV['HYKU_ADMIN_ONLY_TENANT_CREATION'] = nil
+ENV['HYKU_DEFAULT_HOST'] = nil
+ENV['HYKU_MULTITENANT'] = nil
 
 require 'simplecov'
 SimpleCov.start('rails')

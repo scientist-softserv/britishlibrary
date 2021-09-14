@@ -4,9 +4,11 @@
 class CreateSolrCollectionJob < ApplicationJob
   non_tenant_job
 
+  attr_accessor :account
   ##
   # @param [Account]
   def perform(account)
+    @account = account
     name = account.tenant.parameterize
 
     unless collection_exists? name
@@ -67,7 +69,7 @@ class CreateSolrCollectionJob < ApplicationJob
     end
 
     def collection_options
-      CollectionOptions.new(Settings.solr.collection_options.to_hash).to_h
+      CollectionOptions.new(account.solr_collection_options).to_h
     end
 
     def collection_exists?(name)
@@ -78,14 +80,18 @@ class CreateSolrCollectionJob < ApplicationJob
     end
 
     def collection_url(name)
-      normalized_uri = if Settings.solr.url.ends_with?('/')
-                         Settings.solr.url
-                       else
-                         "#{Settings.solr.url}/"
-                       end
-
-      uri = URI(normalized_uri) + name
+      uri = URI(solr_url) + name
 
       uri.to_s
+    end
+
+    def solr_url
+      @solr_url ||= ENV['SOLR_URL'] || solr_url_parts
+      @solr_url = @solr_url.ends_with?('/') ? @solr_url : "#{@solr_url}/"
+    end
+
+    def solr_url_parts
+      "http://#{ENV.fetch('SOLR_ADMIN_USER', 'admin')}:#{ENV.fetch('SOLR_ADMIN_PASSWORD', 'admin')}" \
+        "@#{ENV.fetch('SOLR_HOST', 'solr')}:#{ENV.fetch('SOLR_PORT', '8983')}/solr/"
     end
 end

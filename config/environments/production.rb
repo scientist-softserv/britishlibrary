@@ -31,7 +31,7 @@ Rails.application.configure do
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = Settings.action_controller.asset_host if Settings.action_controller.asset_host
+  config.action_controller.asset_host = ENV.fetch("HYKU_ASSET_HOST", nil)
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
@@ -74,7 +74,7 @@ Rails.application.configure do
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true
     config.action_mailer.raise_delivery_errors = false
-    config.action_mailer.asset_host = ENV['SETTINGS__MULTITENANCY__ADMIN_HOST']
+    config.action_mailer.asset_host = ENV['HYKU_ADMIN_HOST']
   else
     config.action_mailer.delivery_method = :test
   end

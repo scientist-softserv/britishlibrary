@@ -26,7 +26,7 @@ module AccountSettings
     setting :enable_oai_metadata, type: 'string', disabled: true
     setting :file_size_limit, type: 'string', default: 5.gigabytes.to_s
     setting :google_analytics_id, type: 'string'
-    setting :google_scholarly_work_types, type: 'string', disabled: true
+    setting :google_scholarly_work_types, type: 'array', disabled: true
     setting :geonames_username, type: 'string', default: ''
     setting :gtm_id, type: 'string'
     setting :locale_name, type: 'string', disabled: true
@@ -35,9 +35,10 @@ module AccountSettings
     setting :oai_prefix, type: 'string', default: 'oai:hyku'
     setting :oai_sample_identifier, type: 'string', default: '806bbc5e-8ebe-468c-a188-b7c14fbe34df'
     setting :s3_bucket, type: 'string'
-    setting :ssl_configured, type: 'boolean', default: false
     setting :shared_login, type: 'boolean', disabled: true
     setting :smtp_settings, type: 'hash', private: true, default: {}
+    setting :solr_collection_options, type: 'hash', default: solr_collection_options
+    setting :ssl_configured, type: 'boolean', default: false
     setting :weekly_email_list, type: 'array', disabled: true
     setting :yearly_email_list, type: 'array', disabled: true
 
@@ -56,6 +57,7 @@ module AccountSettings
   end
   # rubocop:enable Metrics/BlockLength
 
+  # rubocop:disable Metrics/BlockLength
   class_methods do
     def setting(name, args)
       known_type = ['array', 'boolean', 'hash', 'string'].include?(args[:type])
@@ -73,7 +75,29 @@ module AccountSettings
         set_type(value, (args[:type]).to_s)
       end
     end
+
+    def solr_collection_options
+      {
+        async: nil,
+        auto_add_replicas: nil,
+        collection: {
+          config_name: ENV.fetch('SOLR_CONFIGSET_NAME', 'hyku')
+        },
+        create_node_set: nil,
+        max_shards_per_node: nil,
+        num_shards: 1,
+        replication_factor: nil,
+        router: {
+          name: nil,
+          field: nil
+        },
+        rule: nil,
+        shards: nil,
+        snitch: nil
+      }
+    end
   end
+  # rubocop:enable Metrics/BlockLength
 
   def public_settings
     settings.reject { |k, _v| Account.private_settings.include?(k.to_s) }
@@ -132,6 +156,25 @@ module AccountSettings
       end
 
       Devise.mailer_sender = contact_email
+
+      if s3_bucket
+        CarrierWave.configure do |config|
+          # config.fog_provider = 'fog/aws' # we use carrierwave-aws instead of fog now
+          # config.fog_credentials = {
+          #   provider: 'AWS',
+          #   use_iam_profile: true
+          # }
+          config.storage = :aws
+          config.aws_bucket = s3_bucket
+          config.aws_acl = 'bucket-owner-full-control'
+        end
+      elsif !file_acl
+        CarrierWave.configure do |config|
+          config.permissions = nil
+          config.directory_permissions = nil
+        end
+      end
+
       return unless ssl_configured
       ActionMailer::Base.default_url_options ||= {}
       ActionMailer::Base.default_url_options[:protocol] = 'https'
