@@ -683,6 +683,7 @@ en:
           collection_type: Collection Type
           date_modified: Last Modified
           date_uploaded: Date Added
+          file_size: File Size
           highlighted: Highlighted
           items: Items
           last_modified: Last modified
