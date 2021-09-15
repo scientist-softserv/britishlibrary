@@ -24,7 +24,7 @@ module Hyku
       "I18n::InvalidLocale" => :not_found
     )
 
-    if defined? ActiveElasticJob
+    if defined?(ActiveElasticJob) && ENV.fetch('HYRAX_ACTIVE_JOB_QUEUE', '') == 'elastic'
       Rails.application.configure do
         process_jobs = ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_ELASTIC_JOBS', false))
         config.active_elastic_job.process_jobs = process_jobs
@@ -37,7 +37,7 @@ module Hyku
     config.paths.add 'app/helpers', eager_load: true
 
     config.before_initialize do
-      if defined? ActiveElasticJob
+      if defined?(ActiveElasticJob) && ENV.fetch('HYRAX_ACTIVE_JOB_QUEUE', '') == 'elastic'
         Rails.application.configure do
           process_jobs = ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_ELASTIC_JOBS', false))
           config.active_elastic_job.process_jobs = process_jobs

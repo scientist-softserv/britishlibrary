@@ -344,9 +344,9 @@ class CatalogController < ApplicationController
       provider: {
         repository_name: ->(controller) { controller.send(:current_account)&.name.presence },
         # repository_url:  ->(controller) { controller.oai_catalog_url },
-        record_prefix: ->(controller) { controller.send(:current_account).settings["oai_prefix"].presence || 'oai' },
-        admin_email:   ->(controller) { controller.send(:current_account).settings["oai_admin_email"].presence || 'changeme@example.com' },
-        sample_id:     ->(controller) { controller.send(:current_account).settings["oai_sample_identifier"].presence || '806bbc5e-8ebe-468c-a188-b7c14fbe34df' }
+        record_prefix: ->(controller) { controller.send(:current_account).oai_prefix },
+        admin_email:   ->(controller) { controller.send(:current_account).oai_admin_email },
+        sample_id:     ->(controller) { controller.send(:current_account).oai_sample_identifier }
       },
       document: {
         limit: 100, # number of records returned with each request, default: 15

@@ -158,7 +158,7 @@ module AccountSettings
 
       Devise.mailer_sender = contact_email
 
-      if s3_bucket
+      if s3_bucket.present?
         CarrierWave.configure do |config|
           config.storage = :aws
           config.aws_bucket = s3_bucket
