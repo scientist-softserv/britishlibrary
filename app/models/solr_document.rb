@@ -93,4 +93,10 @@ class SolrDocument
     title: 'title_tesim',
     type: 'human_readable_type_tesim'
   )
+
+  def work_creator
+    return @work_creator if @work_creator
+    return unless creator.first
+    @work_creator = ActiveSupport::JSON.decode(creator.first)&.first
+  end
 end

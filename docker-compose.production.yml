@@ -81,7 +81,7 @@ services:
     volumes:
       - ./fcrepo:/data
     environment:
-      - JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/jdbc-postgresql/repository.json" -Dfcrepo.postgresql.host=db -Dfcrepo.postgresql.username=hyku -Dfcrepo.postgresql.password=a18e89029adb64c13 -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/fcrepo.binary.directory"
+      - JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/jdbc-postgresql/repository.json" -Dfcrepo.postgresql.host=db -Dfcrepo.postgresql.username=hyku -Dfcrepo.postgresql.password=a18e89029adb64c13 -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/fcrepo.binary.directory" -Djava.io.tmpdir="/data/tmp"
     networks:
       internal:
 
