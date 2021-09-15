@@ -13,6 +13,7 @@ class SharedIndexer < Hyrax::WorkIndexer
         Hyrax::ResourceTypesService.label(rt)
       end
       solr_doc[Solrizer.solr_name('bulkrax_identifier', :facetable)] = object.bulkrax_identifier
+      solr_doc['year_published_isi'] = object.date_published[0...4].to_i if object.date_published.present?
     end
   end
 end
