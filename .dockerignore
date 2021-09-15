@@ -2,6 +2,7 @@
 ./artifacts
 ./chart
 ./coverage
+./data
 ./docker
 ./fcrepo
 ./importer
