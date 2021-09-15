@@ -154,7 +154,7 @@ Hyrax.config do |config|
   config.uploader = {
     # limitConcurrentUploads: 6,
     # maxNumberOfFiles: 100,
-    maxFileSize: 10.gigabytes
+    maxFileSize: 20.gigabytes
   }
 
   # Fedora import/export tool
@@ -166,17 +166,15 @@ Hyrax.config do |config|
   # config.bagit_directory = "tmp/exports"
 
   # If browse-everything has been configured, load the configs.  Otherwise, set to nil.
-  # TODO: Re-enable this when work on BE has been prioritized
-  # begin
-  #   if defined? BrowseEverything
-  #     config.browse_everything = BrowseEverything.config
-  #   else
-  #     Rails.logger.warn "BrowseEverything is not installed"
-  #   end
-  # rescue Errno::ENOENT
-  #   config.browse_everything = nil
-  # end
-  config.browse_everything = nil
+  begin
+    if defined? BrowseEverything
+      config.browse_everything = BrowseEverything.config
+    else
+      Rails.logger.warn "BrowseEverything is not installed"
+    end
+  rescue Errno::ENOENT
+    config.browse_everything = nil
+  end
 
   config.iiif_image_server = true
 
