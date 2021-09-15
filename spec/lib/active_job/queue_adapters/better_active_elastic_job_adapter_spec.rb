@@ -13,12 +13,12 @@ RSpec.describe ActiveJob::QueueAdapters::BetterActiveElasticJobAdapter do
   end
 
   around do |example|
-    @original = ENV['HYKU_ACTIVE_JOB_QUEUE_URL']
+    original = ENV['HYKU_ACTIVE_JOB_QUEUE_URL']
     ENV['HYKU_ACTIVE_JOB_QUEUE_URL'] = queue_url
     Rails.application.config.active_elastic_job.secret_key_base = Rails.application.secrets[:secret_key_base]
     example.run
     Rails.application.config.active_elastic_job.secret_key_base = nil
-    ENV['HYKU_ACTIVE_JOB_QUEUE_URL'] = @original
+    ENV['HYKU_ACTIVE_JOB_QUEUE_URL'] = original
   end
 
   describe '#enqueue' do
