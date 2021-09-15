@@ -12,9 +12,9 @@ class ImageIndexer < SharedIndexer
   include Hyrax::IndexesLinkedMetadata
 
   # Uncomment this block if you want to add custom indexing behavior:
-  # def generate_solr_document
-  #  super.tap do |solr_doc|
-  #    solr_doc['my_custom_field_ssim'] = object.my_custom_property
-  #  end
-  # end
+  def generate_solr_document
+    super.tap do |solr_doc|
+      solr_doc['year_published_isi'] = object.date_published[0...4].to_i if object.date_published.present?
+    end
+  end
 end

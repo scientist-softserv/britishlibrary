@@ -3,6 +3,7 @@ class FileSetIndexer < Hyrax::FileSetIndexer
 
     super.tap do |solr_doc|
       solr_doc['hasFormat_ssim'] = object.rendering_ids
+      solr_doc['year_published_isi'] = object.date_published[0...4].to_i if object.date_published.present?
     end
 
   rescue Ldp::HttpError => exception
