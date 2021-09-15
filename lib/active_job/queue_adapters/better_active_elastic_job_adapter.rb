@@ -12,7 +12,7 @@ module ActiveJob
         # Upstream dynamically calculated queue urls for each job; we'd rather
         # route jobs into a pre-determined queue url instead.
         def queue_url(*_)
-          ENV.fetch('HYKU_ACTIVE_JOB_QUEUE_URL', super)
+          ENV['HYKU_ACTIVE_JOB_QUEUE_URL'] || super
         end
       end
     end
