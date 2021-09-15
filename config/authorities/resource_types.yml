@@ -106,8 +106,6 @@ terms:
     term: Guideline
   - id: Report Service evaluation report
     term: Service evaluation report
-  - id: Report Policy report
-    term: Policy report
   - id: Report Serious incident report
     term: Serious incident report
   - id: Dataset Numerical dataset
@@ -156,8 +154,8 @@ terms:
     term: Newsletter
   - id: GenericWork Policy
     term: Policy
-  - id: GenericWork Journal issue
-    term: Journal Issue
+  - id: GenericWork Leaflet
+    term: Leaflet
   - id: GenericWork Other
     term: Other
   - id: Image Moving image
