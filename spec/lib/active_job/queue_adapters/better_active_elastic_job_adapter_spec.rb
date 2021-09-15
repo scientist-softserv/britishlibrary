@@ -9,11 +9,16 @@ RSpec.describe ActiveJob::QueueAdapters::BetterActiveElasticJobAdapter do
   let(:job) { CreateSolrCollectionJob.new(account) }
 
   before do
-    allow(ENV).to receive(:fetch).and_call_original
-    allow(ENV).to receive(:fetch).with('HYKU_ACTIVE_JOB_QUEUE_URL').and_return(queue_url)
-
-    Rails.application.config.active_elastic_job.secret_key_base = Rails.application.secrets[:secret_key_base]
     allow(described_class).to receive(:aws_sqs_client).and_return(aws_sqs_client)
+  end
+
+  around do |example|
+    @original = ENV['HYKU_ACTIVE_JOB_QUEUE_URL']
+    ENV['HYKU_ACTIVE_JOB_QUEUE_URL'] = queue_url
+    Rails.application.config.active_elastic_job.secret_key_base = Rails.application.secrets[:secret_key_base]
+    example.run
+    Rails.application.config.active_elastic_job.secret_key_base = nil
+    ENV['HYKU_ACTIVE_JOB_QUEUE_URL'] = @original
   end
 
   describe '#enqueue' do
