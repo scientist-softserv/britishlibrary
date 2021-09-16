@@ -16,6 +16,10 @@ class CatalogController < ApplicationController
     solr_name('system_modified', :stored_sortable, type: :date)
   end
 
+  def self.year_published_field
+    solr_name('year_published', :stored_sortable)
+  end
+
   configure_blacklight do |config|
     config.view.gallery.partials = %i[index_header index]
     config.view.masonry.partials = [:index]
@@ -350,6 +354,8 @@ class CatalogController < ApplicationController
     config.add_sort_field "#{uploaded_field} asc", label: "date uploaded \u2191"
     config.add_sort_field "#{modified_field} desc", label: "date modified \u2193"
     config.add_sort_field "#{modified_field} asc", label: "date modified \u2191"
+    config.add_sort_field "year_published_isi desc", label: "year published \u2193"
+    config.add_sort_field "year_published_isi asc", label: "year published \u2191"
 
     config.oai = {
       provider: {
