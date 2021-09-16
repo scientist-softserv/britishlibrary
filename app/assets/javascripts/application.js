@@ -35,6 +35,7 @@
 ///////////// BULKRAX - add eq sign to enable
 //= require bulkrax/application
 /////////////////////////////////////////////
+//= require browse_everything
 
 //= require_tree ./ubiquity
 //= require hyrax
