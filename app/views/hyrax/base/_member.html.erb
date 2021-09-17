@@ -7,9 +7,7 @@
   <td class="attribute attribute-filename ensure-wrapped"><%= link_to(member.link_name, contextual_path(member, @presenter)) %></td>
   <% if parent_presenter.file_licenses? %>
     <td class="attribute file_licence">
-      <% member&.license&.each do |license_links| %>
-        <%= link_to master_license_hash[license_links], license_links, target: :_blank %><br>
-      <% end %>
+      <%= link_to(master_license_hash[member.license], member.license, target: :_blank) if member.license %>
     </td>
   <% end %>
   <td class="attribute attribute-date_uploaded"><%= member.try(:date_uploaded) %></td>
