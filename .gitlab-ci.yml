@@ -1,8 +1,7 @@
 ---
 stages:
   - build
-  - test
-  - staging
+  - go
 
 before_script:
   - export TAG=${CI_COMMIT_SHORT_SHA}
@@ -26,7 +25,7 @@ hyku.build:
     - local
 
 lint:
-  stage: test
+  stage: go
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   variables:
     PRONTO_GITLAB_API_ENDPOINT: "https://gitlab.com/api/v4"
@@ -45,7 +44,7 @@ lint:
     - kubernetes
 
 test:
-  stage: test
+  stage: go
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   allow_failure: true
   variables:
@@ -85,6 +84,8 @@ test:
     SOLR_ZK_HOSTS: zk:2181
     ZOO_HEAP_SIZE: 128
     ZOO_PORT_NUMBER: 2181
+    TB_RSPEC_OPTIONS: --tag ~speed:slow --format RspecJunitFormatter --out rspec.xml
+    TB_RSPEC_FORMATTER: progress
   services:
     - name: bitnami/postgresql:12.6.0
       alias: db
@@ -106,10 +107,12 @@ test:
   script:
     - rm -f /home/app/webapp/tmp/capybara/*
     - rm -rf $CI_PROJECT_DIR/capybara
+    - gem install semaphore_test_boosters
     - cd /app/samvera/hyrax-webapp
     # debugging tip: un-comment the sleep below in order to use k8's or docker to log into the actual running container
     # - sleep 30m
-    - rspec --format progress --tag ~speed:slow --format RspecJunitFormatter --out rspec.xml
+    - rspec_booster --job $CI_NODE_INDEX/$CI_NODE_TOTAL
+    # - rspec --format progress --tag ~speed:slow --format RspecJunitFormatter --out rspec.xml
   after_script:
     - test -e /home/app/webapp/tmp/capybara && cp -r /home/app/webapp/tmp/capybara $CI_PROJECT_DIR/capybara
     - test -e /home/app/webapp/rspec.xml && cp /home/app/webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
@@ -126,9 +129,10 @@ test:
       junit: rspec.xml
   tags:
     - kubernetes
+  parallel: 6
 
 hyku.staging:
-  stage: staging
+  stage: go
   extends:
     - .deploy
   environment:
@@ -155,7 +159,7 @@ hyku.staging:
     - kubernetes
 
 hyku.staging.stop:
-  stage: staging
+  stage: go
   extends:
     - .deploy
   environment:
