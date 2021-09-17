@@ -168,6 +168,7 @@ This is for the admin login on the Shared Research Repository page or when loggi
 - Tmux on this box uses default settings; "ctrl-b" is the leader command
 - Your ssh key should work
 - This attaches to a shared session so you can see if anyone is running a special job and we don't step on each other
+- If we have to run a migration or do something else that may make this process take a while, run `cp public/maintenance.html public/under_maintenance.html` after `dc build web`
 
 ``` bash
 ssh -t azureuser@51.140.4.10 "tmux new-session -A -s main"
