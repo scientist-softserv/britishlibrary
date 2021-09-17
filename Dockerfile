@@ -3,14 +3,20 @@ FROM ghcr.io/samvera/hyku/hyku-base:$HYRAX_IMAGE_VERSION as hyku-base
 
 USER root
 
-ARG EXTRA_APK_PACKAGES="openjdk11-jre ffmpeg"
 RUN apk --no-cache upgrade && \
   apk --no-cache add \
     libxml2-dev \
     mediainfo \
     perl \
     cmake \
-    $EXTRA_APK_PACKAGES
+    git \
+    less \
+    vim \
+    bash \
+    openjdk11-jre \
+    ffmpeg \
+    rsync \
+    libreoffice
 
 USER app
 
