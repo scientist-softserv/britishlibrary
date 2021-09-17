@@ -5,7 +5,6 @@ x-app: &app
     context: .
     target: hyku-base
     args:
-      - EXTRA_APK_PACKAGES=git less vim bash openjdk11-jre ffmpeg rsync libreoffice
       - SETTINGS__BULKRAX__ENABLED=true
   # command: sh -l -c "bundle && bundle exec puma -v -b tcp://0.0.0.0:3000"
   image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
@@ -146,7 +145,6 @@ services:
       context: .
       target: hyku-worker
       args:
-        - EXTRA_APK_PACKAGES=git less vim bash openjdk11-jre ffmpeg rsync
         - SETTINGS__BULKRAX__ENABLED=true
       cache_from:
         - registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
