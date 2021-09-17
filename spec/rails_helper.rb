@@ -59,6 +59,8 @@ ActiveRecord::Migration.maintain_test_schema!
 Capybara.default_max_wait_time = 8
 Capybara.default_driver = :rack_test
 
+ENV['WEB_HOST'] ||= `hostname -s`.strip
+
 if ENV['CHROME_HOSTNAME'].present?
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: {
@@ -80,11 +82,6 @@ if ENV['CHROME_HOSTNAME'].present?
   end
   Capybara.server_host = '0.0.0.0'
   Capybara.server_port = 3001
-  ENV['WEB_HOST'] ||= if ENV['IN_DOCKER']
-                        'web'
-                      else
-                        `hostname -s`.strip
-                      end
   Capybara.app_host = "http://#{ENV['WEB_HOST']}:#{Capybara.server_port}"
 else
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
