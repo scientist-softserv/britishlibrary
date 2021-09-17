@@ -15,6 +15,7 @@ hyku.build:
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
     - docker-compose build web
     - docker-compose build worker
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
     - docker-compose push web
     - docker-compose push worker
   only:
