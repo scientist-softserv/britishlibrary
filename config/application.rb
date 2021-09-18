@@ -34,11 +34,6 @@ module Hyku
     end
 
     config.to_prepare do
-      # Do dependency injection after the classes have been loaded.
-      # Before moving this here (from an initializer) Devise was raising invalid
-      # authenticity token errors.
-      Hyrax::Admin::AppearancesController.form_class = AppearanceForm
-
       Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")).sort.each do |c|
         Rails.configuration.cache_classes ? require(c) : load(c)
       end
