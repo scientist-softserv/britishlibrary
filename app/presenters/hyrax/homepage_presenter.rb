@@ -1,4 +1,10 @@
-# Override from hyrax 2.5.1 to add method to hide featured researcher
+# frozen_string_literal: true
+
+# Override from hyrax 2.5.1 to add methods to:
+# hide featured researcher
+# hide featured works
+# hide recently uploaded
+# hide share button
 module Hyrax
   class HomepagePresenter
     class_attribute :create_work_presenter_class
@@ -10,12 +16,19 @@ module Hyrax
       @collections = collections
     end
 
-    # @return [Boolean] If the current user is a guest and the display_share_button_when_not_logged_in?
-    #   is activated, then return true. Otherwise return true if the signed in
-    #   user has permission to create at least one kind of work.
+    # OVERRIDE: Hyrax v2.9.0 to removed: @return [Boolean] If the
+    #   display_share_button_when_not_logged_in? is activated, then
+    #   return true since we are utilizing the feature flipper
+    #   Flipflop.show_share_button? in Hyku.
+
+    # @return [Boolean] If the current user is a guest
+    #   and the feature flipper is enabled or if the signed in
+    #   user has permission to create at least one kind of work
+    #   and the feature flipper is enabled.
+
     def display_share_button?
-      (user_unregistered? && Hyrax.config.display_share_button_when_not_logged_in?) ||
-        current_ability.can_create_any_work?
+      Flipflop.show_share_button? && current_ability.can_create_any_work? ||
+        Flipflop.show_share_button? && user_unregistered?
     end
 
     # A presenter for selecting a work type to create
@@ -39,6 +52,16 @@ module Hyrax
     # changed to add feature flag for featured researcher
     def display_featured_researcher?
       Flipflop.show_featured_researcher?
+    end
+
+    # changed to add feature flag for featured work
+    def display_featured_works?
+      Flipflop.show_featured_works?
+    end
+
+    # changed to add feature flag for recently uploaded
+    def display_recently_uploaded?
+      Flipflop.show_recently_uploaded?
     end
 
     private

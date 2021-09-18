@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   include Hyrax::ThemedLayoutController
   with_themed_layout '1_column'
 
-  helper_method :current_account, :admin_host?
+  helper_method :current_account, :admin_host?, :home_page_theme, :show_page_theme, :search_results_theme
   before_action :authenticate_if_needed
   before_action :require_active_account!, if: :multitenant?
   before_action :set_account_specific_connections!
@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
   private
 
     def require_active_account!
-      return unless Settings.multitenancy.enabled
+      return if singletenant?
       return if devise_controller?
       raise Apartment::TenantNotFound, "No tenant for #{request.host}" unless current_account.persisted?
     end
@@ -78,11 +78,11 @@ class ApplicationController < ActionController::Base
     end
 
     def multitenant?
-      Settings.multitenancy.enabled
+      @multitenant ||= ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_MULTITENANT', false))
     end
 
     def singletenant?
-      !Settings.multitenancy.enabled
+      !multitenant?
     end
 
     def elevate_single_tenant!
@@ -94,13 +94,13 @@ class ApplicationController < ActionController::Base
     end
 
     def admin_host?
-      return false unless multitenant?
+      return false if singletenant?
       Account.canonical_cname(request.host) == Account.admin_host
     end
 
     def current_account
       @current_account ||= Account.from_request(request)
-      @current_account ||= if Settings.multitenancy.enabled
+      @current_account ||= if multitenant?
                              Account.new do |a|
                                a.build_solr_endpoint
                                a.build_fcrepo_endpoint
@@ -109,6 +109,19 @@ class ApplicationController < ActionController::Base
                            else
                              Account.single_tenant_default
                            end
+    end
+
+    # Find themes set on Site model, or return default
+    def home_page_theme
+      current_account.sites&.first&.home_theme || 'default_home'
+    end
+
+    def show_page_theme
+      current_account.sites&.first&.show_theme || 'default_show'
+    end
+
+    def search_results_theme
+      current_account.sites&.first&.search_theme || 'list_view'
     end
 
     # Add context information to the lograge entries
@@ -120,6 +133,6 @@ class ApplicationController < ActionController::Base
     end
 
     def ssl_configured?
-      ActiveRecord::Type::Boolean.new.cast(Settings.ssl_configured)
+      ActiveRecord::Type::Boolean.new.cast(current_account.ssl_configured)
     end
 end
