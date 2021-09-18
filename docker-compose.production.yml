@@ -5,8 +5,6 @@ x-app: &app
   build:
     context: .
     target: hyku-base
-    args:
-      - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync
   image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
   env_file:
     - .env.production
@@ -124,9 +122,6 @@ services:
     build:
       context: .
       target: hyku-worker
-      args:
-        - EXTRA_WORKER_APK_PACKAGES=ffmpeg libreoffice libreoffice-base libreoffice-lang-uk
-        - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre
     command: bundle exec sidekiq
     depends_on:
       - check_volumes
@@ -136,7 +131,6 @@ services:
       - redis
       - zoo1
       - initialize_app
-
 
   # Do not recurse through all of tmp. derivitives will make booting
   # very slow and eventually just time out as data grows
