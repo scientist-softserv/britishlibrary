@@ -25,7 +25,7 @@
                <span>Add folder...</span>
                <input type="file" name="files[]" multiple directory webkitdirectory />
            </span>
-           <% if Hyrax.config.browse_everything? %>
+           <% if Hyrax.config.browse_everything? && params['cloud'].present? %>
              <%= button_tag(type: 'button', class: 'btn btn-success', id: "browse-e-btn") do %>
                <span class="glyphicon glyphicon-plus"></span>
                <%= t('hyrax.upload.browse_everything.browse_files_button') %>
