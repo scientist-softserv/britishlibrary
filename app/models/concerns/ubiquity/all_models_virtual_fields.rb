@@ -274,6 +274,7 @@ module Ubiquity
         hash.each do |key, value|
           if value.present?
             date << '-' if key.exclude?('year') # add a `-` before month or day
+            value = value.length < 2 ? "0#{value}" : value
             date << value
           else
             return date
