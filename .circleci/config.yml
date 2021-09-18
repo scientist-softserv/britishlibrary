@@ -6,7 +6,7 @@ jobs:
     parameters:
       ruby_version:
         type: string
-        default: 2.5.5
+        default: 2.7.4
       bundler_version:
         type: string
         default: '2.0.1'
@@ -54,7 +54,6 @@ jobs:
       DATABASE_USER: postgres
       DATABASE_TEST_NAME: circle_test
       BUNDLE_PATH: vendor/bundle
-      COVERALLS_PARALLEL: true
       BUNDLE_JOBS: 4
       BUNDLE_RETRY: 3
       SOLR_ADMIN_USER: admin
@@ -81,13 +80,10 @@ jobs:
       - samvera/parallel_rspec
       - store_artifacts:
           path: coverage
-      - deploy:
-          command: |
-            curl -k https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[build_num]=$CIRCLE_BUILD_NUM&payload[status]=done"
 workflows:
   ci:
     jobs:
       - bundle_lint_test:
-          ruby_version: "2.5.5"
-          name: "ruby2-5-5"
+          ruby_version: "2.7.4"
+          name: "ruby2-7-4"
           solr_config_path: 'solr/config'

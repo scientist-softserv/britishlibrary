@@ -115,8 +115,6 @@ services:
       - VIRTUAL_HOST=.bl.test
     # command: sh -l -c "bundle && bundle exec puma -v -b tcp://0.0.0.0:3000"
     depends_on:
-      initialize_app:
-        condition: service_healthy
       db:
         condition: service_started
       solr:
@@ -154,6 +152,7 @@ services:
     image: registry.gitlab.com/notch8/britishlibrary/worker:${TAG:-latest}
     depends_on:
       check_volumes:
+        condition: service_completed_successfully
       db:
         condition: service_started
       solr:

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  if Settings.multitenancy.enabled
+  if ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_MULTITENANT', false))
     constraints host: Account.admin_host do
       get '/account/sign_up' => 'account_sign_up#new', as: 'new_sign_up'
       post '/account/sign_up' => 'account_sign_up#create'
@@ -42,7 +42,7 @@ Rails.application.routes.draw do
 
   mount Blacklight::Engine => '/'
   mount Hyrax::Engine, at: '/'
-  if Settings.bulkrax.enabled
+  if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
     mount Bulkrax::Engine, at: '/'
   end
 
@@ -87,7 +87,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'all_collections' => 'hyrax/homepage#all_collections', as: :all_collections
   # BL Routes
+
   get '/work/sc/:id', to: 'work_redirect#show'
   get '/work/ns/:id', to: 'work_redirect#show'
   get '/work/:id', to: 'work_redirect#show'
