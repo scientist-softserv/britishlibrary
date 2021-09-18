@@ -44,9 +44,12 @@ module Ubiquity
                        based_near
                        related_url
                        source]
-      self.required_fields -= %i[title creator keyword rights_statement institution]
-      # `title` and `creator` to be removed first then inserted in the desired order
-      self.required_fields += %i[title]
+      # default required_fields: [:title, :creator, :keyword, :rights_statement]
+      # removing fields that are not required across all types or that we want displayed in a different order
+      # creator is listed here so it groups with the other required fields in the UI, the validations for it however
+      # are handled in creator.js
+      self.required_fields -= %i[creator keyword rights_statement]
+      self.required_fields += %i[resource_type institution date_published creator]
     end
 
     class_methods do
@@ -59,7 +62,7 @@ module Ubiquity
           ]}
 
           permitted_params << {creator_group: [:creator_organization_name, :creator_given_name,
-            :creator_family_name, :creator_name_type, :creator_orcid, :creator_isni,  :creator_ror, :creator_grid,
+            :creator_family_name, :creator_name_type, :creator_orcid, :creator_isni, :creator_ror, :creator_grid,
             :creator_wikidata, :creator_position, :creator_institutional_relationship => []
           ]}
 
