@@ -21,7 +21,7 @@ module AccountSettings
     setting :contact_email_to, type: 'string', default: 'change-me-in-settings@example.com'
     setting :doi_reader, type: 'boolean', default: false
     setting :doi_writer, type: 'boolean', default: false
-    setting :file_acl, type: 'boolean', default: true
+    setting :file_acl, type: 'boolean', default: true, private: true
     setting :email_format, type: 'array'
     setting :email_subject_prefix, type: 'string'
     setting :enable_oai_metadata, type: 'string', disabled: true
@@ -35,11 +35,11 @@ module AccountSettings
     setting :oai_admin_email, type: 'string', default: 'changeme@example.com'
     setting :oai_prefix, type: 'string', default: 'oai:hyku'
     setting :oai_sample_identifier, type: 'string', default: '806bbc5e-8ebe-468c-a188-b7c14fbe34df'
-    setting :s3_bucket, type: 'string'
+    setting :s3_bucket, type: 'string', private: true
     setting :shared_login, type: 'boolean', disabled: true
     setting :smtp_settings, type: 'hash', private: true, default: {}
     setting :solr_collection_options, type: 'hash', default: solr_collection_options
-    setting :ssl_configured, type: 'boolean', default: false
+    setting :ssl_configured, type: 'boolean', default: false, private: true
     setting :weekly_email_list, type: 'array', disabled: true
     setting :yearly_email_list, type: 'array', disabled: true
 
@@ -101,7 +101,11 @@ module AccountSettings
   # rubocop:enable Metrics/BlockLength
 
   def public_settings
-    settings.reject { |k, _v| Account.private_settings.include?(k.to_s) }
+    all_settings.reject { |k, v| Account.private_settings.include?(k.to_s) || v[:disabled] }
+  end
+
+  def live_settings
+    all_settings.reject { |k, v| v[:disabled] }
   end
 
   private
