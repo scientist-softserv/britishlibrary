@@ -27,16 +27,16 @@
 ## Running the stack
 ### Important URL's
 - Local site:
-  - With dory: hyku.test
+  - With dory: bl.test
   - Without dory: localhost:3000
 - Staging site: http://bl-staging.notch8.cloud/
 - Production site: http://iro.bl.uk/
-- Solr: http://solr.hyku.test
+- Solr: http://solr.bl.test
   - Check the `SOLR_ADMIN_USER` and `SOLR_ADMIN_PASSWORD` in "docker-compose.yml"
-- Sidekiq: http://hyku.test/sidekiq
+- Sidekiq: http://bl.test/sidekiq
 
 ### Dory
-On OS X or Linux we recommend running [Dory](https://github.com/FreedomBen/dory). It acts as a proxy allowing you to access domains locally such as hyku.test or tenant.hyku.test, making multitenant development more straightforward and prevents the need to bind ports locally. Be sure to [adjust your ~/.dory.yml file to support the .test tld](https://github.com/FreedomBen/dory#config-file).
+On OS X or Linux we recommend running [Dory](https://github.com/FreedomBen/dory). It acts as a proxy allowing you to access domains locally such as bl.test or tenant.bl.test, making multitenant development more straightforward and prevents the need to bind ports locally. Be sure to [adjust your ~/.dory.yml file to support the .test tld](https://github.com/FreedomBen/dory#config-file).
 
 You can still run in development via docker with out Dory, but to do so please uncomment the ports section in docker-compose.yml
 
@@ -159,7 +159,7 @@ This is for the admin login on the Shared Research Repository page or when loggi
 - From the home page click on "Accounts" in the upper left corner
 - Press "Create New Account"
 - Give the account a short name
-- Access the tenant at "<short-name>.hyku.test"
+- Access the tenant at "<short-name>.bl.test"
   NOTE: Although there are institutional logo's on the home page, all accounts are not created by default. If you would like to create an account for one of them, hover over its logo to see the url in the bottom left corner of the screen. Use the subdomain as the "short name" in the process above.
 - Check the `authenticate_if_needed` method in application_controller.rb for the current username/password combination
 
@@ -186,7 +186,7 @@ Much of the default configuration in Hyku is set up to use multi-tenant mode.  T
 
 To enable single tenant, in your settings.yml file change multitenancy/enabled to `false` or set `HYKU_MULTITENAN=false` in your `docker-compose.yml` and `docker-compose.production.yml` configs. After changinig this setting, run `rails db:seed` to prepopulate the single tenant.
 
-In single tenant mode, both the application root (eg. localhost, or hyku.test) and the tenant url single.* (eg. single.hyku.test) will load the tenant. Override the root host by setting multitenancy/root_host in settings.yml or `HYKU_ROOT_HOST`.
+In single tenant mode, both the application root (eg. localhost, or bl.test) and the tenant url single.* (eg. single.bl.test) will load the tenant. Override the root host by setting multitenancy/root_host in settings.yml or `HYKU_ROOT_HOST`.
 
 To change from single- to multi-tenant mode, change the multitenancy/enabled flag to true and restart the application. Change the 'single' tenant account cname in the Accounts edit interface to the correct hostname.
 

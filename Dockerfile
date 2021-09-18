@@ -5,18 +5,19 @@ USER root
 
 RUN apk --no-cache upgrade && \
   apk --no-cache add \
-    libxml2-dev \
-    mediainfo \
-    perl \
+    bash \
     cmake \
+    ffmpeg \
     git \
     less \
-    vim \
-    bash \
+    libreoffice \
+    libreoffice-lang-uk \
+    libxml2-dev \
+    mediainfo \
     openjdk11-jre \
-    ffmpeg \
+    perl \
     rsync \
-    libreoffice
+    vim
 
 USER app
 
