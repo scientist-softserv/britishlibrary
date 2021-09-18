@@ -281,7 +281,7 @@ RSpec.describe Account, type: :model do
 
       context 'is unset' do
         around do |example|
-          default = ENV['HYKU_DEFUALT_TENANT']
+          default = ENV['HYKU_DEFAULT_TENANT']
           example.run
           ENV['HYKU_DEFAULT_TENANT'] = default
         end
