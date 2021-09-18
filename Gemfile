@@ -138,10 +138,6 @@ gem 'bootstrap-datepicker-rails'
 # Sentry-raven for error handling
 gem "sentry-raven"
 
-gem 'sidekiq'
-
-gem 'secure_headers'
-
 gem 'codemirror-rails'
 gem 'parser', '~> 2.5.3'
 gem 'riiif', '~> 1.1'

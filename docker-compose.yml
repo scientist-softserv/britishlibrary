@@ -5,7 +5,7 @@ x-app: &app
     context: .
     target: hyku-base
     args:
-      - SETTINGS__BULKRAX__ENABLED=true
+      - HYKU_BULKRAX_ENABLED=true
   # command: sh -l -c "bundle && bundle exec puma -v -b tcp://0.0.0.0:3000"
   image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
   env_file:
@@ -143,7 +143,7 @@ services:
       context: .
       target: hyku-worker
       args:
-        - SETTINGS__BULKRAX__ENABLED=true
+        - HYKU_BULKRAX_ENABLED=true
       cache_from:
         - registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
         - registry.gitlab.com/notch8/britishlibrary/worker:${TAG:-latest}
