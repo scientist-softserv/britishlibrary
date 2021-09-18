@@ -13,6 +13,8 @@
               collection: qualification_service.select_active_options,
               selected: set_default,
               include_blank: true,
-              input_html: { class: "form-control ubiquity-#{css_class_name}" } %>
+              input_html: { class: "form-control ubiquity-#{css_class_name}" },
+              required: f.object.required?(field_name.to_sym)
+  %>
 
 <% end %>
