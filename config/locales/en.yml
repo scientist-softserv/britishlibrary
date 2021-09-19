@@ -134,6 +134,8 @@ en:
               hint: "To use an image as the logo, you should use a JPG or PNG that is a minimum of 100px tall (to retain image resolution) and has an aspect ratio between 3:2 and 2:1"
             themes:
               confirm: "If your theme doesn't appear to be applying correctly, verify that it isn't being overwritten by Custom CSS."
+            favicon:
+              hint: "Favicons need to be png files and must be square. The max size used is 228px x 228px"
           tabs:
             banner_image: "Banner Image"
             directory_image: "Directory Image"
