@@ -32,7 +32,6 @@ Rails.application.routes.draw do
   resource :site, only: [:update] do
     resources :roles, only: [:index, :update]
     resource :labels, only: [:edit, :update]
-    resource :contact, only: [:edit, :update]
   end
 
   root 'hyrax/homepage#index'
@@ -88,6 +87,7 @@ Rails.application.routes.draw do
   end
 
   get 'all_collections' => 'hyrax/homepage#all_collections', as: :all_collections
+  get 'browserconfig' => 'hyrax/homepage#browserconfig', as: :browserconfig
   # BL Routes
 
   get '/work/sc/:id', to: 'work_redirect#show'

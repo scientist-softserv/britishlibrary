@@ -6,7 +6,7 @@ class Site < ApplicationRecord
   validates :application_name, presence: true, allow_nil: true
 
   # Allow for uploading of site's banner image
-  mount_uploader :banner_image, Hyrax::UploadedFileUploader
+  mount_uploader :banner_image, Hyrax::AvatarUploader
   # Allow for uploading of site's logo image
   mount_uploader :logo_image, Hyrax::AvatarUploader
   # Allow for uploading of site's directory image
@@ -15,14 +15,16 @@ class Site < ApplicationRecord
   mount_uploader :default_collection_image, Hyrax::AvatarUploader
   # Allow for uploading of site's default work image
   mount_uploader :default_work_image, Hyrax::AvatarUploader
+  mount_uploader :favicon, FaviconUploader
 
   belongs_to :account
   accepts_nested_attributes_for :account, update_only: true
 
   class << self
     delegate :account, :application_name, :institution_name,
-             :institution_name_full, :reload, :update, :contact_email,
-             to: :instance
+      :institution_name_full, :reload, :update, :contact_email,
+      :favicon,
+      to: :instance
 
     def instance
       return NilSite.instance if Account.global_tenant?
