@@ -34,6 +34,7 @@
             <%= s.input :base_path %>
           <% end %>
 
+<<<<<<< HEAD
           <% if current_account.doi_writer || current_account.doi_reader %>
             <h3><%= t(".datacite_endpoint") %></h3>
 					  <%= f.fields_for :datacite_endpoint do |s| %>
@@ -57,6 +58,33 @@
 						<%= s.text_field 'locale_name', value: @account.settings['locale_name'], class: "form-control" %>
 						<p class="help-block"><%= t("settings.helptexts.locale_name") %></p>
 					<% end %>
+
+          <%# TODO Rob %>
+          <p>
+						<%= f.check_box :shared_search, {checked: @account.is_shared_search_enabled?, name: "account[settings][shared_search]", id: "account_settings_shared_search"}, 'true' , 'false' %>
+						<%= f.label "Search Only(select tenant on next page)" %>
+					</p>
+					<br />
+
+					<%= f.label :tenant_list %>
+					<p>
+						<% @account.children.each do |tenant| %>
+							<%= check_box_tag "account[settings][tenant_list][]", tenant.tenant, @account.children.include?(tenant) %>
+							<%= f.label tenant.name %>
+							<br />
+						<% end %>
+					</p>
+
+          <% tenants_not_in_search = Account.not_cross_search_tenants - @account.children %>
+					<p>
+						<% tenants_not_in_search.each do |tenant| %>
+							<%= check_box_tag "account[settings][tenant_list][]", tenant.tenant, @account.children.include?(tenant) %>
+							<%= f.label tenant.name %>
+							<br />
+						<% end %>
+					</p>
+
+					<br />
 
           <%= f.submit class: 'btn btn-primary' %>
           <%= link_to t('simple_form.cancel'), proprietor_accounts_path, class: 'btn btn-link action-cancel' %>
