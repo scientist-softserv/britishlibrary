@@ -4,7 +4,7 @@ class CreateFcrepoEndpointJob < ApplicationJob
   non_tenant_job
 
   def perform(account)
-    return NilFcrepoEndpoint.new if account.is_shared_search_enabled?
+    return NilFcrepoEndpoint.new if account.search_only?
 
     name = account.tenant.parameterize
 

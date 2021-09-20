@@ -38,23 +38,39 @@
             <%= render 'shared/settings', f: f, key: key, value: value %>
           <% end %>
 
-          <h3><%= t(".datacite_endpoint") %></h3>
-					<%= f.fields_for :datacite_endpoint do |s| %>
-						<%= s.input :mode, required: false  %>
-						<%= s.input :prefix, required: false  %>
-						<%= s.input :username, required: false  %>
-						<%= s.input :password, input_html: { value: @account.data_cite_endpoint.password }, required: false  %>
-					<% end %>
+          <% if @account.search_only? %>
+            <h3><%= t('.accounts_to_search') %></h3>
+            <div id='full_acount_cross_searches'>
+              <%= f.simple_fields_for :full_account_cross_searches do |full_account_cross_search| %>
+                <%= render 'full_account_cross_search_fields', f: full_account_cross_search %>
+              <% end %>
+              <div 'class='links'>
+                <%= link_to_add_association 'Add account to search', f, :full_account_cross_searches %>
+              </div>
+            </div>
+          <% end %>
+
+          <% unless @account.search_only? %>
+            <h3><%= t(".datacite_endpoint") %></h3>
+					  <%= f.fields_for :datacite_endpoint do |s| %>
+						  <%= s.input :mode, required: false  %>
+						  <%= s.input :prefix, required: false  %>
+						  <%= s.input :username, required: false  %>
+						  <%= s.input :password, input_html: { value: @account.data_cite_endpoint.password }, required: false  %>
+					  <% end %>
+          <% end %>
 
           <h3><%= t(".solr_endpoint") %></h3>
           <%= f.simple_fields_for :solr_endpoint do |s| %>
             <%= s.input :url %>
           <% end %>
 
-          <h3><%= t(".fcrepo_endpoint") %></h3>
-          <%= f.fields_for :fcrepo_endpoint do |s| %>
-            <%= s.input :url %>
-            <%= s.input :base_path %>
+          <% unless @account.search_only? %>
+            <h3><%= t(".fcrepo_endpoint") %></h3>
+            <%= f.fields_for :fcrepo_endpoint do |s| %>
+              <%= s.input :url %>
+              <%= s.input :base_path %>
+            <% end %>
           <% end %>
 
           <%= f.submit class: 'btn btn-primary' %>

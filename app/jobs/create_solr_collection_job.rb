@@ -11,11 +11,11 @@ class CreateSolrCollectionJob < ApplicationJob
     @account = account
     name = account.tenant.parameterize
 
-    # TODO Rob
-    perform_for_cross_search_tenant(account, name) if account.is_shared_search_enabled? && account.tenant_list.present?
-    perform_for_normal_tenant(account, name) unless account.is_shared_search_enabled? && account.tenant_list.present?
-
-    account.add_parent_id_to_child
+    if account.search_only?
+      perform_for_cross_search_tenant(account, name)
+    else
+      perform_for_normal_tenant(account, name)
+    end
   end
 
   def without_account(name, tenant_list = '')
@@ -73,7 +73,7 @@ class CreateSolrCollectionJob < ApplicationJob
     end
 
     def collection_options
-      CollectionOptions.new(account.solr_collection_options).to_h
+      CollectionOptions.new(account ? account.solr_collection_options : Account.solr_collection_options).to_h
     end
 
     def collection_exists?(name)
@@ -112,18 +112,15 @@ class CreateSolrCollectionJob < ApplicationJob
     end
 
     def perform_for_cross_search_tenant(account, name)
-      account_children = account.children.map(&:tenant)
-      tenants_from_edit = account.tenant_list - account_children
-      tenant_list = account.tenant_list.join(',')
-
-      if tenants_from_edit.present?
+      return unless account.full_accounts.present?
+      if account.saved_changes&.[]('created_at').present?
+        create_shared_search_collection(account.full_accounts.map(&:tenant).uniq, name)
+        account.create_solr_endpoint(url: collection_url(name), collection: name)
+      else
         solr_options = account.solr_endpoint.connection_options.dup
         RemoveSolrCollectionJob.perform_now(name, solr_options, 'cross_search_tenant')
-        create_shared_search_collection(tenant_list, name)
+        create_shared_search_collection(account.full_accounts.map(&:tenant).uniq, name)
         account.solr_endpoint.update(url: collection_url(name), collection: name)
-      else
-        create_shared_search_collection(tenant_list, name)
-        account.create_solr_endpoint(url: collection_url(name), collection: name)
       end
     end
 
@@ -132,6 +129,5 @@ class CreateSolrCollectionJob < ApplicationJob
         client.get '/solr/admin/collections', params: collection_options.merge(action: 'CREATEALIAS',
                                                                                name: name, collections: tenant_list)
       end
->>>>>>> cross-tenant-search-model-changes
     end
 end

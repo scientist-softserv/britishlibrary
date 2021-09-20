@@ -19,25 +19,18 @@
             <% end %>
 
             <%= f.input :name %>
+            <%= f.input :search_only %>
 
-            <p>
-              <%# check_box_tag "account[settings][shared_search]", @account.settings["shared_search"], @account.is_shared_search_enabled? %>
-              <%= f.check_box :shared_search, {checked: @account.is_shared_search_enabled?, name: "account[settings][shared_search]", id: "account_settings_shared_search"}, 'true' , 'false' %>
-              <%= f.label "Search Only(select tenant on next page)" %>
-            </p>
-            <br />
-
-            <%= f.label :tenant_list %>
-
-            <p>
-              <% for tenant in Account.not_cross_search_tenants %>
-                <%= check_box_tag "account[settings][tenant_list][]", tenant.tenant, @account.children.include?(tenant) %>
-                <%= f.label tenant.name %>
-                <br />
-              <% end %>
-            </p>
-
-            <br />
+            <div class='hide' id='full_account_cross_container'>
+              <div id='full_acount_cross_searches'>
+                <%= f.simple_fields_for :full_account_cross_searches do |full_account_cross_search| %>
+                  <%= render 'full_account_cross_search_fields', f: full_account_cross_search %>
+                <% end %>
+                <div 'class='links'>
+                  <%= link_to_add_association 'Add account to search', f, :full_account_cross_searches %>
+                </div>
+              </div>
+            </div>
 
             <%= f.submit class: 'btn btn-primary' %>
             <%= link_to t('simple_form.cancel'), proprietor_accounts_path, class: 'btn btn-link action-cancel' %>
