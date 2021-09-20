@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_04_215623) do
+ActiveRecord::Schema.define(version: 2021_09_18_112908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -651,6 +651,7 @@ ActiveRecord::Schema.define(version: 2021_09_04_215623) do
     t.string "home_theme"
     t.string "show_theme"
     t.string "search_theme"
+    t.string "favicon"
   end
 
   create_table "subject_local_authority_entries", id: :serial, force: :cascade do |t|

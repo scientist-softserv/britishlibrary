@@ -20,6 +20,7 @@
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require stat_slider
 //= require turbolinks
+//= require cocoon
 
 //= require tether
 // Required by Blacklight

@@ -10,6 +10,7 @@ module Hyrax
         extend ActiveModel::Naming
         delegate :banner_image, :banner_image?, to: :site
         delegate :logo_image, :logo_image?, to: :site
+        delegate :favicon, :favicon?, to: :site
         delegate :directory_image, :directory_image?, to: :site
         delegate :default_collection_image, :default_collection_image?, to: :site
         delegate :default_work_image, :default_work_image?, to: :site
@@ -60,7 +61,7 @@ module Hyrax
         end
 
         def self.image_params
-          %i[banner_image logo_image directory_image default_collection_image default_work_image]
+          %i[favicon banner_image logo_image directory_image default_collection_image default_work_image]
         end
 
         def site
@@ -275,6 +276,10 @@ module Hyrax
           attributes.slice(*self.class.logo_fields)
         end
 
+        def favicon_attributes
+          attributes.slice(*self.class.favicon_fields)
+        end
+
         def directory_attributes
           attributes.slice(*self.class.directory_fields)
         end
@@ -286,6 +291,10 @@ module Hyrax
         # @return [Array<Symbol>] a list of fields that are related to the banner
         def self.banner_fields
           [:banner_image]
+        end
+
+        def self.favicon_fields
+          [:favicon]
         end
 
         # @return [Array<Symbol>] a list of fields that are related to the banner
@@ -308,8 +317,9 @@ module Hyrax
           end
 
           site.update!(banner_attributes.merge(logo_attributes)
-                                        .merge(directory_attributes)
-                                        .merge(default_image_attributes))
+            .merge(favicon_attributes)
+            .merge(directory_attributes)
+            .merge(default_image_attributes))
         end
 
         # A list of parameters that are related to customizations
