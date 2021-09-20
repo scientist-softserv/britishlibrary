@@ -83,13 +83,36 @@ module Proprietor
       end
 
       # Never trust parameters from the scary internet, only allow the permitted parameters through.
-      def account_params
-        params.require(:account).permit(:name, :cname, :title, :is_public, *@account.live_settings.keys,
+      def edit_account_params
+        params.require(:account).permit(:name,
+                                        :cname,
+                                        :title,
+                                        :is_public,
+                                        :search_only,
+                                        *@account.live_settings.keys,
                                         admin_emails: [],
+                                        full_account_cross_searches_attributes: [:id,
+                                                                                 :_destroy,
+                                                                                 :full_account_id,
+                                                                                 full_account_attributes: [:id]],
                                         solr_endpoint_attributes: %i[id url],
                                         fcrepo_endpoint_attributes: %i[id url base_path],
-                                        datacite_endpoint_attributes: %i[mode prefix username password]
-                                       )
+                                        datacite_endpoint_attributes: %i[mode prefix username password])
+      end
+
+      def account_params
+        params.require(:account).permit(
+          :name,
+          :search_only,
+          admin_emails: [],
+          full_account_cross_searches_attributes: [:id, :_destroy, :full_account_id, full_account_attributes: [:id]]
+        )
+      end
+
+      def deleted_or_new(hash)
+        hash.detect do |_k, v|
+          v["_destroy"] == 'true' || v["id"].blank?
+        end
       end
   end
 end
