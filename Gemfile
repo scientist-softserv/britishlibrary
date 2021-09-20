@@ -136,6 +136,7 @@ end
 
 gem 'bootstrap-datepicker-rails'
 # Sentry-raven for error handling
+gem "cocoon"
 gem "sentry-raven"
 
 gem 'codemirror-rails'
