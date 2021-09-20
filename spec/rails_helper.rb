@@ -5,19 +5,13 @@ ENV['RAILS_ENV'] ||= 'test'
 
 # In test most, unset some variables that can cause trouble
 # before booting up Rails
-ENV['SETTINGS__MULTITENANCY__ADMIN_HOST'] = nil
-ENV['SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION'] = nil
-ENV['SETTINGS__MULTITENANCY__DEFAULT_HOST'] = nil
-ENV['SETTINGS__MULTITENANCY__ENABLED'] = nil
+ENV['HYKU_ADMIN_HOST'] = 'test.host'
+ENV['HYKU_ROOT_HOST'] = 'test.host'
+ENV['HYKU_ADMIN_ONLY_TENANT_CREATION'] = nil
+ENV['HYKU_DEFAULT_HOST'] = nil
+ENV['HYKU_MULTITENANT'] = 'true'
 
 require 'simplecov'
-require 'coveralls'
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
-  [
-    SimpleCov::Formatter::HTMLFormatter,
-    Coveralls::SimpleCov::Formatter
-  ]
-)
 SimpleCov.start('rails')
 
 require File.expand_path('../config/environment', __dir__)
@@ -29,6 +23,7 @@ require 'capybara/rails'
 require 'database_cleaner'
 require 'active_fedora/cleaner'
 require 'webdrivers'
+require 'shoulda/matchers'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -64,6 +59,8 @@ ActiveRecord::Migration.maintain_test_schema!
 Capybara.default_max_wait_time = 8
 Capybara.default_driver = :rack_test
 
+ENV['WEB_HOST'] ||= `hostname -s`.strip
+
 if ENV['CHROME_HOSTNAME'].present?
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: {
@@ -85,11 +82,6 @@ if ENV['CHROME_HOSTNAME'].present?
   end
   Capybara.server_host = '0.0.0.0'
   Capybara.server_port = 3001
-  ENV['WEB_HOST'] ||= if ENV['IN_DOCKER']
-                        'web'
-                      else
-                        `hostname -s`.strip
-                      end
   Capybara.app_host = "http://#{ENV['WEB_HOST']}:#{Capybara.server_port}"
 else
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
@@ -177,5 +169,12 @@ RSpec.configure do |config|
     rescue NoMethodError
       'This can happen which the database is gone, which depends on load order of tests'
     end
+  end
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
   end
 end

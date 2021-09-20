@@ -20,32 +20,32 @@
       <h2 class="pt-40">Browse our partner repositories:</h2>
       <div class="row logo-grid">
         <div class="col-xs-6 col-md-4 text-center">
-          <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'mola')}" do %>
+          <%= link_to "//#{host_for('mola')}" do %>
             <%= image_tag("splash-logos/MolaLogo.png", class: "tenant-logo", alt: "MOLA") %>
           <% end %>
         </div>
         <div class="col-xs-6 col-md-4 text-center">
-          <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'nms')}" do %>
+          <%= link_to "//#{host_for('nms')}" do %>
             <%= image_tag("splash-logos/NMSlogo1.png", class: "tenant-logo", alt: "National Museum of Scotland") %>
           <% end %>
         </div>
         <div class="col-xs-12 col-md-4 text-center">
-          <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'bl')}" do %>
+          <%= link_to "//#{host_for('bl')}" do %>
              <%= image_tag("splash-logos/britishlibrarylogo.png", class: "tenant-logo", alt: "British Library") %>
           <% end %>
         </div>
         <div class="col-xs-6 col-md-4 text-center">
-          <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'kew')}" do %>
+          <%= link_to "//#{host_for('kew')}" do %>
             <%= image_tag("splash-logos/Kew_Logo.png", class: "tenant-logo", alt: "Kew Royal Botanic Gardens") %>
           <% end %>
         </div>
         <div class="col-xs-6 col-md-4 text-center">
-          <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'tate')}" do %>
+          <%= link_to "//#{host_for('tate')}" do %>
             <%= image_tag("splash-logos/Tate_Logo.png", class: "tenant-logo", alt: "Tate Modern") %>
             <% end %>
         </div>
         <div class="col-xs-12 col-md-4 text-center">
-          <%= link_to "//#{Settings.multitenancy.default_host.gsub('%{tenant}', 'britishmuseum')}" do %>
+          <%= link_to "//#{host_for('britishmuseum')}" do %>
             <%= image_tag("splash-logos/BMlogo.png", class: "tenant-logo", alt: "The British Museum") %>
           <% end %>
         </div>

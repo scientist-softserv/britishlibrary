@@ -8,7 +8,8 @@ RSpec.describe "splash/index.html.erb", type: :view do
 
   context 'Anonymous or non-Admin user with admin_only_tenant_creation=false' do
     before do
-      allow(Settings.multitenancy).to receive(:admin_only_tenant_creation).and_return(false)
+      allow(ENV).to receive(:fetch).and_call_original
+      allow(ENV).to receive(:fetch).with('HYKU_ADMIN_ONLY_TENANT_CREATION').and_return(false)
       allow(controller).to receive(:can?).with(:manage, Account).and_return(false)
       render
     end
@@ -21,7 +22,8 @@ RSpec.describe "splash/index.html.erb", type: :view do
 
   context 'Admin user with admin_only_tenant_creation=true' do
     before do
-      allow(Settings.multitenancy).to receive(:admin_only_tenant_creation).and_return(true)
+      allow(ENV).to receive(:fetch).and_call_original
+      allow(ENV).to receive(:fetch).with('HYKU_ADMIN_ONLY_TENANT_CREATION', nil).and_return(true)
       allow(controller).to receive(:can?).with(:manage, Account).and_return(true)
       allow(controller).to receive(:user_signed_in?).and_return(true)
       render
@@ -35,7 +37,9 @@ RSpec.describe "splash/index.html.erb", type: :view do
 
   context 'Anonymous user with admin_only_tenant_creation=true' do
     before do
-      allow(Settings.multitenancy).to receive(:admin_only_tenant_creation).and_return(true)
+      allow(ENV).to receive(:fetch).and_call_original
+      allow(ENV).to receive(:fetch).with('HYKU_ADMIN_ONLY_TENANT_CREATION', false).and_return(true)
+
       allow(controller).to receive(:can?).with(:manage, Account).and_return(false)
       allow(controller).to receive(:user_signed_in?).and_return(false)
       render
@@ -49,7 +53,8 @@ RSpec.describe "splash/index.html.erb", type: :view do
 
   context 'Authenticated, non-Admin user with admin_only_tenant_creation=true' do
     before do
-      allow(Settings.multitenancy).to receive(:admin_only_tenant_creation).and_return(true)
+      allow(ENV).to receive(:fetch).and_call_original
+      allow(ENV).to receive(:fetch).with('HYKU_ADMIN_ONLY_TENANT_CREATION', false).and_return(true)
       allow(controller).to receive(:can?).with(:manage, Account).and_return(false)
       allow(controller).to receive(:user_signed_in?).and_return(true)
       render
