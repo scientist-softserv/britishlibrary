@@ -5,18 +5,19 @@ USER root
 
 RUN apk --no-cache upgrade && \
   apk --no-cache add \
-    libxml2-dev \
-    mediainfo \
-    perl \
+    bash \
     cmake \
+    ffmpeg \
     git \
     less \
-    vim \
-    bash \
+    libreoffice \
+    libreoffice-lang-uk \
+    libxml2-dev \
+    mediainfo \
     openjdk11-jre \
-    ffmpeg \
+    perl \
     rsync \
-    libreoffice
+    vim
 
 USER app
 
@@ -39,7 +40,7 @@ RUN bundle install --jobs "$(nproc)"
 
 COPY --chown=1001:101 $APP_PATH /app/samvera/hyrax-webapp
 
-ARG SETTINGS__BULKRAX__ENABLED="false"
+ARG HYKU_BULKRAX_ENABLED="false"
 RUN RAILS_ENV=production SECRET_KEY_BASE=`bin/rake secret` DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
 
 FROM hyku-base as hyku-worker
