@@ -129,3 +129,4 @@ gem 'riiif', '~> 1.1'
 gem 'secure_headers'
 gem 'sidekiq'
 gem 'tether-rails'
+gem "cocoon"
