@@ -112,7 +112,7 @@ class CreateSolrCollectionJob < ApplicationJob
     end
 
     def perform_for_cross_search_tenant(account, name)
-      return unless account.full_accounts.present?
+      return if account.full_accounts.blank?
       if account.saved_changes&.[]('created_at').present?
         create_shared_search_collection(account.full_accounts.map(&:tenant).uniq, name)
         account.create_solr_endpoint(url: collection_url(name), collection: name)
@@ -125,9 +125,8 @@ class CreateSolrCollectionJob < ApplicationJob
     end
 
     def create_shared_search_collection(tenant_list, name)
-      unless collection_exists? name
-        client.get '/solr/admin/collections', params: collection_options.merge(action: 'CREATEALIAS',
-                                                                               name: name, collections: tenant_list)
-      end
+      return true if collection_exists?(name)
+      client.get '/solr/admin/collections', params: collection_options.merge(action: 'CREATEALIAS',
+                                                                             name: name, collections: tenant_list)
     end
 end
