@@ -9,9 +9,17 @@ class Account < ApplicationRecord
 
   has_many :sites, dependent: :destroy
   has_many :domain_names, dependent: :destroy
-  has_many :full_account_cross_searches, class_name: 'AccountCrossSearch', dependent: :destroy, foreign_key: 'search_account_id'
+  has_many :full_account_cross_searches,
+           class_name: 'AccountCrossSearch',
+           dependent: :destroy,
+           foreign_key: 'search_account_id',
+           inverse_of: :search_account
   has_many :full_accounts, class_name: 'Account', through: :full_account_cross_searches
-  has_many :search_account_cross_searches, class_name: 'AccountCrossSearch', dependent: :destroy, foreign_key: 'full_account_id'
+  has_many :search_account_cross_searches,
+           class_name: 'AccountCrossSearch',
+           dependent: :destroy,
+           foreign_key: 'full_account_id',
+           inverse_of: :full_account
   has_many :search_accounts, class_name: 'Account', through: :search_account_cross_searches
 
   accepts_nested_attributes_for :domain_names, allow_destroy: true
