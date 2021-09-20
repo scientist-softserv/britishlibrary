@@ -140,12 +140,14 @@ module AccountSettings
     end
 
     def initialize_settings
-      set_smtp_settings
-      reload_library_config
+      if self.class.column_names.include?('settings')
+        set_smtp_settings
+        reload_library_config
+      end
     end
 
     def set_smtp_settings
-      current_smtp_settings = settings["smtp_settings"].presence || {}
+      current_smtp_settings = settings&.[]("smtp_settings").presence || {}
       self.smtp_settings = current_smtp_settings.with_indifferent_access.reverse_merge!(
         PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h
       )

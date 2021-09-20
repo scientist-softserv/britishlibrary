@@ -7,21 +7,20 @@ class Account < ApplicationRecord
   include AccountCname
   attr_readonly :tenant
 
-  # TODO Rob
-  has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :nullify, inverse_of: :parent
-  belongs_to :parent, class_name: "Account", inverse_of: :parent, foreign_key: "parent_id", optional: true
-
-  store_accessor :settings, :shared_search, :tenant_list
-  after_initialize :initialize_settings
-  # end TODO Rob
-
   has_many :sites, dependent: :destroy
   has_many :domain_names, dependent: :destroy
+  has_many :full_account_cross_searches, class_name: 'AccountCrossSearch', dependent: :destroy, foreign_key: 'search_account_id'
+  has_many :full_accounts, class_name: 'Account', through: :full_account_cross_searches
+  has_many :search_account_cross_searches, class_name: 'AccountCrossSearch', dependent: :destroy, foreign_key: 'full_account_id'
+  has_many :search_accounts, class_name: 'Account', through: :search_account_cross_searches
+
   accepts_nested_attributes_for :domain_names, allow_destroy: true
+  accepts_nested_attributes_for :full_accounts
+  accepts_nested_attributes_for :full_account_cross_searches, allow_destroy: true
 
   scope :is_public, -> { where(is_public: true) }
   scope :sorted_by_name, -> { order("name ASC") }
-  scope :not_cross_search_tenants, -> { where('settings @> ?', { shared_search: 'false' }.to_json) }
+  scope :full_accounts, -> { where(search_only: false) }
 
   before_validation do
     self.tenant ||= SecureRandom.uuid
@@ -79,7 +78,7 @@ class Account < ApplicationRecord
     redis_endpoint.switch!
     data_cite_endpoint.switch!
     switch_host!(cname)
-    setup_tenant_cache(cache_api?)
+    setup_tenant_cache(cache_api?) if self.class.column_names.include?('settings')
   end
 
   def switch
@@ -90,7 +89,7 @@ class Account < ApplicationRecord
   end
 
   def reset!
-    setup_tenant_cache(cache_api?)
+    setup_tenant_cache(cache_api?) if self.class.column_names.include?('settings')
     SolrEndpoint.reset!
     FcrepoEndpoint.reset!
     RedisEndpoint.reset!
@@ -136,29 +135,4 @@ class Account < ApplicationRecord
   def cache_api?
     cache_api
   end
-
-  # TODO Rob
-  def is_shared_search_enabled?
-    ActiveModel::Type::Boolean.new.cast(shared_search)
-  end
-
-  def add_parent_id_to_child
-    tenant_list.each do |record|
-       self.class.find_by(tenant: record)&.update(parent_id: id)
-    end
-    settings['tenant_list'] = []
-    save
-  end
-
-
-    def initialize_settings
-      set_default_tenant_list
-    end
-
-    def set_default_tenant_list
-      return if settings['tenant_list'].present?
-      self.tenant_list = []
-    end
-
-    # END TODO Rob
 end
