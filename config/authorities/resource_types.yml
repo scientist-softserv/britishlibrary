@@ -96,18 +96,20 @@ terms:
     term: Lecture
   - id: ConferenceItem Presentation
     term: Presentation
-  - id: Report Policy report
-    term: Policy report
-  - id: Report default Research report
-    term: Research report
-  - id: Report Technical report
-    term: Technical report
   - id: Report Guideline
     term: Guideline
-  - id: Report Service evaluation report
-    term: Service evaluation report
+  - id: Report Policy report
+    term: Policy report
+  - id: Report Report
+    term: Report
+  - id: Report default Research report
+    term: Research report
   - id: Report Serious incident report
     term: Serious incident report
+  - id: Report Service evaluation report
+    term: Service evaluation report
+  - id: Report Technical report
+    term: Technical report
   - id: Dataset Numerical dataset
     term: Numerical dataset
   - id: Dataset Geographical dataset
@@ -138,24 +140,24 @@ terms:
     term: Cartographic material
   - id: GenericWork Interactive resource
     term: Interactive resource
+  - id: GenericWork Journal issue
+    term: Journal issue
+  - id: GenericWork Leaflet
+    term: Leaflet
   - id: GenericWork Learning object
     term: Learning object
   - id: GenericWork Musical notation
     term: Musical notation
+  - id: GenericWork Newsletter
+    term: Newsletter
   - id: GenericWork Patent
     term: Patent
+  - id: GenericWork Policy
+    term: Policy
   - id: GenericWork Website
     term: Website
   - id: GenericWork Workflow
     term: Workflow
-  - id: GenericWork Journal issue
-    term: Journal Issue
-  - id: GenericWork Newsletter
-    term: Newsletter
-  - id: GenericWork Policy
-    term: Policy
-  - id: GenericWork Leaflet
-    term: Leaflet
   - id: GenericWork Other
     term: Other
   - id: Image Moving image
