@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-RSpec.describe 'hyrax/base/_attribute_rows.html.erb', type: :view do
+RSpec.describe 'hyrax/base/attribute_rows_custom.html.erb', type: :view do
   let(:url) { 'http://example.com' }
   let(:license) { 'CC BY 4.0 Attribution' }
 
@@ -17,7 +17,7 @@ RSpec.describe 'hyrax/base/_attribute_rows.html.erb', type: :view do
   # let(:presenter) { Hyrax::WorkShowPresenter.new(solr_document, ability) }
 
   # let(:page) do
-  #   render 'hyrax/base/attribute_rows', presenter: presenter
+  #   render 'hyrax/base/attribute_rows_custom', presenter: presenter
   #   Capybara::Node::Simple.new(rendered)
   # end
 
