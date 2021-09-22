@@ -88,12 +88,12 @@ terms:
   - id: ConferenceItem Conference poster (unpublished)
     term: Conference poster (unpublished)
     active: false
+  - id: ConferenceItem Lecture
+    term: Lecture
   - id: ConferenceItem Conference poster (published)
     term: Poster (published)
   - id: ConferenceItem Conference poster (unpublished)
     term: Poster (unpublished)
-  - id: ConferenceItem Lecture
-    term: Lecture
   - id: ConferenceItem Presentation
     term: Presentation
   - id: Report Guideline
