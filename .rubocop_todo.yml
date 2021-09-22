@@ -63,7 +63,7 @@ Layout/CommentIndentation:
 # Cop supports --auto-correct.
 Layout/EmptyLineAfterMagicComment:
   Exclude:
-    - 'spec/views/hyrax/base/_attribute_rows.html.erb_spec.rb'
+    - 'spec/views/hyrax/base/attribute_rows.html.erb_spec.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
