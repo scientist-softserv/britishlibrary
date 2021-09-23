@@ -145,7 +145,7 @@ module AccountSettings
     end
 
     def set_smtp_settings
-      current_smtp_settings = settings["smtp_settings"].presence || {}
+      current_smtp_settings = self.smtp_settings.presence || {}
       self.smtp_settings = current_smtp_settings.with_indifferent_access.reverse_merge!(
         PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h
       )
