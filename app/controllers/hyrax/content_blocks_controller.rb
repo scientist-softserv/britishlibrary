@@ -9,6 +9,10 @@ module Hyrax
     # begin inject IrusAnalytics::InjectControllerHooksGenerator: IrusAnalytics after action
     after_action :send_irus_analytics_investigation, only: [:show]
     # end inject IrusAnalytics::InjectControllerHooksGenerator: IrusAnalytics after action
+    # begin inject IrusAnalytics::InjectControllerHooksGenerator: IrusAnalytics after action
+    after_action :send_irus_analytics_request, only: [:zip_download]
+    # end inject IrusAnalytics::InjectControllerHooksGenerator: IrusAnalytics after action
+
   public
     # begin inject IrusAnalytics::InjectControllerHooksGenerator: item_identifier_for_irus_analytics
     def item_identifier_for_irus_analytics
