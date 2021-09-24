@@ -1,5 +1,5 @@
 namespace :hyku do
-  desc "standarize dates"
+  desc "standardize dates"
   task standardize_dates: :environment do
     Account.find_each do |account|
       switch!(account)
@@ -8,6 +8,9 @@ namespace :hyku do
           work.standardize_dates
         end
       end
+    rescue
+      puts "Account #{account.cname} failed."
+      next
     end
   end
 
