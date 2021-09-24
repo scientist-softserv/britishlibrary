@@ -74,11 +74,10 @@ module Bolognese
       def create_authors(meta, author_type)
         authors = []
         eval(meta[author_type].first).sort_by { |c| c["#{author_type}_position"].to_i }.each do |author|
-          creator_hash = {}
           name_type = author[:"#{author_type}_name_type"]
           given_name = author[:"#{author_type}_given_name"]
           family_name = author[:"#{author_type}_family_name"]
-          name = "#{family_name}, #{given_name}"
+          name = author[:"#{author_type}_organization_name"]
           affiliation = {"affiliationIdentifier"=>"https://ror.org/#{author[:"#{author_type}_ror"]}",
                          "affiliationIdentifierScheme"=>"ROR"} if author[:"#{author_type}_ror"].presence
           nameIdentifier = []
