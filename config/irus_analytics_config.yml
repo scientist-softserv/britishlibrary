@@ -3,19 +3,19 @@ development:
   enable_send_logger: true
   irus_server_address: https://irus.jisc.ac.uk/counter/test/
   robots_file: irus_analytics_counter_robot_list.txt
-  source_repository: localhost
+  source_repository: bl.test
   verbose_debug: true
 test:
   enabled: true
   enable_send_logger: false
   irus_server_address: https://irus.jisc.ac.uk/counter/test/
   robots_file: irus_analytics_counter_robot_list.txt
-  source_repository: production
+  source_repository: bl-staging.notch8.cloud
   verbose_debug: false
 production:
   enabled: true
   enable_send_logger: false
   irus_server_address: https://irus.jisc.ac.uk/counter/test/
   robots_file: irus_analytics_counter_robot_list.txt
-  source_repository: production
+  source_repository: iro.bl.uk
   verbose_debug: false
