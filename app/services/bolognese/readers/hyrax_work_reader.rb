@@ -18,7 +18,7 @@ module Bolognese
 
       def read_hyrax_work(string: nil, **options)
         read_options = ActiveSupport::HashWithIndifferentAccess.new(options.except(:doi, :id, :url, :sandbox, :validate, :ra))
-
+        byebug
         meta = string.present? ? Maremma.from_json(string) : {}
 
         {
@@ -58,11 +58,46 @@ module Bolognese
       end
 
       def read_hyrax_work_creators(meta)
-        get_authors(Array.wrap(meta.fetch("creator", nil))) if meta.fetch("creator", nil).present?
+        return unless meta.fetch("creator", nil).present?
+
+        authors = create_authors(meta, 'creator')
+        get_authors(authors) if authors.present?
       end
 
       def read_hyrax_work_contributors(meta)
-        get_authors(Array.wrap(meta.fetch("contributor", nil))) if meta.fetch("contributor", nil).present?
+        return unless meta.fetch("contributor", nil).present?
+
+        authors = create_authors(meta, 'contributor')
+        get_authors(authors) if authors.present?
+      end
+
+      def create_authors(meta, author_type)
+        authors = []
+        eval(meta[author_type].first).sort_by { |c| c["#{author_type}_position"].to_i }.each do |author|
+          creator_hash = {}
+          name_type = author[:"#{author_type}_name_type"]
+          given_name = author[:"#{author_type}_given_name"]
+          family_name = author[:"#{author_type}_family_name"]
+          name = "#{family_name}, #{given_name}"
+          affiliation = {"affiliationIdentifier"=>"https://ror.org/#{author[:"#{author_type}_ror"]}",
+                         "affiliationIdentifierScheme"=>"ROR"} if author[:"#{author_type}_ror"].presence
+          nameIdentifier = []
+          if author[:"#{author_type}_orcid"].present?
+            nameIdentifier["nameIdentifierScheme"] = "ORCID"
+            nameIdentifier["__content__"] = author[:"#{author_type}_orcid"]
+          end
+
+          author_hash = {  "nameType" => name_type,
+                           "creatorName" => name,
+                           "givenName" => given_name,
+                           "familyName" => family_name,
+                           "nameIdentifier" => nameIdentifier,
+                           "affiliation" => affiliation }.compact
+
+          authors << author_hash
+
+        end
+        authors
       end
 
       def read_hyrax_work_titles(meta)

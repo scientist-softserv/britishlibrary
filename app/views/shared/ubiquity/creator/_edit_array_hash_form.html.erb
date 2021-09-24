@@ -3,14 +3,14 @@
 <% array_of_hash.each_with_index do |hash, index| %>
   <div class="ubiquity-meta-creator" >
     <% if template == 'collection' %>
-      <label class="control-label multi_value optional" for="<%= "#{template}_creator_name_type" %>">
+      <label class="control-label multi_value optional" for="<%= "#{template}_creator_name_type" %>  form-group">
         Creator name type</label>
 
       <%= select_tag "#{template}[creator_group][][creator_name_type]", content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( NameTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("creator_name_type")),
                       class: 'ubiquity_creator_name_type', data: {field_name:'ubiquity_creator_name_type'} %>
 
     <% else %>
-      <div class="<%= "#{template}_creator_name_type" %>">
+      <div class="<%= "#{template}_creator_name_type" %>  form-group">
         <label class="control-label multi_value optional" for="<%= "#{template}_creator_name_type" %>">
           Creator name type <span class="label label-info required-tag">required</span></label>
 
@@ -80,8 +80,8 @@
   <br/>
     <span class="ubiquity_personal_fields">
 
-      <div class="<%= "#{template}_creator_family_name" %>">
-      <label class="control-label multi_value optional" for="<%= "#{template}_creator_family" %>">
+      <div class="<%= "#{template}_creator_family_name" %>  form-group">
+      <label class="control-label multi_value optional" for="<%= "#{template}_creator_family_name" %>">
         Creator family name</label>
 
       <%= text_field_tag "#{template}[creator_group][][creator_family_name]", hash.dig("creator_family_name"),

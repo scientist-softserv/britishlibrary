@@ -46,7 +46,7 @@ module Ubiquity
                        source]
       self.required_fields -= %i[title creator keyword rights_statement institution]
       # `title` and `creator` to be removed first then inserted in the desired order
-      self.required_fields += %i[title]
+      self.required_fields += %i[title creator_family_name]
     end
 
     class_methods do
