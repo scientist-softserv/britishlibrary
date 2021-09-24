@@ -95,7 +95,7 @@ module Ubiquity
 
     end
 
-    def standarize_dates
+    def standardize_dates
       self.date_published = parse_dates(self.date_published)
       self.date_submitted = parse_dates(self.date_submitted)
       self.date_accepted = parse_dates(self.date_accepted)
