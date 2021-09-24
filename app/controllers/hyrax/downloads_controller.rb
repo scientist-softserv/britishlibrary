@@ -1,29 +1,28 @@
-# frozen_string_literal: true
 module Hyrax
-    class DownloadsController < ApplicationController
-      include Hydra::Controller::DownloadBehavior
-      include Hyrax::LocalFileDownloadsControllerBehavior
+  class DownloadsController < ApplicationController
+    include Hydra::Controller::DownloadBehavior
+    include Hyrax::LocalFileDownloadsControllerBehavior
 
-      def self.default_content_path
-        :original_file
+    def self.default_content_path
+      :original_file
+    end
+
+    # Render the 404 page if the file doesn't exist.
+    # Otherwise renders the file.
+    def show
+      case file
+      when ActiveFedora::File
+        # For original files that are stored in fedora
+        super
+      when String
+        # For derivatives stored on the local file system
+        send_local_content
+      else
+        raise ActiveFedora::ObjectNotFoundError
       end
+    end
 
-      # Render the 404 page if the file doesn't exist.
-      # Otherwise renders the file.
-      def show
-        case file
-        when ActiveFedora::File
-          # For original files that are stored in fedora
-          super
-        when String
-          # For derivatives stored on the local file system
-          send_local_content
-        else
-          raise Hyrax::ObjectNotFoundError
-        end
-      end
-
-      private
+    private
 
       # Override the Hydra::Controller::DownloadBehavior#content_options so that
       # we have an attachement rather than 'inline'
@@ -44,7 +43,16 @@ module Hyrax
         authorize! :download, params[asset_param_key]
       rescue CanCan::AccessDenied
         unauthorized_image = Rails.root.join("app", "assets", "images", "unauthorized.png")
-        send_file unauthorized_image, status: :unauthorized
+        if File.exist? unauthorized_image
+          send_file unauthorized_image, status: :unauthorized
+        else
+          Deprecation.warn(self, "redirect_to default_image is deprecated and will be removed from Hyrax 3.0 (copy unauthorized.png image to directory assets/images instead)")
+          redirect_to default_image
+        end
+      end
+
+      def default_image
+        ActionController::Base.helpers.image_path 'default.png'
       end
 
       # Overrides Hydra::Controller::DownloadBehavior#load_file, which is hard-coded to assume files are in BasicContainer.
@@ -78,7 +86,7 @@ module Hyrax
       def dereference_file(file_reference)
         return false if file_reference.nil?
         association = asset.association(file_reference.to_sym)
-        association if association&.is_a?(ActiveFedora::Associations::SingularAssociation)
+        association if association && association.is_a?(ActiveFedora::Associations::SingularAssociation)
       end
-    end
   end
+end
