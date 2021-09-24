@@ -30,16 +30,24 @@ module Bolognese
             'contributor_ror' => build_hyrax_work_contributor('contributor_ror'),
             'contributor_type' => build_hyrax_work_contributor('contributor_type'),
             'contributor_position' => build_hyrax_work_contributor('contributor_position'),
+            'funder_position' => build_hyrax_work_funder('funder_position'),
             'funder_name' => build_hyrax_work_funder('funder_name'),
             'funder_doi' => build_hyrax_work_funder('funder_doi'),
             'funder_ror' => build_hyrax_work_funder('funder_ror'),
             'funder_isni' => build_hyrax_work_funder('funder_isni'),
-            'funder_position' => build_hyrax_work_funder('funder_position'),
             'funder_award' => build_hyrax_work_funder('funder_award'),
+            'related_identifier' => related_identifiers&.pluck('relatedIdentifier'),
+            'related_identifier_type' => related_identifiers&.pluck('relatedIdentifierType'),
+            'relation_type' => related_identifiers&.pluck('relationType'),
             'publisher' => Array(publisher),
-            'date_created' => publication_year.present? ? [EDTF.parse(publication_year).strftime] : [],
+            'date_published' => publication_year.present? ? [EDTF.parse(publication_year).strftime] : [],
+            'date_accepted' => get_date_from_type('Accepted'),
+            'date_submitted' => get_date_from_type('Submitted'),
             'description' => build_hyrax_work_description,
             'abstract' => build_hyrax_work_description&.join("\n"),
+            'language' => language,
+            'resource_type' => resource_type,
+            'license' => rights_list.map { |r| r['rightsUri'].sub('legalcode', '') },
             'keyword' => subjects&.pluck("subject")
         }
         # byebug
@@ -73,6 +81,17 @@ module Bolognese
         return nil if descriptions.blank?
 
         descriptions.pluck("description").map { |d| Array(d).join("\n") }
+      end
+
+      def get_date_from_type(date_type)
+        dates.select { |d| d['dateType'] == date_type }.map { |d| d['date'] }
+      end
+
+      def resource_type
+        return nil unless types['resourceTypeGeneral'].present?
+
+        humanized = types['resourceTypeGeneral'].underscore.capitalize.gsub('_',' ')
+        Hyrax::ResourceTypesService.select_options.select { |t| t.first == humanized }&.first&.last
       end
 
       def build_hyrax_work_child(field_name: ,field:, index: )

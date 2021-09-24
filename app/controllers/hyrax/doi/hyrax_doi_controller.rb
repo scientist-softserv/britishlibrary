@@ -91,7 +91,7 @@ module Hyrax
       def autofill_field(attribute_name, value)
         js = []
         # TODO: add error handling in the JS so an error doesn't leave the autofilling incomplete
-        position = attribute_name if attribute_name == funder_position
+        position = value if attribute_name == 'funder_position'
         js << "  doi_button_var = document.querySelectorAll('#{field_selector(attribute_name)} button.add');"
         Array(value).each_with_index do |v, index|
             # Is this the right way to do this?
@@ -100,9 +100,18 @@ module Hyrax
               js << "if(doi_button_var[0] != undefined) {"
               js << "document.querySelectorAll('#{field_selector(attribute_name)} button.add')[0].click();"
               js << "}"
-              js << "document.querySelectorAll('.add_another_funder_awards_button')[#{position}].click();" if attribute_name == 'funder_award'
+              # js << "document.querySelectorAll('.add_another_funder_awards_button')[#{position}].click();" if attribute_name == 'funder_award'
             end
 
+            if attribute_name.include?('date')
+              dates = v.split('-')
+              js << "if(document.querySelectorAll('#{field_selector(attribute_name)} .form-control')[#{index}] != undefined) {"
+              js << "  document.querySelectorAll('#{field_selector(attribute_name)} .form-control#date_year')[#{index}].value = '#{helpers.escape_javascript(dates[0].to_i.to_s)}';" if dates[0]
+              js << "  document.querySelectorAll('#{field_selector(attribute_name)} .form-control#date_month')[#{index}].value = '#{helpers.escape_javascript(dates[1].to_i.to_s)}';" if dates[1]
+              js << "  document.querySelectorAll('#{field_selector(attribute_name)} .form-control#date_day')[#{index}].value = '#{helpers.escape_javascript(dates[2].to_i.to_s)}';" if dates[2]
+              js << "}"
+              next
+            end
 
             js << "$.when(document.querySelectorAll('a.add_#{attribute_name.split('_')&.first}')[#{index}].click()).then(function() {" if ubiquity_js_fields.include?(attribute_name) && index < Array(value).length-1
             js << "  doi_form_var = document.querySelectorAll('#{field_selector(attribute_name)} .form-control');"
