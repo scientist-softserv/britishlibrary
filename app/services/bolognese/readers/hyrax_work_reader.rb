@@ -18,7 +18,6 @@ module Bolognese
 
       def read_hyrax_work(string: nil, **options)
         read_options = ActiveSupport::HashWithIndifferentAccess.new(options.except(:doi, :id, :url, :sandbox, :validate, :ra))
-        byebug
         meta = string.present? ? Maremma.from_json(string) : {}
 
         {
@@ -32,11 +31,11 @@ module Bolognese
           "contributors" => read_hyrax_work_contributors(meta),
           # "container" => container,
           "publisher" => read_hyrax_work_publisher(meta),
-          # "related_identifiers" => related_identifiers,
-          # "dates" => dates,
+          "related_identifiers" => read_hyrax_work_related_identifiers(meta),
+          "dates" => read_hyrax_work_dates(meta),
           "publication_year" => read_hyrax_work_publication_year(meta),
           "descriptions" => read_hyrax_work_descriptions(meta),
-          # "rights_list" => rights_list,
+          "rights_list" => read_hyrax_work_rights_list(meta),
           # "version_info" => meta.fetch("version", nil),
           "subjects" => read_hyrax_work_subjects(meta)
           # "state" => state
@@ -55,6 +54,34 @@ module Bolognese
           "resourceType" => resource_type,
           "hyrax" => hyrax_resource_type
         }.compact
+      end
+
+      def read_hyrax_work_related_identifiers(meta)
+        output = []
+        eval(meta.fetch('related_identifier', nil).first).each do |ri|
+          output << {
+              "relatedIdentifier" => ri[:related_identifier],
+              "relatedIdentifierType" => ri[:related_identifier_type],
+              "relationType" => ri[:relation_type]
+          }
+        end
+        output
+      end
+
+      def read_hyrax_work_rights_list(meta)
+        output = []
+        meta.fetch('license', nil).each do |r|
+
+        end
+        output
+      end
+
+      def read_hyrax_work_dates(meta)
+        all_dates = []
+        date = meta.fetch("date_accepted", nil).presence
+        all_dates << {"date" => date.to_s, "dateType" => "Accepted" } if date
+        date ||= meta.fetch("date_submitted", nil).presence
+        all_dates << {"date" => date.to_s, "dateType" => "Submitted" } if date
       end
 
       def read_hyrax_work_creators(meta)
@@ -108,9 +135,10 @@ module Bolognese
       end
 
       def read_hyrax_work_publication_year(meta)
-        date = meta.fetch("date_created", nil)&.first
+        date = meta.fetch("date_published", nil)
+        date ||= meta.fetch("date_created", nil)&.first
         date ||= meta.fetch("date_uploaded", nil)
-        Date.edtf(date.to_s).year
+        Date.strptime(date.to_s, "%Y-%m-%d").year
       rescue StandardError
         Time.zone.today.year
       end
