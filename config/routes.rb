@@ -1,4 +1,5 @@
 require 'sidekiq/web'
+require 'resque/server'
 Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 
 Rails.application.routes.draw do
@@ -8,7 +9,7 @@ Rails.application.routes.draw do
 
   authenticate :user, lambda { |u| u.is_superadmin } do
     mount Sidekiq::Web => '/sidekiq'
-  end
+    mount Resque::Server.new, :at => '/resque'
 
   if ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_MULTITENANT', false))
     constraints host: Account.admin_host do
