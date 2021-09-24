@@ -1,3 +1,5 @@
+# OVERRIDE 2.9.6 for IRUS Analytics
+
 module Hyrax
   class DownloadsController < ApplicationController
     include Hydra::Controller::DownloadBehavior
