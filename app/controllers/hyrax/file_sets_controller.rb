@@ -1,3 +1,5 @@
+# OVERRIDE 2.9.6 for IRUS Analytics
+
 module Hyrax
   class FileSetsController < ApplicationController
     include Blacklight::Base
