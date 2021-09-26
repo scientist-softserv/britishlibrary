@@ -12,11 +12,7 @@
     </div>
     <div class="col-sm-6 col-xs-12 pt-20 homepage-right">
       <%# SEARCH BAR FOR HOME PAGE %>
-      <%# <div class="bl-searchbar-wrapper">
-        <button class="bl-searchbar"><span class="fa fa-search"></span></button>
-        <input class="bl-searchbar" type="text" id="search_all_hyku" placeholder="Begin Your Search">
-         <label class="sr-only" aria-label="search_all_hyku" for="search_all_hyku"></label>
-      </div> %>
+      <%= render partial: 'catalog/search_form', locals: { search_form_action: full_search_url } %>
       <h2 class="pt-40">Browse our partner repositories:</h2>
       <div class="row logo-grid">
         <div class="col-xs-6 col-md-4 text-center">
