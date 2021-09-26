@@ -661,6 +661,7 @@ ActiveRecord::Schema.define(version: 2021_09_20_065530) do
     t.string "home_theme"
     t.string "show_theme"
     t.string "search_theme"
+    t.string "favicon"
   end
 
   create_table "subject_local_authority_entries", id: :serial, force: :cascade do |t|
