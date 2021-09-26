@@ -24,6 +24,7 @@ class SitesController < ApplicationController
 
     def update_params
       params.permit(:remove_banner_image,
+                    :remove_favicon,
                     :remove_logo_image,
                     :remove_directory_image,
                     :remove_default_collection_image,
