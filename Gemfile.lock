@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 2b655ae94664de1f4fd9cf912d839f4a934c05c3
+  revision: 78eb26548635999912dad5a466c33ac3312cecc5
   branch: main
   specs:
     bulkrax (1.0.2)
@@ -699,7 +699,7 @@ GEM
     mailboxer (0.15.1)
       carrierwave (>= 0.5.8)
       rails (>= 5.0.0)
-    marcel (1.0.1)
+    marcel (1.0.2)
     maremma (4.9.5)
       activesupport (>= 4.2.5)
       addressable (>= 2.3.6)

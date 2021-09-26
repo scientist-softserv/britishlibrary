@@ -5,6 +5,8 @@ module MultipleMetadataFieldsHelper
     if get_uri&.host && get_uri&.path
       true
     end
+  rescue
+    false
   end
 
   def match_key_to_url(key)
