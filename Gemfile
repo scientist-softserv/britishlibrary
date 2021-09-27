@@ -39,7 +39,7 @@ gem 'flutie'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'browse-everything', '~> 1.1.2'
-gem 'irus_analytics', git: 'https://github.com/JiscSD/irus_analytics'
+gem 'irus_analytics', git: 'https://github.com/notch8/irus_analytics', branch: :active_job_edition
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
