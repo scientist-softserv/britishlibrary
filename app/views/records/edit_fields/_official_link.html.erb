@@ -1,1 +1,4 @@
-<%= f.input :official_link, input_html: { class: 'ubiquity-official-link' }, required: f.object.required?(key) %>
+<% my_model_name = f.object.model.class.to_s.underscore %>
+<div class="<%= my_model_name %>_official_link form-group">
+  <%= f.input :official_link, input_html: { class: 'ubiquity-official-link' }, required: f.object.required?(key) %>
+</div>

@@ -1,1 +1,4 @@
-<%= f.input :issue,  input_html: { class: 'ubiquity-issue' }, required: f.object.required?(key) %>
+<% my_model_name = f.object.model.class.to_s.underscore %>
+<div class="<%= my_model_name %>_issue form-group">
+  <%= f.input :issue,  input_html: { class: 'ubiquity-issue' }, required: f.object.required?(key) %>
+</div>
