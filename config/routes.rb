@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
   mount Blacklight::Engine => '/'
   mount Hyrax::Engine, at: '/'
+  mount Hyrax::DOI::Engine, at: '/doi', as: 'hyrax_doi'
   if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
     mount Bulkrax::Engine, at: '/'
   end

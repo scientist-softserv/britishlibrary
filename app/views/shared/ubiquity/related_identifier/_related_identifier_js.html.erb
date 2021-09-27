@@ -6,7 +6,7 @@
         return $("body").on("click", ".add_related_identifier", function(event){
             event.preventDefault();
             var ubiquityRelatedIdentifierClass = $(this).attr('data-addUbiquityRelatedIdentifier');
-            var cloneUbiDiv = $(this).parent('div' + ubiquityRelatedIdentifierClass).clone();
+            var cloneUbiDiv = $(this.parentElement).parent('div' + ubiquityRelatedIdentifierClass).clone();
             _this = this;
             cloneUbiDiv.find('input').val('');
             cloneUbiDiv.find('option').attr('selected', false);
@@ -21,7 +21,7 @@
             var ubiquityRelatedIdentifierClass = $(this).attr('data-removeUbiquityRelatedIdentifier');
 
             _this = this;
-            removeUbiquityRelatedIdentifier(_this, ubiquityRelatedIdentifierClass);
+            removeUbiquityRelatedIdentifier(_this.parentElement, ubiquityRelatedIdentifierClass);
 
         });
     });

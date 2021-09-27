@@ -1,5 +1,8 @@
-<% if f.object.multiple? key %>
-  <%= f.input :abstract, as: :multi_value, input_html: { rows: '14', type: 'textarea', class: 'ubiquity-abstract'}, required: f.object.required?(key) %>
-<% else %>
-  <%= f.input :abstract, as: :text, input_html: { rows: '14', class: 'ubiquity-abstract' }, required: f.object.required?(key) %>
-<% end %>
+<% my_model_name = f.object.model.class.to_s.underscore %>
+<div class="<%= my_model_name %>_abstract form-group">
+  <% if f.object.multiple? key %>
+    <%= f.input :abstract, as: :multi_value, input_html: { rows: '14', type: 'textarea', class: 'ubiquity-abstract'}, required: f.object.required?(key) %>
+  <% else %>
+    <%= f.input :abstract, as: :text, input_html: { rows: '14', class: 'ubiquity-abstract' }, required: f.object.required?(key) %>
+  <% end %>
+</div>
