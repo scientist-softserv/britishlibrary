@@ -5,7 +5,7 @@ en:
       exited:            '%{method} exited'
       no_server_address: No server address
       params_extracted: '%{method} parameters extracted'
-      enquing_error:    'Problem enqueing the analytics with Resque. Error: %{error}'
+      enquing_error:    'Problem enqueing the analytics with background job. Error: %{error}'
     tracker_context:
 # These transport layer codes don't belong here, see irus_analytics/elements.rb
 #      handles: # see: https://irus.jisc.ac.uk/r5/about/policies/tracker/
