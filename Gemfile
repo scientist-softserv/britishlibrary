@@ -109,7 +109,6 @@ gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'
 
 gem 'hyrax', '~> 2.9', '>= 2.9.1'
 
-gem 'hyrax-doi'
 gem 'rsolr', '~> 2.0'
 
 gem 'devise'
@@ -123,6 +122,9 @@ gem 'rolify'
 
 gem 'flipflop', '~> 2.3'
 gem 'lograge'
+
+gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git'
+gem 'bolognese', '1.9.7'
 
 gem 'mods', '~> 2.4'
 

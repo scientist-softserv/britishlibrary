@@ -2,6 +2,10 @@
 #  `rails generate hyrax:work BookContribution`
 module Hyrax
   class BookContributionForm < Hyrax::Forms::WorkForm
+    # Adds behaviors for hyrax-doi plugin.
+    include Hyrax::DOI::DOIFormBehavior
+    # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
+    include Hyrax::DOI::DataCiteDOIFormBehavior
     include Hyrax::FormTerms
     include ::Ubiquity::AllFormsSharedBehaviour
     include Ubiquity::EditorMetadataFormBehaviour

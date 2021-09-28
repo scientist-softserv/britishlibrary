@@ -80,14 +80,6 @@ terms:
     term: Conference paper (published)
   - id: ConferenceItem default Conference paper (unpublished)
     term: Conference paper (unpublished)
-    #  Conference poster (published) & Conference poster (unpublished) have to be kept as `active: false` (i.e. not to display/chose from)
-    #  else any record already saved with one of them will throw an error
-  - id: ConferenceItem Conference poster (published)
-    term: Conference poster (published)
-    active: false
-  - id: ConferenceItem Conference poster (unpublished)
-    term: Conference poster (unpublished)
-    active: false
   - id: ConferenceItem Lecture
     term: Lecture
   - id: ConferenceItem Conference poster (published)
@@ -96,6 +88,14 @@ terms:
     term: Poster (unpublished)
   - id: ConferenceItem Presentation
     term: Presentation
+    #  Conference poster (published) & Conference poster (unpublished) have to be kept as `active: false` (i.e. not to display/chose from)
+    #  else any record already saved with one of them will throw an error
+  - id: ConferenceItem Conference poster (published)
+    term: Conference poster (published)
+    active: false
+  - id: ConferenceItem Conference poster (unpublished)
+    term: Conference poster (unpublished)
+    active: false
   - id: Report Guideline
     term: Guideline
   - id: Report Policy report
