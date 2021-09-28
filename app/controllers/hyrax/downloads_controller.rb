@@ -1,4 +1,4 @@
-# OVERRIDE 2.9.6 for IRUS Analytics
+# OVERRIDE Hyrax 2.9.6 for IRUS Analytics
 
 module Hyrax
   class DownloadsController < ApplicationController
@@ -26,9 +26,10 @@ module Hyrax
       end
     end
 
+    # OVERRIDE Hyrax 2.9.6 for IRUS Analytics
     def item_identifier_for_irus_analytics
       # return the OAI identifier
-      CatalogController.blacklight_config.oai[:provider][:record_prefix] + ":" + ::FileSet.find(params[:id]).parent.id
+      "#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{params[:id]}"
     end
 
     private
