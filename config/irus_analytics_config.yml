@@ -1,0 +1,27 @@
+development:
+  enabled: true
+  enable_send_logger: true
+  enable_send_investigations: true
+  enable_send_requests: true
+  irus_server_address: https://irus.jisc.ac.uk/counter/test/
+  robots_file: irus_analytics_counter_robot_list.txt
+  source_repository: bl.test
+  verbose_debug: true
+test:
+  enabled: true
+  enable_send_logger: false
+  enable_send_investigations: true
+  enable_send_requests: true
+  irus_server_address: https://irus.jisc.ac.uk/counter/test/
+  robots_file: irus_analytics_counter_robot_list.txt
+  source_repository: bl-staging.notch8.cloud
+  verbose_debug: false
+production:
+  enabled: true
+  enable_send_logger: false
+  enable_send_investigations: true
+  enable_send_requests: true
+  irus_server_address: https://irus.jisc.ac.uk/counter/test/
+  robots_file: irus_analytics_counter_robot_list.txt
+  source_repository: iro.bl.uk
+  verbose_debug: false

@@ -3,6 +3,27 @@ module Hyrax
     # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
     include Hyrax::BreadcrumbsForWorks
+    include IrusAnalytics::Controller::AnalyticsBehaviour
+    # use the investigation hook to track work_type views
+    after_action :send_irus_analytics_investigation, only: [:show]
+
+  public
+    def item_identifier_for_irus_analytics
+      # return the OAI identifier
+      # http://www.openarchives.org/OAI/2.0/guidelines-oai-identifier.htm
+      "#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{params[:id]}"
+    end
+
+    def skip_send_irus_analytics?(usage_event_type)
+      # return true to skip tracking, for example to skip curation_concerns.visibility == 'private'
+      case usage_event_type
+      when 'Investigation'
+        false
+      when 'Request'
+        false
+      end
+    end
+
     # TODO include Ubiquity::BreadcrumbOverride
 
     private
