@@ -1,6 +1,9 @@
-<%= f.input :refereed, as: :select,
-            collection: RefereedService.select_options,
-            include_blank: true,
-            input_html: { class: 'form-control' } %>
+<% my_model_name = f.object.model.class.to_s.underscore %>
+<div class="<%= my_model_name %>_refereed form-group">
+  <%= f.input :refereed, as: :select,
+              collection: RefereedService.select_options,
+              include_blank: true,
+              input_html: { class: 'form-control' } %>
+</div>
 
 

@@ -1,1 +1,4 @@
-<%= f.input :isbn, input_html: { class: 'ubiquity-isbn' }, required: f.object.required?(key) %>
+<% my_model_name = f.object.model.class.to_s.underscore %>
+<div class="<%= my_model_name %>_isbn form-group">
+  <%= f.input :isbn, input_html: { class: 'ubiquity-isbn' }, required: f.object.required?(key) %>
+</div>

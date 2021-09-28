@@ -64,7 +64,7 @@ ENV['WEB_HOST'] ||= `hostname -s`.strip
 if ENV['CHROME_HOSTNAME'].present?
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: {
-      args: %w[headless disable-gpu no-sandbox whitelisted-ips window-size=1400,1400]
+      args: %w[disable-gpu no-sandbox whitelisted-ips window-size=1400,1400]
     }
   )
 
