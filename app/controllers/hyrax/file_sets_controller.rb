@@ -5,10 +5,13 @@ module Hyrax
     include Blacklight::Base
     include Blacklight::AccessControls::Catalog
     include Hyrax::Breadcrumbs
+    include IrusAnalytics::Controller::AnalyticsBehaviour
+
 
     before_action :authenticate_user!, except: [:show, :citation, :stats]
     load_and_authorize_resource class: ::FileSet, except: :show
     before_action :build_breadcrumbs, only: [:show, :edit, :stats]
+    after_action :send_irus_analytics_investigation, only: [:show]
 
     # provides the help_text view method
     helper PermissionsHelper
@@ -73,6 +76,23 @@ module Hyrax
 
     # GET /files/:id/citation
     def citation; end
+
+    # IRUS #
+    def item_identifier_for_irus_analytics
+      # return the OAI identifier
+      # http://www.openarchives.org/OAI/2.0/guidelines-oai-identifier.htm
+      CatalogController.blacklight_config.oai[:provider][:record_prefix] + ":" + params[:id]
+    end
+    def skip_send_irus_analytics?(usage_event_type)
+      # return true to skip tracking, for example to skip curation_concerns.visibility == 'private'
+      case usage_event_type
+      when 'Investigation'
+        false
+      when 'Request'
+        false
+      end
+    end
+    ############
 
     private
 
