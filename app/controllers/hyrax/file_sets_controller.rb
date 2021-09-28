@@ -1,4 +1,4 @@
-# OVERRIDE 2.9.6 for IRUS Analytics
+# OVERRIDE Hyrax 2.9.6 for IRUS Analytics
 
 module Hyrax
   class FileSetsController < ApplicationController
@@ -6,7 +6,6 @@ module Hyrax
     include Blacklight::AccessControls::Catalog
     include Hyrax::Breadcrumbs
     include IrusAnalytics::Controller::AnalyticsBehaviour
-
 
     before_action :authenticate_user!, except: [:show, :citation, :stats]
     load_and_authorize_resource class: ::FileSet, except: :show
@@ -77,12 +76,13 @@ module Hyrax
     # GET /files/:id/citation
     def citation; end
 
-    # IRUS #
+    # OVERRIDE Hyrax 2.9.6 for IRUS Analytics
     def item_identifier_for_irus_analytics
       # return the OAI identifier
       # http://www.openarchives.org/OAI/2.0/guidelines-oai-identifier.htm
-      CatalogController.blacklight_config.oai[:provider][:record_prefix] + ":" + params[:id]
+      "#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{params[:id]}"
     end
+
     def skip_send_irus_analytics?(usage_event_type)
       # return true to skip tracking, for example to skip curation_concerns.visibility == 'private'
       case usage_event_type
@@ -92,7 +92,6 @@ module Hyrax
         false
       end
     end
-    ############
 
     private
 
