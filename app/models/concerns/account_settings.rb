@@ -185,5 +185,9 @@ module AccountSettings
       return unless ssl_configured
       ActionMailer::Base.default_url_options ||= {}
       ActionMailer::Base.default_url_options[:protocol] = 'https'
+      ActionController::Base.default_url_options ||= {}
+      ActionController::Base.default_url_options[:protocol] = 'https'
+      Rails.application.default_url_options ||= {}
+      Rails.application.default_url_options[:protocol] = 'https'
     end
 end
