@@ -1,3 +1,5 @@
+<div class="<%= "#{template}_date_#{date_type}" %>">
+
 <label class="control-label" for="date_<%= date_type %>">
   Date <%= "#{date_type}" %>
   <% if f.object.required?("date_#{date_type}".to_sym) %>
@@ -40,3 +42,4 @@
                 }
               )
 %>
+</div>

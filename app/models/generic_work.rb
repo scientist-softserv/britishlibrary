@@ -9,6 +9,10 @@ class GenericWork < ActiveFedora::Base
   # include Ubiquity::UpdateSharedIndex
   include Ubiquity::FileAvailabilityFaceting
   # include Ubiquity::CachingSingle
+  # Adds behaviors for hyrax-doi plugin.
+  include Hyrax::DOI::DOIBehavior
+  # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
+  include Hyrax::DOI::DataCiteDOIBehavior
 
   validates :title, presence: { message: 'Your work must have a title.' }
 

@@ -1,1 +1,4 @@
-<%= f.input :eissn,  input_html: { class: 'ubiquity-eissn' }, required: f.object.required?(key) %>
+<% my_model_name = f.object.model.class.to_s.underscore %>
+<div class="<%= my_model_name %>_eissn form-group">
+  <%= f.input :eissn,  input_html: { class: 'ubiquity-eissn' }, required: f.object.required?(key) %>
+</div>
