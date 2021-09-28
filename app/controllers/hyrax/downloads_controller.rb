@@ -4,6 +4,7 @@ module Hyrax
   class DownloadsController < ApplicationController
     include Hydra::Controller::DownloadBehavior
     include Hyrax::LocalFileDownloadsControllerBehavior
+    include IrusAnalytics::Controller::AnalyticsBehaviour
 
     def self.default_content_path
       :original_file
@@ -15,6 +16,7 @@ module Hyrax
       case file
       when ActiveFedora::File
         # For original files that are stored in fedora
+        send_irus_analytics_request
         super
       when String
         # For derivatives stored on the local file system
@@ -22,6 +24,11 @@ module Hyrax
       else
         raise ActiveFedora::ObjectNotFoundError
       end
+    end
+
+    def item_identifier_for_irus_analytics
+      # return the OAI identifier
+      CatalogController.blacklight_config.oai[:provider][:record_prefix] + ":" + ::FileSet.find(params[:id]).parent.id
     end
 
     private
