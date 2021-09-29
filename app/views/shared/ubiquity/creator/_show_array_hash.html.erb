@@ -1,8 +1,8 @@
 <dt>Creator</dt>
 <dd>
   <ul class="tabular">
-    <% array_of_hash.each do |hash| %>
-      <li class="attribute creator">
+    <% array_of_hash.each_with_index do |hash, index| %>
+      <li class="attribute creator <%= 'collapse' if index > 4 %>">
         <span itemprop="creator" style="float:left">
           <% order_ary = ['creator_family_name', 'creator_given_name', 'creator_organization_name']%>
           <%= display_data_with_comma_separated(hash, order_ary)%>
@@ -53,6 +53,14 @@
           <% end %>
         </span>
         <br/>
+      </li>
+    <% end %>
+    <% if array_of_hash.length > 5 %>
+      <li>
+        <a class="collapse-fields" data-toggle="collapse" href=".collapse" aria-expanded="false" aria-controls="collapse">
+          <span>Show More</span>
+          <span style='display:none'>Show Less</span>
+        </a>
       </li>
     <% end %>
   </ul>
