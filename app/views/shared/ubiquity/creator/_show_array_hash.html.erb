@@ -4,8 +4,8 @@
     <% array_of_hash.each_with_index do |hash, index| %>
       <li class="attribute creator <%= 'collapse' if index > 4 %>">
         <span itemprop="creator" style="float:left">
-          <% order_ary = ['creator_family_name', 'creator_given_name', 'creator_organization_name']%>
-          <%= display_data_with_comma_separated(hash, order_ary)%>
+          <% order_ary = ['creator_family_name', 'creator_given_name', 'creator_organization_name'] %>
+          <%= display_data_with_comma_separated(hash, order_ary) %>
         </span>
         <span itemprop="creator">
           <% if display_paren?(hash.keys, ["creator_orcid", 'creator_isni', 'creator_ror']) %>
@@ -46,7 +46,7 @@
                   <a href='<%= "#{match_key_to_url(hash_key)}" + "#{value}" %>'  target="_blank">
                     <%= image_tag 'ror_identifier.png', class: "img-responsive", alt: "#{hash_key.upcase}", style: 'float:left; border-radius: 4px', height: '16', width: '36'  %>
                   </a>
-                <% end  %>
+                <% end %>
               <% end %>
 
             <span>)</span>
