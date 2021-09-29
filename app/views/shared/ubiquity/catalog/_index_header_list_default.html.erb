@@ -4,8 +4,11 @@
 <h2>
     <% model = document.to_h %>
     <%# TODO ~alignment: figure out how to #generate_work_url without account_cname since it is being removed %>
-    <%# url = generate_work_url(model['id'], model["account_cname_tesim"].try(:first), model["has_model_ssim"].first, request.host, request.protocol, request.port) %>
-    <%# link_to model["title_tesim"].first, url %>
+    <% url = generate_work_url(model, request) %>
+    <%# delete the line below before merging %>
+    <%= url %>
+
+    <% link_to model["title_tesim"].first, url %>
     <!-- please dont remove yet-->
-    <% link_to document.title_or_label, document %>
+    <%# link_to document.title_or_label, document %>
 </h2>
