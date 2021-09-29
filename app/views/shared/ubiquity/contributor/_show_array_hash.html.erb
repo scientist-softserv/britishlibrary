@@ -1,8 +1,8 @@
 <dt>Contributor</dt>
 <dd>
   <ul class="tabular">
-    <% array_of_hash.each do |hash| %>
-      <li class="attribute contributor">
+    <% array_of_hash.each_with_index do |hash, index| %>
+      <li class="attribute contributor <%= 'collapse' if index > 4 %>">
         <span itemprop="contributor" style="float:left">
           <% order_ary = ['contributor_family_name', 'contributor_given_name', 'contributor_organization_name']%>
           <%= display_data_with_comma_separated(hash, order_ary)%>
@@ -41,8 +41,8 @@
                     <span style="float:left" >&nbsp;</span>
                   <% end %>
 
-                   <%  hash_key = key.dup %>
-                   <% hash_key.slice!("contributor_") %>
+                    <%  hash_key = key.dup %>
+                    <% hash_key.slice!("contributor_") %>
 
                   <% if hash[key].present? && contains_full_url_path?(value) %>
 
@@ -61,6 +61,14 @@
           <% end %>
         </span>
         <br/>
+      </li>
+    <% end %>
+    <% if array_of_hash.length > 5 %>
+      <li>
+        <a class="collapse-fields" data-toggle="collapse" href=".collapse" aria-expanded="false" aria-controls="collapse">
+          <span>Show More</span>
+          <span style='display:none'>Show Less</span>
+        </a>
       </li>
     <% end %>
   </ul>
