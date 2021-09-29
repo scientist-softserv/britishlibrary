@@ -34,6 +34,7 @@ class SolrDocument
   attribute :extent, Solr::Array, solr_name('extent')
   attribute :rendering_ids, Solr::Array, solr_name('hasFormat', :symbol)
   attribute :isni, Solr::Array, solr_name('isni')
+  attribute :account_cname, Solr::Array, solr_name('account_cname')
   attribute :institution, Solr::Array, solr_name('institution')
   attribute :org_unit, Solr::Array, solr_name('org_unit')
   attribute :refereed, Solr::Array, solr_name('refereed')

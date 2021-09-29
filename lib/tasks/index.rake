@@ -3,6 +3,7 @@ namespace :hyku do
   task reindex_works: :environment do
     Account.find_each do |account|
       puts "=============== #{account.name}============"
+      next if account.name == 'search'
       switch!(account)
       Site.instance.available_works.each do |work_type|
         title = "~ #{account.name} - #{work_type}"
