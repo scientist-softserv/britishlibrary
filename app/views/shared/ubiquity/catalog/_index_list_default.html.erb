@@ -4,16 +4,19 @@
 <%# OVERRIDE hyrax 2.9 here to edit bootstrap classes and change the layout of the metadata. %>
 <div class="search-results-page-metadata col-md-10">
   <% if document.to_h["has_model_ssim"].first != 'Collection' %>
-  <div class="search-results-row">
-    <h6 class="search-result-worktype">
-      <%= document.resource_type_label&.first %></h6>
-    <h4 class="search-result-title">
-      <%= link_to document.title_or_label, document %></h4>
-  <% if document.abstract.present? %>
-    <div class="abstract-search-results">
-      <small><%= document.abstract[0].truncate_words(50) %></small>
-    </div>
-  <% end %>
+    <div class="search-results-row">
+      <h6 class="search-result-worktype">
+        <%= document.resource_type_label&.first %>
+      </h6>
+      <h4 class="search-result-title">
+        <% url = generate_work_url(document.to_h, request) %>
+        <%= link_to document.title_or_label, url %>
+      </h4>
+    <% if document.abstract.present? %>
+      <div class="abstract-search-results">
+        <small><%= document.abstract[0].truncate_words(50) %></small>
+      </div>
+    <% end %>
   </div>
   <% end %>
   <table class="table">
