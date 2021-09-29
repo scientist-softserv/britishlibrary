@@ -2,7 +2,7 @@
 
 <div class="container homepage-container">
   <div class= "row">
-    <div class="col-sm-6 col-xs-12 pt-40 homepage-left">
+    <div class="col-sm-6 pt-40 homepage-left">
       <h1>Shared Research Repository</h1>
       <h3 class="splash-page">for cultural and heritage organisations</h3>
       <h4 class="pt-40 splash-page">
@@ -10,41 +10,37 @@
 
         We are currently refreshing our repositories so you may find some features unavailable, including the option to search across our combined content from this page. Please use the buttons on the right to visit our separate repositories now. </h4>
     </div>
-    <div class="col-sm-6 col-xs-12 pt-20 homepage-right">
+    <div class="col-sm-6 pt-20 homepage-right">
       <%# SEARCH BAR FOR HOME PAGE %>
-      <%# <div class="bl-searchbar-wrapper">
-        <button class="bl-searchbar"><span class="fa fa-search"></span></button>
-        <input class="bl-searchbar" type="text" id="search_all_hyku" placeholder="Begin Your Search">
-         <label class="sr-only" aria-label="search_all_hyku" for="search_all_hyku"></label>
-      </div> %>
+      <%= render partial: 'catalog/search_form', locals: { search_form_action: full_search_url } %>
       <h2 class="pt-40">Browse our partner repositories:</h2>
       <div class="row logo-grid">
-        <div class="col-xs-6 col-md-4 text-center">
+        <div class="col-xs-6 col-sm-4 text-center">
           <%= link_to "//#{host_for('mola')}" do %>
             <%= image_tag("splash-logos/MolaLogo.png", class: "tenant-logo", alt: "MOLA") %>
           <% end %>
         </div>
-        <div class="col-xs-6 col-md-4 text-center">
+        <div class="col-xs-6 col-sm-4 text-center">
           <%= link_to "//#{host_for('nms')}" do %>
             <%= image_tag("splash-logos/NMSlogo1.png", class: "tenant-logo", alt: "National Museum of Scotland") %>
           <% end %>
         </div>
-        <div class="col-xs-12 col-md-4 text-center">
+        <div class="col-xs-6 col-sm-4 text-center">
           <%= link_to "//#{host_for('bl')}" do %>
              <%= image_tag("splash-logos/britishlibrarylogo.png", class: "tenant-logo", alt: "British Library") %>
           <% end %>
         </div>
-        <div class="col-xs-6 col-md-4 text-center">
+        <div class="col-xs-6 col-sm-4 text-center">
           <%= link_to "//#{host_for('kew')}" do %>
             <%= image_tag("splash-logos/Kew_Logo.png", class: "tenant-logo", alt: "Kew Royal Botanic Gardens") %>
           <% end %>
         </div>
-        <div class="col-xs-6 col-md-4 text-center">
+        <div class="col-xs-6 col-sm-4 text-center">
           <%= link_to "//#{host_for('tate')}" do %>
             <%= image_tag("splash-logos/Tate_Logo.png", class: "tenant-logo", alt: "Tate Modern") %>
             <% end %>
         </div>
-        <div class="col-xs-12 col-md-4 text-center">
+        <div class="col-xs-6 col-sm-4 text-center">
           <%= link_to "//#{host_for('britishmuseum')}" do %>
             <%= image_tag("splash-logos/BMlogo.png", class: "tenant-logo", alt: "The British Museum") %>
           <% end %>

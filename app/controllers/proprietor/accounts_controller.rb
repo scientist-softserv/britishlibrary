@@ -55,7 +55,10 @@ module Proprietor
     # PATCH/PUT /accounts/1.json
     def update
       respond_to do |format|
-        if @account.update(account_params)
+        if @account.update(edit_account_params)
+          f = edit_account_params['full_account_cross_searches_attributes'].to_h
+          CreateSolrCollectionJob.perform_now(@account) if deleted_or_new(f)
+
           format.html { redirect_to [:proprietor, @account], notice: 'Account was successfully updated.' }
           format.json { render :show, status: :ok, location: [:proprietor, @account] }
         else
