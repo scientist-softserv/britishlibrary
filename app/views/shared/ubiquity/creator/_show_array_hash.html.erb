@@ -6,50 +6,50 @@
         <span itemprop="creator" style="float:left">
           <% order_ary = ['creator_family_name', 'creator_given_name', 'creator_organization_name']%>
           <%= display_data_with_comma_separated(hash, order_ary)%>
-         </span>
-         <span itemprop="creator">
-           <% if display_paren?(hash.keys, ["creator_orcid", 'creator_isni', 'creator_ror']) %>
-             <span style="float:left" >&nbsp;(</span>
-               <% if hash['creator_orcid'].present? %>
-                 <% orcid_id = hash['creator_orcid'] %>
-                   <a href='<%= render_isni_or_orcid_url("#{orcid_id}", "orcid") %>'  target="_blank">
-                   <%= image_tag 'orcid.png', class: "img-responsive", alt: 'ORCID', style: 'float:left', height: '16', width: '16' %>
-                 </a>
-               <% end %>
+        </span>
+        <span itemprop="creator">
+          <% if display_paren?(hash.keys, ["creator_orcid", 'creator_isni', 'creator_ror']) %>
+            <span style="float:left" >&nbsp;(</span>
+              <% if hash['creator_orcid'].present? %>
+                <% orcid_id = hash['creator_orcid'] %>
+                  <a href='<%= render_isni_or_orcid_url("#{orcid_id}", "orcid") %>'  target="_blank">
+                  <%= image_tag 'orcid.png', class: "img-responsive", alt: 'ORCID', style: 'float:left', height: '16', width: '16' %>
+                </a>
+              <% end %>
 
-               <% if add_image_space?(hash.keys) %>
-                 <span style="float:left" >&nbsp;</span>
-               <% end %>
+              <% if add_image_space?(hash.keys) %>
+                <span style="float:left" >&nbsp;</span>
+              <% end %>
 
-               <% if hash['creator_isni'].present? %>
-                 <% isni_id = hash['creator_isni'] %>
-                 <a href='<%= render_isni_or_orcid_url("#{isni_id}", "isni") %>'  target="_blank">
-                  <%= image_tag 'isni.png', class: "img-responsive", alt: 'ISNI', style: 'float:left', height: '16', width: '26' %>
-                 </a>
-               <% end %>
+              <% if hash['creator_isni'].present? %>
+                <% isni_id = hash['creator_isni'] %>
+                <a href='<%= render_isni_or_orcid_url("#{isni_id}", "isni") %>'  target="_blank">
+                <%= image_tag 'isni.png', class: "img-responsive", alt: 'ISNI', style: 'float:left', height: '16', width: '26' %>
+                </a>
+              <% end %>
 
-               <% hash.slice(*["creator_ror"]).each do |key, value| %>
+              <% hash.slice(*["creator_ror"]).each do |key, value| %>
 
-                 <% if add_image_space?(hash.keys) %>
-                   <span style="float:left" >&nbsp;</span>
-                 <% end %>
+                <% if add_image_space?(hash.keys) %>
+                  <span style="float:left" >&nbsp;</span>
+                <% end %>
 
-                 <%  hash_key = key.dup %>
-                 <% hash_key.slice!("creator_") %>
+                <%  hash_key = key.dup %>
+                <% hash_key.slice!("creator_") %>
 
-                 <% if hash[key].present? && contains_full_url_path?(value) %>
+                <% if hash[key].present? && contains_full_url_path?(value) %>
 
-                   <a href='<%= "#{value}" %>'  target="_blank">
-                     <%= image_tag 'ror_identifier.png', class: "img-responsive", alt: "#{hash_key.upcase}", style: 'float:left; border-radius: 4px', height: '16', width: '36'  %>
-                   </a>
-                 <% elsif hash[key].present?  %>
-                   <a href='<%= "#{match_key_to_url(hash_key)}" + "#{value}" %>'  target="_blank">
-                     <%= image_tag 'ror_identifier.png', class: "img-responsive", alt: "#{hash_key.upcase}", style: 'float:left; border-radius: 4px', height: '16', width: '36'  %>
-                   </a>
-                 <% end  %>
-               <% end %>
+                  <a href='<%= "#{value}" %>'  target="_blank">
+                    <%= image_tag 'ror_identifier.png', class: "img-responsive", alt: "#{hash_key.upcase}", style: 'float:left; border-radius: 4px', height: '16', width: '36'  %>
+                  </a>
+                <% elsif hash[key].present?  %>
+                  <a href='<%= "#{match_key_to_url(hash_key)}" + "#{value}" %>'  target="_blank">
+                    <%= image_tag 'ror_identifier.png', class: "img-responsive", alt: "#{hash_key.upcase}", style: 'float:left; border-radius: 4px', height: '16', width: '36'  %>
+                  </a>
+                <% end  %>
+              <% end %>
 
-             <span>)</span>
+            <span>)</span>
           <% end %>
         </span>
         <br/>
