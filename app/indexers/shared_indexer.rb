@@ -14,6 +14,7 @@ class SharedIndexer < Hyrax::WorkIndexer
       end
       solr_doc[Solrizer.solr_name('bulkrax_identifier', :facetable)] = object.bulkrax_identifier
       solr_doc['year_published_isi'] = object.date_published[0...4].to_i if object.date_published.present?
+      solr_doc[Solrizer.solr_name('account_cname')] = Site.instance.account.cname
     end
   end
 end
