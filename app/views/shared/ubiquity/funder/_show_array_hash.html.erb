@@ -2,7 +2,7 @@
 <dd>
   <ul class="tabular">
     <% array_of_hash.each_with_index do |hash, index| %>
-      <div class="<%= 'collapse' if index > 4 %>">
+      <div class="funder <%= 'collapse' if index > 4 %>">
         <li class="attribute funder name">
           <% if hash['funder_name'].present? %>
             <b>Name:</b> <%= "#{hash['funder_name']}" %>&nbsp;
@@ -37,7 +37,7 @@
     <% end %>
     <% if array_of_hash.length > 5 %>
       <li>
-        <a class="collapse-fields" data-toggle="collapse" href=".collapse" aria-expanded="false" aria-controls="collapse">
+        <a class="collapse-fields" data-toggle="collapse" href=".funder.collapse" aria-expanded="false" aria-controls="collapse">
           <span>Show More</span>
           <span style='display:none'>Show Less</span>
         </a>
