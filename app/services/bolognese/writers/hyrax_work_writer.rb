@@ -11,7 +11,7 @@ module Bolognese
     # m.hyrax_work
     module HyraxWorkWriter
       def hyrax_work
-        byebug
+        # byebug
         attributes = {
             'identifier' => Array(identifiers).reject { |id| id["identifierType"] == "DOI" }.pluck("identifier"),
             'doi' => build_hyrax_work_doi(doi),
