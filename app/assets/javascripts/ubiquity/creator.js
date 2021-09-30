@@ -1,41 +1,46 @@
-// add linked fields
-$(document).on("turbolinks:load", function() {
-
-  return $("body").on("click", ".add_creator", function(event) {
+// add another creator section
+$(document).on('turbolinks:load', function() {
+  return $('body').on('click', '.add_creator', function(event) {
     event.preventDefault();
-    var ubiquityCreatorClass = $(this).attr('data-addUbiquityCreator');
-    cloneUbiDiv = $(this).parent('div' + ubiquityCreatorClass + ':last').clone();
 
-    _this = this;
-    cloneUbiDiv.find('input').val('');
-    cloneUbiDiv.find('option').attr('selected', false);
+    // find the nearest parent creator section and clone it
+    // then clear the values in the fields in that section
+    const ubiquityCreatorClass = $(this).attr('data-addUbiquityCreator');
+    const clonedCreatorSection = $(this).closest(`div${ubiquityCreatorClass}`).last().clone();
+    // _this = this;
+    clonedCreatorSection.find('input').val('');
+    clonedCreatorSection.find('option').attr('selected', false);
 
-    //increment hidden_field counter after cloning
-    var lastInputCount = $('.ubiquity-creator-score:last').val();
-    var hiddenInput = $(cloneUbiDiv).find('.ubiquity-creator-score');
+    // increment hidden_field counter after cloning
+    const lastInputCount = $('.ubiquity-creator-score').last().val();
+    const hiddenInput = $(clonedCreatorSection).find('.ubiquity-creator-score');
     hiddenInput.val(parseInt(lastInputCount) + 1);
-    $(ubiquityCreatorClass +  ':last').after(cloneUbiDiv)
-    $('.ubiquity_creator_name_type:last').val('Personal').change()
+
+    // add the cloned section at the end of the creator list
+    // and set "Personal" as the type
+    $(`${ubiquityCreatorClass}`).last().after(clonedCreatorSection)
+    $('.ubiquity_creator_name_type').last().val('Personal').change()
   });
 });
 
-//remove linked fields
-$(document).on("turbolinks:load", function() {
-  return $("body").on("click", ".remove_creator", function(event) {
+
+// remove selected creator section
+$(document).on('turbolinks:load', function() {
+  return $('body').on('click', '.remove_creator', function(event) {
     event.preventDefault();
-    var ubiquityCreatorClass = $(this).attr('data-removeUbiquityCreator');
-    _this = this;
-    removeUbiquityCreator(_this, ubiquityCreatorClass);
+
+    const ubiquityCreatorClass = $(this).attr('data-removeUbiquityCreator');
+    // const _this = this;
+    // removeUbiquityCreator(_this, ubiquityCreatorClass);
+
+    if ($('.ubiquity-meta-creator').length > 1 ) {
+      $(this).closest(`div${ubiquityCreatorClass}`).remove();
+    }
+    // console.log('extra creator all gone!')
   });
 });
 
-function removeUbiquityCreator(self, creatorDiv) {
-  if ($(".ubiquity-meta-creator").length > 1 ) {
-    $(self).parent('div' + creatorDiv).remove();
-  }
-}
-
-//for hiding and showing values on the edit form for creator sub fields
+// show either the personal or org creator fields when the creator name type is changed
 $(document).on("turbolinks:load", function() {
   return $("body").on("change", ".ubiquity_creator_name_type, .additional-fields", function(event) {
     if (event.target.value == 'Personal') {
