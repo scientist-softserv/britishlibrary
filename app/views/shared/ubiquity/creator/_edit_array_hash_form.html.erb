@@ -13,7 +13,7 @@
       %>
 
     <% else %>
-      <div class="<%= "#{template}_creator_name_type" %>  form-group">
+      <div class="<%= "#{template}_creator_name_type" %> form-group">
         <label class="control-label multi_value optional" for="<%=template%>_creator_name_type">
           Creator name type <span class="label label-info required-tag">required</span>
         </label>
@@ -35,16 +35,17 @@
 
       <div class="<%= "#{template}_creator_organization_name" %>">
         <label class="ubiquity_creator_organization_name_label control-label multi_value optional" for="#{template}_creator_organization_name">
-          Creator organisation name</label>
-
-        <%= text_field_tag "#{template}[creator_group][][creator_organization_name]", hash.dig("creator_organization_name"),
+          Creator organisation name <span class="label label-info required-tag">required</span>
+        </label>
+        <%= text_field_tag  "#{template}[creator_group][][creator_organization_name]", hash.dig("creator_organization_name"),
                             class: "#{template}_creator_organization_name form-control multi-text-field multi_value ubiquity_creator_organization_name",
                             placeholder: 'Please enter the organisation\'s name.',
                             name: "#{template}[creator_group][][creator_organization_name]",
                             data: {field_name:'ubiquity_creator_organization_name'}
         %>
       </div>
-      <br>
+      <br />
+
       <div class="<%= "#{template}_creator_ror" %>">
         <label class="control-label multi_value optional" for="<%=template%>_creator_ror">
           Creator organisation ROR
@@ -57,7 +58,8 @@
                             data: { field_name: 'ubiquity_creator_ror' }
         %>
       </div>
-      <br>
+      <br />
+
       <div class="<%= "#{template}_creator_grid" %>">
         <label class="control-label multi_value optional" for="<%=template%>_creator_grid">
           Creator organisation GRID
@@ -70,11 +72,12 @@
                             data: { field_name: 'ubiquity_creator_grid' }
         %>
       </div>
-      <br>
+      <br />
+
       <div class="<%= "#{template}_creator_wikidata" %>">
         <label class="control-label multi_value optional" for="<%=template%>_creator_wikidata">
-        Creator organisation Wikidata
-      </label>
+          Creator organisation Wikidata
+        </label>
         <%= text_field_tag  "#{template}[creator_group][][creator_wikidata]",
                             hash.dig("creator_wikidata"),
                             class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_wikidata",
@@ -84,11 +87,10 @@
         %>
       </div>
     </span>
-  <br/>
     <span class="ubiquity_personal_fields">
-      <div class="<%= "#{template}_creator_family_name" %>  form-group">
+      <div class="<%= "#{template}_creator_family_name" %> form-group">
         <label class="control-label multi_value optional" for="<%=template%>_creator_family_name">
-        Creator family name <span class="label label-info required-tag">required</span>
+          Creator family name <span class="label label-info required-tag">required</span>
         </label>
         <%= text_field_tag  "#{template}[creator_group][][creator_family_name]",
                             hash.dig("creator_family_name"),
@@ -98,9 +100,11 @@
                             data: { field_name: 'ubiquity_creator_family_name' }
         %>
       </div>
+      <br />
+
       <div class="<%= "#{template}_creator_given_name" %>">
         <label class="control-label multi_value optional" for="<%=template%>_creator_given_name">
-        Creator given name <span class="label label-info required-tag">required</span>
+          Creator given name <span class="label label-info required-tag">required</span>
         </label>
         <%= text_field_tag  "#{template}[creator_group][][creator_given_name]",
                             hash.dig("creator_given_name"),
@@ -110,8 +114,8 @@
                             data: { field_name: 'ubiquity_creator_given_name' }
         %>
       </div>
+      <br />
 
-      <br/>
       <div class="<%= "#{template}_creator_orcid" %>">
         <label class="control-label multi_value optional" for="<%=template%>_creator_orcid">
           Creator ORCID
@@ -124,43 +128,49 @@
                             data: { field_name: 'ubiquity_creator_orcid' }
         %>
       </div>
+      <br />
 
-      <br>
       <div class="<%= "#{template}_creator_institutional_relationship" %>">
         <label class="control-label multi_value optional" for="<%=template%>_creator_institutional_relationship">
           Creator institutional relationship
         </label>
-        <%= select_tag  "#{template}[creator_group][][creator_institutional_relationship]", content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( ['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("creator_institutional_relationship")),
+        <%= select_tag  "#{template}[creator_group][][creator_institutional_relationship]",
+                        content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( ['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("creator_institutional_relationship")),
                         multiple: true,
                         class: "form-control"
         %>
       </div>
+      <br />
     </span> <!-- closes ubiquity_personal_fields -->
 
     <div class="<%= "#{template}_creator_isni" %>">
-    <label class="control-label multi_value optional" for="<%=template%>_creator_isni">
-      Creator ISNI
-    </label>
+      <label class="control-label multi_value optional" for="<%=template%>_creator_isni">
+        Creator ISNI
+      </label>
+      <%= text_field_tag  "#{template}[creator_group][][creator_isni]",
+                          hash.dig("creator_isni"),
+                          class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_isni",
+                          placeholder: 'Please enter the creator\'s ISNI, e.g. 0000 1234 5678 9101.',
+                          name: "#{template}[creator_group][][creator_isni]",
+                          data: { field_name: 'ubiquity_creator_isni' }
+      %>
+    </div>
+    <br />
 
-    <%= text_field_tag  "#{template}[creator_group][][creator_isni]", hash.dig("creator_isni"),
-                        class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_isni",
-                        placeholder: 'Please enter the creator\'s ISNI, e.g. 0000 1234 5678 9101.',
-                        name: "#{template}[creator_group][][creator_isni]",
-                        data: { field_name: 'ubiquity_creator_isni' }
-    %>
-    <br/>
-    </div>
     <div class="<%= "#{template}_creator_position" %>">
-    <%= hidden_field_tag "#{template}[creator_group][][creator_position]", index, class: 'ubiquity-creator-score form-control' %>
+      <%= hidden_field_tag  "#{template}[creator_group][][creator_position]",
+                            index,
+                            class: 'ubiquity-creator-score form-control'
+      %>
     </div>
+
     <a href="#" style="color:red;" class=" remove_creator form-group " data-removeUbiquityCreator=".ubiquity-meta-creator">
       <span class="glyphicon glyphicon-remove"></span>
       <span class="controls-remove-text">Remove</span>
     </a>
     |
-    <a href="#" class=" add_creator" data-addUbiquityCreator=".ubiquity-meta-creator">Add another </a>
-
-    <br><br><br>
+    <a href="#" class="add_creator" data-addUbiquityCreator=".ubiquity-meta-creator">Add another </a>
+    <br /><br /><br />
 
   </div>
 <% end %>
