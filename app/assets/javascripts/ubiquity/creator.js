@@ -30,13 +30,10 @@ $(document).on('turbolinks:load', function() {
     event.preventDefault();
 
     const ubiquityCreatorClass = $(this).attr('data-removeUbiquityCreator');
-    // const _this = this;
-    // removeUbiquityCreator(_this, ubiquityCreatorClass);
 
     if ($('.ubiquity-meta-creator').length > 1 ) {
       $(this).closest(`div${ubiquityCreatorClass}`).remove();
     }
-    // console.log('extra creator all gone!')
   });
 });
 
