@@ -17,7 +17,16 @@ Hyrax::Renderers::AttributeRenderer.class_eval do
     Array(values).each do |value|
       markup << "<li#{html_attributes(attributes)}>#{attribute_value_to_html(value.to_s)}</li>"
     end
-    markup << %(</ul></dd></div>)
+    markup << %(
+        <li>
+          <a class="collapse-fields" data-toggle="collapse" href=".collapse" aria-expanded="false" aria-controls="collapse">
+            <span>Show More</span>
+            <span style='display:none'>Show Less</span>
+          </a>
+        </li>
+        </ul>
+      </dd>
+    </div>)
     markup.html_safe
   end
 
