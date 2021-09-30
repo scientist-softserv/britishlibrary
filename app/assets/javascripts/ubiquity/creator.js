@@ -7,7 +7,6 @@ $(document).on('turbolinks:load', function() {
     // then clear the values in the fields in that section
     const ubiquityCreatorClass = $(this).attr('data-addUbiquityCreator');
     const clonedCreatorSection = $(this).closest(`div${ubiquityCreatorClass}`).last().clone();
-    // _this = this;
     clonedCreatorSection.find('input').val('');
     clonedCreatorSection.find('option').attr('selected', false);
 
@@ -38,21 +37,18 @@ $(document).on('turbolinks:load', function() {
 });
 
 // show either the personal or org creator fields when the creator name type is changed
-$(document).on("turbolinks:load", function() {
-  return $("body").on("change", ".ubiquity_creator_name_type, .additional-fields", function(event) {
+$(document).on('turbolinks:load', function() {
+  return $('body').on('change', '.ubiquity_creator_name_type', function(event) {
     if (event.target.value == 'Personal') {
       var _this = $(this.parentElement);
       hideCreatorOrganization(_this);
-     $(this.parentElement).siblings('.ubiquity_personal_fields').show();
-     _this =  $(this.parentElement).siblings(".ubiquity_personal_fields")
-        creatorUpdateRequired(_this, 'family')
-        creatorUpdateRequired(_this, 'given')
+      _this = $(this.parentElement).siblings('.ubiquity_personal_fields')
+      creatorUpdateRequired(_this, 'family')
+      creatorUpdateRequired(_this, 'given')
 
     } else {
       var _this = $(this.parentElement);
       hideCreatorPersonal(_this);
-      $(this.parentElement).siblings(".ubiquity_personal_fields").hide();
-      $(this.parentElement).siblings(".ubiquity_organization_fields").show();
       _this = $(this.parentElement).siblings('.ubiquity_organization_fields:last');
       creatorUpdateRequired(_this);
     }
@@ -60,18 +56,9 @@ $(document).on("turbolinks:load", function() {
 });
 
 $(document).on("turbolinks:load", function() {
-  if($(".ubiquity_creator_name_type").is(':visible')) {
-    $(".ubiquity_creator_name_type").each(function() {
-      displayFields(this)
+  $('.ubiquity_creator_name_type').each(function() {
     })
-  };
-});
-
-$(document).on("turbolinks:load", function() {
-  $('.additional-fields').click(function(event) {
-    $(".ubiquity_creator_name_type").each(function() {
-        displayFields(this);
-    })
+    displayFields(this)
   })
 });
 
@@ -85,7 +72,6 @@ function displayFields(self) {
     creatorUpdateRequired(_this, 'family')
     creatorUpdateRequired(_this, 'given')
 
-    $(this).siblings('.ubiquity_personal_fields').show();
 
   } else if (self.value == 'Organisational') {
     hideCreatorPersonal(_this);
