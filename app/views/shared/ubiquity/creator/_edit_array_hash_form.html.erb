@@ -13,7 +13,7 @@
       %>
 
     <% else %>
-      <div class="<%= "#{template}_creator_name_type" %> form-group">
+      <div class="<%= "#{template}_creator_name_type" %>">
         <label class="control-label multi_value optional" for="<%=template%>_creator_name_type">
           Creator name type <span class="label label-info required-tag">required</span>
         </label>
@@ -27,13 +27,12 @@
 
     <% end %>
 
-    <p class="help-block">
+    <p class="form-group">
       The person or group responsible for the work. Usually this is the author of the content.
     </p>
 
     <span class="ubiquity_organization_fields">
-
-      <div class="<%= "#{template}_creator_organization_name" %>">
+      <div class="<%= "#{template}_creator_organization_name" %> form-group">
         <label class="ubiquity_creator_organization_name_label control-label multi_value optional" for="#{template}_creator_organization_name">
           Creator organisation name <span class="label label-info required-tag">required</span>
         </label>
@@ -44,9 +43,8 @@
                             data: {field_name:'ubiquity_creator_organization_name'}
         %>
       </div>
-      <br />
 
-      <div class="<%= "#{template}_creator_ror" %>">
+      <div class="<%= "#{template}_creator_ror" %> form-group">
         <label class="control-label multi_value optional" for="<%=template%>_creator_ror">
           Creator organisation ROR
         </label>
@@ -58,9 +56,8 @@
                             data: { field_name: 'ubiquity_creator_ror' }
         %>
       </div>
-      <br />
 
-      <div class="<%= "#{template}_creator_grid" %>">
+      <div class="<%= "#{template}_creator_grid" %> form-group">
         <label class="control-label multi_value optional" for="<%=template%>_creator_grid">
           Creator organisation GRID
         </label>
@@ -72,9 +69,8 @@
                             data: { field_name: 'ubiquity_creator_grid' }
         %>
       </div>
-      <br />
 
-      <div class="<%= "#{template}_creator_wikidata" %>">
+      <div class="<%= "#{template}_creator_wikidata" %> form-group">
         <label class="control-label multi_value optional" for="<%=template%>_creator_wikidata">
           Creator organisation Wikidata
         </label>
@@ -100,9 +96,8 @@
                             data: { field_name: 'ubiquity_creator_family_name' }
         %>
       </div>
-      <br />
 
-      <div class="<%= "#{template}_creator_given_name" %>">
+      <div class="<%= "#{template}_creator_given_name" %> form-group">
         <label class="control-label multi_value optional" for="<%=template%>_creator_given_name">
           Creator given name <span class="label label-info required-tag">required</span>
         </label>
@@ -114,9 +109,8 @@
                             data: { field_name: 'ubiquity_creator_given_name' }
         %>
       </div>
-      <br />
 
-      <div class="<%= "#{template}_creator_orcid" %>">
+      <div class="<%= "#{template}_creator_orcid" %> form-group">
         <label class="control-label multi_value optional" for="<%=template%>_creator_orcid">
           Creator ORCID
         </label>
@@ -128,9 +122,8 @@
                             data: { field_name: 'ubiquity_creator_orcid' }
         %>
       </div>
-      <br />
 
-      <div class="<%= "#{template}_creator_institutional_relationship" %>">
+      <div class="<%= "#{template}_creator_institutional_relationship" %> form-group">
         <label class="control-label multi_value optional" for="<%=template%>_creator_institutional_relationship">
           Creator institutional relationship
         </label>
@@ -140,10 +133,9 @@
                         class: "form-control"
         %>
       </div>
-      <br />
     </span> <!-- closes ubiquity_personal_fields -->
 
-    <div class="<%= "#{template}_creator_isni" %>">
+    <div class="<%= "#{template}_creator_isni" %> form-group">
       <label class="control-label multi_value optional" for="<%=template%>_creator_isni">
         Creator ISNI
       </label>
@@ -155,22 +147,21 @@
                           data: { field_name: 'ubiquity_creator_isni' }
       %>
     </div>
-    <br />
 
-    <div class="<%= "#{template}_creator_position" %>">
+    <div class="<%= "#{template}_creator_position" %> form-group">
       <%= hidden_field_tag  "#{template}[creator_group][][creator_position]",
                             index,
                             class: 'ubiquity-creator-score form-control'
       %>
     </div>
 
-    <a href="#" style="color:red;" class=" remove_creator form-group " data-removeUbiquityCreator=".ubiquity-meta-creator">
-      <span class="glyphicon glyphicon-remove"></span>
-      <span class="controls-remove-text">Remove</span>
-    </a>
-    |
-    <a href="#" class="add_creator" data-addUbiquityCreator=".ubiquity-meta-creator">Add another </a>
-    <br /><br /><br />
-
+    <div class="form-group">
+      <a href="#" style="color:red;" class="remove_creator" data-removeUbiquityCreator=".ubiquity-meta-creator">
+        <span class="glyphicon glyphicon-remove"></span>
+        <span class="controls-remove-text">Remove</span>
+      </a>
+      |
+      <a href="#" class="add_creator" data-addUbiquityCreator=".ubiquity-meta-creator">Add another </a>
+    </div>
   </div>
 <% end %>
