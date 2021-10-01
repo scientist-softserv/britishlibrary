@@ -1,37 +1,45 @@
   <dt>Editor</dt>
   <dd>
     <ul class="tabular">
-      <% array_of_hash.each do |hash| %>
-        <li class="attribute editor">
+      <% array_of_hash.each_with_index do |hash, index| %>
+        <li class="attribute editor <%= 'collapse' if index > 4 %>">
           <span itemprop="editor" style="float:left">
             <% order_ary = ['editor_family_name', 'editor_given_name', 'editor_organization_name']%>
             <%= display_data_with_comma_separated(hash, order_ary)%>
-           </span>
-           <span itemprop="editor">
-             <% if display_paren?(hash.keys, ["editor_orcid", 'editor_isni']) %>
-               <span style="float:left" >&nbsp;(</span>
-                 <% if hash['editor_orcid'].present? %>
-                   <% orcid_id = hash['editor_orcid'] %>
-                     <a href='<%= render_isni_or_orcid_url("#{orcid_id}", "orcid") %>'  target="_blank">
-                     <%= image_tag 'orcid.png', class: "img-responsive", alt: 'ORCID', style: 'float:left', height: '16', width: '16' %>
-                   </a>
-                 <% end %>
+          </span>
+          <span itemprop="editor">
+            <% if display_paren?(hash.keys, ["editor_orcid", 'editor_isni']) %>
+              <span style="float:left" >&nbsp;(</span>
+                <% if hash['editor_orcid'].present? %>
+                  <% orcid_id = hash['editor_orcid'] %>
+                    <a href='<%= render_isni_or_orcid_url("#{orcid_id}", "orcid") %>'  target="_blank">
+                    <%= image_tag 'orcid.png', class: "img-responsive", alt: 'ORCID', style: 'float:left', height: '16', width: '16' %>
+                  </a>
+                <% end %>
 
-                 <% if add_image_space?(hash.keys) %>
-                   <span style="float:left" >&nbsp;</span>
-                 <% end %>
+                <% if add_image_space?(hash.keys) %>
+                  <span style="float:left" >&nbsp;</span>
+                <% end %>
 
-                 <% if hash['editor_isni'].present? %>
-                   <% isni_id = hash['editor_isni'] %>
-                   <a href='<%= render_isni_or_orcid_url("#{isni_id}", "isni") %>'  target="_blank">
-                   <%= image_tag 'isni.png', class: "img-responsive", alt: 'ISNI', style: 'float:left', height: '16', width: '26' %>
-                   </a>
-                 <% end %>
-               <span>)</span>
+                <% if hash['editor_isni'].present? %>
+                  <% isni_id = hash['editor_isni'] %>
+                  <a href='<%= render_isni_or_orcid_url("#{isni_id}", "isni") %>'  target="_blank">
+                  <%= image_tag 'isni.png', class: "img-responsive", alt: 'ISNI', style: 'float:left', height: '16', width: '26' %>
+                  </a>
+                <% end %>
+              <span>)</span>
             <% end %>
           </span>
           <br/>
         </li>
       <% end %>
+      <% if array_of_hash.length > 5 %>
+      <li>
+        <a id="editor-collapse" class="collapse-fields" data-toggle="collapse" href=".editor.collapse" aria-expanded="false" aria-controls="collapse">
+          <span>Show More</span>
+          <span style='display:none'>Show Less</span>
+        </a>
+      </li>
+    <% end %>
     </ul>
   </dd>

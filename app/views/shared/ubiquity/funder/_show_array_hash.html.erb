@@ -1,36 +1,46 @@
 <dt>Funder</dt>
 <dd>
   <ul class="tabular">
-    <% array_of_hash.each do |hash| %>
-      <li class="attribute funder name">
-        <% if hash['funder_name'].present? %>
-          <b>Name:</b> <%= "#{hash['funder_name']}" %>&nbsp;
-        <% end %>
-      </li>
-      <li class="attribute funder doi">
-        <% if hash['funder_doi'].present? %>
-          <b>DOI: </b><a href="<%= hash['funder_doi'] %>"><%= "#{hash['funder_doi'].split('g/')[1]}" %></a>&nbsp;
-        <% end %>
-      </li>
-      <li class="attribute funder isni">
-        <% if hash['funder_isni'].present? %>
-          <b>ISNI: </b><%= "#{hash['funder_isni']}" %>&nbsp;
-        <% end %>
-      </li>
-      <li class="attribute funder ror">
-        <% if hash['funder_ror'].present? %>
-          <b>ROR ID: </b><%= "#{hash['funder_ror']}" %>&nbsp;
-        <% end %>
-      </li>
-      <li>
-        <% awards_array = hash&.[]('funder_award')&.reject {|a| a.blank? } %>
-        <% if awards_array.present? %>
-          <b>Awards:</b><% awards_array.each do |award| %>
-            <span itemprop="funder" >
-              <%= award %>
-            </span>
+    <% array_of_hash.each_with_index do |hash, index| %>
+      <div class="funder <%= 'collapse' if index > 4 %>">
+        <li class="attribute funder name">
+          <% if hash['funder_name'].present? %>
+            <b>Name:</b> <%= "#{hash['funder_name']}" %>&nbsp;
           <% end %>
-        <% end %>
+        </li>
+        <li class="attribute funder doi">
+          <% if hash['funder_doi'].present? %>
+            <b>DOI: </b><a href="<%= hash['funder_doi'] %>"><%= "#{hash['funder_doi'].split('g/')[1]}" %></a>&nbsp;
+          <% end %>
+        </li>
+        <li class="attribute funder isni">
+          <% if hash['funder_isni'].present? %>
+            <b>ISNI: </b><%= "#{hash['funder_isni']}" %>&nbsp;
+          <% end %>
+        </li>
+        <li class="attribute funder ror">
+          <% if hash['funder_ror'].present? %>
+            <b>ROR ID: </b><%= "#{hash['funder_ror']}" %>&nbsp;
+          <% end %>
+        </li>
+        <li>
+          <% awards_array = hash&.[]('funder_award')&.reject {|a| a.blank? } %>
+          <% if awards_array.present? %>
+            <b>Awards:</b><% awards_array.each do |award| %>
+              <span itemprop="funder" >
+                <%= award %>
+              </span>
+            <% end %>
+          <% end %>
+        </li>
+      </div>
+    <% end %>
+    <% if array_of_hash.length > 5 %>
+      <li>
+        <a id="funder-collapse"  class="collapse-fields" data-toggle="collapse" href=".funder.collapse" aria-expanded="false" aria-controls="collapse">
+          <span>Show More</span>
+          <span style='display:none'>Show Less</span>
+        </a>
       </li>
     <% end %>
   </ul>

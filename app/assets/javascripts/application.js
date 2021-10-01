@@ -37,6 +37,7 @@
 //= require hyku/groups/per_page
 //= require hyku/groups/add_member
 //= require proprietor
+//= require collapsed_fields
 //= require bootstrap_carousel
 //= require bootstrap-datepicker
 
