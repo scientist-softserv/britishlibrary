@@ -34,34 +34,32 @@ $(document).on('turbolinks:load', function() {
   });
 });
 
-// set the initial creator name type shown on screen
+// display a new creator section on the new or edit form
 $(document).on('turbolinks:load', function() {
   return $('body').on('change', '.ubiquity_creator_name_type', function() {
-    displayFields(this.parentElement, this.value);
+    displayFields($(this.parentElement), this.value);
   });
 });
 
-// show either the personal or org creator fields when the creator name type is changed
+// set saved values in the creator section(s) on the edit work form
 $(document).on('turbolinks:load', function() {
   $('.ubiquity_creator_name_type').each(function() {
-    displayFields(this, this.value);
+    displayFields($(this).parent(), this.value);
   })
 });
 
 function displayFields(self, value) {
-  const _this = $(self);
-
   if (value == 'Personal') {
-    const lastPersonalSibling = _this.parent().siblings('.ubiquity_personal_fields').last();
+    const lastPersonalSibling = self.siblings('.ubiquity_personal_fields').last();
 
-    hideCreatorOrganization(_this);
+    hideCreatorOrganization(self);
     creatorUpdateRequired(lastPersonalSibling, 'family');
     creatorUpdateRequired(lastPersonalSibling, 'given');
 
   } else if (value == 'Organisational') {
-    const lastOrgSibling = _this.parent().siblings('.ubiquity_organization_fields').last();
+    const lastOrgSibling = self.siblings('.ubiquity_organization_fields').last();
 
-    hideCreatorPersonal(_this);
+    hideCreatorPersonal(self);
     creatorUpdateRequired(lastOrgSibling, 'organization');
 
   } else {
