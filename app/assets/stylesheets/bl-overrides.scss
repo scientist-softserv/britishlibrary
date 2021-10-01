@@ -1146,7 +1146,8 @@ body.public-facing {
     margin-bottom: 0;
 
     li.attribute span a,
-    li.attribute a {
+    li.attribute a,
+    li a.collapse-fields span {
       color: $rust !important;
     }
   }
