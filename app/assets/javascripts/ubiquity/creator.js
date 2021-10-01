@@ -52,14 +52,14 @@ function displayFields(self, value) {
   const _this = $(self);
 
   if (value == 'Personal') {
-    const lastPersonalSibling = _this.siblings('.ubiquity_personal_fields').last();
+    const lastPersonalSibling = _this.parent().siblings('.ubiquity_personal_fields').last();
 
     hideCreatorOrganization(_this);
     creatorUpdateRequired(lastPersonalSibling, 'family');
     creatorUpdateRequired(lastPersonalSibling, 'given');
 
   } else if (value == 'Organisational') {
-    const lastOrgSibling = _this.siblings('.ubiquity_organization_fields').last();
+    const lastOrgSibling = _this.parent().siblings('.ubiquity_organization_fields').last();
 
     hideCreatorPersonal(_this);
     creatorUpdateRequired(lastOrgSibling, 'organization');
