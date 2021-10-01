@@ -49,7 +49,7 @@ module Ubiquity
       # creator is listed here so it groups with the other required fields in the UI, the validations for it however
       # are handled in creator.js
       self.required_fields -= %i[creator keyword rights_statement]
-      self.required_fields += %i[resource_type institution date_published creator]
+      self.required_fields += %i[resource_type institution creator]
     end
 
     class_methods do
