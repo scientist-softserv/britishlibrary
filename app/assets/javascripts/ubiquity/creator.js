@@ -67,20 +67,22 @@ function displayFields(self, value) {
   }
 }
 
+// update the org name
 $(document).on('turbolinks:load', function() {
   return $('body').on('blur', '.ubiquity_creator_organization_name', function (event) {
     event.preventDefault();
 
-    const _this = $(this).parent('.ubiquity_organization_fields').last();
+    const _this = $(this).closet('.ubiquity_organization_fields').last();
     creatorUpdateRequired(_this, 'organization');
   });
 });
 
+// update the family or given name
 $(document).on('turbolinks:load', function() {
   return $('body').on('blur', '.ubiquity_creator_family_name, .ubiquity_creator_given_name', function (event) {
     event.preventDefault();
 
-    const _this = $(this).parent('.ubiquity_personal_fields').last();
+    const _this = $(this).closest('.ubiquity_personal_fields').last()
     creatorUpdateRequired(_this, 'family');
     creatorUpdateRequired(_this, 'given');
   });
