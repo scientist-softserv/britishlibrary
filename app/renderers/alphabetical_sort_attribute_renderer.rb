@@ -17,7 +17,7 @@ class AlphabeticalSortAttributeRenderer < Hyrax::Renderers::AttributeRenderer
     if Array(values).length > 5
       markup << %(
             <li>
-              <a class="collapse-fields" data-toggle="collapse" href=".attribute-#{field}.collapse" aria-expanded="false" aria-controls="collapse">
+              <a id="#{field}-collapse" class="collapse-fields" data-toggle="collapse" href=".attribute-#{field}.collapse" aria-expanded="false" aria-controls="collapse">
                 <span>Show More</span>
                 <span style='display:none'>Show Less</span>
               </a>
