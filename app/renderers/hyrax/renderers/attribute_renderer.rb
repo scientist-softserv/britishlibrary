@@ -10,6 +10,7 @@ Hyrax::Renderers::AttributeRenderer.class_eval do
   def render
     values&.delete("")
     markup = ''
+
     return markup if values.blank? && !options[:include_empty]
     markup << %(<div class='metadata-group'><dt>#{label}</dt>\n<dd><ul class='tabular'>)
     Array(values).each_with_index do |value, index|
@@ -24,6 +25,7 @@ Hyrax::Renderers::AttributeRenderer.class_eval do
   def render_dl_row
     values&.delete("")
     return '' if values.blank? && !options[:include_empty]
+
     markup = %(<div class='metadata-group'><dt>#{label}</dt>\n<dd><ul class='tabular'>)
     markup += Array(values).map.with_index do |value, index|
       attributes = microdata_object_attributes(field).merge(class: "attribute attribute-#{field} #{'collapse' if index > 4}")
