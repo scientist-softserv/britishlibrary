@@ -1146,9 +1146,17 @@ body.public-facing {
     margin-bottom: 0;
 
     li.attribute span a,
-    li.attribute a,
-    li a.collapse-fields span {
+    li.attribute a {
       color: $rust !important;
+    }
+
+    button.collapse-fields {
+      color: $rust;
+      background: transparent;
+      border: 1px solid $rust;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-weight: initial;
     }
   }
 
