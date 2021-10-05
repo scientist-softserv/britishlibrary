@@ -398,9 +398,11 @@ module Blacklight
       account_cname = model["account_cname_tesim"].try(:first)
       request_host = request.host
       has_model = model["has_model_ssim"].first
+                                         .gsub(/([a-z])([A-Z])/, '\1_\2')
+                                         .downcase
       id = model["id"]
       request_port = request.port
-      "#{request_protocol}#{account_cname || request_host}/concern/#{has_model.downcase}s/#{id}"
+      "#{request_protocol}#{account_cname || request_host}/concern/#{has_model}s/#{id}"
     end
   end
 end
