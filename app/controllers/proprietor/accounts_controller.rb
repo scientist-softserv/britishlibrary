@@ -100,7 +100,7 @@ module Proprietor
                                                                                  full_account_attributes: [:id]],
                                         solr_endpoint_attributes: %i[id url],
                                         fcrepo_endpoint_attributes: %i[id url base_path],
-                                        datacite_endpoint_attributes: %i[mode prefix username password])
+                                        data_cite_endpoint_attributes: %i[mode prefix username password])
       end
 
       def account_params
