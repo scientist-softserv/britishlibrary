@@ -5,14 +5,15 @@ module Ubiquity
   module PreselectInstitutionHelper
     def fetch_institution_by_tenant
       tenant_name = ubiquity_url_parser request.original_url
-      institution_hash = {
+      institution_hash =  {
                             'British Library' => ['sandbox', 'sandbox2', 'bl', 'bl-demo'],
                             'MOLA' => ['sandbox2', 'mola', 'mola-demo'],
                             'National Museums Scotland' => ['nms', 'nms-demo'],
                             'British Museum' => ['britishmuseum', 'britishmuseum-demo'],
                             'Tate' => ['tate', 'tate-demo'],
-                            'Royal Botanic Gardens, Kew' => ['kew', 'kew-demo']
-                         }
+                            'Royal Botanic Gardens, Kew' => ['kew', 'kew-demo'],
+                            'Barts Health NHS Trust' => ['nhs', 'nhs-demo']
+                          }
       institution_hash.select { |_key, values| values.include?(tenant_name) }.keys.first
     end
   end
