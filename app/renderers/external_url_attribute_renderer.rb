@@ -22,7 +22,7 @@ class ExternalUrlAttributeRenderer < Hyrax::Renderers::AttributeRenderer
                     end
         markup << "<li#{html_attributes(attributes)}>#{final_url}</li>"
       end
-      markup << %(<li><a id="#{field}-collapse" class="collapse-fields" data-toggle="collapse" href=".attribute-#{field}.collapse" aria-expanded="false" aria-controls="collapse"><span>Show More</span><span style='display:none'>Show Less</span></a></li>) if sorted_arr.length > 5
+      markup << %(<li><button id="#{field}-collapse" class="collapse-fields" data-toggle="collapse" data-target=".attribute-#{field}.collapse" aria-expanded="false" aria-controls="collapse"><span>Show More</span><span style='display:none'>Close List</span></button></li>) if sorted_arr.length > 5
       markup << %(</ul>
               </dd>
             </div>)
