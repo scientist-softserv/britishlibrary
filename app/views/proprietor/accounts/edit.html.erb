@@ -28,7 +28,7 @@
             <%= f.simple_fields_for :domain_names do |domain_name| %>
               <%= render 'domain_name_fields', f: domain_name %>
             <% end %>
-            <div 'class='links'>
+            <div class='links'>
               <%= link_to_add_association 'add domain name', f, :domain_names %>
             </div>
           </div>
@@ -44,7 +44,7 @@
               <%= f.simple_fields_for :full_account_cross_searches do |full_account_cross_search| %>
                 <%= render 'full_account_cross_search_fields', f: full_account_cross_search %>
               <% end %>
-              <div 'class='links'>
+              <div class='links'>
                 <%= link_to_add_association 'Add account to search', f, :full_account_cross_searches %>
               </div>
             </div>
@@ -52,7 +52,7 @@
 
           <% unless @account.search_only? %>
             <h3><%= t(".datacite_endpoint") %></h3>
-					  <%= f.fields_for :datacite_endpoint do |s| %>
+					  <%= f.simple_fields_for :data_cite_endpoint do |s| %>
 						  <%= s.input :mode, required: false  %>
 						  <%= s.input :prefix, required: false  %>
 						  <%= s.input :username, required: false  %>
