@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 01adaff0ee77a2a251989e0504686b37729a7145
+  revision: d3ab8102b7732d0488ce7a804c339256eb438a30
   branch: main
   specs:
     bulkrax (1.0.2)
