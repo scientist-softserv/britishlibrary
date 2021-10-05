@@ -17,10 +17,10 @@ class AlphabeticalSortRightsStatementRenderer < Hyrax::Renderers::RightsStatemen
     if Array(values).length > 5
       markup << %(
             <li>
-              <a id="#{field}-collapse" class="collapse-fields" data-toggle="collapse" href=".attribute-#{field}.collapse" aria-expanded="false" aria-controls="collapse">
+              <button id="#{field}-collapse" class="collapse-fields" data-toggle="collapse" data-target=".attribute-#{field}.collapse" aria-expanded="false" aria-controls="collapse">
                 <span>Show More</span>
-                <span style='display:none'>Show Less</span>
-              </a>
+                <span style='display:none'>Close List</span>
+              </button>
             </li>)
     end
     markup << %(

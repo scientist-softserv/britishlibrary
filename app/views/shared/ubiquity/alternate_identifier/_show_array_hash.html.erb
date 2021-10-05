@@ -1,7 +1,7 @@
 <dt>Alternate identifier</dt>
 <dd>
-  <% array_of_hash.each do |hash| %>
-    <ul class="tabular">
+  <% array_of_hash.each_with_index do |hash, index| %>
+    <ul class="tabular <%= 'alt-id collapse' if index > 4 %>">
       <li class="attribute alternate_identifier">
         <% if hash['alternate_identifier'] %>
           <b>identifier: </b><%="#{hash['alternate_identifier']}" %>&nbsp;
@@ -12,6 +12,14 @@
           <b>type: </b><%="#{hash['alternate_identifier_type']}" %>
         <% end %>
       </li>
+    </ul>
+  <% end %>
+  <% if array_of_hash.length > 5 %>
+    <ul class="tabular">
+      <button id="alternate-identifer-collapse" class="collapse-fields" type="button" data-toggle="collapse" data-target=".alt-id.collapse" aria-expanded="false" aria-controls="collapse">
+        <span>Show More</span>
+        <span style='display:none'>Close List</span>
+      </button>
     </ul>
   <% end %>
 </dd>
