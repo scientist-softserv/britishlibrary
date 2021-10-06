@@ -37,18 +37,18 @@ $(document).on('turbolinks:load', function() {
 // display a new creator section on the new or edit form
 $(document).on('turbolinks:load', function() {
   return $('body').on('change', '.ubiquity_creator_name_type', function() {
-    displayFields($(this.parentElement), this.value);
+    displayCreatorFields($(this.parentElement), this.value);
   });
 });
 
 // set saved values in the creator section(s) on the edit work form
 $(document).on('turbolinks:load', function() {
   $('.ubiquity_creator_name_type').each(function() {
-    displayFields($(this).parent(), this.value);
+    displayCreatorFields($(this).parent(), this.value);
   })
 });
 
-function displayFields(self, value) {
+function displayCreatorFields(self, value) {
   if (value == 'Personal') {
     const lastPersonalSibling = self.siblings('.ubiquity_personal_fields').last();
 
