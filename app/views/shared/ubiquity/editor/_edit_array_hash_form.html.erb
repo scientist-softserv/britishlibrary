@@ -10,20 +10,11 @@
                     class: 'ubiquity_editor_name_type',
                     data: { field_name:'ubiquity_editor_name_type' }
     %>
-    <p class="form-group">The editors that produced this item, in priority order. To add multiple editors, repeat this property.</p>
 
-    <div class="form-group">
-      <label class="control-label multi_value optional" for="#{template}_editor_isni">
-        Editor ISNI
-      </label>
-      <%= text_field_tag  "#{template}[editor_group][][editor_isni]",
-                          hash.dig("editor_isni"),
-                          class: "#{template}_editor_group form-control multi-text-field multi_value ubiquity_editor_isni",
-                          placeholder: 'Please enter the editor\'s ISNI, e.g. 0000 1234 5678 9101.',
-                          name: "#{template}[editor_group][][editor_isni]",
-                          data: { field_name:'ubiquity_editor_isni' }
-      %>
-    </div>
+    <p class="form-group">
+      The editors that produced this item, in priority order. To add multiple editors, repeat this property.
+    </p>
+
     <span class="ubiquity_organization_fields">
       <div class="form-group">
         <label class="ubiquity_editor_organization_name_label control-label multi_value optional" for="#{template}_editor_organization_name">
@@ -38,21 +29,8 @@
         %>
       </div>
       <span style="color:blue;" class="error">Please complete this field.</span>
-    </span>
+    </span> <!-- closes ubiquity_organization_fields -->
     <span class="ubiquity_personal_fields">
-      <div class="form-group">
-        <label class="control-label multi_value optional" for="#{template}_editor_orcid">
-          Editor ORCID
-        </label>
-        <%= text_field_tag  "#{template}[editor_group][][editor_orcid]",
-                            hash.dig("editor_orcid"),
-                            class: "#{template}_editor_group form-control multi-text-field multi_value ubiquity_editor_orcid",
-                            placeholder: 'Please enter the editor\'s ORCID, e.g. 0000-1234-5678-9101.',
-                            name: "#{template}[editor_group][][editor_orcid]",
-                            data: { field_name:'ubiquity_editor_orcid' }
-        %>
-      </div>
-
       <div class="form-group">
         <label class="control-label multi_value optional" for="#{template}_editor_family">
           Editor family name
@@ -82,6 +60,19 @@
       </div>
 
       <div class="form-group">
+        <label class="control-label multi_value optional" for="#{template}_editor_orcid">
+          Editor ORCID
+        </label>
+        <%= text_field_tag  "#{template}[editor_group][][editor_orcid]",
+                            hash.dig("editor_orcid"),
+                            class: "#{template}_editor_group form-control multi-text-field multi_value ubiquity_editor_orcid",
+                            placeholder: 'Please enter the editor\'s ORCID, e.g. 0000-1234-5678-9101.',
+                            name: "#{template}[editor_group][][editor_orcid]",
+                            data: { field_name:'ubiquity_editor_orcid' }
+        %>
+      </div>
+
+      <div class="form-group">
         <label class="control-label multi_value optional" for="#{template}_editor_institutional_relationship">
           Editor institutional relationship
         </label>
@@ -94,6 +85,19 @@
     </span> <!-- closes ubiquity_personal_fields -->
 
     <div class="form-group">
+      <label class="control-label multi_value optional" for="#{template}_editor_isni">
+        Editor ISNI
+      </label>
+      <%= text_field_tag  "#{template}[editor_group][][editor_isni]",
+                          hash.dig("editor_isni"),
+                          class: "#{template}_editor_group form-control multi-text-field multi_value ubiquity_editor_isni",
+                          placeholder: 'Please enter the editor\'s ISNI, e.g. 0000 1234 5678 9101.',
+                          name: "#{template}[editor_group][][editor_isni]",
+                          data: { field_name:'ubiquity_editor_isni' }
+      %>
+    </div>
+
+    <div class="form-group">
       <%= hidden_field_tag  "#{template}[editor_group][][editor_position]",
                             index,
                             class: 'ubiquity-editor-score'
@@ -101,14 +105,14 @@
     </div>
 
     <div class="form-group">
-      <a href="#" style="color:red;" class=" remove_editor form-group " data-removeUbiquityEditor=".ubiquity-meta-editor">
+      <a href="#" style="color:red;" class="remove_editor form-group" data-removeUbiquityEditor=".ubiquity-meta-editor">
         <span class="glyphicon glyphicon-remove"></span>
         <span class="controls-remove-text">
           Remove
         </span>
       </a>
       |
-      <a href="#" class=" add_editor" data-addUbiquityEditor=".ubiquity-meta-editor">
+      <a href="#" class="add_editor" data-addUbiquityEditor=".ubiquity-meta-editor">
         Add another
       </a>
     </div>

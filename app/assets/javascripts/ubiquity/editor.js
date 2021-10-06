@@ -22,7 +22,7 @@ $(document).on('turbolinks:load', function() {
   });
 });
 
-  // remove selected editor section
+// remove selected editor section
 $(document).on('turbolinks:load', function() {
   return $('body').on('click', '.remove_editor', function(event) {
     event.preventDefault();
@@ -37,43 +37,30 @@ $(document).on('turbolinks:load', function() {
 // display a new editor section on the new or edit form
 $(document).on('turbolinks:load', function() {
   return $('body').on('change', '.ubiquity_editor_name_type', function() {
-    displayFields($(this.parentElement), this.value);
+    displayEditorFields($(this), this.value);
   });
 });
 
-function displayFields(self, value) {
-  if (value == 'Personal') {
-    // const lastPersonalSibling = self.siblings('.ubiquity_personal_fields').last();
+// set saved values in the editor section(s) on the edit work form
+$(document).on('turbolinks:load', function() {
+  $('.ubiquity_editor_name_type').each(function() {
+    displayEditorFields($(this), this.value);
+  })
+});
 
+// default the editor type to personal
+// if one hasn't been selected
+function displayEditorFields(self, value) {
+  if (value == 'Personal') {
     hideEditorOrganization(self);
 
   } else if (value == 'Organisational') {
-    // const lastOrgSibling = self.siblings('.ubiquity_organization_fields').last();
-
     hideEditorPersonal(self);
 
   } else {
     $('.ubiquity_editor_name_type').last().val('Personal').change();
   }
 }
-
-// // update the org name
-// $(document).on('turbolinks:load', function() {
-//   return $('body').on('blur', '.ubiquity_creator_organization_name', function (event) {
-//     event.preventDefault();
-
-//     const _this = $(this).closet('.ubiquity_organization_fields').last();
-//   });
-// });
-
-// update the family or given name
-// $(document).on('turbolinks:load', function() {
-//   return $('body').on('blur', '.ubiquity_creator_family_name, .ubiquity_creator_given_name', function (event) {
-//     event.preventDefault();
-
-//     const _this = $(this).closest('.ubiquity_personal_fields').last()
-//   });
-// });
 
 function hideEditorOrganization(self) {
   self.siblings('.ubiquity_personal_fields').show();
