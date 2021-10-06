@@ -9,16 +9,9 @@ $(document).on('turbolinks:load', function() {
     const clonedRelatedIdentifierSection = $(this).closest(`div${ubiquityRelatedIdentifierClass}`).last().clone();
     clonedRelatedIdentifierSection.find('input').val('');
     clonedRelatedIdentifierSection.find('option').attr('selected', false);
-    console.log('add RI:', {
-      ubiquityRelatedIdentifierClass,
-      clonedRelatedIdentifierSection,
-      last: $(`${ubiquityRelatedIdentifierClass}`).last()
-    })
 
     // add the cloned section at the end of the related-identifier list
-    // --------------------------- and set 'Personal' as the type
     $(`${ubiquityRelatedIdentifierClass}`).last().after(clonedRelatedIdentifierSection);
-    // $('.ubiquity_related_identifier_name_type').last().val('Personal').change();
   });
 });
 
@@ -40,11 +33,11 @@ $(document).on('turbolinks:load', function() {
   return $('body').on('blur', '.related_identifier', function(event) {
     event.preventDefault();
 
-    const relatedIdentifier = $.trim($(this).val())
-    const relatedIdentifierType = $(".related_identifier_type");
-    const relatedIdentifierRelation = $(".related_identifier_relation");
+    const relatedIdentifier = $.trim($(this).val());
+    const relatedIdentifierType = $(this).closest('.ubiquity-meta-related-identifier').find('.related_identifier_type');
+    const relatedIdentifierRelation = $(this).closest('.ubiquity-meta-related-identifier').find('.related_identifier_relation');
+
     if (relatedIdentifier) {
-        console.log('required')
         relatedIdentifierType.attr('required', true);;
         relatedIdentifierRelation.attr('required', true);;
     } else {
