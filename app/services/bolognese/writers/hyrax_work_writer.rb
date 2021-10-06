@@ -47,7 +47,7 @@ module Bolognese
             'abstract' => build_hyrax_work_description&.join("\n"),
             'language' => language,
             'resource_type' => resource_type,
-            'license' => rights_list.map { |r| r['rightsUri'].sub('legalcode', '') },
+            'license' => rights_list&.map { |r| r['rightsUri'].sub('legalcode', '') },
             'keyword' => subjects&.pluck("subject")
         }
         # byebug
@@ -98,8 +98,8 @@ module Bolognese
         { "#{field_name}_organization_name" => field["name"],
           "#{field_name}_family_name" => field["familyName"],
           "#{field_name}_given_name" => field["givenName"],
-          "#{field_name}_name_type" => field["nameType"].sub("Organizational", "Organisational"),
-          "#{field_name}_ror" => field["affiliation"].map{|a| a["affiliationIdentifier"].split("/").last}.first,
+          "#{field_name}_name_type" => field["nameType"]&.sub("Organizational", "Organisational"),
+          "#{field_name}_ror" => field["affiliation"]&.map{|a| a["affiliationIdentifier"].split("/").last}&.first,
           "#{field_name}_position" => index.to_s
           #"creator_isni":creators&.pluck("name"),
           #"creator_grid":creators&.pluck("name"),
