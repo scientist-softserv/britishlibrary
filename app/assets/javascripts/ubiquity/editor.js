@@ -16,9 +16,9 @@ $(document).on('turbolinks:load', function() {
     hiddenInput.val(parseInt(lastInputCount) + 1);
 
     // add the cloned section at the end of the editor list
-    // ---------------- and set 'Personal' as the type
+    // and set 'Personal' as the type
     $(`${ubiquityEditorClass}`).last().after(clonedEditorSection);
-    // $('.ubiquity_editor_name_type').last().val('Personal').change();
+    $('.ubiquity_editor_name_type').last().val('Personal').change();
   });
 });
 
