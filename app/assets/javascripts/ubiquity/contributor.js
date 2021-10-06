@@ -1,116 +1,77 @@
-// add linked fields
-$(document).on("turbolinks:load", function(){
-  return $("body").on("click", ".add_contributor", function(event){
+// add another contributor section
+$(document).on('turbolinks:load', function() {
+  return $('body').on('click', '.add_contributor', function(event) {
     event.preventDefault();
-    var ubiquityContributorClass = $(this).attr('data-addUbiquityContributor');
-    cloneUbiDiv = $(this).parent('div' + ubiquityContributorClass + ':last').clone();
 
-    _this = this;
-    cloneUbiDiv.find('input').val('');
-    cloneUbiDiv.find('option').attr('selected', false);
-    //increment hidden_field counter after cloning
-    var lastInputCount = $('.ubiquity-contributor-score:last').val();
-    var hiddenInput = $(cloneUbiDiv).find('.ubiquity-contributor-score');
-    hiddenInput.val(parseInt(lastInputCount) + 1)
-    $(ubiquityContributorClass +  ':last').after(cloneUbiDiv);
-    $('.ubiquity_contributor_name_type:last').val('Personal').change();
-    removeDynamicallyAddedContributorClassNames();
-    applyValidationRulesForField('contributor');
+    // find the nearest parent contributor section and clone it
+    // then clear the values in the fields in that section
+    const ubiquityContributorClass = $(this).attr('data-addUbiquityContributor');
+    const clonedContributorSection = $(this).closest(`div${ubiquityContributorClass}`).last().clone();
+    clonedContributorSection.find('input').val('');
+    clonedContributorSection.find('option').attr('selected', false);
+
+    // increment hidden_field counter after cloning
+    const lastInputCount = $('.ubiquity-contributor-score').last().val();
+    const hiddenInput = $(clonedContributorSection).find('.ubiquity-contributor-score');
+    hiddenInput.val(parseInt(lastInputCount) + 1);
+
+    // add the cloned section at the end of the contributor list
+    // and set 'Personal' as the type
+    $(`${ubiquityContributorClass}`).last().after(clonedContributorSection);
+    $('.ubiquity_contributor_name_type').last().val('Personal').change();
   });
 });
 
-function removeDynamicallyAddedContributorClassNames (){
-  var contributor_fields = ["ubiquity_contributor_name_type", "ubiquity_contributor_isni", "ubiquity_contributor_organization_name", "ubiquity_contributor_orcid",
-                        "ubiquity_contributor_family_name", "ubiquity_contributor_given_name"];
-  $.each(contributor_fields, function(index, value){
-    removeClassStartingWith(value)
+// remove selected contributor section
+$(document).on('turbolinks:load', function() {
+  return $('body').on('click', '.remove_contributor', function(event) {
+    event.preventDefault();
+
+    if ($('.ubiquity-meta-contributor').length > 1 ) {
+      const ubiquityContributorClass = $(this).attr('data-removeUbiquityContributor');
+      $(this).closest(`div${ubiquityContributorClass}`).remove();
+    }
   });
-  $.each(contributor_fields, function(index, value){
-    appendIndexToEachClasses(value);
-  })
-}
-
-//remove linked fields
-$(document).on("turbolinks:load", function(){
-    return $("body").on("click", ".remove_contributor", function(event){
-        event.preventDefault();
-        var ubiquityContributorClass = $(this).attr('data-removeUbiquityContributor');
-
-        _this = this;
-        removeubiquityContributor(_this, ubiquityContributorClass);
-    });
 });
 
-function removeubiquityContributor(self, contributorDiv) {
-    if ($(".ubiquity-meta-contributor").length > 1 ) {
-        $(self).parent('div' + contributorDiv).remove();
-    }
-}
-
-//for hiding and showing values on the edit form for contributor sub fields
-$(document).on("turbolinks:load", function(){
-  return $("body").on("change",".ubiquity_contributor_name_type", function(event){
-    if (event.target.value == 'Personal') {
-      $(this.parentElement).siblings(".ubiquity_organization_fields:last").find(".ubiquity_contributor_organization_name:last").val('')
-      $(this.parentElement).siblings(".ubiquity_organization_fields:last").hide();
-
-      $(this.parentElement).siblings(".ubiquity_contributor_organization_name, .ubiquity_contributor_organization_name_label").hide();
-      $(this.parentElement).siblings(".ubiquity_personal_fields").show();
-    } else {
-
-      $(this.parentElement).siblings(".ubiquity_organization_fields:last").show();
-      $(this.parentElement).siblings(".ubiquity_personal_fields").find(".ubiquity_contributor_family_name:last").val('');
-      $(this.parentElement).siblings(".ubiquity_personal_fields").find(".ubiquity_contributor_given_name:last").val('');
-      $(this.parentElement).siblings(".ubiquity_personal_fields").find(".ubiquity_contributor_orcid:last").val('');
-      $(this.parentElement).siblings(".ubiquity_personal_fields").find(".ubiquity_contributor_institutional_relationship:last").val('');
-
-     $(this.parentElement).siblings(".ubiquity_personal_fields").hide();
-     $(this.parentElement).siblings(".ubiquity_contributor_organization_name, .ubiquity_contributor_organization_name_label").show();
-    }
-   });
+// display a new contributor section on the new or edit form
+$(document).on('turbolinks:load', function() {
+  return $('body').on('change', '.ubiquity_contributor_name_type', function() {
+    displayContributorFields($(this.parentElement), this.value);
+  });
 });
 
-$(document).on("turbolinks:load", function(){
-  if($(".ubiquity_contributor_name_type").is(':visible')){
-   $(".ubiquity_contributor_name_type").each(function() {
-    // _this = this;
-     displayContributorFields(this);
-
-   })
-
-  };
-});
-
-$(document).on("turbolinks:load", function(){
-  $('.additional-fields').click(function(event){
-    $(".ubiquity_contributor_name_type").each(function() {
-      displayContributorFields(this);
-    })
-
+// set saved values in the contributor section(s) on the edit work form
+$(document).on('turbolinks:load', function() {
+  $('.ubiquity_contributor_name_type').each(function() {
+    displayContributorFields($(this).parent(), this.value);
   })
 });
 
+function displayContributorFields(self, value) {
+  if (value == 'Personal') {
+    hideContributorOrganization(self);
 
-function displayContributorFields(self){
-  if (self.value == 'Personal') {
+  } else if (value == 'Organisational') {
+    hideContributorPersonal(self);
 
-    $(self.parentElement).siblings(".ubiquity_organization_fields:last").find(".ubiquity_contributor_organization_name:last").val('')
-    $(self.parentElement).siblings(".ubiquity_organization_fields:last").hide();
+  } else {
+    $('.ubiquity_contributor_name_type').last().val('Personal').change();
+  }
+}
 
-    $(self.parentElement).siblings(".ubiquity_contributor_organization_name, .ubiquity_contributor_organization_name_label").hide();
-    $(self.parentElement).siblings(".ubiquity_personal_fields").show();
-  } else if(self.value == "Organisational") {
+function hideContributorOrganization(self) {
+  self.siblings('.ubiquity_personal_fields').show();
+  self.siblings('.ubiquity_organization_fields').find('.ubiquity_contributor_organization_name').last().val('');
+  self.siblings('.ubiquity_organization_fields').find('.ubiquity_contributor_organization_name').last().removeAttr('required');
+  self.siblings('.ubiquity_organization_fields').hide();
+}
 
-    $(self.parentElement).siblings(".ubiquity_organization_fields:last").show();
-    $(self.parentElement).siblings(".ubiquity_personal_fields").find(".ubiquity_contributor_family_name:last").val('');
-    $(self.parentElement).siblings(".ubiquity_personal_fields").find(".ubiquity_contributor_given_name:last").val('');
-    $(self.parentElement).siblings(".ubiquity_personal_fields").find(".ubiquity_contributor_orcid:last").val('');
-    $(self.parentElement).siblings(".ubiquity_personal_fields").find(".ubiquity_contributor_institutional_relationship:last").val('');
-
-
-   $(self.parentElement).siblings(".ubiquity_personal_fields").hide();
-   $(self.parentElement).siblings(".ubiquity_contributor_organization_name, .ubiquity_contributor_organization_name_label").show();
- } else {
-   $('.ubiquity_contributor_name_type:last').val('Personal').change()
- }
+function hideContributorPersonal(self) {
+  self.siblings('.ubiquity_organization_fields').show();
+  self.siblings('.ubiquity_personal_fields').find('.ubiquity_contributor_family_name').last().val('').removeAttr('required');
+  self.siblings('.ubiquity_personal_fields').find('.ubiquity_contributor_given_name').last().val('').removeAttr('required');
+  self.siblings('.ubiquity_personal_fields').find('.ubiquity_contributor_orcid').last().val('');
+  self.siblings('.ubiquity_personal_fields').find('.ubiquity_contributor_institutional_relationship').last().val('');
+  self.siblings('.ubiquity_personal_fields').hide();
 }
