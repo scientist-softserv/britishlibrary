@@ -37,26 +37,13 @@
         <%# = render 'user_activity', presenter: @presenter %>
       </div>
       <div class="section-contrast extended-section-contrast mt-40">
-        <div class="row pb-40 pt-40">
+        <div class="pb-40 pt-40">
           <%= render 'workflow_actions_widget', presenter: @presenter %>
-          <h2 class="col-sm-12">Metadata</h2>
-          <% if @presenter.universal_viewer? %>
-            <div class="col-sm-6 pt-40">
-              <%= render 'representative_media', presenter: @presenter, viewer: true %>
-            </div>
-            <div class="col-sm-6 pt-40">
+          <h2>Metadata</h2>
+            <div class="col-sm pt-40">
               <%= render 'work_description', presenter: @presenter %>
               <%= render 'metadata', presenter: @presenter %>
             </div>
-            <%else%>
-            <div class="col-sm-7 pt-40">
-              <%= render 'work_description', presenter: @presenter %>
-              <%= render 'metadata', presenter: @presenter %>
-            </div>
-            <div class="col-sm-5 text-center pt-40">
-              <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.universal_viewer? %>
-            </div>
-          <% end %>
         </div>
       </div>
       <%= render 'relationships', presenter: @presenter %>
