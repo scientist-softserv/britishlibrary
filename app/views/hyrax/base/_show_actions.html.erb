@@ -41,7 +41,7 @@
           class: presenter.display_unfeature_link? ? 'btn btn-default' : 'btn btn-default collapse' %>
   <% end %>
 
-  <% if @presenter.universal_viewer? %>
+  <% if presenter.universal_viewer? %>
     <%= link_to 'Universal Viewer',
                 "#{universal_viewer_base_url}?manifestUri=#{main_app.polymorphic_url [main_app, :manifest, presenter], { locale: nil }}&config=#{universal_viewer_config_url}",
                 class: 'btn btn-default',
