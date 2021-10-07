@@ -13,42 +13,42 @@ module Bolognese
       def hyrax_work
         # byebug
         attributes = {
-            'identifier' => Array(identifiers).reject { |id| id["identifierType"] == "DOI" }.pluck("identifier"),
-            'doi' => build_hyrax_work_doi(doi),
-            'title' => titles&.pluck("title"),
-            # FIXME: This may not roundtrip since datacite normalizes the creator name
-            'creator_name_type' => build_hyrax_work_creator('creator_name_type'),
-            'creator_family_name' => build_hyrax_work_creator('creator_family_name'),
-            'creator_given_name' => build_hyrax_work_creator('creator_given_name'),
-            'creator_organization_name' => build_hyrax_work_creator('creator_organization_name'),
-            'creator_ror' => build_hyrax_work_creator('creator_ror'),
-            'creator_position' => build_hyrax_work_creator('creator_position'),
-            'contributor_name_type' => build_hyrax_work_contributor('contributor_name_type'),
-            'contributor_family_name' => build_hyrax_work_contributor('contributor_family_name'),
-            'contributor_given_name' => build_hyrax_work_contributor('contributor_given_name'),
-            'contributor_organization_name' => build_hyrax_work_contributor('contributor_organization_name'),
-            'contributor_ror' => build_hyrax_work_contributor('contributor_ror'),
-            'contributor_type' => build_hyrax_work_contributor('contributor_type'),
-            'contributor_position' => build_hyrax_work_contributor('contributor_position'),
-            'funder_position' => build_hyrax_work_funder('funder_position'),
-            'funder_name' => build_hyrax_work_funder('funder_name'),
-            'funder_doi' => build_hyrax_work_funder('funder_doi'),
-            'funder_ror' => build_hyrax_work_funder('funder_ror'),
-            'funder_isni' => build_hyrax_work_funder('funder_isni'),
-            'funder_award' => build_hyrax_work_funder('funder_award'),
-            'related_identifier' => related_identifiers&.pluck('relatedIdentifier'),
-            'related_identifier_type' => related_identifiers&.pluck('relatedIdentifierType'),
-            'relation_type' => related_identifiers&.pluck('relationType'),
-            'publisher' => Array(publisher),
-            'date_published' => publication_year.present? ? [EDTF.parse(publication_year).strftime] : [],
-            'date_accepted' => get_date_from_type('Accepted'),
-            'date_submitted' => get_date_from_type('Submitted'),
-            'description' => build_hyrax_work_description,
-            'abstract' => build_hyrax_work_description&.join("\n"),
-            'language' => language,
-            'resource_type' => resource_type,
-            'license' => rights_list&.map { |r| r['rightsUri'].sub('legalcode', '') },
-            'keyword' => subjects&.pluck("subject")
+          'identifier' => Array(identifiers).reject { |id| id["identifierType"] == "DOI" }.pluck("identifier"),
+          'doi' => build_hyrax_work_doi(doi),
+          'title' => titles&.pluck("title"),
+          # FIXME: This may not roundtrip since datacite normalizes the creator name
+          'creator_name_type' => build_hyrax_work_creator('creator_name_type'),
+          'creator_family_name' => build_hyrax_work_creator('creator_family_name'),
+          'creator_given_name' => build_hyrax_work_creator('creator_given_name'),
+          'creator_organization_name' => build_hyrax_work_creator('creator_organization_name'),
+          'creator_ror' => build_hyrax_work_creator('creator_ror'),
+          'creator_position' => build_hyrax_work_creator('creator_position'),
+          'contributor_name_type' => build_hyrax_work_contributor('contributor_name_type'),
+          'contributor_family_name' => build_hyrax_work_contributor('contributor_family_name'),
+          'contributor_given_name' => build_hyrax_work_contributor('contributor_given_name'),
+          'contributor_organization_name' => build_hyrax_work_contributor('contributor_organization_name'),
+          'contributor_ror' => build_hyrax_work_contributor('contributor_ror'),
+          'contributor_type' => build_hyrax_work_contributor('contributor_type'),
+          'contributor_position' => build_hyrax_work_contributor('contributor_position'),
+          'funder_position' => build_hyrax_work_funder('funder_position'),
+          'funder_name' => build_hyrax_work_funder('funder_name'),
+          'funder_doi' => build_hyrax_work_funder('funder_doi'),
+          'funder_ror' => build_hyrax_work_funder('funder_ror'),
+          'funder_isni' => build_hyrax_work_funder('funder_isni'),
+          'funder_award' => build_hyrax_work_funder('funder_award'),
+          'related_identifier' => related_identifiers&.pluck('relatedIdentifier'),
+          'related_identifier_type' => related_identifiers&.pluck('relatedIdentifierType'),
+          'relation_type' => related_identifiers&.pluck('relationType'),
+          'publisher' => Array(publisher),
+          'date_published' => publication_year.present? ? [EDTF.parse(publication_year).strftime] : [],
+          'date_accepted' => get_date_from_type('Accepted'),
+          'date_submitted' => get_date_from_type('Submitted'),
+          'description' => build_hyrax_work_description,
+          'abstract' => build_hyrax_work_description&.join("\n"),
+          'language' => language,
+          'resource_type' => resource_type,
+          'license' => rights_list&.map { |r| r['rightsUri'].sub('legalcode', '') },
+          'keyword' => subjects&.pluck("subject")
         }
         # byebug
         _hyrax_work_class = determine_hyrax_work_class
@@ -90,16 +90,17 @@ module Bolognese
       def resource_type
         return nil unless types['resourceTypeGeneral'].present?
 
-        humanized = types['resourceTypeGeneral'].underscore.capitalize.gsub('_',' ')
+        humanized = types['resourceTypeGeneral'].underscore.capitalize.tr('_', ' ')
         Hyrax::ResourceTypesService.select_options.select { |t| t.first == humanized }&.first&.last
       end
 
-      def build_hyrax_work_child(field_name: ,field:, index: )
-        { "#{field_name}_organization_name" => field["name"],
+      def build_hyrax_work_child(field_name:, field:, index:)
+        {
+          "#{field_name}_organization_name" => field["name"],
           "#{field_name}_family_name" => field["familyName"],
           "#{field_name}_given_name" => field["givenName"],
           "#{field_name}_name_type" => field["nameType"]&.sub("Organizational", "Organisational"),
-          "#{field_name}_ror" => field["affiliation"]&.map{|a| a["affiliationIdentifier"].split("/").last}&.first,
+          "#{field_name}_ror" => field["affiliation"]&.map { |a| a["affiliationIdentifier"].split("/").last }&.first,
           "#{field_name}_position" => index.to_s
           #"creator_isni":creators&.pluck("name"),
           #"creator_grid":creators&.pluck("name"),
@@ -111,26 +112,26 @@ module Bolognese
 
       def build_hyrax_work_creator(creator_id)
         @build_hyrax_work_creator ||= creators.each_with_index.map do |creator, i|
-          build_hyrax_work_child(field_name: 'creator', field: creator, index: i )
+          build_hyrax_work_child(field_name: 'creator', field: creator, index: i)
         end.sort_by { |c| c["creator_position"].to_i }
-        @build_hyrax_work_creator.map{ |c| c[creator_id]}
+        @build_hyrax_work_creator.map { |c| c[creator_id] }
       end
 
       def build_hyrax_work_contributor(contributor_id)
         @build_hyrax_work_contributor ||= contributors.each_with_index.map do |contributor, i|
-          build_hyrax_work_child(field_name: 'contributor', field: contributor, index: i )
+          build_hyrax_work_child(field_name: 'contributor', field: contributor, index: i)
               .merge({
                          "contributor_type" => contributor["contributorType"]
                      })
         end.sort_by { |c| c["contributor_position"].to_i }
-        @build_hyrax_work_contributor.map{ |c| c[contributor_id]}
+        @build_hyrax_work_contributor.map { |c| c[contributor_id] }
       end
 
       def funder_identifier(funder)
         funder_id = {}
-        funder_id = { "funder_doi" => funder["funderIdentifier"] } if(funder['funderIdentifierType'] == 'Crossref Funder ID')
-        funder_id = { "funder_ror" => funder["funderIdentifier"] } if(funder['funderIdentifierType'] == 'ROR')
-        funder_id = { "funder_isni" => funder["funderIdentifier"] } if(funder['funderIdentifierType'] == 'ISNI')
+        funder_id = { "funder_doi" => funder["funderIdentifier"] } if (funder['funderIdentifierType'] == 'Crossref Funder ID')
+        funder_id = { "funder_ror" => funder["funderIdentifier"] } if (funder['funderIdentifierType'] == 'ROR')
+        funder_id = { "funder_isni" => funder["funderIdentifier"] } if (funder['funderIdentifierType'] == 'ISNI')
         funder_id
       end
 
@@ -142,7 +143,7 @@ module Bolognese
               "funder_position" => i.to_s
           }.merge(funder_identifier(funder))
         end.sort_by { |c| c["funder_position"].to_i }
-        @build_hyrax_work_funder.map{ |c| c[funder_id]}
+        @build_hyrax_work_funder.map { |c| c[funder_id] }
       end
     end
   end

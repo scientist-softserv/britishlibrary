@@ -105,19 +105,19 @@ module Bolognese
           given_name = author[:"#{author_type}_given_name"]
           family_name = author[:"#{author_type}_family_name"]
           name = author[:"#{author_type}_organization_name"]
-          affiliation = {"affiliationIdentifier"=>"https://ror.org/#{author[:"#{author_type}_ror"]}",
-                         "affiliationIdentifierScheme"=>"ROR"} if author[:"#{author_type}_ror"].presence
-          nameIdentifier = []
+          affiliation = { "affiliationIdentifier" => "https://ror.org/#{author[:"#{author_type}_ror"]}",
+                         "affiliationIdentifierScheme" => "ROR" } if author[:"#{author_type}_ror"].presence
+          name_identifier = []
           if author[:"#{author_type}_orcid"].present?
-            nameIdentifier["nameIdentifierScheme"] = "ORCID"
-            nameIdentifier["__content__"] = author[:"#{author_type}_orcid"]
+            name_identifier["nameIdentifierScheme"] = "ORCID"
+            name_identifier["__content__"] = author[:"#{author_type}_orcid"]
           end
 
           author_hash = {  "nameType" => name_type,
                            "creatorName" => name,
                            "givenName" => given_name,
                            "familyName" => family_name,
-                           "nameIdentifier" => nameIdentifier,
+                           "nameIdentifier" => name_identifier,
                            "affiliation" => affiliation }.compact
 
           authors << author_hash
