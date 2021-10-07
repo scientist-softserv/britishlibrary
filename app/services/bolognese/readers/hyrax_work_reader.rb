@@ -60,9 +60,9 @@ module Bolognese
         output = []
         eval(meta.fetch('related_identifier', nil).first).each do |ri|
           output << {
-              "relatedIdentifier" => ri[:related_identifier],
-              "relatedIdentifierType" => ri[:related_identifier_type],
-              "relationType" => ri[:relation_type]
+            "relatedIdentifier" => ri[:related_identifier],
+            "relatedIdentifierType" => ri[:related_identifier_type],
+            "relationType" => ri[:relation_type]
           }
         end
         output
@@ -71,7 +71,7 @@ module Bolognese
       def read_hyrax_work_rights_list(meta)
         output = []
         meta.fetch('license', nil).each do |r|
-
+          output << { 'rightsUri' => "#{r}legalcode" }
         end
         output
       end
@@ -79,9 +79,9 @@ module Bolognese
       def read_hyrax_work_dates(meta)
         all_dates = []
         date = meta.fetch("date_accepted", nil).presence
-        all_dates << {"date" => date.to_s, "dateType" => "Accepted" } if date
+        all_dates << { "date" => date.to_s, "dateType" => "Accepted" } if date
         date ||= meta.fetch("date_submitted", nil).presence
-        all_dates << {"date" => date.to_s, "dateType" => "Submitted" } if date
+        all_dates << { "date" => date.to_s, "dateType" => "Submitted" } if date
       end
 
       def read_hyrax_work_creators(meta)
@@ -106,7 +106,7 @@ module Bolognese
           family_name = author[:"#{author_type}_family_name"]
           name = author[:"#{author_type}_organization_name"]
           affiliation = { "affiliationIdentifier" => "https://ror.org/#{author[:"#{author_type}_ror"]}",
-                         "affiliationIdentifierScheme" => "ROR" } if author[:"#{author_type}_ror"].presence
+                          "affiliationIdentifierScheme" => "ROR" } if author[:"#{author_type}_ror"].presence
           name_identifier = []
           if author[:"#{author_type}_orcid"].present?
             name_identifier["nameIdentifierScheme"] = "ORCID"

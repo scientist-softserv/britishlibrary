@@ -59,92 +59,90 @@ module Bolognese
 
       private
 
-      def determine_hyrax_work_class
-        # Need to check that the class `responds_to? :doi`?
-        types["hyrax"]&.safe_constantize || build_hyrax_work_class
-      end
-
-      def build_hyrax_work_class
-        Class.new(ActiveFedora::Base).tap do |c|
-          c.include ::Hyrax::WorkBehavior
-          c.include ::Hyrax::DOI::DOIBehavior
-          # Put BasicMetadata include last since it finalizes the metadata schema
-          c.include ::Hyrax::BasicMetadata
+        def determine_hyrax_work_class
+          # Need to check that the class `responds_to? :doi`?
+          types["hyrax"]&.safe_constantize || build_hyrax_work_class
         end
-      end
 
-      def build_hyrax_work_doi(doi_uri)
-        Array(doi_uri&.sub('https://doi.org/', ''))
-      end
+        def build_hyrax_work_class
+          Class.new(ActiveFedora::Base).tap do |c|
+            c.include ::Hyrax::WorkBehavior
+            c.include ::Hyrax::DOI::DOIBehavior
+            # Put BasicMetadata include last since it finalizes the metadata schema
+            c.include ::Hyrax::BasicMetadata
+          end
+        end
 
-      def build_hyrax_work_description
-        return nil if descriptions.blank?
+        def build_hyrax_work_doi(doi_uri)
+          Array(doi_uri&.sub('https://doi.org/', ''))
+        end
 
-        descriptions.pluck("description").map { |d| Array(d).join("\n") }
-      end
+        def build_hyrax_work_description
+          return nil if descriptions.blank?
 
-      def get_date_from_type(date_type)
-        dates.select { |d| d['dateType'] == date_type }.map { |d| d['date'] }
-      end
+          descriptions.pluck("description").map { |d| Array(d).join("\n") }
+        end
 
-      def resource_type
-        return nil unless types['resourceTypeGeneral'].present?
+        def get_date_from_type(date_type)
+          dates.select { |d| d['dateType'] == date_type }.map { |d| d['date'] }
+        end
 
-        humanized = types['resourceTypeGeneral'].underscore.capitalize.tr('_', ' ')
-        Hyrax::ResourceTypesService.select_options.select { |t| t.first == humanized }&.first&.last
-      end
+        def resource_type
+          return nil unless types['resourceTypeGeneral'].present?
 
-      def build_hyrax_work_child(field_name:, field:, index:)
-        {
-          "#{field_name}_organization_name" => field["name"],
-          "#{field_name}_family_name" => field["familyName"],
-          "#{field_name}_given_name" => field["givenName"],
-          "#{field_name}_name_type" => field["nameType"]&.sub("Organizational", "Organisational"),
-          "#{field_name}_ror" => field["affiliation"]&.map { |a| a["affiliationIdentifier"].split("/").last }&.first,
-          "#{field_name}_position" => index.to_s
-          #"creator_isni":creators&.pluck("name"),
-          #"creator_grid":creators&.pluck("name"),
-          #"creator_wikidata":creators&.pluck("name"),
-          #"creator_orcid":creators&.pluck("name"),
-          #"creator_institutional_relationship":[""],
-        }
-      end
+          humanized = types['resourceTypeGeneral'].underscore.capitalize.tr('_', ' ')
+          Hyrax::ResourceTypesService.select_options.select { |t| t.first == humanized }&.first&.last
+        end
 
-      def build_hyrax_work_creator(creator_id)
-        @build_hyrax_work_creator ||= creators.each_with_index.map do |creator, i|
-          build_hyrax_work_child(field_name: 'creator', field: creator, index: i)
-        end.sort_by { |c| c["creator_position"].to_i }
-        @build_hyrax_work_creator.map { |c| c[creator_id] }
-      end
-
-      def build_hyrax_work_contributor(contributor_id)
-        @build_hyrax_work_contributor ||= contributors.each_with_index.map do |contributor, i|
-          build_hyrax_work_child(field_name: 'contributor', field: contributor, index: i)
-              .merge({
-                         "contributor_type" => contributor["contributorType"]
-                     })
-        end.sort_by { |c| c["contributor_position"].to_i }
-        @build_hyrax_work_contributor.map { |c| c[contributor_id] }
-      end
-
-      def funder_identifier(funder)
-        funder_id = {}
-        funder_id = { "funder_doi" => funder["funderIdentifier"] } if (funder['funderIdentifierType'] == 'Crossref Funder ID')
-        funder_id = { "funder_ror" => funder["funderIdentifier"] } if (funder['funderIdentifierType'] == 'ROR')
-        funder_id = { "funder_isni" => funder["funderIdentifier"] } if (funder['funderIdentifierType'] == 'ISNI')
-        funder_id
-      end
-
-      def build_hyrax_work_funder(funder_id)
-        @build_hyrax_work_funder ||= funding_references.each_with_index.map do |funder, i|
+        def build_hyrax_work_child(field_name:, field:, index:)
           {
+            "#{field_name}_organization_name" => field["name"],
+            "#{field_name}_family_name" => field["familyName"],
+            "#{field_name}_given_name" => field["givenName"],
+            "#{field_name}_name_type" => field["nameType"]&.sub("Organizational", "Organisational"),
+            "#{field_name}_ror" => field["affiliation"]&.map { |a| a["affiliationIdentifier"].split("/").last }&.first,
+            "#{field_name}_position" => index.to_s
+            #"creator_isni":creators&.pluck("name"),
+            #"creator_grid":creators&.pluck("name"),
+            #"creator_wikidata":creators&.pluck("name"),
+            #"creator_orcid":creators&.pluck("name"),
+            #"creator_institutional_relationship":[""],
+          }
+        end
+
+        def build_hyrax_work_creator(creator_id)
+          @build_hyrax_work_creator ||= creators.each_with_index.map do |creator, i|
+            build_hyrax_work_child(field_name: 'creator', field: creator, index: i)
+          end.sort_by { |c| c["creator_position"].to_i }
+          @build_hyrax_work_creator.map { |c| c[creator_id] }
+        end
+
+        def build_hyrax_work_contributor(contributor_id)
+          @build_hyrax_work_contributor ||= contributors.each_with_index.map do |contributor, i|
+            build_hyrax_work_child(field_name: 'contributor', field: contributor, index: i)
+              .merge("contributor_type" => contributor["contributorType"])
+          end.sort_by { |c| c["contributor_position"].to_i }
+          @build_hyrax_work_contributor.map { |c| c[contributor_id] }
+        end
+
+        def funder_identifier(funder)
+          funder_id = {}
+          funder_id = { "funder_doi" => funder["funderIdentifier"] } if funder['funderIdentifierType'] == 'Crossref Funder ID'
+          funder_id = { "funder_ror" => funder["funderIdentifier"] } if funder['funderIdentifierType'] == 'ROR'
+          funder_id = { "funder_isni" => funder["funderIdentifier"] } if funder['funderIdentifierType'] == 'ISNI'
+          funder_id
+        end
+
+        def build_hyrax_work_funder(funder_id)
+          @build_hyrax_work_funder ||= funding_references.each_with_index.map do |funder, i|
+            {
               "funder_name" => funder["funderName"],
               "funder_award" => funder["awardNumber"],
               "funder_position" => i.to_s
-          }.merge(funder_identifier(funder))
-        end.sort_by { |c| c["funder_position"].to_i }
-        @build_hyrax_work_funder.map { |c| c[funder_id] }
-      end
+            }.merge(funder_identifier(funder))
+          end.sort_by { |c| c["funder_position"].to_i }
+          @build_hyrax_work_funder.map { |c| c[funder_id] }
+        end
     end
   end
 end
