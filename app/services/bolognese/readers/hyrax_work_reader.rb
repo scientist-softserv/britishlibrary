@@ -60,9 +60,9 @@ module Bolognese
         output = []
         eval(meta.fetch('related_identifier', nil).first).each do |ri|
           output << {
-              "relatedIdentifier" => ri[:related_identifier],
-              "relatedIdentifierType" => ri[:related_identifier_type],
-              "relationType" => ri[:relation_type]
+            "relatedIdentifier" => ri[:related_identifier],
+            "relatedIdentifierType" => ri[:related_identifier_type],
+            "relationType" => ri[:relation_type]
           }
         end
         output
@@ -71,7 +71,7 @@ module Bolognese
       def read_hyrax_work_rights_list(meta)
         output = []
         meta.fetch('license', nil).each do |r|
-
+          output << { 'rightsUri' => "#{r}legalcode" }
         end
         output
       end
@@ -79,9 +79,9 @@ module Bolognese
       def read_hyrax_work_dates(meta)
         all_dates = []
         date = meta.fetch("date_accepted", nil).presence
-        all_dates << {"date" => date.to_s, "dateType" => "Accepted" } if date
+        all_dates << { "date" => date.to_s, "dateType" => "Accepted" } if date
         date ||= meta.fetch("date_submitted", nil).presence
-        all_dates << {"date" => date.to_s, "dateType" => "Submitted" } if date
+        all_dates << { "date" => date.to_s, "dateType" => "Submitted" } if date
       end
 
       def read_hyrax_work_creators(meta)
@@ -105,19 +105,19 @@ module Bolognese
           given_name = author[:"#{author_type}_given_name"]
           family_name = author[:"#{author_type}_family_name"]
           name = author[:"#{author_type}_organization_name"]
-          affiliation = {"affiliationIdentifier"=>"https://ror.org/#{author[:"#{author_type}_ror"]}",
-                         "affiliationIdentifierScheme"=>"ROR"} if author[:"#{author_type}_ror"].presence
-          nameIdentifier = []
+          affiliation = { "affiliationIdentifier" => "https://ror.org/#{author[:"#{author_type}_ror"]}",
+                          "affiliationIdentifierScheme" => "ROR" } if author[:"#{author_type}_ror"].presence
+          name_identifier = []
           if author[:"#{author_type}_orcid"].present?
-            nameIdentifier["nameIdentifierScheme"] = "ORCID"
-            nameIdentifier["__content__"] = author[:"#{author_type}_orcid"]
+            name_identifier["nameIdentifierScheme"] = "ORCID"
+            name_identifier["__content__"] = author[:"#{author_type}_orcid"]
           end
 
           author_hash = {  "nameType" => name_type,
                            "creatorName" => name,
                            "givenName" => given_name,
                            "familyName" => family_name,
-                           "nameIdentifier" => nameIdentifier,
+                           "nameIdentifier" => name_identifier,
                            "affiliation" => affiliation }.compact
 
           authors << author_hash

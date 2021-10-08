@@ -69,6 +69,9 @@ module Hyrax
         meta = Bolognese::Metadata.new(input: doi,
                                        from: "datacite",
                                        sandbox: use_sandbox)
+        meta = Bolognese::Metadata.new(input: doi,
+                                       from: "crossref",
+                                       sandbox: use_sandbox) if meta.blank? || meta.doi.blank? || meta.state == "not_found"
         # Check that a record was actually loaded
         raise Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." if meta.blank? || meta.doi.blank?
         meta.types["hyrax"] = params['curation_concern'].camelize
