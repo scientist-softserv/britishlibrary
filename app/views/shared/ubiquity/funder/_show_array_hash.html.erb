@@ -26,10 +26,16 @@
         <li>
           <% awards_array = hash&.[]('funder_award')&.reject {|a| a.blank? } %>
           <% if awards_array.present? %>
-            <b>Awards:</b><% awards_array.each do |award| %>
-              <span itemprop="funder" >
-                <%= award %>
-              </span>
+            <b>Awards:</b><% awards_array.each do |award, index| %>
+              <% if award == awards_array.last %>
+                <span itemprop="funder" >
+                  <%= award %>
+                </span>
+              <% else %>
+                <span itemprop="funder" >
+                  <%= award %> | 
+                </span>
+              <% end %>
             <% end %>
           <% end %>
         </li>
