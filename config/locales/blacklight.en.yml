@@ -1,7 +1,9 @@
 en:
   blacklight:
-    application_name: 'Hyku'
+    application_name: "Hyku"
     search:
+      pagination_info:
+        no_items_found: "0"
       fields:
         facet:
           based_near_label_sim: Location
