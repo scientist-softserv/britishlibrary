@@ -17,7 +17,7 @@ Hyrax::Renderers::AttributeRenderer.class_eval do
       attributes = microdata_object_attributes(field).merge(class: "attribute attribute-#{field} #{'collapse' if index > 4}")
       markup << "<li#{html_attributes(attributes)}>#{attribute_value_to_html(value.to_s)}</li>"
     end
-    markup << %(<li><button id="#{field}-collapse" class="collapse-fields" data-toggle="collapse" data-target=".attribute-#{field}.collapse" aria-expanded="false" aria-controls="collapse"><span>Show More</span><span style='display:none'>Close List</span></button></li>) if Array(values).length > 5
+    markup << %(<li><button id="#{field}-collapse" class="collapse-fields" data-toggle="collapse" data-target=".attribute-#{field}.collapse" aria-expanded="false" aria-controls="collapse"><span>Show more</span><span style='display:none'>Close list</span></button></li>) if Array(values).length > 5
     markup << %(</ul></dd></div>)
     markup.html_safe
   end
@@ -31,7 +31,7 @@ Hyrax::Renderers::AttributeRenderer.class_eval do
       attributes = microdata_object_attributes(field).merge(class: "attribute attribute-#{field} #{'collapse' if index > 4}")
       "<li#{html_attributes(attributes)}>#{attribute_value_to_html(value.to_s)}</li>"
     end.join
-    markup << %(<li><a id="#{field}-collapse" class="collapse-fields" data-toggle="collapse" href=".attribute-#{field}.collapse" aria-expanded="false" aria-controls="collapse"><span>Show More</span><span style='display:none'>Close List</span></a></li>) if Array(values).length > 5
+    markup << %(<li><a id="#{field}-collapse" class="collapse-fields" data-toggle="collapse" href=".attribute-#{field}.collapse" aria-expanded="false" aria-controls="collapse"><span>Show more</span><span style='display:none'>Close list</span></a></li>) if Array(values).length > 5
     markup += %(</ul></dd></div>)
     markup.html_safe
   end

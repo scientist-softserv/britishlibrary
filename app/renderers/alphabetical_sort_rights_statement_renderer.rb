@@ -18,8 +18,8 @@ class AlphabeticalSortRightsStatementRenderer < Hyrax::Renderers::RightsStatemen
       markup << %(
             <li>
               <button id="#{field}-collapse" class="collapse-fields" data-toggle="collapse" data-target=".attribute-#{field}.collapse" aria-expanded="false" aria-controls="collapse">
-                <span>Show More</span>
-                <span style='display:none'>Close List</span>
+                <span>Show more</span>
+                <span style='display:none'>Close list</span>
               </button>
             </li>)
     end
