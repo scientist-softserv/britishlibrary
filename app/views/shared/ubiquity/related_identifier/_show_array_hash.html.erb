@@ -1,7 +1,7 @@
 <dt>Related identifier</dt>
 <dd>
-  <% array_of_hash.each do |hash| %>
-    <ul class="tabular">
+  <% array_of_hash.each_with_index do |hash, index| %>
+    <ul class="tabular <%= 'rel-id collapse' if index > 4 %>">
       <li class="attribute related_identifier">
         <% if hash['related_identifier'] %>
           <b>identifier: </b><%="#{hash['related_identifier']}" %>&nbsp;
@@ -15,9 +15,17 @@
       <li class="attribute relation_type">
         <% if hash['relation_type'] %>
           <% array_list = RelationTypeService.new.select_active_options.uniq %>
-           <b>relation: </b><%= + array_list.select{|e| e[1] == hash['relation_type']}.first[0] %>
+            <b>relation: </b><%= + array_list.select{|e| e[1] == hash['relation_type']}.first[0] %>
         <% end %>
       </li>
+    </ul>
+  <% end %>
+  <% if array_of_hash.length > 5 %>
+    <ul class="tabular">
+      <button id="related-identifer-collapse" class="collapse-fields" type="button" data-toggle="collapse" data-target=".rel-id.collapse" aria-expanded="false" aria-controls="collapse">
+        <span>Show more</span>
+        <span style='display:none'>Close list</span>
+      </button>
     </ul>
   <% end %>
 </dd>
