@@ -8,21 +8,6 @@
             <b>Name:</b> <%= "#{hash['funder_name']}" %>&nbsp;
           <% end %>
         </li>
-        <li class="attribute funder doi">
-          <% if hash['funder_doi'].present? %>
-            <b>DOI: </b><a href="<%= hash['funder_doi'] %>"><%= "#{hash['funder_doi'].split('g/')[1]}" %></a>&nbsp;
-          <% end %>
-        </li>
-        <li class="attribute funder isni">
-          <% if hash['funder_isni'].present? %>
-            <b>ISNI: </b><%= "#{hash['funder_isni']}" %>&nbsp;
-          <% end %>
-        </li>
-        <li class="attribute funder ror">
-          <% if hash['funder_ror'].present? %>
-            <b>ROR ID: </b><%= "#{hash['funder_ror']}" %>&nbsp;
-          <% end %>
-        </li>
         <li>
           <% awards_array = hash&.[]('funder_award')&.reject {|a| a.blank? } %>
           <% if awards_array.present? %>
