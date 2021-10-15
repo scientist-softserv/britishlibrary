@@ -80,7 +80,6 @@ module Hyku
     private
 
     def extract_from_identifier(rgx)
-      raise 'hell' if rgx == %r{10\.\d{4,9}\/[-._;()\/:A-Z0-9]+}
         if solr_document['identifier_tesim'].present?
           ref = solr_document['identifier_tesim'].map do |str|
             str.scan(rgx)
