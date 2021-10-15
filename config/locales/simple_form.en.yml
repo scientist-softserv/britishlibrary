@@ -25,8 +25,8 @@ en:
         locale_name: |
           The name of the tenant specific locale suffix added to their locale.yml files. Only alphabetic characters should be added, no symbols or numbers, these will then be capitalised.
         oai_admin_email: OAI endpoint contact email address
-        doi_reader: Show ability to read from Datacite to populate records. WIP do not use
-        doi_writer: Write DOIs for records. WIP do not use
+        doi_reader: Show ability to read from Datacite to populate records.
+        doi_minting: Write DOIs for records.
         cache_api: Turns on cache for API endpoints. Experimental
         email_subjet_prefix: String to put in front of system email subjects.
         contact_email_to: Email address that should receive contact emails

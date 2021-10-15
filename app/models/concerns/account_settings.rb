@@ -20,7 +20,7 @@ module AccountSettings
     setting :contact_email, type: 'string', default: 'change-me-in-settings@example.com'
     setting :contact_email_to, type: 'string', default: 'change-me-in-settings@example.com'
     setting :doi_reader, type: 'boolean', default: false
-    setting :doi_writer, type: 'boolean', default: false
+    setting :doi_minting, type: 'boolean', default: false
     setting :file_acl, type: 'boolean', default: true, private: true
     setting :email_format, type: 'array'
     setting :email_subject_prefix, type: 'string'
@@ -55,6 +55,7 @@ module AccountSettings
               allow_blank: true
 
     after_initialize :initialize_settings
+    before_save :update_feature_flippers
   end
   # rubocop:enable Metrics/BlockLength
 
@@ -107,6 +108,12 @@ module AccountSettings
 
   def live_settings
     all_settings.reject { |_k, v| v[:disabled] }
+  end
+
+  def update_feature_flippers
+    return if self.settings["doi_minting"].nil?
+    f = Hyrax::Feature.find_or_create_by(key: 'doi_minting')
+    f.update(enabled: self.doi_minting)
   end
 
   private
