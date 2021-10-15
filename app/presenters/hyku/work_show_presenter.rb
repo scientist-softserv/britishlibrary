@@ -16,7 +16,7 @@ module Hyku
 
     # assumes there can only be one doi
     def doi
-      doi_regex = %r{10\.\d{4,9}\/[-._;()\/:A-Z0-9]+}i
+      # doi_regex = %r{10\.\d{4,9}\/[-._;()\/:A-Z0-9]+}i
       # if solr_document.doi
       #   doi = Array.wrap(solr_document.doi).first # for doi could be single or array
       #   doi = doi.scan(doi_regex)&.join
@@ -29,9 +29,10 @@ module Hyku
       #   return "#{ENV.fetch('DOI_BASE_URL', 'https://handle.stage.datacite.org')}/#{original_doi}" if original_doi
       # end
 
-      doi_regex = %r{10\.\d{4,9}\/[-._;()\/:A-Z0-9]+}
-      doi = extract_from_identifier(doi_regex)
-      doi&.join
+      solr_document.doi.present? ? solr_document.doi : solr_document.original_doi
+      # doi_regex = %r{10\.\d{4,9}\/[-._;()\/:A-Z0-9]+}
+      # doi = extract_from_identifier(doi_regex)
+      # doi&.join
     end
 
     # unlike doi, there can be multiple isbns
