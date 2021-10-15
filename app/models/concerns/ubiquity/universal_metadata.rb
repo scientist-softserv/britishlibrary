@@ -45,7 +45,12 @@ module Ubiquity
       property :rights_holder, predicate: ::RDF::Vocab::DC.rightsHolder do |index|
         index.as :stored_searchable
       end
+
       property :doi, predicate: ::RDF::Vocab::BIBO.doi, multiple: false do |index|
+        index.as :stored_searchable
+      end
+
+      property :original_doi, predicate: ::RDF::Vocab::BIBO.doi, multiple: false do |index|
         index.as :stored_searchable
       end
 

@@ -143,6 +143,7 @@ hyku.staging:
   only:
     refs:
       - main
+      - doi_migration
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
     DEPLOY_TAG: $CI_COMMIT_SHORT_SHA
