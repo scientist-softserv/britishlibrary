@@ -30,9 +30,6 @@ module Hyku
       # end
 
       solr_document.doi.present? ? solr_document.doi : solr_document.original_doi
-      # doi_regex = %r{10\.\d{4,9}\/[-._;()\/:A-Z0-9]+}
-      # doi = extract_from_identifier(doi_regex)
-      # doi&.join
     end
 
     # unlike doi, there can be multiple isbns
