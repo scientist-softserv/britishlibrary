@@ -50,7 +50,7 @@ module Ubiquity
         index.as :stored_searchable
       end
 
-      property :original_doi, predicate: ::RDF::Vocab::BIBO.doi, multiple: false do |index|
+      property :original_doi, predicate: ::RDF::URI("https://iro.bl.uk/resource#original_doi"), multiple: false do |index|
         index.as :stored_searchable
       end
 
