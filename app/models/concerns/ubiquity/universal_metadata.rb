@@ -46,14 +46,9 @@ module Ubiquity
         index.as :stored_searchable
       end
 
-      property :doi, predicate: ::RDF::Vocab::BIBO.doi, multiple: false do |index|
-        index.as :stored_searchable
-      end
-
       property :original_doi, predicate: ::RDF::URI("https://iro.bl.uk/resource#original_doi"), multiple: false do |index|
         index.as :stored_searchable
       end
-
       property :place_of_publication, predicate: ::RDF::Vocab::BF2.term(:Place) do |index|
         index.as :stored_searchable, :facetable
       end

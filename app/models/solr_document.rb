@@ -51,7 +51,6 @@ class SolrDocument
   attribute :article_num, Solr::Array, solr_name('article_num')
   attribute :project_name, Solr::Array, solr_name('project_name')
   attribute :rights_holder, Solr::Array, solr_name('rights_holder')
-  attribute :doi, Solr::Array, solr_name('doi')
   attribute :original_doi, Solr::Array, solr_name('original_doi')
   attribute :qualification_name, Solr::Array, solr_name('qualification_name')
   attribute :qualification_level, Solr::Array, solr_name('qualification_level')
