@@ -39,7 +39,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/hyrax-doi.git
-  revision: 0f8714d87920f137252c441fb4d9609c8440a9f5
+  revision: 8bf97601760be673406ba5fe72e76e9257fd28f9
   branch: play_nice_with_view_paths
   specs:
     hyrax-doi (0.2.0)
@@ -956,7 +956,7 @@ GEM
       rexml (~> 3.2)
     redic (1.5.3)
       hiredis
-    redis (4.5.0)
+    redis (4.5.1)
     redis-namespace (1.8.1)
       redis (>= 3.0.4)
     redlock (1.2.2)
