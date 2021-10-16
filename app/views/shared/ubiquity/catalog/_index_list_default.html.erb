@@ -44,8 +44,11 @@
       <% end %>
     <% end %>
   <% end %>
-
   </table>
+  <% if current_account.search_only %>
+    <span>From: <%= document.account_institution_name&.join %></span>
+  <% end %>
+
 </div>
 
 <div class="clearfix"></div>

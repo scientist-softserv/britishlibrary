@@ -43,6 +43,7 @@ en:
         add_info: Additional information
         article_num: Article number
         doi: DOI
+        original_doi: DOI
         issn: ISSN
         eissn: eISSN
         isbn: ISBN
