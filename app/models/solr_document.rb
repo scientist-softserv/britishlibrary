@@ -35,6 +35,7 @@ class SolrDocument
   attribute :rendering_ids, Solr::Array, solr_name('hasFormat', :symbol)
   attribute :isni, Solr::Array, solr_name('isni')
   attribute :account_cname, Solr::Array, solr_name('account_cname')
+  attribute :account_institution_name, Solr::Array, 'account_institution_name_ssim'
   attribute :institution, Solr::Array, solr_name('institution')
   attribute :org_unit, Solr::Array, solr_name('org_unit')
   attribute :refereed, Solr::Array, solr_name('refereed')
@@ -51,7 +52,7 @@ class SolrDocument
   attribute :article_num, Solr::Array, solr_name('article_num')
   attribute :project_name, Solr::Array, solr_name('project_name')
   attribute :rights_holder, Solr::Array, solr_name('rights_holder')
-  attribute :doi, Solr::Array, solr_name('doi')
+  attribute :original_doi, Solr::Array, solr_name('original_doi')
   attribute :qualification_name, Solr::Array, solr_name('qualification_name')
   attribute :qualification_level, Solr::Array, solr_name('qualification_level')
   attribute :isbn, Solr::Array, solr_name('isbn')

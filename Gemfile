@@ -123,7 +123,7 @@ gem 'rolify'
 gem 'flipflop', '~> 2.3'
 gem 'lograge'
 
-gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git'
+gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git', branch: 'play_nice_with_view_paths'
 gem 'bolognese', '1.9.7'
 
 gem 'mods', '~> 2.4'
