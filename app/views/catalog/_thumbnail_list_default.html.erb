@@ -1,12 +1,11 @@
-<%# OVERRIDE Hyrax 2.9.5 to add the year under the thumbnail on the work-show page. %>
-
+<%# OVERRIDE Hyrax 2.9.5 to add the year under the thumbnail on the work-show page, allow override of url for cross-search. %>
 <div class="col-md-2">
   <div class="list-thumbnail">
-    <%= render_thumbnail_tag document %>
+    <%= render_thumbnail_tag document, {}, {full_url: true} %>
   </div>
   <div class="year-published text-center">
     <% if document.date_published.present? %>
-    <h5><%= document.date_published[0].split('-')[0] %></h5>
+      <h5><%= document.date_published[0].split('-')[0] %></h5>
     <% end %>
   </div>
 </div>
