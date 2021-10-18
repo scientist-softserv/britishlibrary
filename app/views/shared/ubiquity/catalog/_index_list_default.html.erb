@@ -9,8 +9,7 @@
         <%= document.resource_type_label&.first %>
       </h6>
       <h4 class="search-result-title">
-        <% url = generate_work_url(document.to_h, request) %>
-        <%= link_to document.title_or_label, url %>
+        <%= search_link(document, request)  %>
       </h4>
     <% if document.abstract.present? %>
       <div class="abstract-search-results">

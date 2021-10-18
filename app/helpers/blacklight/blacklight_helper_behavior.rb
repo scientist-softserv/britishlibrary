@@ -393,16 +393,14 @@ module Blacklight
       tag :link, href: href, title: title, type: "application/opensearchdescription+xml", rel: "search"
     end
 
-    def generate_work_url(model, request)
-      request_protocol = request.protocol || 'http://'
-      account_cname = model["account_cname_tesim"].try(:first)
-      request_host = request.host
-      has_model = model["has_model_ssim"].first
-                                         .gsub(/([a-z])([A-Z])/, '\1_\2')
-                                         .downcase
-      id = model["id"]
-      request_port = request.port
-      "#{request_protocol}#{account_cname || request_host}/concern/#{has_model}s/#{id}"
+    def generate_work_url(document, request)
+      account_cname = document["account_cname_tesim"]&.first || request.host
+      polymorphic_url(document, host: account_cname, params: { search_url: request.url })
+    end
+
+    def search_link(document, request)
+      link_to(document.title_or_label, generate_work_url(document, request))
     end
   end
+
 end
