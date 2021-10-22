@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: d3ab8102b7732d0488ce7a804c339256eb438a30
+  revision: 0b92400972222d5ae821ff692158b9bb872e6cae
   branch: main
   specs:
     bulkrax (1.0.2)
@@ -847,7 +847,7 @@ GEM
       nokogiri (~> 1.6)
       rails (>= 5.0, < 6.2)
       rdf
-    racc (1.5.2)
+    racc (1.6.0)
     rack (2.2.3)
     rack-test (0.7.0)
       rack (>= 1.0, < 3)
