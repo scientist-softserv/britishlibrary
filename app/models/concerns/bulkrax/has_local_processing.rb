@@ -5,13 +5,12 @@ module Bulkrax::HasLocalProcessing
   # add any special processing here, for example to reset a metadata property
   # to add a custom property from outside of the import data
   def add_local
-    parsed_metadata['creator_search'] = parsed_metadata&.[]('creator_search')&.map {|c| c.values.join(', ')}
+    parsed_metadata['creator_search'] = parsed_metadata&.[]('creator_search')&.map { |c| c.values.join(', ') }
+    set_institutional_relationship
 
     ['funder', 'creator', 'contributor', 'editor', 'alternate_identifier', 'related_identifier', 'current_he_institution'].each do |key|
       parsed_metadata[key] = [parsed_metadata[key].to_json] if parsed_metadata[key].present?
     end
-
-    set_institutional_relationship
   end
 
   def set_institutional_relationship
@@ -20,12 +19,14 @@ module Bulkrax::HasLocalProcessing
       'staffmember': 'Staff member'
     }
 
+    # replace the invalid keys in the array below with `<field>_institional_relationship` key instead
     ['contributor_researchassociate', 'contributor_staffmember', 'creator_researchassociate', 'creator_staffmember', 'editor_researchassociate', 'editor_staffmember'].each do |field|
-      if parsed_metadata[field].present?
-        field_part, value_part = field.split('_')
-        field_name = "#{field_part}_institutional_relationship"
-        parsed_metadata[field_name] = acceptable_values[value_part]
-        parsed_metadata.delete(field)
+      object, relationship = field.split('_')
+      key = "#{object}_institutional_relationship"
+
+      parsed_metadata[object].each_with_index do |obj, index|
+        parsed_metadata[object][index][key] ||= acceptable_values[relationship.to_sym] if obj[field].present?
+        parsed_metadata[object][index].delete(field)
       end
     end
   end
