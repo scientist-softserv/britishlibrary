@@ -8,6 +8,8 @@
 module Hyrax
   # Shows the about and help page
   class PagesController < ApplicationController
+    before_action :redirect_if_search
+
     load_and_authorize_resource class: ContentBlock, except: :show
     layout :pages_layout
 
