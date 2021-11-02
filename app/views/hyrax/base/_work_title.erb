@@ -23,9 +23,11 @@
           <h5><%= presenter.date_published[0].split('-')[0] %></h5>
         <% end %>
       </div>
+      <%= render 'iiif_viewer', presenter: @presenter %>
       <%= render "show_actions", presenter: presenter %>
     <% else %>
       <h2><%= title %></h2>
+      <%= render 'iiif_viewer', presenter: @presenter %>
     <% end %>
   </div>
 <% end %>
