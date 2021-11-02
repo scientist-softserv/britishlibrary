@@ -32,107 +32,115 @@ class ApplicationController < ActionController::Base
 
   protected
 
-    def is_hidden
-      current_account.persisted? && !current_account.is_public?
-    end
+  def is_hidden
+    current_account.persisted? && !current_account.is_public?
+  end
 
-    def is_api_or_pdf
-      request.format.to_s.match('json') ||
-        params[:print] ||
-        request.path.include?('api') ||
-        request.path.include?('pdf')
-    end
+  def is_api_or_pdf
+    request.format.to_s.match('json') ||
+      params[:print] ||
+      request.path.include?('api') ||
+      request.path.include?('pdf')
+  end
 
-    def is_staging
-      ['staging'].include?(Rails.env)
-    end
+  def is_staging
+    ['staging'].include?(Rails.env)
+  end
 
-    ##
-    # Extra authentication for palni-palci during development phase
-    def authenticate_if_needed
-      # Disable this extra authentication in test mode
-      return true if Rails.env.test?
-      if (is_hidden || is_staging) && !is_api_or_pdf
-        authenticate_or_request_with_http_basic do |username, password|
-          username == "samvera" && password == "hyku"
-        end
+  ##
+  # Extra authentication for palni-palci during development phase
+  def authenticate_if_needed
+    # Disable this extra authentication in test mode
+    return true if Rails.env.test?
+    if (is_hidden || is_staging) && !is_api_or_pdf
+      authenticate_or_request_with_http_basic do |username, password|
+        username == "samvera" && password == "hyku"
       end
     end
+  end
 
-    def super_and_current_users
-      users = Role.find_by(name: 'superadmin')&.users.to_a
-      users << current_user if current_user && !users.include?(current_user)
-      users
+  def super_and_current_users
+    users = Role.find_by(name: 'superadmin')&.users.to_a
+    users << current_user if current_user && !users.include?(current_user)
+    users
+  end
+
+  protected
+
+  def redirect_if_search
+    if current_account.search_only
+      redirect_to "//#{Account.admin_host}"
     end
+  end
 
   private
 
-    def require_active_account!
-      return if singletenant?
-      return if devise_controller?
-      raise Apartment::TenantNotFound, "No tenant for #{request.host}" unless current_account.persisted?
-    end
+  def require_active_account!
+    return if singletenant?
+    return if devise_controller?
+    raise Apartment::TenantNotFound, "No tenant for #{request.host}" unless current_account.persisted?
+  end
 
-    def set_account_specific_connections!
-      current_account&.switch!
-    end
+  def set_account_specific_connections!
+    current_account&.switch!
+  end
 
-    def multitenant?
-      @multitenant ||= ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_MULTITENANT', false))
-    end
+  def multitenant?
+    @multitenant ||= ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_MULTITENANT', false))
+  end
 
-    def singletenant?
-      !multitenant?
-    end
+  def singletenant?
+    !multitenant?
+  end
 
-    def elevate_single_tenant!
-      AccountElevator.switch!(current_account.cname) if current_account && root_host?
-    end
+  def elevate_single_tenant!
+    AccountElevator.switch!(current_account.cname) if current_account && root_host?
+  end
 
-    def root_host?
-      Account.canonical_cname(request.host) == Account.root_host
-    end
+  def root_host?
+    Account.canonical_cname(request.host) == Account.root_host
+  end
 
-    def admin_host?
-      return false if singletenant?
-      Account.canonical_cname(request.host) == Account.admin_host
-    end
+  def admin_host?
+    return false if singletenant?
+    Account.canonical_cname(request.host) == Account.admin_host
+  end
 
-    def current_account
-      @current_account ||= Account.from_request(request)
-      @current_account ||= if multitenant?
-                             Account.new do |a|
-                               a.build_solr_endpoint
-                               a.build_fcrepo_endpoint
-                               a.build_redis_endpoint
-                             end
-                           else
-                             Account.single_tenant_default
+  def current_account
+    @current_account ||= Account.from_request(request)
+    @current_account ||= if multitenant?
+                           Account.new do |a|
+                             a.build_solr_endpoint
+                             a.build_fcrepo_endpoint
+                             a.build_redis_endpoint
                            end
-    end
+                         else
+                           Account.single_tenant_default
+                         end
+  end
 
-    # Find themes set on Site model, or return default
-    def home_page_theme
-      current_account.sites&.first&.home_theme || 'default_home'
-    end
+  # Find themes set on Site model, or return default
+  def home_page_theme
+    current_account.sites&.first&.home_theme || 'default_home'
+  end
 
-    def show_page_theme
-      current_account.sites&.first&.show_theme || 'default_show'
-    end
+  def show_page_theme
+    current_account.sites&.first&.show_theme || 'default_show'
+  end
 
-    def search_results_theme
-      current_account.sites&.first&.search_theme || 'list_view'
-    end
+  def search_results_theme
+    current_account.sites&.first&.search_theme || 'list_view'
+  end
 
-    # Add context information to the lograge entries
-    def append_info_to_payload(payload)
-      super
-      payload[:request_id] = request.uuid
-      payload[:user_id] = current_user.id if current_user
-      payload[:account_id] = current_account.cname if current_account
-    end
+  # Add context information to the lograge entries
+  def append_info_to_payload(payload)
+    super
+    payload[:request_id] = request.uuid
+    payload[:user_id] = current_user.id if current_user
+    payload[:account_id] = current_account.cname if current_account
+  end
 
-    def ssl_configured?
-      ActiveRecord::Type::Boolean.new.cast(current_account.ssl_configured)
-    end
+  def ssl_configured?
+    ActiveRecord::Type::Boolean.new.cast(current_account.ssl_configured)
+  end
 end
