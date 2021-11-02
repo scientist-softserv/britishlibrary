@@ -44,7 +44,9 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
     #     'Bulkrax::OaiDcParser' => { **individual field mappings go here*** }
     #   }
 
-    config.fill_in_blank_source_identifiers = ->(obj, index) { "#{Site.instance.account.name}-#{obj.importerexporter.id}-#{index}"}
+    config.fill_in_blank_source_identifiers = ->(obj, index) { "#{Site.instance.account.name}-#{obj.importerexporter.id}-#{index}" }
+    # although `<field>_researchassociate` and `<field>_staffmember` are invalid properties, we need to account for
+    # them or they'll be skipped over in the "add_metadata" bulkrax method. they're converted and removed in has_local_processing.rb
     config.field_mappings['Bulkrax::CsvParser'] = {
       'abstract' => { from: ['abstract'] },
       'access_control_id' => { excluded: true },
@@ -64,23 +66,27 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'contributor_family_name' => { from: ['contributor_family_name'], object: 'contributor' },
       'contributor_given_name' => { from: ['contributor_given_name'], object: 'contributor' },
       'contributor_grid' => { from: ['contributor_grid'], object: 'contributor' },
-      'contributor_institutional_relationship' => { from: ['contributor_institutional_relationship, contributor_researchassociate, contributor_staffmember'], object: 'contributor', nested_type: 'Array' },
+      'contributor_institutional_relationship' => { from: ['contributor_institutional_relationship'], object: 'contributor', nested_type: 'Array' },
       'contributor_isni' => { from: ['contributor_isni'], object: 'contributor' },
       'contributor_name_type' => { from: ['contributor_name_type'], object: 'contributor' },
       'contributor_orcid' => { from: ['contributor_orcid'], object: 'contributor' },
       'contributor_organization_name' => { from: ['contributor_organization_name', 'contributor_organisation_name'], object: 'contributor' },
+      'contributor_researchassociate' => { from: ['contributor_researchassociate'], object: 'contributor' },
       'contributor_ror' => { from: ['contributor_ror'], object: 'contributor' },
+      'contributor_staffmember' => { from: ['contributor_staffmember'], object: 'contributor' },
       'contributor_type' => { from: ['contributor_type'], object: 'contributor' },
       'contributor_wikidata' => { from: ['contributor_wikidata'], object: 'contributor' },
       'creator_family_name' => { from: ['creator_family_name'], object: 'creator' },
       'creator_given_name' => { from: ['creator_given_name'], object: 'creator' },
       'creator_grid' => { from: ['creator_grid'], object: 'creator' },
-      'creator_institutional_relationship' => { from: ['creator_institutional_relationship, creator_researchassociate, creator_staffmember'], object: 'creator', nested_type: 'Array' },
+      'creator_institutional_relationship' => { from: ['creator_institutional_relationship'], object: 'creator', nested_type: 'Array' },
       'creator_isni' => { from: ['creator_isni'], object: 'creator' },
       'creator_name_type' => { from: ['creator_name_type'], object: 'creator' },
       'creator_orcid' => { from: ['creator_orcid'], object: 'creator' },
       'creator_organization_name' => { from: ['creator_organization_name', 'creator_organisation_name'], object: 'creator' },
+      'creator_researchassociate' => { from: ['creator_researchassociate'], object: 'creator' },
       'creator_ror' => { from: ['creator_ror'], object: 'creator' },
+      'creator_staffmember' => { from: ['creator_staffmember'], object: 'creator' },
       'creator_type' => { from: ['creator_type'], object: 'creator' },
       'creator_wikidata' => { from: ['creator_wikidata'], object: 'creator' },
       'current_he_institution_name' => { from: ['current_he_institution'], object: 'current_he_institution' },
@@ -98,11 +104,13 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'edition' => { from: ['edition'] },
       'editor_family_name' => { from: ['editor_family_name'], object: 'editor' },
       'editor_given_name' => { from: ['editor_given_name'], object: 'editor' },
-      'editor_institutional_relationship' => { from: ['editor_institutional_relationship, editor_researchassociate, editor_staffmember'], object: 'editor', nested_type: 'Array' },
+      'editor_institutional_relationship' => { from: ['editor_institutional_relationship'], object: 'editor', nested_type: 'Array' },
       'editor_isni' => { from: ['editor_isni'], object: 'editor' },
       'editor_name_type' => { from: ['editor_name_type'], object: 'editor' },
       'editor_orcid' => { from: ['editor_orcid'], object: 'editor' },
       'editor_organization_name' => { from: ['editor_organization_name', 'editor_organisation_name'], object: 'editor' },
+      'editor_researchassociate' => { from: ['editor_researchassociate'], object: 'editor' },
+      'editor_staffmember' => { from: ['editor_staffmember'], object: 'editor' },
       'eissn' => { from: ['eissn'] },
       'embargo_id' => { excluded: true },
       'event_date' => { excluded: true },
