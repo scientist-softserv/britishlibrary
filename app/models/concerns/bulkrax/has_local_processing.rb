@@ -25,7 +25,10 @@ module Bulkrax::HasLocalProcessing
       key = "#{object}_institutional_relationship"
 
       parsed_metadata[object].each_with_index do |obj, index|
-        parsed_metadata[object][index][key] ||= acceptable_values[relationship.to_sym] if obj[field].present?
+        unless parsed_metadata[object][index][key].first.present?
+          parsed_metadata[object][index][key] = acceptable_values[relationship.to_sym] if obj[field].present?
+        end
+
         parsed_metadata[object][index].delete(field)
       end
     end
