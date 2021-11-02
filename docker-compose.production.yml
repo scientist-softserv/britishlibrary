@@ -5,6 +5,8 @@ x-app: &app
   build:
     context: .
     target: hyku-base
+    args:
+      - HYKU_BULKRAX_ENABLED=true
   image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
   env_file:
     - .env.production
@@ -122,6 +124,8 @@ services:
     build:
       context: .
       target: hyku-worker
+      args:
+        - HYKU_BULKRAX_ENABLED=true
     command: bundle exec sidekiq
     depends_on:
       - check_volumes

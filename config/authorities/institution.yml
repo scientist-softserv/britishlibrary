@@ -35,7 +35,10 @@ terms:
     term: Gloucestershire Hospitals NHS Foundation Trust
     active: true
   - id: Norfolk and Waveney Strategic Transformation Partnership
-    term: Norfolk and Waveney Strategic Transformation Partnership
+    term: Norfolk and Waveney Strategic Transformation Partnershipm
+    active: false
+  - id: Norfolk and Waveney Integrated Care System
+    term: Norfolk and Waveney Integrated Care System
     active: true
   - id: Somerset NHS Foundation Trust
     term: Somerset NHS Foundation Trust
