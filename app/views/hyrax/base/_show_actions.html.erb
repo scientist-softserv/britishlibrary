@@ -1,6 +1,15 @@
 <%# OVERRIDE Hyrax 2.9.1 and 2 parts from the main branch as of 7/14/2021 . There was a bug for 2.9.1-2.9.5 that caused the feature/unfeature buttons to show up on the work-show page for editors when they should not. This has since been fixed but this override retroactively changes the issue. %>
 
 <div class="show-actions">
+  <% if presenter.iiif_viewer? %>
+    <button>
+      <%= link_to 'View files in viewer',
+                  "#{universal_viewer_base_url}?manifestUri=#{main_app.polymorphic_url [main_app, :manifest, presenter], { locale: nil }}&config=#{universal_viewer_config_url}",
+                  class: 'btn btn-default',
+                  target: :_blank
+      %>
+    </button>
+  <% end %>
   <% if Hyrax.config.analytics? %>
     <%= link_to "Analytics", presenter.stats_path, id: 'stats', class: 'btn btn-default' %>
   <% end %>
