@@ -1165,14 +1165,8 @@ body.public-facing {
       font-weight: initial;
     }
   }
-
-  .iiif_viewer {
-    border: 1px solid $darkgrey;
-    border-radius: 5px;
-    color: $darkgrey;
-    font-size: 13px;
-    padding: 3px 6px;
-    background-color: #E9E9ED;
+  .show-actions {
+    padding-left: 0;
   }
 
   dl.work-show {
