@@ -14,7 +14,7 @@ class ExternalUrlAttributeRenderer < Hyrax::Renderers::AttributeRenderer
       sorted_arr = value.sort_by(&:downcase)
       sorted_arr.map.with_index do |url, index|
         attributes = microdata_object_attributes(field).merge(class: "attribute attribute-#{field} #{'collapse' if index > 4}")
-        complete_url = "https://" + url
+        complete_url = url.match(/^http/) ? url : "https://" + url
         final_url = if label == 'DOI'
                       auto_link(complete_url, html: { target: '_blank' })
                     else
