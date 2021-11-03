@@ -19,7 +19,7 @@ module Bulkrax::HasLocalProcessing
       'staffmember': 'Staff member'
     }
 
-    # replace the invalid keys in the array below with `<field>_institional_relationship` key instead
+    # remove the invalid keys in the array below and use the `<object>_institional_relationship` key only
     ['contributor_researchassociate', 'contributor_staffmember', 'creator_researchassociate', 'creator_staffmember', 'editor_researchassociate', 'editor_staffmember'].each do |field|
       object, relationship = field.split('_')
       key = "#{object}_institutional_relationship"
