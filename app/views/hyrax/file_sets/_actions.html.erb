@@ -39,7 +39,7 @@
       </li>
     <% end %>
 
-    <% if @presenter.iiif_viewer? %>
+    <% if file_set.image? %>
       <li role='menuitem' tabindex='-1'>
         <%= link_to 'Open in viewer',
                     "#{universal_viewer_base_url}?manifestUri=#{main_app.polymorphic_url [main_app, :manifest, presenter], { locale: nil }}",
