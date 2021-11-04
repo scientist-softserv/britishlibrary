@@ -123,7 +123,7 @@ app/renderers/ubiquity/external_url_attribute_renderer.rb to reflect the newly r
 <% if presenter.doi.present? %>
   <%= presenter.attribute_to_html(:doi, label: "DOI", render_as: :external_url) %>
 <% else %>
-  <%= presenter.attribute_to_html(:original_doi, label: "DOI", render_as: :external_url) %>
+  <%= presenter.attribute_to_html(:original_doi, label: "DOI") %>
 <% end %>
 <%= presenter.attribute_to_html(:qualification_name, render_as: :string) %>
 
