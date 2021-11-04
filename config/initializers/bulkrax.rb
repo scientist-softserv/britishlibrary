@@ -44,7 +44,9 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
     #     'Bulkrax::OaiDcParser' => { **individual field mappings go here*** }
     #   }
 
-    config.fill_in_blank_source_identifiers = ->(obj, index) { "#{Site.instance.account.name}-#{obj.importerexporter.id}-#{index}"}
+    config.fill_in_blank_source_identifiers = ->(obj, index) { "#{Site.instance.account.name}-#{obj.importerexporter.id}-#{index}" }
+    # although `<field>_researchassociate` and `<field>_staffmember` are invalid properties, we need to account for
+    # them or they'll be skipped over in the "add_metadata" bulkrax method. they're converted and removed in has_local_processing.rb
     config.field_mappings['Bulkrax::CsvParser'] = {
       'abstract' => { from: ['abstract'] },
       'access_control_id' => { excluded: true },
@@ -64,6 +66,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'contributor_family_name' => { from: ['contributor_family_name'], object: 'contributor' },
       'contributor_given_name' => { from: ['contributor_given_name'], object: 'contributor' },
       'contributor_grid' => { from: ['contributor_grid'], object: 'contributor' },
+      'contributor_institutional_relationship' => { from: ['contributor_institutional_relationship'], object: 'contributor', nested_type: 'Array' },
       'contributor_isni' => { from: ['contributor_isni'], object: 'contributor' },
       'contributor_name_type' => { from: ['contributor_name_type'], object: 'contributor' },
       'contributor_orcid' => { from: ['contributor_orcid'], object: 'contributor' },
@@ -76,6 +79,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'creator_family_name' => { from: ['creator_family_name'], object: 'creator' },
       'creator_given_name' => { from: ['creator_given_name'], object: 'creator' },
       'creator_grid' => { from: ['creator_grid'], object: 'creator' },
+      'creator_institutional_relationship' => { from: ['creator_institutional_relationship'], object: 'creator', nested_type: 'Array' },
       'creator_isni' => { from: ['creator_isni'], object: 'creator' },
       'creator_name_type' => { from: ['creator_name_type'], object: 'creator' },
       'creator_orcid' => { from: ['creator_orcid'], object: 'creator' },
@@ -100,6 +104,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'edition' => { from: ['edition'] },
       'editor_family_name' => { from: ['editor_family_name'], object: 'editor' },
       'editor_given_name' => { from: ['editor_given_name'], object: 'editor' },
+      'editor_institutional_relationship' => { from: ['editor_institutional_relationship'], object: 'editor', nested_type: 'Array' },
       'editor_isni' => { from: ['editor_isni'], object: 'editor' },
       'editor_name_type' => { from: ['editor_name_type'], object: 'editor' },
       'editor_orcid' => { from: ['editor_orcid'], object: 'editor' },
@@ -134,7 +139,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'library_of_congress_classification' => { from: ['library_of_congress_classification'] },
       'license' => { from: ['license', 'licence'] },
       'media' => { from: ['material_media'] },
-      'model' => { from: ['work_type'] },
+      'model' => { from: ['model, work_type'] },
       'official_link' => { from: ['official_url'] },
       'on_behalf_of' => { excluded: true },
       'org_unit' => { from: ['organizational_unit', 'organisational_unit'] },
