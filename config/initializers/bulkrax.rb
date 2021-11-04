@@ -139,7 +139,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'library_of_congress_classification' => { from: ['library_of_congress_classification'] },
       'license' => { from: ['license', 'licence'] },
       'media' => { from: ['material_media'] },
-      'model' => { from: ['model, work_type'] },
+      'model' => { from: ['model', 'work_type'] },
       'official_link' => { from: ['official_url'] },
       'on_behalf_of' => { excluded: true },
       'org_unit' => { from: ['organizational_unit', 'organisational_unit'] },
