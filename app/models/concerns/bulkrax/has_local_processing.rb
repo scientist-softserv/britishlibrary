@@ -23,13 +23,17 @@ module Bulkrax::HasLocalProcessing
     ['contributor_researchassociate', 'contributor_staffmember', 'creator_researchassociate', 'creator_staffmember', 'editor_researchassociate', 'editor_staffmember'].each do |field|
       object, relationship = field.split('_')
       key = "#{object}_institutional_relationship"
+      if parsed_metadata[object].present?
+        parsed_metadata[object].each_with_index do |obj, index|
+          next unless parsed_metadata&.[](object)&.[](index)
+          # skip if no object or no object at index
+          # if object and index are preset, but key is either nil or empty AND obj[field] is present, set the key
+          if parsed_metadata[object][index][key]&.first&.blank? && obj[field].present?
+            parsed_metadata[object][index][key] = acceptable_values[relationship.to_sym]
+          end
 
-      parsed_metadata[object].each_with_index do |obj, index|
-        unless parsed_metadata[object][index][key].first.present?
-          parsed_metadata[object][index][key] = acceptable_values[relationship.to_sym] if obj[field].present?
+          parsed_metadata&.[](object)&.[](index)&.delete(field)
         end
-
-        parsed_metadata[object][index].delete(field)
       end
     end
   end
