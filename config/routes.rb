@@ -87,6 +87,7 @@ Rails.application.routes.draw do
     end
   end
 
+  post 'funder' => 'lookup#funder', as: :lookup_funder
   get 'all_collections' => 'hyrax/homepage#all_collections', as: :all_collections
   get 'browserconfig' => 'hyrax/homepage#browserconfig', as: :browserconfig
   # BL Routes

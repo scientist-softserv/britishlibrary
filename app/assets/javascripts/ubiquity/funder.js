@@ -44,7 +44,7 @@ function activateAutocompleteForFunderName(){
       }, response );
     },
     select: function(ui, result) {
-      closest_div = $(this).closest('div')
+      closest_div = $(this).closest('div.ubiquity-meta-funder')
       closest_div.find('.ubiquity_funder_doi').val('')
       //remove all funder award except the first
       closest_div.find('.funder_awards_input_fields_wrap li').not(':first').remove();
