@@ -97,7 +97,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'description' => { excluded: true },
       'dewey' => { from: ['dewey_classification'] },
       'disable_draft_doi' => { excluded: true },
-      'doi' => { from: ['doi'] },
+      'original_doi' => { from: ['doi'] },
       'doi_options' => { excluded: true },
       'draft_doi' => { excluded: true },
       'duration' => { from: ['duration'] },
