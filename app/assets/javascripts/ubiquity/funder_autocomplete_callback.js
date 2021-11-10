@@ -1,9 +1,9 @@
 $(document).on("turbolinks:load", function(){
   $('.ubiquity_funder_name').autocomplete({
     select: function(ui, result) {
-      closest_div = $(this).closest('div')
+      closest_div = $(this).closest('div.ubiquity-meta-funder')
       closest_div.find('.ubiquity_funder_doi').val('')
-      
+
       //remove all funder award except the first
       closest_div.find('.funder_awards_input_fields_wrap li').not(':first').remove();
       //set first funder_award to empty string
@@ -18,8 +18,7 @@ $(document).on("turbolinks:load", function(){
 function fetchFunderFieldData(funder_id, closest_div) {
   var host = window.document.location.host;
   var protocol = window.document.location.protocol;
-  var fullHost = protocol + '//' + host + '/available_ubiquity_titles/call_funder_api';
-  var closest_div = closest_div;
+  var fullHost = protocol + '//' + host + '/funder';
   closest_div.find('.ubiquity_funder_ror').val('')
   closest_div.find('.ubiquity_funder_isni').val('')
   $.ajax({
