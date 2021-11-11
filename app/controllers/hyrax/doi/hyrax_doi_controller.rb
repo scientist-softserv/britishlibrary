@@ -25,18 +25,6 @@ module Hyrax
         end
       end
 
-      def autofill
-        doi = params['doi']
-
-        respond_to do |format|
-          format.js { render js: autofill_js(doi), status: :ok }
-        end
-      rescue Hyrax::DOI::NotFoundError => e
-        respond_to do |format|
-          format.js { render plain: e.message, status: :internal_server_error }
-        end
-      end
-
       private
 
       def check_authorization
@@ -52,38 +40,12 @@ module Hyrax
         Hyrax::Identifier::Registrar.for(:datacite, {})
       end
 
-      def use_sandbox
-        !doi_registrar.mode.equal?(:production)
-      end
-
       def field_selector(attribute_name)
         ".#{params[:curation_concern]}_#{attribute_name}"
       end
 
       def doi_attribute_name
         params[:attribute] || "doi"
-      end
-
-      def hyrax_work_from_doi(doi)
-        # TODO: generalize this
-        meta = Bolognese::Metadata.new(input: doi,
-                                       from: "datacite",
-                                       sandbox: use_sandbox)
-        meta = Bolognese::Metadata.new(input: doi,
-                                       from: "crossref",
-                                       sandbox: use_sandbox) if meta.blank? || meta.doi.blank? || meta.state == "not_found"
-        # Check that a record was actually loaded
-        raise Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." if meta.blank? || meta.doi.blank?
-        meta.types["hyrax"] = params['curation_concern'].camelize
-        meta.hyrax_work
-      end
-
-      # TODO: Move this out to a partial that gets rendered?
-      def autofill_js(doi)
-        # byebug
-        # TODO: Need to wipe old data or is this just supplemental?
-        js = hyrax_work_from_doi(doi).collect { |k, v| autofill_field(k, v) }.reject(&:blank?).join("\n")
-        js << "document.location = '#metadata';"
       end
 
       def ubiquity_js_fields
@@ -105,7 +67,6 @@ module Hyrax
               js << "}"
               # js << "document.querySelectorAll('.add_another_funder_awards_button')[#{position}].click();" if attribute_name == 'funder_award'
             end
-
             if attribute_name.include?('date')
               dates = v.split('-')
               js << "if(document.querySelectorAll('#{field_selector(attribute_name)} .form-control')[#{index}] != undefined) {"
@@ -117,10 +78,11 @@ module Hyrax
             end
 
             js << "$.when(document.querySelectorAll('a.add_#{attribute_name.split('_')&.first}')[#{index}].click()).then(function() {" if ubiquity_js_fields.include?(attribute_name) && index < Array(value).length-1
-            js << "  doi_form_var = document.querySelectorAll('#{field_selector(attribute_name)} .form-control');"
+            js << "  doi_form_var = document.querySelectorAll('#{field_selector(attribute_name)} .form-control, #{field_selector(attribute_name)} .select-control');"
             js << "  if(doi_form_var[#{index}] != undefined) {"
-            js << "    document.querySelectorAll('#{field_selector(attribute_name)} .form-control')[#{index}].value = '#{helpers.escape_javascript(v)}';"
-            js << "    $(document.querySelectorAll('#{field_selector(attribute_name)} .form-control')[#{index}]).change();" if ubiquity_js_fields.include?(attribute_name)
+            # js << " debugger"
+            js << "    document.querySelectorAll('#{field_selector(attribute_name)} .form-control, #{field_selector(attribute_name)} .select-control')[#{index}].value = '#{helpers.escape_javascript(v)}';"
+            js << "    $(document.querySelectorAll('#{field_selector(attribute_name)} .form-control, #{field_selector(attribute_name)} .select-control')[#{index}]).change();" if ubiquity_js_fields.include?(attribute_name)
             js << "  }"
             js << "})" if ubiquity_js_fields.include?(attribute_name) && index < Array(value).length-1
 
