@@ -29,16 +29,16 @@
   <% end %>
   <% if current_account.doi_reader %>
   <%= link_to "Autofill form",
-              Hyrax::DOI::Engine.routes.url_helpers.autofill_path,
-              remote: true,
-              method: :get,
-              data: {
-                confirm: t("hyrax.works.form.autofill.button.confirm"),
-                disable_with: t("hyrax.works.form.autofill.button.disable_with"),
-                params: { curation_concern: curation_concern.class.name.underscore }
-              },
-              class: 'btn btn-primary',
-              id: 'doi-autofill-btn' %>
+     request.original_url,
+     remote: true,
+     method: :get,
+     data: {
+       confirm: t("hyrax.works.form.autofill.button.confirm"),
+       disable_with: t("hyrax.works.form.autofill.button.disable_with"),
+       params: { curation_concern: curation_concern.class.name.underscore }
+     },
+     class: 'btn btn-primary',
+     id: 'doi-autofill-btn' %>
   <% end %>
   <br/><br/><br/>
 
@@ -74,8 +74,14 @@
   // There is probably a better way to do this but this works for now
   $("#doi-autofill-btn").on("ajax:beforeSend", function(e, xhr, settings) {
     doi = $('<%= "##{curation_concern.class.name.underscore}_doi" %>').val()
-    settings.url = settings.url + "&doi=" + encodeURIComponent(doi)
+    settings.url = (settings.url + "&doi=" + encodeURIComponent(doi) + "#metadata").replace('.js', '').replace('?', '.js?')
   });
+
+  $("#doi-autofill-btn").on("ajax:success", function(xhr, data, status) {
+    $("[data-behavior='work-form']").replaceWith(data)
+    $('[href="#metadata"]').click()
+  });
+
 
   $("#doi-create-draft-btn").on("ajax:error", function(e, xhr, status, error) {
     alert(xhr.responseText);
