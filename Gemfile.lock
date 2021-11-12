@@ -20,8 +20,8 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 0b92400972222d5ae821ff692158b9bb872e6cae
-  branch: main
+  revision: 8b2c83553a455ab54a249dfc976796d50942b94a
+  branch: found_model_only
   specs:
     bulkrax (1.0.2)
       bagit (~> 0.4)
@@ -586,7 +586,7 @@ GEM
       signet
       solrizer (>= 3.4, < 5)
       tinymce-rails (~> 4.1)
-    i18n (1.8.10)
+    i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     i18n-debug (1.2.0)
       i18n (< 2)
@@ -1124,9 +1124,9 @@ GEM
       babel-source (>= 5.8.11)
       babel-transpiler
       sprockets (>= 3.0.0)
-    sprockets-rails (3.2.2)
-      actionpack (>= 4.0)
-      activesupport (>= 4.0)
+    sprockets-rails (3.3.0)
+      actionpack (>= 5.2)
+      activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.7)
     sxp (1.1.0)
