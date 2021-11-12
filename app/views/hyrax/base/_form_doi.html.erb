@@ -79,6 +79,7 @@
 
   $("#doi-autofill-btn").on("ajax:success", function(xhr, data, status) {
     $("[data-behavior='work-form']").replaceWith(data)
+    $(document).trigger('turbolinks:load')
     $('[href="#metadata"]').click()
   });
 
