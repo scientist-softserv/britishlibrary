@@ -2,16 +2,17 @@
 # OVERRIDE: British Libraries override to Hyrax v.2.9.5 so that a new work defaults to a "public" visibility
 # COPIED FROM HYRAX 2.9.0 to add inject_show_theme_views - Hyku theming
 require 'iiif_manifest'
+require "hyrax/doi/errors"
 
 module Hyrax
   module WorksControllerBehavior # rubocop:disable Metrics/ModuleLength
     extend ActiveSupport::Concern
     include Blacklight::Base
     include Blacklight::AccessControls::Catalog
-
     included do
       with_themed_layout :decide_layout
       copy_blacklight_config_from(::CatalogController)
+      rescue_from Hyrax::DOI::NotFoundError, :with => :error_doi_not_found
 
       class_attribute :_curation_concern_type,
         :show_presenter,
@@ -167,12 +168,18 @@ module Hyrax
     end
 
     private
+    def error_doi_not_found
+      respond_to do |with|
+        with.all  { render :plain => "DOI not found.", :status => 404 }
+     with end
+    end
     def set_doi_data
       if params['doi'].present?
         begin
           work_attributes = hyrax_work_from_doi(params['doi'])
           curation_concern.attributes = work_attributes
-        rescue Hyrax::DOI::NotFoundError => e
+        rescue => e
+          raise Hyrax::DOI::NotFoundError
         end
       end
     end
