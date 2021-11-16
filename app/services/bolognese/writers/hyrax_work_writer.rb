@@ -82,12 +82,10 @@ module Bolognese
           "#{field_name}_name_type" => field["nameType"]&.sub("Organizational", "Organisational"),
           "#{field_name}_ror" => field["affiliation"]&.map { |a| a["affiliationIdentifier"]&.split("/")&.last }&.first,
           "#{field_name}_position" => index.to_s,
-          "#{field_name}_orcid" => field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"].match(/orcid/i) }.map { |a| a['nameIdentifier'] }
-
-          #"CREATOR_isni":creators&.pluck("name"),
-          #"creator_grid":creators&.pluck("name"),
+          "#{field_name}_orcid" => field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"]&.match(/orcid/i) }&.map { |a| a['nameIdentifier'] },
+          "#{field_name}_isni" => field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"]&.match(/isni/i) }&.map { |a| a['nameIdentifier'] },
+          "#{field_name}_grid" => field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"]&.match(/grid/i) }&.map { |a| a['nameIdentifier'] }
           #"creator_wikidata":creators&.pluck("name"),
-          #"creator_orcid":creators&.pluck("name"),
           #"creator_institutional_relationship":[""],
         }
       end
