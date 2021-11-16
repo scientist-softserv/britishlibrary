@@ -173,34 +173,29 @@ module Hyrax
         with.all  { render :plain => "DOI not found.", :status => 404 }
      with end
     end
+
     def set_doi_data
       if params['doi'].present?
         begin
           work_attributes = hyrax_work_from_doi(params['doi'])
           curation_concern.attributes = work_attributes
-        rescue => e
-          raise Hyrax::DOI::NotFoundError
+        # rescue => e
+        #  raise Hyrax::DOI::NotFoundError
         end
       end
-    end
-
-    def doi_registrar
-      # TODO: generalize this
-      Hyrax::Identifier::Registrar.for(:datacite, {})
-    end
-
-    def use_sandbox
-      !doi_registrar.mode.equal?(:production)
     end
 
     def hyrax_work_from_doi(doi)
       # TODO: generalize this
       meta = Bolognese::Metadata.new(input: doi,
         from: "datacite",
-        sandbox: use_sandbox)
+        sandbox: false)
       meta = Bolognese::Metadata.new(input: doi,
         from: "crossref",
-        sandbox: use_sandbox) if meta.blank? || meta.doi.blank? || meta.state == "not_found"
+        sandbox: false) if meta.blank? || meta.doi.blank? || meta.state == "not_found"
+      meta = Bolognese::Metadata.new(input: doi,
+        from: "datacite",
+        sandbox: true) if meta.blank? || meta.doi.blank? || meta.state == "not_found"
       # Check that a record was actually loaded
       raise Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." if meta.blank? || meta.doi.blank?
       meta.types["hyrax"] = curation_concern.class.to_s
