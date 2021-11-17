@@ -25,6 +25,7 @@ module Bolognese
           'keyword' => subjects&.pluck("subject")&.uniq,
           'language' => Array(language),
           'license' => rights_list&.map { |r| r['rightsUri'].sub('legalcode', '') },
+          'journal_title' => journal_title,
           'official_link' => url,
           'publisher' => Array(publisher),
           'related_identifier' => build_hyrax_work_related_identifier,
@@ -137,6 +138,10 @@ module Bolognese
           end.to_json)
         @build_hyrax_work_related_identifier = nil if @build_hyrax_work_related_identifier == ["[]"]
         @build_hyrax_work_related_identifier
+      end
+
+      def journal_title
+        container&.[]('type') == 'Journal' ? container['title'] : nil
       end
     end
   end
