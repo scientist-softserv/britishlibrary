@@ -237,6 +237,7 @@ module Ubiquity
           end
           hash.reject { |_k, v| v.nil? || v.to_s.empty? || v == "NaN" }
         end
+        new_data.reject! { |hash| hash.blank? }
         remove_hash_with_default_keys(new_data)
       end
     end
