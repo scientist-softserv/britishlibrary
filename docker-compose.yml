@@ -137,7 +137,7 @@ services:
       - 3000
 
   worker:
-    command: sh -l -c "bundle && bundle exec sidekiq"
+    # command: sh -l -c "bundle && bundle exec sidekiq"
     <<: *app
     build:
       context: .
