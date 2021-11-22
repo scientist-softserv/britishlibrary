@@ -20,6 +20,7 @@ module Bulkrax::HasLocalProcessing
     top_key = parsed_metadata['member_of_collections_attributes'].keys.map {|k| k.to_i}.sort.last || -1
 
     collection_ids.each do |collection_id|
+      next if collection_id.blank?
       top_key += 1
       parsed_metadata['member_of_collections_attributes']["#{top_key}"] = { id: collection_id }
     end
