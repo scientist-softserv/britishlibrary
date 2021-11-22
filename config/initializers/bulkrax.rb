@@ -63,7 +63,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'bibliographic_citation' => { from: ['bibliograpic_citation'] },
       'book_title' => { from: ['book_title'] },
       'bulkrax_identifier' => { from: ['bulkrax_identifier'], source_identifier: true },
-      'collection' => { from: ['collection_id'] },
+      'collection' => { from: ['collection', 'collection_id'] },
       'contributor_family_name' => { from: ['contributor_family_name'], object: 'contributor' },
       'contributor_given_name' => { from: ['contributor_given_name'], object: 'contributor' },
       'contributor_grid' => { from: ['contributor_grid'], object: 'contributor' },
