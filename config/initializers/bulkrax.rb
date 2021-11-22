@@ -37,7 +37,6 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
     # The default value for CSV is collection
     # Add/replace parsers, for example:
     # config.collection_field_mapping['Bulkrax::RdfEntry'] = 'http://opaquenamespace.org/ns/set'
-    config.collection_field_mapping['Bulkrax::CsvEntry'] = 'fake_disabled'
 
     # Field mappings
     # Create a completely new set of mappings by replacing the whole set as follows
