@@ -177,10 +177,13 @@ module Hyrax
     def set_doi_data
       if params['doi'].present?
         begin
-          work_attributes = hyrax_work_from_doi(params['doi'])
-          curation_concern.attributes = work_attributes
-        # rescue => e
-        #  raise Hyrax::DOI::NotFoundError
+          @work_attributes = hyrax_work_from_doi(params['doi'])
+          curation_concern.attributes = @work_attributes
+          flash_keys = @work_attributes.keys.map { |k| t("simple_form.labels.defaults.#{k}", default: k.humanize) }
+          flash[:notice] = ["The following fields were auto-populated:", flash_keys.to_sentence]
+        rescue => e
+          Rails.logger.info(e.message)
+          raise Hyrax::DOI::NotFoundError
         end
       end
     end
