@@ -21,7 +21,10 @@ module Bolognese
           'date_submitted' => get_date_from_type('Submitted').first,
           'description' => build_hyrax_work_description,
           'doi' => build_hyrax_work_doi(doi),
-          'identifier' => Array(identifiers).reject { |id| id["identifierType"] == "DOI" }.pluck("identifier"),
+          'original_doi' => build_hyrax_work_doi(doi)&.first,
+          'issn' => issn,
+          'eissn' => eissn,
+          'identifier' => Array(identifiers).reject { |id| ['doi', 'issn', 'eissn'].include?(id["identifierType"].downcase.strip) }.pluck("identifier"),
           'keyword' => subjects&.pluck("subject")&.uniq,
           'language' => Array(language),
           'license' => rights_list&.map { |r| r['rightsUri'].sub('legalcode', '') },
@@ -38,6 +41,19 @@ module Bolognese
         attributes
       end
 
+      def raw_xml
+        @raw_xml ||= Maremma.from_xml(string).dig("crossref_result", "query_result", "body", "query", "doi_record") || {} 
+      end
+
+      def raw_meta
+        @raw_meta = raw_xml.dig("doi_record", "crossref", "error").nil? ? raw_xml : {}
+      end
+
+      def raw_query
+        # query contains information from outside metadata schema, e.g. publisher name
+        @raw_query ||= Maremma.from_xml(string).dig("crossref_result", "query_result", "body", "query") || {}
+      end
+
       private
 
       def determine_hyrax_work_class
@@ -52,6 +68,16 @@ module Bolognese
           # Put BasicMetadata include last since it finalizes the metadata schema
           c.include ::Hyrax::BasicMetadata
         end
+      end
+
+      def issn
+        val = raw_meta&.dig("crossref", "journal", "journal_metadata", "issn")&.select {|i| i['media_type'] == 'print'}&.pluck('__content__').first
+        normalize_issn(val) if val.present?
+      end
+
+      def eissn
+        val = raw_meta&.dig("crossref", "journal", "journal_metadata", "issn")&.select {|i| i['media_type'] == 'electronic'}&.pluck('__content__').first
+        normalize_issn(val) if val.present?
       end
 
       def build_hyrax_work_doi(doi_uri)
@@ -129,13 +155,16 @@ module Bolognese
       end
 
       def build_hyrax_work_related_identifier
-        @build_hyrax_work_related_identifier ||= Array.wrap(related_identifiers.each_with_index.map do |identifier, i|
-            {
-              'related_identifier' => identifier['relatedIdentifier'],
-              'related_identifier_type' => identifier['relatedIdentifierType'],
-              'relation_type' => identifier['relationType']
-            }
-          end.to_json)
+        return @build_hyrax_work_related_identifier if @build_hyrax_work_related_identifier.present?
+        selected_identifiers = related_identifiers.select { |i| i['relationType'].downcase != "references" }
+        selected_identifiers.map! do |i|
+          {
+            'related_identifier' => i['relatedIdentifier'],
+            'related_identifier_type' => i['relatedIdentifierType'],
+            'relation_type' => i['relationType']
+          }
+        end
+        @build_hyrax_work_related_identifier = Array.wrap(selected_identifiers.to_json)
         @build_hyrax_work_related_identifier = nil if @build_hyrax_work_related_identifier == ["[]"]
         @build_hyrax_work_related_identifier
       end

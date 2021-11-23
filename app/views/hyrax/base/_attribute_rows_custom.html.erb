@@ -121,7 +121,7 @@
 app/renderers/ubiquity/external_url_attribute_renderer.rb to reflect the newly re-named label
 -->
 <% if presenter.doi.present? %>
-  <%= presenter.attribute_to_html(:doi, label: "DOI", render_as: :external_url) %>
+  <%= presenter.attribute_to_html(:doi, label: "DOI") %>
 <% else %>
   <%= presenter.attribute_to_html(:original_doi, label: "DOI") %>
 <% end %>
