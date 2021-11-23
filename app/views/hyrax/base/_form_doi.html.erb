@@ -68,6 +68,17 @@
 	<% end %>
 </div>
 
+<div id='hidden-flash' class='hide'>
+  <% { notice: 'alert-success', error: 'alert-danger', alert: 'alert-warning' }.each do |type, flash_dom_class| %>
+    <% if flash[type].present? %>
+      <div class="alert <%= flash_dom_class %> alert-dismissable" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%= sanitize Array.wrap(flash[type]).join(tag(:br)) %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
 <script type="text/javascript">
   // Append the DOI filled in the form to the request
   // Note this uses jQuery since we're using jquery-ujs still
@@ -79,6 +90,8 @@
 
   $("#doi-autofill-btn").on("ajax:success", function(xhr, data, status) {
     $("[data-behavior='work-form']").replaceWith(data)
+    $('div.main-content > div.alert-success').remove()
+    $('nav.breadcrumb').after($('#hidden-flash').html())
     $(document).trigger('turbolinks:load')
     $('[href="#metadata"]').click()
   });
