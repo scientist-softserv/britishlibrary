@@ -43,7 +43,9 @@ module Bolognese
       end
 
       def raw_xml
-        @raw_xml ||= Maremma.from_xml(string).dig("crossref_result", "query_result", "body", "query", "doi_record") || {} 
+        @raw_xml ||= Maremma.from_xml(string).dig("crossref_result", "query_result", "body", "query", "doi_record") || {}
+      rescue
+        {}
       end
 
       def raw_meta
@@ -53,6 +55,8 @@ module Bolognese
       def raw_query
         # query contains information from outside metadata schema, e.g. publisher name
         @raw_query ||= Maremma.from_xml(string).dig("crossref_result", "query_result", "body", "query") || {}
+      rescue
+        {}
       end
 
       private
@@ -72,12 +76,12 @@ module Bolognese
       end
 
       def issn
-        val = raw_meta&.dig("crossref", "journal", "journal_metadata", "issn")&.select {|i| i['media_type'] == 'print'}&.pluck('__content__')&.first
+        val = Array.wrap(raw_meta&.dig("crossref", "journal", "journal_metadata", "issn"))&.select {|i| i['media_type'] == 'print'}&.pluck('__content__')&.first
         normalize_issn(val) if val.present?
       end
 
       def eissn
-        val = raw_meta&.dig("crossref", "journal", "journal_metadata", "issn")&.select {|i| i['media_type'] == 'electronic'}&.pluck('__content__')&.first
+        val = Array.wrap(raw_meta&.dig("crossref", "journal", "journal_metadata", "issn"))&.select {|i| i['media_type'] == 'electronic'}&.pluck('__content__')&.first
         normalize_issn(val) if val.present?
       end
 

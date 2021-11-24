@@ -183,7 +183,11 @@ module Hyrax
           flash[:notice] = ["The following fields were auto-populated:", flash_keys.to_sentence]
         rescue => e
           Rails.logger.info(e.message)
-          raise Hyrax::DOI::NotFoundError
+          if Rails.env.development?
+            raise
+          else
+            raise Hyrax::DOI::NotFoundError
+          end
         end
       end
     end
