@@ -235,7 +235,8 @@ module Ubiquity
           ['contributor_orcid', 'contributor_isni', 'creator_orcid', 'creator_isni', 'editor_isni', 'editor_orcid'].each do|ele|
             hash[ele] = hash[ele].strip.chomp('/').split('/').last.gsub(/[^a-z0-9X-]/, '') if hash[ele].present?
           end
-          hash.reject { |_k, v| v.nil? || v.to_s.empty? || v == "NaN" }
+          debugger
+          hash.reject { |_k, v| v.nil? || v.to_s.empty? || v == "NaN" || v == [''] }
         end
         new_data.reject! { |hash| hash.blank? }
         remove_hash_with_default_keys(new_data)
