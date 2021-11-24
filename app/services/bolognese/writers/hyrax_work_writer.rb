@@ -194,7 +194,7 @@ module Bolognese
 
       def publication_date
         date_hash = Array.wrap(raw_meta&.dig('crossref', 'journal', 'journal_issue', 'publication_date')).first
-        date_hash = Array.wrap(raw_meta&.dig('crossref', 'journal', 'journal_article', 'publication_date')).first
+        date_hash ||= Array.wrap(raw_meta&.dig('crossref', 'journal', 'journal_article', 'publication_date')).first
         if date_hash.present?
           date = [date_hash['year'], date_hash['month'], date_hash['day']].reject {|a| a.blank?}
           date = date.join('-')
