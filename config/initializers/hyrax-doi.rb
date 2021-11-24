@@ -27,3 +27,24 @@ Bolognese::DoiUtils.module_eval do
     sandbox.present? || options[:sandbox] ? "https://api.test.datacite.org/dois/#{doi_from_url(doi)}?include=media,client"  : "https://api.datacite.org/dois/#{doi_from_url(doi)}?include=media,client"
   end
 end
+
+## Fix UTF8 encoding bug https://github.com/datacite/maremma/issues/17
+Maremma.class_eval do
+  def self.parse_response(string, options = {})
+    string = string.dup
+    string =
+      if options[:skip_encoding]
+        string
+      else
+        string.force_encoding('utf-8').encode(
+          Encoding.find("UTF-8"),
+          invalid: :replace,
+          undef: :replace,
+          replace: "?"
+        )
+      end
+    return string if options[:raw]
+
+    from_json(string) || from_xml(string) || from_string(string)
+  end
+end
