@@ -179,7 +179,7 @@ module Hyrax
         begin
           @work_attributes = hyrax_work_from_doi(params['doi'])
           curation_concern.attributes = @work_attributes
-          flash_keys = @work_attributes.keys.map { |k| t("simple_form.labels.defaults.#{k}", default: k.humanize) }
+          flash_keys = @work_attributes.reject { |k,v| v.blank? }.keys.map { |k| t("simple_form.labels.defaults.#{k}", default: k.humanize) }.uniq
           flash[:notice] = ["The following fields were auto-populated:", flash_keys.to_sentence]
         rescue => e
           Rails.logger.info(e.message)

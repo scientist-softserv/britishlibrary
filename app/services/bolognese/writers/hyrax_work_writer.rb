@@ -17,14 +17,15 @@ module Bolognese
           'contributor' => build_hyrax_work_contributor,
           'funder' => build_hyrax_work_funder,
           'date_accepted' => get_date_from_type('Accepted').first,
-          'date_published' => publication_year.present? ? EDTF.parse(publication_year).strftime : nil,
+          'date_published' => publication_date,
           'date_submitted' => get_date_from_type('Submitted').first,
-          'description' => build_hyrax_work_description,
+          # Not used 'description' => build_hyrax_work_description,
           'doi' => build_hyrax_work_doi(doi),
           'original_doi' => build_hyrax_work_doi(doi)&.first,
           'issn' => issn,
           'eissn' => eissn,
-          'identifier' => Array(identifiers).reject { |id| ['doi', 'issn', 'eissn'].include?(id["identifierType"].downcase.strip) }.pluck("identifier"),
+          # not used 'identifier' => Array(identifiers).reject { |id| ['doi', 'issn', 'eissn'].include?(id["identifierType"].downcase.strip) }.pluck("identifier"),
+          'alternate_identifier' => alternate_identifier,
           'keyword' => subjects&.pluck("subject")&.uniq,
           'language' => Array(language),
           'license' => rights_list&.map { |r| r['rightsUri'].sub('legalcode', '') },
@@ -71,12 +72,12 @@ module Bolognese
       end
 
       def issn
-        val = raw_meta&.dig("crossref", "journal", "journal_metadata", "issn")&.select {|i| i['media_type'] == 'print'}&.pluck('__content__').first
+        val = raw_meta&.dig("crossref", "journal", "journal_metadata", "issn")&.select {|i| i['media_type'] == 'print'}&.pluck('__content__')&.first
         normalize_issn(val) if val.present?
       end
 
       def eissn
-        val = raw_meta&.dig("crossref", "journal", "journal_metadata", "issn")&.select {|i| i['media_type'] == 'electronic'}&.pluck('__content__').first
+        val = raw_meta&.dig("crossref", "journal", "journal_metadata", "issn")&.select {|i| i['media_type'] == 'electronic'}&.pluck('__content__')&.first
         normalize_issn(val) if val.present?
       end
 
@@ -156,7 +157,7 @@ module Bolognese
 
       def build_hyrax_work_related_identifier
         return @build_hyrax_work_related_identifier if @build_hyrax_work_related_identifier.present?
-        selected_identifiers = related_identifiers.select { |i| i['relationType'].downcase != "references" }
+        selected_identifiers = related_identifiers.reject { |i| ['references', 'issn', 'eissn'].include?(i['relatedIdentifierType'].downcase.strip) || i['relationType'].downcase == "references" }
         selected_identifiers.map! do |i|
           {
             'related_identifier' => i['relatedIdentifier'],
@@ -169,8 +170,32 @@ module Bolognese
         @build_hyrax_work_related_identifier
       end
 
+      def alternate_identifier
+        return @alterante_identifier if @alterante_identifier.present?
+        selected_identifiers =  Array(identifiers).reject { |id| ['doi', 'issn', 'eissn'].include?(id["identifierType"].downcase.strip) }
+        selected_identifiers.map! do |i|
+          {
+            'alternate_identifier' => i['identifier'],
+            'alternate_identifier_type' => i['identifierType'],
+          }
+        end
+        @alterante_identifier = Array.wrap(selected_identifiers.to_json)
+        @alterante_identifier = nil if @alterante_identifier == ["[]"]
+        @alterante_identifier
+      end
+
       def journal_title
         container&.[]('type') == 'Journal' ? container['title'] : nil
+      end
+
+      def publication_date
+        date_hash = Array.wrap(raw_meta&.dig('crossref', 'journal', 'journal_issue', 'publication_date')).first
+        if date_hash.present?
+          date = [date_hash['year'], date_hash['month'], date_hash['day']].reject {|a| a.blank?}
+          date = date.join('-')
+        end
+        
+        date || publication_year
       end
     end
   end
