@@ -12,7 +12,7 @@ module Ubiquity
                             'British Museum' => ['britishmuseum', 'britishmuseum-demo'],
                             'Tate' => ['tate', 'tate-demo'],
                             'Royal Botanic Gardens, Kew' => ['kew', 'kew-demo'],
-                            'Barts Health NHS Trust' => ['nhs', 'nhs-demo']
+                            '' => ['nhs', 'nhs-demo']
                           }
       institution_hash.select { |_key, values| values.include?(tenant_name) }.keys.first
     end
