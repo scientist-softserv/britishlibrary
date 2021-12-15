@@ -40,9 +40,12 @@
     <% end %>
 
     <% if file_set.image? %>
+      <% id_index = controller.json_manifest['sequences'].first['canvases'].each_with_index.map do |h, cv|
+        [h['@id'].split('canvas/').last, cv]
+      end.to_h %>
       <li role='menuitem' tabindex='-1'>
         <%= link_to 'Open in viewer',
-                    "#{universal_viewer_base_url}?manifestUri=#{main_app.polymorphic_url [main_app, :manifest, presenter], { locale: nil }}",
+                    "#{universal_viewer_base_url}?manifestUri=#{main_app.polymorphic_url [main_app, :manifest, presenter], { locale: nil }}&config=#{universal_viewer_config_url}&cv=#{id_index[file_set.id]}",
                     target: :_blank
         %>
       </li>

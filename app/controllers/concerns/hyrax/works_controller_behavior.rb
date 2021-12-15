@@ -75,9 +75,9 @@ module Hyrax
           wants.html do
             build_form
             render 'new', status: :unprocessable_entity
-          end  
+          end
           wants.json do
-         
+
             render_json_response(
               response_type: :unprocessable_entity,
               options: { errors: curation_concern.errors }
@@ -156,12 +156,16 @@ module Hyrax
     def manifest
       headers['Access-Control-Allow-Origin'] = '*'
 
-      json = iiif_manifest_builder.manifest_for(presenter: iiif_manifest_presenter)
+      json = json_manifest
 
       respond_to do |wants|
         wants.json { render json: json }
         wants.html { render json: json }
       end
+    end
+
+    def json_manifest
+      iiif_manifest_builder.manifest_for(presenter: iiif_manifest_presenter)
     end
 
     private
