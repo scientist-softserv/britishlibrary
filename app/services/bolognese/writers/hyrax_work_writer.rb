@@ -30,11 +30,13 @@ module Bolognese
           'language' => Array(language),
           'license' => rights_list&.map { |r| r['rightsUri'].sub('legalcode', '') },
           'journal_title' => journal_title,
-          'official_link' => url,
+          'official_link' => id,
+          'related_url' => build_related_url,
           'publisher' => Array(publisher),
           'related_identifier' => build_hyrax_work_related_identifier,
           'resource_type' => Array(resource_type),
-          'title' => titles&.pluck("title")
+          'title' => titles&.pluck("title"),
+          'version_number' => Array(version_info)
         }
         _hyrax_work_class = determine_hyrax_work_class
         # Only pass attributes that the work type knows about
@@ -107,19 +109,28 @@ module Bolognese
       end
 
       def build_hyrax_work_child(field_name:, field:, index:)
-        {
+        r = {
           "#{field_name}_organization_name" => field["name"],
           "#{field_name}_family_name" => field["familyName"],
           "#{field_name}_given_name" => field["givenName"],
           "#{field_name}_name_type" => field["nameType"]&.sub("Organizational", "Organisational"),
-          "#{field_name}_ror" => field["affiliation"]&.map { |a| a["affiliationIdentifier"]&.split("/")&.last }&.first,
           "#{field_name}_position" => index.to_s,
           "#{field_name}_orcid" => field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"]&.match(/orcid/i) }&.map { |a| a['nameIdentifier'] },
           "#{field_name}_isni" => field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"]&.match(/isni/i) }&.map { |a| a['nameIdentifier'] },
-          "#{field_name}_grid" => field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"]&.match(/grid/i) }&.map { |a| a['nameIdentifier'] }
-          #"creator_wikidata":creators&.pluck("name"),
           #"creator_institutional_relationship":[""],
         }
+
+        # organization only fields
+        if r["#{field_name}_name_type"] == 'Organisational'
+          r["#{field_name}_grid"] = field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"]&.match(/grid/i) }&.map { |a| a['nameIdentifier'] }
+
+          r["#{field_name}_ror"] = field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"]&.match(/ror/i) }&.map { |a| a['nameIdentifier'] }
+
+          # r["#{field_name}_ror"] ||= field["affiliation"]&.map { |a| a["affiliationIdentifier"]&.split("/")&.last }&.first
+          #"creator_wikidata":creators&.pluck("name"),
+        end
+
+        r
       end
 
       def build_hyrax_work_creator
@@ -157,6 +168,10 @@ module Bolognese
           end.sort_by { |c| c["funder_position"].to_i }.to_json)
         @build_hyrax_work_funder = nil if @build_hyrax_work_funder == ["[]"]
         @build_hyrax_work_funder
+      end
+
+      def build_related_url
+          return Array.wrap(url) if url&.match(/10\.\d+/)&.[](0) != id.match(/10\.\d+/)&.[](0)
       end
 
       def build_hyrax_work_related_identifier
@@ -199,7 +214,7 @@ module Bolognese
           date = [date_hash['year'], date_hash['month'], date_hash['day']].reject {|a| a.blank?}
           date = date.join('-')
         end
-        
+
         date || publication_year
       end
     end
