@@ -17,52 +17,32 @@
  position: relative;
 }
 
-.glyphicon-info-sign:hover::after{
+.glyphicon-info-sign:hover::after, .glyphicon-pencil:hover::after, .glyphicon-remove:hover::after{
   top: -20px;
   right: -10px;
   visibility: visible;
+  padding: 5px;
   opacity: 1;
-  content: "info";
-  background-color: white ;
+  background-color: gray ;
   position: absolute;
-  border: 1px blue solid ;
-  color:blue ;
-  font-family: "DejaVu Sans Mono", monospace;
-  font-size: 15px;
+  color:white ;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10px;
   font-weight: bold;
   transition: top ease 1s;
+  border-radius: 4px;
+}
+
+.glyphicon-info-sign:hover::after{
+  content: "info"
 }
 
 .glyphicon-pencil:hover::after{
-  top: -20px;
-  right: -10px;
-  visibility: visible;
-  opacity: 1;
   content: "edit";
-  background-color: white ;
-  position: absolute;
-  border: 1px blue solid ;
-  color:blue ;
-  font-family: "DejaVu Sans Mono", monospace;
-  font-size: 15px;
-  font-weight: bold;
-  transition: top ease 1s;
 }
 
 .glyphicon-remove:hover::after{
-  top: -20px;
-  right: -10px;
-  visibility: visible;
-  opacity: 1;
   content: "delete";
-  background-color: white ;
-  position: absolute;
-  border: 1px red solid ;
-  color:blue ;
-  font-family: "DejaVu Sans Mono", monospace;
-  font-size: 15px;
-  font-weight: bold;
-  transition: top ease 1s;
 }
 
 @media (min-width: $screen-sm-min) {
