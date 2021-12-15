@@ -137,7 +137,7 @@ services:
       - 3000
 
   worker:
-    # command: sh -l -c "bundle && bundle exec sidekiq"
+    command: sh -l -c "bundle && bundle exec sidekiq"
     <<: *app
     build:
       context: .
@@ -219,4 +219,4 @@ services:
       internal:
     ports:
       - "4444"
-      - "5959:5900"
+      - "5960:5900"

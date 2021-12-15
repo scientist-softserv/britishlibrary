@@ -100,7 +100,7 @@ end
 
 # Bulkrax
 group :bulkrax do
-  gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git', branch: :main
+  gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git'
   gem 'willow_sword', git: 'https://github.com/notch8/willow_sword.git'
 end
 
@@ -125,7 +125,7 @@ gem 'lograge'
 
 gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git', branch: 'play_nice_with_view_paths'
 gem 'bolognese', '1.9.7'
-
+gem 'httparty'
 gem 'mods', '~> 2.4'
 
 group :aws, :test do
@@ -139,7 +139,6 @@ end
 
 gem 'bootstrap-datepicker-rails'
 # Sentry-raven for error handling
-gem "cocoon"
 gem "sentry-raven"
 
 gem 'codemirror-rails'

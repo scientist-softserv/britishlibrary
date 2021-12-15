@@ -11,6 +11,7 @@ derivativesVolume:
   storageClass: azurefile
 uploadsVolume:
   storageClass: azurefile
+  size: 200Gi
 
 extraVolumeMounts: &volMounts
   - name: uploads
