@@ -11,33 +11,58 @@
     margin-right: 10px;
   }
 
-  // .glyphicon {
-  //   display: none;
-  // }
 }
 
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
+.glyphicon {
+ position: relative;
 }
 
-.tooltip .glyphicon {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-}
-
-.tooltip:hover .glyphicon {
+.glyphicon-info-sign:hover::after{
+  top: -20px;
+  right: -10px;
   visibility: visible;
+  opacity: 1;
+  content: "info";
+  background-color: white ;
+  position: absolute;
+  border: 1px blue solid ;
+  color:blue ;
+  font-family: "DejaVu Sans Mono", monospace;
+  font-size: 15px;
+  font-weight: bold;
+  transition: top ease 1s;
+}
+
+.glyphicon-pencil:hover::after{
+  top: -20px;
+  right: -10px;
+  visibility: visible;
+  opacity: 1;
+  content: "edit";
+  background-color: white ;
+  position: absolute;
+  border: 1px blue solid ;
+  color:blue ;
+  font-family: "DejaVu Sans Mono", monospace;
+  font-size: 15px;
+  font-weight: bold;
+  transition: top ease 1s;
+}
+
+.glyphicon-remove:hover::after{
+  top: -20px;
+  right: -10px;
+  visibility: visible;
+  opacity: 1;
+  content: "delete";
+  background-color: white ;
+  position: absolute;
+  border: 1px red solid ;
+  color:blue ;
+  font-family: "DejaVu Sans Mono", monospace;
+  font-size: 15px;
+  font-weight: bold;
+  transition: top ease 1s;
 }
 
 @media (min-width: $screen-sm-min) {
