@@ -9,6 +9,9 @@ module Hyrax
             new_attributes[key] = new_attributes[key].first if val.nil? || val.is_a?(String)
             process_json_value(key, new_attributes) if ['creator', 'editor', 'contributor', 'alternate_identifier', 'related_identifier', 'funder'].include? key
           end
+          if new_attributes['id'] && new_attributes['id'].blank?
+            new_attributes.delete('id')
+          end
         end
         env.curation_concern.attributes = new_attributes
         env.curation_concern.date_modified = TimeService.time_in_utc
