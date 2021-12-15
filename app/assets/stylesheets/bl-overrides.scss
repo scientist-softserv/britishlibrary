@@ -1165,6 +1165,17 @@ body.public-facing {
       font-weight: initial;
     }
   }
+  .show-actions {
+    padding-left: 0;
+  }
+
+  .iiif-viewer {
+    border: 1px solid $darkgrey;
+    border-radius: 5px;
+    color: $darkgrey;
+    font-size: 14px;
+    background-color: #E9E9ED;
+  }
 
   dl.work-show {
     font-weight: 600;
