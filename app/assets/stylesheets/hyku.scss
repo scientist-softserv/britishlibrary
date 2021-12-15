@@ -11,9 +11,33 @@
     margin-right: 10px;
   }
 
-  .glyphicon {
-    display: none;
-  }
+  // .glyphicon {
+  //   display: none;
+  // }
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .glyphicon {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .glyphicon {
+  visibility: visible;
 }
 
 @media (min-width: $screen-sm-min) {
@@ -60,7 +84,11 @@
   }
 
   .btn-sign-up {
-    @include button-variant($classic-white, $jumbotron-button-background-color, $jumbotron-button-background-color);
+    @include button-variant(
+      $classic-white,
+      $jumbotron-button-background-color,
+      $jumbotron-button-background-color
+    );
     border-radius: 3px;
     font-size: 0.7em;
     margin-top: 15px;
@@ -306,7 +334,7 @@ footer.navbar {
 
 .hyc-bl-sort > form.per_page.form-horizontal::before,
 .hyc-bl-sort > form.per_page.form-horizontal::after {
-  content: " ";
+  content: ' ';
   display: table;
 }
 
@@ -318,7 +346,6 @@ footer.navbar {
   height: auto;
   padding: 0;
 }
-
 
 #users > .panel {
   .panel-body {
@@ -338,7 +365,7 @@ footer.navbar {
   }
 }
 
-.defaultable-fonts div[class$="_font"] {
+.defaultable-fonts div[class$='_font'] {
   margin-bottom: 0;
 
   label {
@@ -355,7 +382,7 @@ a.restore-default-color {
   margin-bottom: 2em;
 }
 
-.defaultable-colors div[class$="_color"] {
+.defaultable-colors div[class$='_color'] {
   margin-bottom: 0.75em;
 }
 
@@ -370,7 +397,7 @@ a.restore-default-color {
     margin-top: 2em;
   }
 
-  .defaultable-colors div[class$="_color"] {
+  .defaultable-colors div[class$='_color'] {
     margin-bottom: 2em;
   }
 }
@@ -394,4 +421,3 @@ a.restore-default-color {
     }
   }
 }
-
