@@ -1,33 +1,31 @@
 <%# OVERRIDE Hyrax 2.9.1 to change bootstrap classes and add the date and creator to the header section of the work-show page %>
 
 <% presenter.title.each_with_index do |title, index| %>
-    <div>
-      <% if index == 0 %>
-        <div class="row">
-          <div class="col-sm-10 work-title">
-            <h1><%= title %></h1>
-          </div>
-          <div class="col-sm-2 permission-badges">
-            <h3>
-              <small class="text-muted"><%= presenter.permission_badge %> <%= presenter.workflow.badge %></small>
-            </h3>
-          </div>
-        </div>
-        <div class="creator-work-show-header row">
-          <div class="col-sm-10">
-            <%= render "shared/ubiquity/creator/show", presenter: presenter, section: "header" %>
-          </div>
-        </div>
-        <div class="year-published">
-          <% if presenter.date_published.present? %>
-            <h5><%= presenter.date_published[0].split('-')[0] %></h5>
-          <% end %>
-        </div>
-      <% else %>
-        <h2><%= title %></h2>
-      <% end %>
-    </div>
+  <div>
     <% if index == 0 %>
-        <%= render "show_actions", presenter: presenter %>
+      <div class="row">
+        <div class="col-sm-10 work-title">
+          <h1><%= title %></h1>
+        </div>
+        <div class="col-sm-2 permission-badges">
+          <h3>
+            <small class="text-muted"><%= presenter.permission_badge %> <%= presenter.workflow.badge %></small>
+          </h3>
+        </div>
+      </div>
+      <div class="creator-work-show-header row">
+        <div class="col-sm-10">
+          <%= render "shared/ubiquity/creator/show", presenter: presenter, section: "header" %>
+        </div>
+      </div>
+      <div class="year-published">
+        <% if presenter.date_published.present? %>
+          <h5><%= presenter.date_published[0].split('-')[0] %></h5>
+        <% end %>
+      </div>
+      <%= render "show_actions", presenter: presenter %>
+    <% else %>
+      <h2><%= title %></h2>
     <% end %>
+  </div>
 <% end %>
