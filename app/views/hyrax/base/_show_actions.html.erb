@@ -4,7 +4,7 @@
   <% if presenter.iiif_viewer? %>
       <%= link_to 'View files in viewer',
                   "#{universal_viewer_base_url}?manifestUri=#{main_app.polymorphic_url [main_app, :manifest, presenter], { locale: nil }}&config=#{universal_viewer_config_url}",
-                  class: 'btn btn-default iiif-viewer',
+                  class: 'btn iiif-viewer',
                   target: :_blank
       %>
   <% end %>
@@ -13,7 +13,7 @@
   <% end %>
   <% if presenter.editor? %>
       <%= link_to "Edit", edit_polymorphic_path([main_app, presenter]), class: 'btn btn-default' %>
-      <%= link_to "Delete", [main_app, presenter], class: 'btn btn-danger', data: { confirm: "Delete this #{presenter.human_readable_type}?" }, method: :delete %>
+      <%= link_to "Delete", [main_app, presenter], class: 'btn btn-default delete-btn', data: { confirm: "Delete this #{presenter.human_readable_type}?" }, method: :delete %>
       <% if presenter.member_presenters.size > 1 %>
           <%= link_to t("hyrax.file_manager.link_text"), polymorphic_path([main_app, :file_manager, presenter]), class: 'btn btn-default' %>
       <% end %>

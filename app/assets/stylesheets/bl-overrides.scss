@@ -1169,12 +1169,22 @@ body.public-facing {
     padding-left: 0;
   }
 
-  .iiif-viewer {
-    border: 1px solid $darkgrey;
+  .iiif-viewer,
+  .iiif-viewer:focus,
+  .iiif-viewer:visited {
     border-radius: 5px;
+    border: 1px solid $darkgrey;
+    background-color: $buttongrey;
     color: $darkgrey;
     font-size: 14px;
-    background-color: #E9E9ED;
+  }
+
+  .iiif-viewer:hover {
+    background-color: $mediumgrey;
+  }
+
+  .delete-btn {
+    color: red;
   }
 
   dl.work-show {
