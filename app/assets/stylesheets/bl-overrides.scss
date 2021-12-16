@@ -1186,7 +1186,7 @@ body.public-facing {
   .delete-btn,
   .delete-btn:hover,
   .delete-btn.hover {
-    color: red;
+    color: red !important; // had to add important here to override the important setting on btn-default
   }
 
   dl.work-show {
