@@ -608,6 +608,20 @@ body.public-facing {
     color: $lightgrey;
   }
 
+  .btn-secondary,
+  .btn-secondary:hover,
+  .btn-secondary.hover,
+  .btn-secondary:focus,
+  .btn-secondary.focus,
+  .btn-secondary:visited,
+  .btn-secondary.visited {
+    border-radius: 5px;
+    border: 1px solid $darkgrey;
+    background-color: $buttongrey;
+    color: $darkgrey;
+    font-size: 14px;
+  }
+
   /* DEFAULT BUTTON STYLES */
   .btn-default {
     background-color: transparent;
@@ -1169,21 +1183,9 @@ body.public-facing {
     padding-left: 0;
   }
 
-  .iiif-viewer,
-  .iiif-viewer:focus,
-  .iiif-viewer:visited {
-    border-radius: 5px;
-    border: 1px solid $darkgrey;
-    background-color: $buttongrey;
-    color: $darkgrey;
-    font-size: 14px;
-  }
-
-  .iiif-viewer:hover {
-    background-color: $mediumgrey;
-  }
-
-  .delete-btn {
+  .delete-btn,
+  .delete-btn:hover,
+  .delete-btn.hover {
     color: red;
   }
 
