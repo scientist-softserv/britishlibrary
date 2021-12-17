@@ -1,5 +1,4 @@
 # Hyku, the Hydra-in-a-Box Repository Application
-
 #### Refer to [Repo-README](./Repo-README.md) for repository specific instructions
 
 Code:
@@ -13,31 +12,31 @@ Docs:
 [![Apache 2.0 License](http://img.shields.io/badge/APACHE2-license-blue.svg)](./LICENSE)
 
 Jump In: [![Slack Status](http://slack.samvera.org/badge.svg)](http://slack.samvera.org/)
----
 
+----
 ## Table of Contents
 
-- *[Running the stack](#running-the-stack)
-  - *[For development](#for-development)
-  - *[For testing](#for-testing)
-  - *[On AWS](#on-aws)
-  - *[With Docker](#with-docker)
-  - *[With Vagrant](#with-vagrant)
-  - *[With Kubernetes](#with-kubernetes)
-- *[Single Tenant Mode](#single-tenancy)
-- *[Switching accounts](#switching-accounts)
-- *[Development dependencies](#development-dependencies)
-  - *[Postgres](#postgres)
-- *[Importing](#importing)
-  - *[Enable Bulkrax](#enable-bulkrax)
-  - *[from CSV](#from-csv)
-  - *[from purl](#from-purl)
-- *[Compatibility](#compatibility)
-- *[Product Owner](#product-owner)
-- *[Help](#help)
-- *[Acknowledgments](#acknowledgments)
+  * [Running the stack](#running-the-stack)
+    * [For development](#for-development)
+    * [For testing](#for-testing)
+    * [On AWS](#on-aws)
+    * [With Docker](#with-docker)
+    * [With Vagrant](#with-vagrant)
+    * [With Kubernetes](#with-kubernetes)
+  * [Single Tenant Mode](#single-tenancy)
+  * [Switching accounts](#switching-accounts)
+  * [Development dependencies](#development-dependencies)
+    * [Postgres](#postgres)
+  * [Importing](#importing)
+    * [Enable Bulkrax](#enable-bulkrax)
+    * [from CSV](#from-csv)
+    * [from purl](#from-purl)
+  * [Compatibility](#compatibility)
+  * [Product Owner](#product-owner)
+  * [Help](#help)
+  * [Acknowledgments](#acknowledgments)
 
----
+----
 
 ## Running the stack
 
@@ -45,7 +44,7 @@ Jump In: [![Slack Status](http://slack.samvera.org/badge.svg)](http://slack.samv
 
 #### Dory
 
-On OS X or Linux we recommend running [Dory](https://github.com/FreedomBen/dory). It acts as a proxy allowing you to access domains locally such as hyku.test or tenant.hyku.test, making multitenant development more straightforward and prevents the need to bind ports locally. Be sure to [adjust your ~/.dory.yml file to support the .test tld](https://github.com/FreedomBen/dory#config-file). You can still run in development via docker with out Dory. To do so, copy `docker-compose.override-nodory.yml` to `docker-compose.override.yml` before starting doing docker-compose up. You can then see the application at the loopback domain 'lvh.me:3000'.
+On OS X or Linux we recommend running [Dory](https://github.com/FreedomBen/dory). It acts as a proxy allowing you to access domains locally such as hyku.test or tenant.hyku.test, making multitenant development more straightforward and prevents the need to bind ports locally. Be sure to [adjust your ~/.dory.yml file to support the .test tld](https://github.com/FreedomBen/dory#config-file).  You can still run in development via docker with out Dory. To do so, copy `docker-compose.override-nodory.yml` to `docker-compose.override.yml` before starting doing docker-compose up.  You can then see the application at the loopback domain 'lvh.me:3000'.
 
 ```bash
 gem install dory
@@ -58,7 +57,7 @@ dory up
 docker-compose up web
 ```
 
-This command starts the whole stack in individual containers allowing Rails to be started or stopped independent of the other services. Once that starts (you'll see the line `Passenger core running in multi-application mode.` to indicate a successful boot), you can view your app in a web browser with at either hyku.test or localhost:3000 (see above). When done `docker-compose stop` shuts down everything.
+This command starts the whole stack in individual containers allowing Rails to be started or stopped independent of the other services.  Once that starts (you'll see the line `Passenger core running in multi-application mode.` to indicate a successful boot), you can view your app in a web browser with at either hyku.test or localhost:3000 (see above).  When done `docker-compose stop` shuts down everything.
 
 #### Tests in Docker
 
@@ -83,7 +82,6 @@ bin/setup
 DISABLE_REDIS_CLUSTER=true bundle exec sidekiq
 DISABLE_REDIS_CLUSTER=true bundle exec rails server -b 0.0.0.0
 ```
-
 #### For testing
 
 See the [Hyku Development Guide](https://github.com/samvera/hyku/wiki/Hyku-Development-Guide) for how to run tests.
@@ -104,7 +102,7 @@ https://github.com/hybox/aws
 
 ### With Docker
 
-We distribute two `docker-compose.yml` configuration files. The first is set up for development / running the specs. The other, `docker-compose.production.yml` is for running the Hyku stack in a production setting. . Once you have [docker](https://docker.com) installed and running, launch the stack using e.g.:
+We distribute two `docker-compose.yml` configuration files.  The first is set up for development / running the specs. The other, `docker-compose.production.yml` is for running the Hyku stack in a production setting. . Once you have [docker](https://docker.com) installed and running, launch the stack using e.g.:
 
 ```bash
 docker-compose up -d web
@@ -126,7 +124,7 @@ Hyku relies on the helm charts provided by Hyrax. See [Deployment Info](https://
 
 ## Single Tenant Mode
 
-Much of the default configuration in Hyku is set up to use multi-tenant mode. This default mode allows Hyku users to run the equivielent of multiple Hyrax installs on a single set of resources. However, sometimes the subdomain splitting multi-headed complexity is simply not needed. If this is the case, then single tenant mode is for you. Single tenant mode will not show the tenant sign up page, or any of the tenant management screens. Instead it shows a single Samvera instance at what ever domain is pointed at the application.
+Much of the default configuration in Hyku is set up to use multi-tenant mode.  This default mode allows Hyku users to run the equivielent of multiple Hyrax installs on a single set of resources. However, sometimes the subdomain splitting multi-headed complexity is simply not needed.  If this is the case, then single tenant mode is for you.  Single tenant mode will not show the tenant sign up page, or any of the tenant management screens. Instead it shows a single Samvera instance at what ever domain is pointed at the application.
 
 To enable single tenant, set `HYKU_MULTITENANT=false` in your `docker-compose.yml` and `docker-compose.production.yml` configs. After changinig this setting, run `rails db:seed` to prepopulate the single tenant.
 
@@ -151,14 +149,12 @@ switch!('myaccount')
 Hyku supports multitenancy using the `apartment` gem. `apartment` works best with a postgres database.
 
 ## Importing
-
 ### Enable Bulkrax:
 
 - Set bulkrax -> enabled to true in the [config/settings.yml](config/settings.yml) and [.env](.env) files
-- Add ` require bulkrax/application` to app/assets/javascripts/application.js and app/assets/stylesheets/application.css files.
+- Add `  require bulkrax/application` to app/assets/javascripts/application.js and app/assets/stylesheets/application.css files.
 
 (in a `docker-compose exec web bash` if you're doing docker otherwise in your terminal)
-
 ```bash
 bundle exec rails db:migrate
 ```
@@ -177,8 +173,8 @@ bundle exec rails db:migrate
 
 ## Compatibility
 
-- Ruby 2.4 or the latest 2.3 version is recommended. Later versions may also work.
-- Rails 5 is required. We recommend the latest Rails 5.1 release.
+* Ruby 2.4 or the latest 2.3 version is recommended.  Later versions may also work.
+* Rails 5 is required. We recommend the latest Rails 5.1 release.
 
 ### Product Owner
 
@@ -192,7 +188,7 @@ The Samvera community is here to help. Please see our [support guide](./SUPPORT.
 
 This software was developed by the Hydra-in-a-Box Project (DPLA, DuraSpace, and Stanford University) under a grant from IMLS.
 
-This software is brought to you by the Samvera community. Learn more at the
+This software is brought to you by the Samvera community.  Learn more at the
 [Samvera website](http://samvera.org/).
 
 ![Samvera Logo](https://samvera.atlassian.net/wiki/download/attachments/405216084/samvera-fall-TM-220w-transparent.png?version=1&modificationDate=1540440075555&cacheVersion=1&api=v2)
