@@ -13,30 +13,29 @@ Docs:
 [![Apache 2.0 License](http://img.shields.io/badge/APACHE2-license-blue.svg)](./LICENSE)
 
 Jump In: [![Slack Status](http://slack.samvera.org/badge.svg)](http://slack.samvera.org/)
-
 ---
 
 ## Table of Contents
 
-- [Running the stack](#running-the-stack)
-  - [For development](#for-development)
-  - [For testing](#for-testing)
-  - [On AWS](#on-aws)
-  - [With Docker](#with-docker)
-  - [With Vagrant](#with-vagrant)
-  - [With Kubernetes](#with-kubernetes)
-- [Single Tenant Mode](#single-tenancy)
-- [Switching accounts](#switching-accounts)
-- [Development dependencies](#development-dependencies)
-  - [Postgres](#postgres)
-- [Importing](#importing)
-  - [Enable Bulkrax](#enable-bulkrax)
-  - [from CSV](#from-csv)
-  - [from purl](#from-purl)
-- [Compatibility](#compatibility)
-- [Product Owner](#product-owner)
-- [Help](#help)
-- [Acknowledgments](#acknowledgments)
+- *[Running the stack](#running-the-stack)
+  - *[For development](#for-development)
+  - *[For testing](#for-testing)
+  - *[On AWS](#on-aws)
+  - *[With Docker](#with-docker)
+  - *[With Vagrant](#with-vagrant)
+  - *[With Kubernetes](#with-kubernetes)
+- *[Single Tenant Mode](#single-tenancy)
+- *[Switching accounts](#switching-accounts)
+- *[Development dependencies](#development-dependencies)
+  - *[Postgres](#postgres)
+- *[Importing](#importing)
+  - *[Enable Bulkrax](#enable-bulkrax)
+  - *[from CSV](#from-csv)
+  - *[from purl](#from-purl)
+- *[Compatibility](#compatibility)
+- *[Product Owner](#product-owner)
+- *[Help](#help)
+- *[Acknowledgments](#acknowledgments)
 
 ---
 
@@ -131,14 +130,12 @@ Much of the default configuration in Hyku is set up to use multi-tenant mode. Th
 
 To enable single tenant, set `HYKU_MULTITENANT=false` in your `docker-compose.yml` and `docker-compose.production.yml` configs. After changinig this setting, run `rails db:seed` to prepopulate the single tenant.
 
-In single tenant mode, both the application root (eg. localhost, or hyku.test) and the tenant url single.\* (eg. single.hyku.test) will load the tenant. Override the root host by setting HYKU_ROOT_HOST`.
+In single tenant mode, both the application root (eg. localhost, or hyku.test) and the tenant url single.* (eg. single.hyku.test) will load the tenant. Override the root host by setting HYKU_ROOT_HOST`.
 
 To change from single- to multi-tenant mode, change the multitenancy/enabled flag to true and restart the application. Change the 'single' tenant account cname in the Accounts edit interface to the correct hostname.
 
 ## Switching accounts
-
 There are three recommend ways to switch your current session from one account to another by using:
-
 ```ruby
 switch!(Account.first)
 # or
