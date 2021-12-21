@@ -124,7 +124,7 @@ module Bolognese
         if r["#{field_name}_name_type"] == 'Organisational'
           r["#{field_name}_grid"] = field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"]&.match(/grid/i) }&.map { |a| a['nameIdentifier'] }
 
-          r["#{field_name}_ror"] = field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"]&.match(/ror/i) }&.map { |a| a['nameIdentifier'] }
+          r["#{field_name}_ror"] = field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"]&.match(/ror/i) }&.map { |a| a['nameIdentifier']&.gsub('https://ror.orghttps://ror.org', 'https://ror.org')}
 
           # r["#{field_name}_ror"] ||= field["affiliation"]&.map { |a| a["affiliationIdentifier"]&.split("/")&.last }&.first
           #"creator_wikidata":creators&.pluck("name"),
