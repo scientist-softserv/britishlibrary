@@ -21,34 +21,55 @@ module Bolognese
         meta = string.present? ? Maremma.from_json(string) : {}
 
         {
-          # "id" => meta.fetch('id', nil),
-          "identifiers" => read_hyrax_work_identifiers(meta),
-          "types" => read_hyrax_work_types(meta),
-          "doi" => normalize_doi(meta.fetch('doi', nil)&.first),
-          "official_li nk" => normalize_id(meta.fetch("URL", nil)),
-          "titles" => read_hyrax_work_titles(meta),
-          "creators" => read_hyrax_work_creators(meta),
+          "alternate_identifier" => read_alternate_identifiers(meta),
           "contributors" => read_hyrax_work_contributors(meta),
-          # "container" => container,
+          "creators" => read_hyrax_work_creators(meta),
+          "dates" => read_hyrax_work_dates(meta),
+          "descriptions" => read_hyrax_work_descriptions(meta),
+          "doi" => normalize_doi(meta.fetch('doi', nil)&.first),
+          "funding_references" => read_hyrax_work_funding_references(meta),
+          "identifiers" => read_hyrax_work_identifiers(meta),
+          "journal" => read_hyrax_work_journal(meta),
+          "language" => read_hyrax_work_language(meta),
+          "official_li nk" => normalize_id(meta.fetch("URL", nil)),
+          "publication_year" => read_hyrax_work_publication_year(meta),
           "publisher" => read_hyrax_work_publisher(meta),
           "related_identifiers" => read_hyrax_work_related_identifiers(meta),
-          "dates" => read_hyrax_work_dates(meta),
-          "publication_year" => read_hyrax_work_publication_year(meta),
-          "descriptions" => read_hyrax_work_descriptions(meta),
           "rights_list" => read_hyrax_work_rights_list(meta),
-          # "version_info" => meta.fetch("version", nil),
-          "subjects" => read_hyrax_work_subjects(meta)
+          "size" => read_hyrax_work_size(meta),
+          "subjects" => read_hyrax_work_subjects(meta),
+          "titles" => read_hyrax_work_titles(meta),
+          "types" => read_hyrax_work_types(meta),
+          "version" => read_hyrax_work_version(meta),
+          "volume_number" => meta.fetch('volume', nil)&.first
+          # "container" => container,
+          # "id" => meta.fetch('id', nil),
           # "state" => state
+          # "version_info" => meta.fetch("version", nil),
         }.merge(read_options)
       end
 
       private
 
+      def read_hyrax_work_version(meta)
+        (meta.fetch('version_number', []) + meta.fetch('version', []))&.first
+      end
+
+      def read_alternate_identifiers(meta)
+        JSON.parse(meta.fetch('alternate_identifier').first || "[]").each do |ai|
+          {
+            "alternateIdentifier" => ai['alternate_identifier'],
+            "alternateIdentifierType" => ai['alternate_identifier_type'],
+           }
+        end
+      end
+
       def read_hyrax_work_types(meta)
         # TODO: Map work.resource_type or work.
         resource_type_general = "Other"
         hyrax_resource_type = meta.fetch('has_model', nil) || "Work"
-        resource_type = meta.fetch('resource_type', nil).presence || hyrax_resource_type
+        resource_type = Hyrax::ResourceTypesService.label(meta.fetch('resource_type', nil))
+        resource_type = hyrax_resource_type if resource_type.blank? || resource_type.match(/\[Error/)
         {
           "resourceTypeGeneral" => resource_type_general,
           "resourceType" => resource_type,
@@ -56,23 +77,77 @@ module Bolognese
         }.compact
       end
 
+      def read_hyrax_work_journal(meta)
+        journal = {
+          'journal_metadata' => {},
+          'journal_issue' => {}
+        }
+        journal_title = meta.fetch('journal_title', nil)
+        journal['journal_metadata']['full_title'] = journal_title if journal_title
+        date_published = meta.fetch('date_published', nil)
+        journal['journal_issue']['publication_date'] = date_published if date_published
+        eissn = meta.fetch('eissn', nil)
+        journal['journal_metadata']['issn'] = eissn if eissn
+
+        journal if journal['journal_issue'].present? || journal['journal_metadata'].present?
+      end
+
       def read_hyrax_work_related_identifiers(meta)
         output = []
-        eval(meta.fetch('related_identifier', nil).first).each do |ri|
+        JSON.parse(meta.fetch('related_identifier').first || "[]").each do |ri|
           output << {
-            "relatedIdentifier" => ri[:related_identifier],
-            "relatedIdentifierType" => ri[:related_identifier_type],
-            "relationType" => ri[:relation_type]
+            "relatedIdentifier" => ri['related_identifier'],
+            "relatedIdentifierType" => ri['related_identifier_type'],
+            "relationType" => ri['relation_type']
           }
         end
+
+        meta.fetch('related_url', []).each do |url|
+          output << {
+            "relatedIdentifier" => url,
+            "relatedIdentifierType" => 'URL',
+            "relationType" => 'References'
+          }
+        end
+
+        output
+      end
+
+      def read_hyrax_work_funding_references(meta)
+        output = []
+        JSON.parse(meta.fetch('funder').first || "[]").sort_by { |c| c["funder_position"].to_i }.each do |ri|
+          # [{"funder_name"=>"testo", "funder_doi"=>"testp", "funder_position"=>"0", "funder_isni"=>"testq", "funder_ror"=>"testr", "funder_award"=>["tests"]}]
+          funder_id, funder_id_type = if ri['funder_doi'].present?
+                                        [ri['funder_doi'], 'Crossref Funder ID']
+                                      elsif ri['funder_isni'].present?
+                                        [ri['funder_isni'], 'ISNI']
+                                      elsif ri['funder_ror'].present?
+                                        [ri['funder_ror'], 'ROR']
+                                      end
+
+
+
+          output <<  {
+            "funderName" => ri['funder_name'],
+            "awaredNumber" => ri['funder_award']&.first || meta.fetch('fndr_project_ref', nil),
+            "funderIdentifier" => funder_id,
+            "funderIdentifierType" => funder_id_type
+          }
+        end
+
         output
       end
 
       def read_hyrax_work_rights_list(meta)
         output = []
-        meta.fetch('license', nil).each do |r|
+        meta.fetch('license', []).each do |r|
           output << { 'rightsUri' => "#{r}legalcode" }
         end
+
+        meta.fetch('rights_statement', []).each do |r|
+          output << { 'rightsUri' => r }
+        end
+
         output
       end
 
@@ -92,33 +167,42 @@ module Bolognese
       end
 
       def read_hyrax_work_contributors(meta)
-        return unless meta.fetch("contributor", nil).present?
 
-        authors = create_authors(meta, 'contributor')
+
+        authors = create_authors(meta, 'contributor') if meta.fetch("contributor", nil).present?
+        meta.fetch('rights_holder', []).each do |rights_holder|
+          authors << {
+            'contributorName' => rights_holder,
+            'contributorType' => 'RightsHolder'
+          }
+        end
+
         get_authors(authors) if authors.present?
       end
 
       def create_authors(meta, author_type)
         authors = []
-        eval(meta[author_type].first).sort_by { |c| c["#{author_type}_position"].to_i }.each do |author|
-          name_type = author[:"#{author_type}_name_type"]
-          given_name = author[:"#{author_type}_given_name"]
-          family_name = author[:"#{author_type}_family_name"]
-          name = author[:"#{author_type}_organization_name"]
-          affiliation = { "affiliationIdentifier" => "https://ror.org/#{author[:"#{author_type}_ror"]}",
-                          "affiliationIdentifierScheme" => "ROR" } if author[:"#{author_type}_ror"].presence
+        JSON.parse(meta[author_type].first).sort_by { |c| c["#{author_type}_position"].to_i }.each do |author|
+          name_type = author["#{author_type}_name_type"]
+          given_name = author["#{author_type}_given_name"]
+          family_name = author["#{author_type}_family_name"]
+          name = author["#{author_type}_organization_name"]
           name_identifier = []
-          if author[:"#{author_type}_orcid"].present?
-            name_identifier["nameIdentifierScheme"] = "ORCID"
-            name_identifier["__content__"] = author[:"#{author_type}_orcid"]
+          ['orcid', 'ror', 'isni', 'grid', 'wikidata'].each do |id_type|
+            if author["#{author_type}_#{id_type}"].present?
+              name_identifier << {
+                "nameIdentifierScheme" => id_type.upcase,
+                "__content__" => author["#{author_type}_#{id_type}"]
+              }
+            end
           end
+          name_identifier = nil if name_identifier.blank?
 
           author_hash = {  "nameType" => name_type,
                            "creatorName" => name,
                            "givenName" => given_name,
                            "familyName" => family_name,
-                           "nameIdentifier" => name_identifier,
-                           "affiliation" => affiliation }.compact
+                           "nameIdentifier" => name_identifier }.compact
 
           authors << author_hash
 
@@ -127,11 +211,56 @@ module Bolognese
       end
 
       def read_hyrax_work_titles(meta)
-        Array.wrap(meta.fetch("title", nil)).select(&:present?).collect { |r| { "title" => sanitize(r) } }
+        Array.wrap(meta.fetch("title", [])).select(&:present?).collect { |r| { "title" => sanitize(r) } }
       end
 
       def read_hyrax_work_descriptions(meta)
-        Array.wrap(meta.fetch("description", nil)).select(&:present?).collect { |r| { "description" => sanitize(r) } }
+        descriptions = []
+        if meta.fetch('description').present?
+          meta.fetch('description').each do |desc|
+            descriptions << {
+              "description" => sanitize(desc),
+              "descriptionType" => 'Other'
+            }
+          end
+        end
+
+        if meta.fetch('abstract').present?
+          descriptions << {
+            "description" => sanitize(meta.fetch('abstract')),
+            "descriptionType" => 'Abstract'
+          }
+        end
+
+        if meta.fetch('add_info').present?
+          descriptions << {
+            "description" => sanitize(meta.fetch('add_info')),
+            "descriptionType" => 'Other'
+          }
+        end
+
+        if meta.fetch('event_title').present?
+          descriptions << {
+            "description" => sanitize(meta.fetch('event_title')),
+            "descriptionType" => 'Other'
+          }
+        end
+
+        if meta.fetch('place_of_publication').present?
+          descriptions << {
+            "description" => sanitize(meta.fetch('place_of_publication')),
+            "descriptionType" => 'Other'
+          }
+        end
+
+        if meta.fetch('series_name').present?
+          descriptions << {
+            "description" => sanitize(meta.fetch('series_name')),
+            "descriptionType" => 'SeriesInformation'
+          }
+        end
+
+        descriptions.presence
       end
 
       def read_hyrax_work_publication_year(meta)
@@ -144,11 +273,23 @@ module Bolognese
       end
 
       def read_hyrax_work_subjects(meta)
-        Array.wrap(meta.fetch("keyword", nil)).select(&:present?).collect { |r| { "subject" => sanitize(r) } }
+        keywords = Array.wrap(meta.fetch("keyword", nil)).select(&:present?).collect { |r| { "subject" => sanitize(r) } }
+        library_of_congress_classifications = Array.wrap(meta.fetch("library_of_congress_classification", nil)).select(&:present?).collect { |r| { "subject" => sanitize(r) } }
+        subjects = Array.wrap(meta.fetch("subject", nil)).select(&:present?).collect { |r| { "subject" => sanitize(r) } }
+        deweys = Array.wrap(meta.fetch("dewey", nil)).select(&:present?).collect { |r| { "subject" => sanitize(r) } }
+        keywords + library_of_congress_classifications + subjects
       end
 
       def read_hyrax_work_identifiers(meta)
         Array.wrap(meta.fetch("identifier", nil)).select(&:present?).collect { |r| { "identifier" => sanitize(r) } }
+      end
+
+      def read_hyrax_work_size(meta)
+        meta.fetch('pagination', nil)
+      end
+
+      def read_hyrax_work_language(meta)
+        meta.fetch('language', []).first
       end
 
       def read_hyrax_work_publisher(meta)
