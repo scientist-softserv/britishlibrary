@@ -8,7 +8,7 @@
           <%= display_data_with_comma_separated(hash, order_ary)%>
         </span>
         <span itemprop="contributor">
-          <% if display_paren?(hash.keys, ["contributor_orcid", 'contributor_isni', 'contributor_type', "contributor_ror"]) %>
+          <% if display_paren?(hash.keys, ["contributor_orcid", 'contributor_isni', 'contributor_type']) %>
             <span style="float:left" >&nbsp;(</span>
               <span style="float:left">
               <%# Added False inorder to hide the field based on new requirements %>
@@ -28,35 +28,12 @@
                 <span style="float:left" >&nbsp;</span>
               <% end %>
 
-                <% if hash['contributor_isni'].present? %>
-                  <% isni_id = hash['contributor_isni'] %>
-                  <a href='<%= render_isni_or_orcid_url("#{isni_id}", "isni") %>'  target="_blank">
-                  <%= image_tag 'isni.png', class: "img-responsive", alt: 'ISNI', style: 'float:left', height: '16', width: '26' %>
-                  </a>
-                <% end %>
-
-                <% hash.slice(*["contributor_ror"]).each do |key, value| %>
-
-                  <% if add_image_space?(hash.keys) %>
-                    <span style="float:left" >&nbsp;</span>
-                  <% end %>
-
-                    <%  hash_key = key.dup %>
-                    <% hash_key.slice!("contributor_") %>
-
-                  <% if hash[key].present? && contains_full_url_path?(value) %>
-
-                    <a href='<%= "#{value}" %>'  target="_blank">
-                      <%= image_tag 'ror_identifier.png', class: "img-responsive", alt: "#{hash_key.upcase}", style: 'float:left; border-radius: 4px', height: '16', width: '36'  %>
-                    </a>
-                  <% elsif hash[key].present?  %>
-                    <a href='<%= "#{match_key_to_url(hash_key)}" + "#{value}" %>'  target="_blank">
-                      <%= image_tag 'ror_identifier.png', class: "img-responsive", alt: "#{hash_key.upcase}", style: 'float:left; border-radius: 4px', height: '16', width: '36'  %>
-
-                    </a>
-                  <% end  %>
-                <% end %>
-
+              <% if hash['contributor_isni'].present? %>
+                <% isni_id = hash['contributor_isni'] %>
+                <a href='<%= render_isni_or_orcid_url("#{isni_id}", "isni") %>'  target="_blank">
+                <%= image_tag 'isni.png', class: "img-responsive", alt: 'ISNI', style: 'float:left', height: '16', width: '26' %>
+                </a>
+              <% end %>
             <span>)</span>
           <% end %>
         </span>
