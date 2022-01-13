@@ -23,7 +23,7 @@ Hyrax::Renderers::AttributeRenderer.class_eval do
   end
 
   def render_dl_row
-    values&.delete("")
+    values&.delete("") if values.is_a?(Array)
     return '' if values.blank? && !options[:include_empty]
 
     markup = %(<div class='metadata-group'><dt>#{label}</dt>\n<dd><ul class='tabular'>)
