@@ -85,10 +85,9 @@ services:
     environment:
       - VIRTUAL_PORT=8080
       - VIRTUAL_HOST=fcrepo.bl.test
+      - JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
     expose:
       - 8080
-    environment:
-      - JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
     networks:
       internal:
 
@@ -137,7 +136,7 @@ services:
       - 3000
 
   worker:
-    command: sh -l -c "bundle && bundle exec sidekiq"
+    # command: sh -l -c "bundle && bundle exec sidekiq"
     <<: *app
     build:
       context: .
@@ -160,8 +159,6 @@ services:
       redis:
         condition: service_started
       zoo:
-        condition: service_started
-      check_volumes:
         condition: service_started
       initialize_app:
         condition: service_completed_successfully

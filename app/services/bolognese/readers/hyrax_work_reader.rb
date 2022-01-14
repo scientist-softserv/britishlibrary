@@ -20,7 +20,7 @@ module Bolognese
         read_options = ActiveSupport::HashWithIndifferentAccess.new(options.except(:doi, :id, :url, :sandbox, :validate, :ra))
         meta = string.present? ? Maremma.from_json(string) : {}
 
-        {
+        a = {
           "alternate_identifier" => read_alternate_identifiers(meta),
           "contributors" => read_hyrax_work_contributors(meta),
           "creators" => read_hyrax_work_creators(meta),
@@ -29,14 +29,14 @@ module Bolognese
           "doi" => normalize_doi(meta.fetch('doi', nil)&.first),
           "funding_references" => read_hyrax_work_funding_references(meta),
           "identifiers" => read_hyrax_work_identifiers(meta),
-          "journal" => read_hyrax_work_journal(meta),
+          "related_items" => read_hyrax_work_journal(meta),
           "language" => read_hyrax_work_language(meta),
-          "official_li nk" => normalize_id(meta.fetch("URL", nil)),
+          "official_link" => normalize_id(meta.fetch("URL", nil)),
           "publication_year" => read_hyrax_work_publication_year(meta),
           "publisher" => read_hyrax_work_publisher(meta),
           "related_identifiers" => read_hyrax_work_related_identifiers(meta),
           "rights_list" => read_hyrax_work_rights_list(meta),
-          "size" => read_hyrax_work_size(meta),
+          "sizes" => read_hyrax_work_size(meta),
           "subjects" => read_hyrax_work_subjects(meta),
           "titles" => read_hyrax_work_titles(meta),
           "types" => read_hyrax_work_types(meta),
@@ -78,18 +78,26 @@ module Bolognese
       end
 
       def read_hyrax_work_journal(meta)
-        journal = {
-          'journal_metadata' => {},
-          'journal_issue' => {}
-        }
-        journal_title = meta.fetch('journal_title', nil)
-        journal['journal_metadata']['full_title'] = journal_title if journal_title
-        date_published = meta.fetch('date_published', nil)
-        journal['journal_issue']['publication_date'] = date_published if date_published
-        eissn = meta.fetch('eissn', nil)
-        journal['journal_metadata']['issn'] = eissn if eissn
+        relation = {}
 
-        journal if journal['journal_issue'].present? || journal['journal_metadata'].present?
+        journal_title = meta.fetch('journal_title', nil)
+        date_published = meta.fetch('date_published', nil)
+        eissn = meta.fetch('eissn', nil)
+        volume = meta.fetch('volume', nil)&.first
+
+        if journal_title
+          relation['relatedItemType'] = 'Journal'
+          relation['relationType'] = 'IsPublishedIn'
+          relation["relatedItemIdentifier"] = {
+            "relatedItemIdentifier" => eissn,
+            "relatedItemIdentifierType" => 'EISSN'
+                                              }
+          relation['titles'] = [ { 'title' => journal_title }]
+          relation['publicationYear'] = date_published.split('-').first if date_published
+          relation['volume'] = volume if volume
+        end
+
+        Array.wrap(relation) if relation.present?
       end
 
       def read_hyrax_work_related_identifiers(meta)
@@ -110,6 +118,15 @@ module Bolognese
           }
         end
 
+        eissn = meta.fetch('eissn', nil)
+        if eissn
+          output << {
+            "related_identifier" => eissn,
+            "relatedIdentifierType" => "EISSN",
+            "relationType" => "IsReferencedBy"
+          }
+        end
+
         output
       end
 
@@ -124,15 +141,19 @@ module Bolognese
                                       elsif ri['funder_ror'].present?
                                         [ri['funder_ror'], 'ROR']
                                       end
-
-
-
-          output <<  {
+          fields = {
             "funderName" => ri['funder_name'],
-            "awaredNumber" => ri['funder_award']&.first || meta.fetch('fndr_project_ref', nil),
             "funderIdentifier" => funder_id,
             "funderIdentifierType" => funder_id_type
           }
+
+          award = ri['funder_award']&.first || meta.fetch('fndr_project_ref', nil)
+          if award
+            fields["awardNumber"] = award
+            fields["awardURI"] = ""
+            fields["awardTitle"] = ""
+          end
+          output << fields
         end
 
         output
@@ -285,7 +306,8 @@ module Bolognese
       end
 
       def read_hyrax_work_size(meta)
-        meta.fetch('pagination', nil)
+        pagination = meta.fetch('pagination', nil)
+        [ pagination ] if pagination
       end
 
       def read_hyrax_work_language(meta)
