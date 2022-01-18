@@ -9,7 +9,7 @@
   <% content_for(:extra_body_classes, ' search-only') if current_account && current_account.search_only  %>
 
   <body class="<%= body_class %> <%= home_page_theme %> <%= search_results_theme %> <%= show_page_theme %>">
-    <%= render_gtm_body(request.original_url) %>
+    <%= render_gtm_body %>
     <div class="skip-to-content">
       <%= link_to "Skip to Content", "#skip-to-content" %>
     </div>
@@ -20,13 +20,11 @@
     <% if controller_name == 'homepage' || controller_name == 'pages' || controller_name == 'contact_form' || controller_name == 'terms'%>
       <%= content_for(:navbar) %>
     <% end %>
-
     <% if controller_name == 'catalog' || controller_name == 'articles' || controller_name == 'book_contributions' || controller_name == 'books' || controller_name == 'conference_items' || controller_name == 'datasets' || controller_name == 'exhibition_items' || controller_name == 'generic_works' || controller_name == 'images' || controller_name == 'reports' || controller_name == 'thesis_or_dissertations' || controller_name == 'time_based_medias' || controller_name == 'collections'%>
       <%= render "hyrax/homepage/banner_section"%>
     <% end %>
 
     <%# end OVERRIDE  %>
-
     <%= content_for(:precontainer_content) %>
     <div id="content-wrapper" class="container" role="main">
       <% if controller_name != 'splash'%>

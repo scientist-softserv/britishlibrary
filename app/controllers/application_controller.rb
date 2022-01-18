@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   include Hyrax::ThemedLayoutController
   with_themed_layout '1_column'
 
-  helper_method :current_account, :admin_host?, :home_page_theme, :show_page_theme, :search_results_theme
+  helper_method :current_account, :admin_host?, :home_page_theme, :show_page_theme, :search_results_theme, :gtm_code
   before_action :authenticate_if_needed
   before_action :require_active_account!, if: :multitenant?
   before_action :set_account_specific_connections!
@@ -142,5 +142,9 @@ class ApplicationController < ActionController::Base
 
   def ssl_configured?
     ActiveRecord::Type::Boolean.new.cast(current_account.ssl_configured)
+  end
+
+  def gtm_code
+    admin_host? ? 'GTM-KXSRB56' : current_account.settings['gtm_id']
   end
 end
