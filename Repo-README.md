@@ -54,6 +54,10 @@ We distribute two configuration files:
 - Download [Docker Desktop](https://www.docker.com/products/docker-desktop) and log in
 
 #### If this is your first time working in this repo or the Dockerfile has been updated you will need to pull your services first
+
+Also, if this is the first time you have built get the tar file for your data directory from a team member or your seeds will have no data to populate the app with.
+
+
   ```bash
   sc pull
   sc build
