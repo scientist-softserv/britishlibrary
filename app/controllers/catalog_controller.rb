@@ -67,10 +67,23 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name("subject", :facetable), limit: 5
     config.add_facet_field solr_name("language", :facetable), limit: 5
     config.add_facet_field solr_name("based_near_label", :facetable), limit: 5
-    config.add_facet_field solr_name("publisher", :facetable), limit: 5
     config.add_facet_field solr_name("file_format", :facetable), limit: 5
     config.add_facet_field solr_name('member_of_collections', :symbol), limit: 5, label: 'Collections'
     config.add_facet_field 'account_institution_name_ssim', limit: 5, label: 'Institutions'
+    config.add_facet_field 'file_availability', label: "Availability", query: {
+      available: {
+        label: 'File publicly available',
+        fq: 'generic_type_sim:Work AND ({!join from=id to=file_set_ids_ssim}visibility_ssi:open)'
+      },
+      external_link: {
+        label: 'External link (access may be restricted)',
+        fq: 'generic_type_sim:Work AND -doi_status_when_public_ssi:findable AND -doi_status_when_public_ssi:registered AND official_link_tesim:[* TO *]'
+      },
+      not_available: {
+        label: 'File not available',
+        fq: 'generic_type_sim:Work AND ({!join from=id to=file_set_ids_ssim}-visibility_ssi:open) AND ((*:* AND -official_link_tesim:[* TO *]) OR ((doi_status_when_public_ssi:findable OR doi_status_when_public_ssi:registered) AND official_link_tesim:[* TO *]))'
+      }
+    }
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
