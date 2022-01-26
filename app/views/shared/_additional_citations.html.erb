@@ -1,19 +1,55 @@
-<% content_for(:gscholar_meta) do %>
-  <% unless @presenter.abstract.blank? %>
-    <meta name="description" content="<%= @presenter.abstract.join %>" />
+<% presenter = @presenter %>
+<% content_for(:gscholar_meta, :flush => true) do %>
+  <meta name="citation_title" content="<%= presenter.title.first %>" />
+  <% presenter.creator.each do |creator| %>
+    <meta name="citation_author" content="<%= creator %>" />
   <% end %>
-  <% unless @presenter.keyword.blank? %>
-    <meta name="citation_keywords" content="<%= @presenter.keyword.join('; ') %>" />
+  <meta name="citation_publication_date" content="<%= presenter.date_published || presenter.date_created %>" />
+  <meta name="citation_pdf_url" content="<%= presenter.download_url %>" />
+  <% unless presenter.abstract.blank? %>
+  <meta name="description" content="<%= presenter.abstract.join %>" />
+    <meta name="citation_abstract" content="<%= presenter.abstract.join %>" />
   <% end %>
-  <% unless @presenter.publisher.blank? %>
-    <meta name="citation_publisher" content="<%= @presenter.publisher.join %>" />
+  <% unless presenter.keyword.blank? %>
+    <% presenter.keyword.each do |kw| %>
+      <meta name="citation_keywords" content="<%= kw %>" />
+    <% end %>
   <% end %>
-  <% unless @presenter.doi.blank? %>
-    <meta name="citation_doi" content="<%= @presenter.doi %>"/>
+  <% unless presenter.publisher.blank? %>
+    <meta name="citation_publisher" content="<%= presenter.publisher.join %>" />
   <% end %>
-  <% unless @presenter.isbns.blank? %>
-    <% @presenter.isbns.each do |isbn| %>
+  <% unless presenter.doi.blank? %>
+    <meta name="citation_doi" content="<%= presenter.doi %>"/>
+  <% end %>
+  <% unless presenter.isbns.blank? %>
+    <% presenter.isbns.each do |isbn| %>
       <meta name="citation_isbn" content="<%= isbn %>"/>
     <% end %>
+  <% end %>
+  <% unless presenter.date_published.blank? %>
+    <meta name="citation_date" content="<%= presenter.date_published.join %>"/>
+  <% end %>
+  <% unless presenter.series_name.blank? %>
+    <% presenter.series_name.each do |series| %>  
+      <meta name="citation_series_title" content="<%= series %>"/>
+    <% end %>
+  <% end %>
+  <% unless presenter.rights_statement.blank? %>  
+    <meta name="citation_rights" content="<%= presenter.rights_statement.join %>"/>
+  <% end %>
+  <% unless presenter.journal_title.blank? %>
+    <meta name="citation_journal_title" content="<%= presenter.journal_title %>"/>
+  <% end %>
+  <% unless presenter.volume.blank? %>
+    <meta name="citation_volume" content="<%= presenter.volume.join %>"/>
+  <% end %>
+  <% unless presenter.issue.blank? %>
+    <meta name="citation_issue" content="<%= presenter.issue.join %>"/>
+  <% end %>
+  <% unless presenter.issn.blank? %>
+    <meta name="citation_issn" content="<%= presenter.issn.join %>"/>
+  <% end %>
+  <% unless presenter.eissn.blank? %>
+    <meta name="citation_eissn" content="<%= presenter.eissn.join %>"/>
   <% end %>
 <% end %>
