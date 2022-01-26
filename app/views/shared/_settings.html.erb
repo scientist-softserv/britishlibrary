@@ -1,11 +1,11 @@
 <% if key == :doi_minting %>
-  <% if current_account.data_cite_endpoint.persisted? %>
+  <% if @account.data_cite_endpoint.persisted? %>
     <%= f.input key, as: value[:type] %>
   <% else %>
     <%= f.input key, as: value[:type], disabled: true, hint: 'an Admin must enter Data Cite keys before this can be enabled' %>
   <% end %>
 <% elsif value[:type] == 'array' %>
-  <% current_account.send(key).each do |sub_value| %>
+  <% @account.send(key).each do |sub_value| %>
     <%= f.input key, value: sub_value %>
   <% end %>
 <% elsif value[:type] == 'hash' %>
