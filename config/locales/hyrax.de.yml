@@ -953,6 +953,27 @@ de:
         no_links: Es wurden keine Links generiert
       title: Einweg-Links
     sort_label: Sortieren Sie die Liste der Elemente
+    static:
+      mendeley:
+        contact_form: Kontakt Formular
+        contact_help: Sollten sich die obigen Anweisungen als unzureichend erweisen, kontaktieren Sie uns bitte.
+        detail_help: Um Mendeley auf dieser Website zu verwenden, besuchen Sie die Seite eines einzelnen Elements und klicken Sie auf das Mendeley-Plugin. Warten Sie, bis es geladen ist, und wenn eine Referenz angezeigt wird, wählen Sie die Referenz aus und klicken Sie auf „Zu Mendeley hinzufügen“, um Ihr Zitat zu speichern.
+        guide_help: Anweisungen zur Anwendung von Mendeley finden Sie in deren
+        guides: Führerinnen.
+        header: Mendeley-Anweisungen
+        instructions: Zur Verwendung von Mendeley muss es auf Ihrem Gerät installiert sein und wird über ein Browser-Plugin verwendet.
+        visit: Bitte besuchen Sie die
+        website: Webseite zum Download.
+      zotero:
+        contact_form: Kontakt Formular
+        contact_help: Sollten sich die obigen Anweisungen als unzureichend erweisen, kontaktieren Sie uns bitte.
+        detail_help: Um Zotero auf dieser Website zu verwenden, besuchen Sie die Seite eines einzelnen Elements und klicken Sie mit der rechten Maustaste auf das Zotero-Plugin. Wählen Sie „Auf Zotero speichern" und verwenden Sie die Option „Eingebettete Metadaten", um detaillierte Metadaten zu Ihrer Zitierung zu speichern.
+        guide_help: Anweisungen zur Verwendung von Zotero finden Sie in deren
+        guides: Schnellstartanleitung.
+        header: Zotero-Anweisungen
+        instructions: Zur Verwendung von Zotero muss es auf Ihrem Gerät installiert sein und wird über ein Browser-Plugin verwendet.
+        visit: Bitte besuchen Sie die
+        website: Webseite zum Download.
     toolbar:
       dashboard:
         menu: Instrumententafel

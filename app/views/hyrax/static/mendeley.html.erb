@@ -1,0 +1,19 @@
+<h1><%= t('hyrax.static.mendeley.header') %></h1>
+<p>
+<%= t('hyrax.static.mendeley.instructions') %>
+</p>
+
+<p>
+<%= t('hyrax.static.mendeley.visit') %> <%= link_to "Mendeley", "https://www.mendeley.com/", target: "_blank" %> <%= t('hyrax.static.mendeley.website') %>
+</p>
+
+<p>
+<%= t('hyrax.static.mendeley.guide_help') %> <%= link_to t('hyrax.static.mendeley.guides'), "https://www.mendeley.com/guides", target: "_blank" %>
+</p>
+
+<p><%= t('hyrax.static.mendeley.detail_help') %></p>
+
+<%= image_tag 'mendeley.png', class: "img-responsive", alt: 'mendeley help', height: '600', width: '400' %>
+
+<p><%= t('hyrax.static.mendeley.contact_help') %></p>
+<%= link_to t('hyrax.static.mendeley.contact_form'), hyrax.contact_form_index_path %>

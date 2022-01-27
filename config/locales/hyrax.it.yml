@@ -954,6 +954,27 @@ it:
         no_links: Nessun collegamento è stato generato
       title: Link monouso
     sort_label: Ordina l'elenco degli articoli
+    static:
+      mendeley:
+        contact_form: Modulo di Contatto
+        contact_help: Se le istruzioni di cui sopra si rivelano insufficienti, contattaci.
+        detail_help: Per utilizzare Mendeley su questo sito, visita la pagina di un singolo articolo e fai clic sul plug-in Mendeley. Attendi il tempo di caricamento e quando viene visualizzato un riferimento, seleziona il riferimento e fai clic su "Aggiungi a Mendeley" per salvare la citazione.
+        guide_help: Per istruzioni su come utilizzare Mendeley, consultare il loro
+        guides: Guide.
+        header: Istruzioni di Mendeley
+        instructions: Per utilizzare Mendeley deve essere installato sul tuo dispositivo e viene utilizzato tramite un plug-in del browser.
+        visit: Si prega di visitare il
+        website: sito web da scaricare.
+      zotero:
+        contact_form: Modulo di Contatto
+        contact_help: Se le istruzioni di cui sopra si rivelano insufficienti, contattaci.
+        detail_help: Per utilizzare Zotero su questo sito, visita la pagina di un singolo elemento e fai clic con il pulsante destro del mouse sul plug-in Zotero. Seleziona "Salva in Zotero" e usa l'opzione "Metadati incorporati" per salvare i metadati dettagliati nella tua citazione.
+        guide_help: Per istruzioni su come utilizzare Zotero, consultare il loro
+        guides: Guida Rapida.
+        header: Istruzioni di Zotero
+        instructions: Per utilizzare Zotero deve essere installato sul tuo dispositivo e viene utilizzato tramite un plug-in del browser.
+        visit: Si prega di visitare il
+        website: sito web da scaricare.
     toolbar:
       dashboard:
         menu: Pannello di controllo

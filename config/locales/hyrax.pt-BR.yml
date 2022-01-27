@@ -954,6 +954,27 @@ pt-BR:
         no_links: Nenhum link foi gerado
       title: Links de uso único
     sort_label: Classificar a lista de itens
+    static:
+      mendeley:
+        contact_form: Formulário de Contato
+        contact_help: Caso as instruções acima sejam insuficientes, entre em contato conosco.
+        detail_help: Para usar o Mendeley neste site, visite a página de um item individual e clique no plugin Mendeley. Dê tempo para ele carregar e quando uma referência aparecer selecione a referência e clique em 'Adicionar ao Mendeley' para salvar sua citação.
+        guide_help: Para obter instruções sobre como usar o Mendeley, consulte
+        guides: Guias.
+        header: Mendeley Instruções
+        instructions: TPara usar o Mendeley, ele deve estar instalado no seu dispositivo e é usado por meio de um plug-in do navegador.
+        visit: Por favor, visite o
+        website: site para baixar.
+      zotero:
+        contact_form: Formulário de Contato
+        contact_help: Caso as instruções acima sejam insuficientes, entre em contato conosco.
+        detail_help: Para usar o Zotero neste site, visite a página de um item individual e clique com o botão direito do mouse no plugin Zotero. Selecione 'Salvar no Zotero' e use a opção 'Metadados incorporados' para salvar metadados detalhados em sua citação.
+        guide_help: Para obter instruções sobre como usar o Zotero, consulte
+        guides: Guias.
+        header: Zotero Instruções
+        instructions: TPara usar o Zotero, ele deve estar instalado no seu dispositivo e é usado por meio de um plug-in do navegador.
+        visit: Por favor, visite o
+        website: site para baixar.
     toolbar:
       dashboard:
         menu: painel de controle
