@@ -975,6 +975,27 @@ en:
         no_links: No links have been generated
       title: Single-Use Links
     sort_label: Sort the listing of items
+    static:
+      mendeley:
+        contact_form: Contact Form
+        contact_help: Should the above instructions prove insufficient please contact us.
+        detail_help: To use Mendeley on this site visit an individual item's page and click the Mendeley plugin.  Allow time for it to load and when a reference appears select the reference and click 'Add to Mendeley' to save your citation.
+        guide_help: For instructions on how to use Mendeley please see their
+        guides: Guides.
+        header: Mendeley Instructions
+        instructions: To use Mendeley it must be installed on your device and is used via a browser plugin.
+        visit: Please visit the
+        website: website to download.
+      zotero:
+        contact_form: Contact Form
+        contact_help: Should the above instructions prove insufficient please contact us.
+        detail_help: To use Zotero on this site visit an individual item's page and right click the Zotero plugin.  Select 'Save to Zotero' and use the 'Embedded Metadata' option to save detailed metadata to your citation.
+        guide_help: For instructions on how to use Zotero please see their 
+        guides: Quick Start Guide.
+        header: Zotero Instructions
+        instructions: To use Zotero it must be installed on your device and is used via a browser plugin.
+        visit: Please visit the
+        website: website to download.
     toolbar:
       dashboard:
         menu: Dashboard

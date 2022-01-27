@@ -954,6 +954,27 @@ zh:
         no_links: 尚未生成任何链接
       title: 一次性链接
     sort_label: 排序项目清单
+    static:
+      mendeley:
+        contact_form: 聯繫表
+        contact_help: 如果上述說明不夠充分，請聯繫我們.
+        detail_help: 要在此站点上使用 Mendeley，请访问单个项目的页面并单击 Mendeley 插件。留出时间加载，当参考出现时选择参考并单击“添加到 Mendeley”以保存您的引文。
+        guide_help: 有關如何使用 Mendeley 的說明，請參閱他們的
+        guides: 指南。
+        header: Mendeley 指示
+        instructions: 要使用 Mendeley，它必須安裝在您的設備上並通過瀏覽器插件使用.
+        visit: 請訪問
+        website: 要下載的網站.
+      zotero:
+        contact_form: 聯繫表
+        contact_help: 如果上述說明不夠充分，請聯繫我們.
+        detail_help: 要在此站點上使用 Zotero，請訪問單個項目的頁面並右鍵單擊 Zotero 插件。選擇"保存到 Zotero"並使用"嵌入式元數據"選項將詳細的元數據保存到您的引文中。
+        guide_help: 有關如何使用 Zotero 的說明，請參閱他們的
+        guides: 指南。
+        header: Zotero 指示
+        instructions: 要使用 Zotero，它必須安裝在您的設備上並通過瀏覽器插件使用.
+        visit: 請訪問
+        website: 要下載的網站.
     toolbar:
       dashboard:
         menu: 仪表板
