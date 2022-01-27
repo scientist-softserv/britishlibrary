@@ -27,4 +27,8 @@ class NilDataCiteEndpoint < NilEndpoint
   def ping
     false
   end
+
+  def present?
+    false
+  end
 end
