@@ -77,11 +77,13 @@ class CatalogController < ApplicationController
       },
       external_link: {
         label: 'External link (access may be restricted)',
-        fq: 'generic_type_sim:Work AND -doi_status_when_public_ssi:findable AND -doi_status_when_public_ssi:registered AND official_link_tesim:[* TO *]'
+        fq: '(generic_type_sim:Work AND -({!join from=id to=file_set_ids_ssim}visibility_ssi:open) AND -doi_status_when_public_ssi:findable AND -doi_status_when_public_ssi:registered AND official_link_tesim:[* TO *])',
+        q: '*:*'
       },
       not_available: {
         label: 'File not available',
-        fq: 'generic_type_sim:Work AND ({!join from=id to=file_set_ids_ssim}-visibility_ssi:open) AND ((*:* AND -official_link_tesim:[* TO *]) OR ((doi_status_when_public_ssi:findable OR doi_status_when_public_ssi:registered) AND official_link_tesim:[* TO *]))'
+        q: "*:*",
+        fq: 'generic_type_sim:Work AND -({!join from=id to=file_set_ids_ssim}visibility_ssi:open) AND ((*:* AND -official_link_tesim:[* TO *]) OR ((doi_status_when_public_ssi:findable OR doi_status_when_public_ssi:registered) AND official_link_tesim:[* TO *]))'
       }
     }
 
