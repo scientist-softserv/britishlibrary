@@ -1,0 +1,20 @@
+<h1><%= t('hyrax.static.zotero.header') %></h1>
+<p>
+  <%= t('hyrax.static.zotero.instructions') %>
+</p>
+
+<p>
+  <%= t('hyrax.static.zotero.visit') %> <%= link_to "Zotero", "https://www.zotero.org/", target: "_blank" %> <%= t('hyrax.static.zotero.website') %>
+</p>
+
+<p>
+  <%= t('hyrax.static.zotero.guide_help') %> <%= link_to t('hyrax.static.zotero.guides'), "https://www.zotero.org/support/quick_start_guide", target: "_blank" %>
+</p>
+
+<p><%= t('hyrax.static.zotero.detail_help') %></p>
+
+<%= image_tag 'zotero.png', class: "img-responsive", alt: 'zotero help', height: '300', width: '400' %>
+
+<p><%= t('hyrax.static.zotero.contact_help') %></p>
+<%= link_to t('hyrax.static.zotero.contact_form'), hyrax.contact_form_index_path %>
+

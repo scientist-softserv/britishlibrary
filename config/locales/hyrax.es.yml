@@ -954,6 +954,27 @@ es:
         no_links: No se han generado enlaces.
       title: Enlaces de un solo uso
     sort_label: Ordenar la lista de artículos
+    static:
+      mendeley:
+        contact_form: Formulario de contacto
+        contact_help: Si las instrucciones anteriores resultan insuficientes, póngase en contacto con nosotros.
+        detail_help: Para usar Mendeley en este sitio, visite la página de un elemento individual y haga clic en el complemento de Mendeley. Permita que se cargue y cuando aparezca una referencia, seleccione la referencia y haga clic en 'Agregar a Mendeley' para guardar su cita.
+        guide_help: Para obtener instrucciones sobre cómo usar Mendeley, consulte su
+        guides: Guías.
+        header: Instrucciones de Mendeley
+        instructions: Para usar Mendeley, debe estar instalado en su dispositivo y se usa a través de un complemento del navegador.
+        visit: Por favor visite el
+        website: sitio web para descargar.
+      zotero:
+        contact_form: Formulario de contacto
+        contact_help: Si las instrucciones anteriores resultan insuficientes, póngase en contacto con nosotros.
+        detail_help: Para usar Zotero en este sitio, visite la página de un elemento individual y haga clic derecho en el complemento de Zotero. Seleccione 'Guardar en Zotero' y use la opción 'Metadatos incrustados' para guardar metadatos detallados en su cita.
+        guide_help: Para obtener instrucciones sobre cómo usar Zotero, consulte su 
+        guides: Guía de inicio rápido.
+        header: Instrucciones de Zotero
+        instructions: Para usar Zotero, debe estar instalado en su dispositivo y se usa a través de un complemento del navegador.
+        visit: Por favor visite el
+        website: sitio web para descargar.
     toolbar:
       dashboard:
         menu: Tablero
