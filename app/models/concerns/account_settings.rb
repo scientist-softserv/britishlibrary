@@ -49,7 +49,7 @@ module AccountSettings
     validates :contact_email, :oai_admin_email,
               format: { with: URI::MailTo::EMAIL_REGEXP },
               allow_blank: true
-    validate :validate_email_format, :validate_contact_emails
+    validate :validate_email_format, :validate_contact_emails, :validate_doi_minting
     validates :google_analytics_id,
               format: { with: /((UA|YT|MO)-\d+-\d+|G-[A-Z0-9]{10})/i },
               allow_blank: true
@@ -128,6 +128,12 @@ module AccountSettings
         value.is_a?(String) ? JSON.parse(value) : value
       when 'string'
         value.to_s
+      end
+    end
+
+    def validate_doi_minting
+      if settings['doi_minting'] && !data_cite_endpoint.present?
+        errors.add(:doi_minting, "Data Cite crednetials must be filled in if for DOI minting is enabled")
       end
     end
 
