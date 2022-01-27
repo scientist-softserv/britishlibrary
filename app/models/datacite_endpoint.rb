@@ -22,6 +22,10 @@ class DataCiteEndpoint < ::Endpoint
     Hyrax::DOI::DataCiteRegistrar.password = nil
   end
 
+  def present?
+    mode.present? && prefix.present? && username.present? && password.present?
+  end
+
   def ping
     # TODO: ping https://api.test.datacite.org/heartbeat or some other endpoint
     true
