@@ -67,7 +67,7 @@ module Hyku
     end
 
     def creator
-      solr.formatted_creator
+      solr_document.formatted_creator
     end
 
     def creator_hash
