@@ -11,7 +11,7 @@ class SolrDocument
   include Hyrax::DOI::SolrDocument::DOIBehavior
   # Add attributes for DataCite DOIs for hyrax-doi plugin.
   include Hyrax::DOI::SolrDocument::DataCiteDOIBehavior
-
+  include MultipleMetadataFieldsHelper
   # self.unique_key = 'id'
 
   # Email uses the semantic field mappings below to generate the body of an email.
@@ -105,4 +105,38 @@ class SolrDocument
     return unless creator.first
     @work_creator = ActiveSupport::JSON.decode(creator.first)&.first
   end
+
+  def formatted_creator
+    array_of_hash = get_model(self.creator, self['has_model_ssim'].first, 'creator', 'creator_position')
+    array_of_hash&.map { |c| [c['creator_family_name'], c['creator_given_name']].join(', ') } || []
+  end
+
+  def endnote_filename
+    "#{id}.enw"
+  end
+
+  def end_note_format
+    {
+      '%T' => [:title],
+      # '%Q' => [:title, ->(x) { x.drop(1) }], # subtitles
+      '%A' => [:formatted_creator],
+      '%C' => [:publication_place],
+      '%D' => [:date_created],
+      '%8' => [:date_uploaded],
+      '%E' => [:contributor],
+      '%I' => [:publisher],
+      '%J' => [:series_title],
+      '%@' => [:isbn],
+      '%U' => [:related_url],
+      '%7' => [:edition_statement],
+      '%R' => [:persistent_url],
+      '%X' => [:abstract],
+      '%G' => [:language],
+      '%[' => [:date_modified],
+      '%9' => [:human_readable_type],
+      '%~' => I18n.t('hyrax.product_name'),
+      '%W' => Hyrax::Institution.name
+    }
+  end
+
 end
