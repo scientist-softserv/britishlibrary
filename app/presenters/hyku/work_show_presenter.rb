@@ -67,8 +67,7 @@ module Hyku
     end
 
     def creator
-      array_of_hash = get_model(self.creator_hash, self.model, 'creator', 'creator_position')
-      array_of_hash&.map { |c| [c['creator_family_name'], c['creator_given_name']].join(', ') } || []
+      solr.formatted_creator
     end
 
     def creator_hash
