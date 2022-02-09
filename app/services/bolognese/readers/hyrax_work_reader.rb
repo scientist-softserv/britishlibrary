@@ -17,6 +17,7 @@ module Bolognese
       # end
 
       def read_hyrax_work(string: nil, **options)
+
         read_options = ActiveSupport::HashWithIndifferentAccess.new(options.except(:doi, :id, :url, :sandbox, :validate, :ra))
         meta = string.present? ? Maremma.from_json(string) : {}
 
@@ -93,7 +94,8 @@ module Bolognese
             "relatedItemIdentifierType" => 'EISSN'
                                               }
           relation['titles'] = [ { 'title' => journal_title }]
-          relation['publicationYear'] = date_published.split('-').first if date_published
+          relation['publicationYear'] = read_hyrax_work_publication_year(meta)
+
           relation['volume'] = volume if volume
         end
 
@@ -285,12 +287,18 @@ module Bolognese
       end
 
       def read_hyrax_work_publication_year(meta)
-        date = meta.fetch("date_published", nil)
-        date ||= meta.fetch("date_created", nil)&.first
-        date ||= meta.fetch("date_uploaded", nil)
-        Date.strptime(date.to_s, "%Y-%m-%d").year
-      rescue StandardError
-        Time.zone.today.year
+        # First we get the year from the date_published (BL array date)
+        date = date_year(meta.fetch("date_published", nil))
+        # No date_published, use date_Accepted (BL array date)
+        date ||= date_year(meta.fetch("date_accepted", nil))
+        # Neither of those fall back to date_uploaded (always set, Hyrax string date)
+        date_uploaded = meta.fetch("date_uploaded", nil)
+        date ||= Date.strptime(date_uploaded.to_s, "%Y-%m-%d").year.to_s
+        date
+      end
+
+      def date_year(date)
+        date.split('-').first if date
       end
 
       def read_hyrax_work_subjects(meta)
