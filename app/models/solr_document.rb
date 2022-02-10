@@ -117,6 +117,7 @@ class SolrDocument
     # Is editor list something that is hanging around? If so we can just do
     self['editor_list_tesim']
   end
+
   def formatted_contributor
     array_of_hash = get_model(self.contributor, self['has_model_ssim'].first, 'contributor', 'contributor_position')
     array_of_hash&.map { |c| [c['contributor_family_name'], c['contributor_given_name']].join(', ') } || []
