@@ -111,6 +111,32 @@ class SolrDocument
     array_of_hash&.map { |c| [c['creator_family_name'], c['creator_given_name']].join(', ') } || []
   end
 
+  def formatted_editor
+    #array_of_hash = get_model(self.editor, self['has_model_ssim'].first, 'editor', 'editor_position')
+    #array_of_hash&.map { |c| [c['editor_family_name'], c['editor_given_name']].join(', ') } || []
+    # Is editor list something that is hanging around? If so we can just do
+    self['editor_list_tesim']
+  end
+
+  def formatted_contributor
+    array_of_hash = get_model(self.contributor, self['has_model_ssim'].first, 'contributor', 'contributor_position')
+    array_of_hash&.map { |c| [c['contributor_family_name'], c['contributor_given_name']].join(', ') } || []
+  end
+
+  def formatted_contributor_and_editor
+    [formatted_editor, formatted_contributor]
+  end
+
+  def year_published
+    # Just the year please
+    self['date_published_tesim']&.first&.split('-')&.first
+  end
+
+  def date_accessed
+    # As in date that the citation was accessed, which will always be today
+    Time.zone.today.strftime("%Y-%m-%d")
+  end
+
   def endnote_filename
     "#{id}.enw"
   end
@@ -120,22 +146,24 @@ class SolrDocument
       '%T' => [:title],
       # '%Q' => [:title, ->(x) { x.drop(1) }], # subtitles
       '%A' => [:formatted_creator],
-      '%C' => [:publication_place],
-      '%D' => [:date_created],
+      '%C' => [:place_of_publication],
+      '%D' => [:year_published],
       '%8' => [:date_uploaded],
-      '%E' => [:contributor],
+      '%E' => [:formatted_contributor_and_editor],
       '%I' => [:publisher],
       '%J' => [:series_title],
+      '%V' => [:volume],
+      '%7' => [:edition],
+      '%P' => [:pagination],
       '%@' => [:isbn],
       '%U' => [:related_url],
-      '%7' => [:edition_statement],
-      '%R' => [:persistent_url],
+      '%R' => [:doi],
       '%X' => [:abstract],
       '%G' => [:language],
-      '%[' => [:date_modified],
+      '%[' => [:date_accessed],
       '%9' => [:human_readable_type],
       '%~' => I18n.t('hyrax.product_name'),
-      '%W' => Hyrax::Institution.name
+      '%W' => [:institution]
     }
   end
 
