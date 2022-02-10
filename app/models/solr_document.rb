@@ -133,7 +133,7 @@ class SolrDocument
 
   def date_accessed
     # As in date that the citation was accessed, which will always be today
-    Date.today.strftime("%Y-%m-%d")
+    Time.zone.today.strftime("%Y-%m-%d")
   end
 
   def endnote_filename
