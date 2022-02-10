@@ -17,7 +17,6 @@ module Bolognese
       # end
 
       def read_hyrax_work(string: nil, **options)
-
         read_options = ActiveSupport::HashWithIndifferentAccess.new(options.except(:doi, :id, :url, :sandbox, :validate, :ra))
         meta = string.present? ? Maremma.from_json(string) : {}
 
@@ -95,7 +94,6 @@ module Bolognese
                                               }
           relation['titles'] = [ { 'title' => journal_title }]
           relation['publicationYear'] = read_hyrax_work_publication_year(meta)
-
           relation['volume'] = volume if volume
         end
 
@@ -298,7 +296,7 @@ module Bolognese
       end
 
       def date_year(date)
-        date.split('-').first if date
+        date&.split('-')&.first
       end
 
       def read_hyrax_work_subjects(meta)
