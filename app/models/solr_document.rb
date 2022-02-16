@@ -108,7 +108,7 @@ class SolrDocument
 
   def formatted_creator
     array_of_hash = get_model(self.creator, self['has_model_ssim'].first, 'creator', 'creator_position')
-    array_of_hash&.map { |c| [c['creator_family_name'], c['creator_given_name']].join(', ') } || []
+    array_of_hash&.map { |c| [c['creator_family_name'], c['creator_given_name'], c['creator_organization_name']].reject(&:blank?).join(', ') } || []
   end
 
   def formatted_editor
@@ -120,7 +120,7 @@ class SolrDocument
 
   def formatted_contributor
     array_of_hash = get_model(self.contributor, self['has_model_ssim'].first, 'contributor', 'contributor_position')
-    array_of_hash&.map { |c| [c['contributor_family_name'], c['contributor_given_name']].join(', ') } || []
+    array_of_hash&.map { |c| [c['contributor_family_name'], c['contributor_given_name'], c['contributor_organization_name']].reject(&:blank?).join(', ') } || []
   end
 
   def formatted_contributor_and_editor
