@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_20_065530) do
+ActiveRecord::Schema.define(version: 2022_02_16_195338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,7 +141,7 @@ ActiveRecord::Schema.define(version: 2021_09_20_065530) do
   create_table "bulkrax_statuses", force: :cascade do |t|
     t.string "status_message"
     t.string "error_class"
-    t.string "error_message"
+    t.text "error_message"
     t.text "error_backtrace"
     t.integer "statusable_id"
     t.string "statusable_type"
@@ -662,6 +662,7 @@ ActiveRecord::Schema.define(version: 2021_09_20_065530) do
     t.string "show_theme"
     t.string "search_theme"
     t.string "favicon"
+    t.string "research_repository_text"
   end
 
   create_table "subject_local_authority_entries", id: :serial, force: :cascade do |t|

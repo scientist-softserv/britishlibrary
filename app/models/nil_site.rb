@@ -15,7 +15,7 @@ class NilSite
   attr_reader :id, :account, :application_name, :institution_name,
               :institution_name_full, :banner_image, :primary_key,
               :logo_image, :default_collection_image, :default_work_image,
-              :directory_image, :favicon
+              :directory_image, :favicon, :research_repository_text
 
   # rubocop:disable Lint/DuplicateMethods
   def reload
