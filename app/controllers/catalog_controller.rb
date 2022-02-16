@@ -69,7 +69,7 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name("based_near_label", :facetable), limit: 5
     config.add_facet_field solr_name("file_format", :facetable), limit: 5
     config.add_facet_field solr_name('member_of_collections', :symbol), limit: 5, label: 'Collections'
-    config.add_facet_field 'account_institution_name_ssim', limit: 5, label: 'Institutions'
+    config.add_facet_field 'account_institution_name_ssim', limit: 5, label: 'Institution'
     config.add_facet_field 'file_availability', label: "Availability", query: {
       available: {
         label: 'File publicly available',
