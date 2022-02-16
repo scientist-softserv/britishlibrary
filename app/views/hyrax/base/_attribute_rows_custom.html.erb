@@ -127,7 +127,8 @@ app/renderers/ubiquity/external_url_attribute_renderer.rb to reflect the newly r
 <% end %>
 <%= presenter.attribute_to_html(:qualification_name, render_as: :string) %>
 
-<%= presenter.attribute_to_html(:qualification_level, render_as: :string) %>
+<%# Removing qualification_level from display as requested in https://gitlab.com/notch8/britishlibrary/-/issues/177 %>
+<%#= presenter.attribute_to_html(:qualification_level, render_as: :string) %>
 
 <% if presenter.alternate_identifier.present?%>
   <div class="metadata-group">
