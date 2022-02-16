@@ -3,7 +3,11 @@ en:
     application_name: "Hyku"
     search:
       pagination_info:
-        no_items_found: "0"
+        no_items_found: "<b>0</b> results."
+        single_item_found: "<b>1</b> result."
+        pages:
+          one: "<strong>%{start_num}</strong> - <strong>%{end_num}</strong> of <strong>%{total_num}</strong> total results."
+          other: "<strong>%{start_num}</strong> - <strong>%{end_num}</strong> of <strong>%{total_num}</strong> total results."
       fields:
         facet:
           based_near_label_sim: Location
