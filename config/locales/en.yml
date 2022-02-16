@@ -4,6 +4,7 @@ en:
     attributes:
       site:
         institution_name_full: Full institution name
+        research_repository_text: Research repository banner text
   application:
     tagline: The next-generation repository solution
   helpers:
@@ -126,14 +127,14 @@ en:
           forms:
             default_images:
               alert: "Please upload at least one file before submitting."
-              hint: 'For default images, you should use an image (JPG, GIF or PNG) that has equal height and width dimensions (100 pixels wide and 100 pixels tall)'
+              hint: "For default images, you should use an image (JPG, GIF or PNG) that has equal height and width dimensions (100 pixels wide and 100 pixels tall)"
         directory_image_form:
           forms:
             directory_image:
               hint: "To use an image as the directory image, you should use an image (JPG, GIF or PNG) that is no taller than the header and no wider than 400 pixels wide."
         logo_image_form:
           forms:
-             logo_image:
+            logo_image:
               hint: "To use an image as the logo, you should use a JPG or PNG that is a minimum of 100px tall (to retain image resolution) and has an aspect ratio between 3:2 and 2:1"
         favicon_form:
           forms:

@@ -23,7 +23,7 @@ class Site < ApplicationRecord
   class << self
     delegate :account, :application_name, :institution_name,
       :institution_name_full, :reload, :update, :contact_email,
-      :favicon,
+      :favicon, :research_repository_text,
       to: :instance
 
     def instance

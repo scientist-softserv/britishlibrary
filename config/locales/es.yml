@@ -4,6 +4,7 @@ es:
     attributes:
       site:
         institution_name_full: El nombre de la institución
+        research_repository_text: Texto del banner del repositorio de investigación
   application:
     tagline: La solución de repositorio de próxima generación
   helpers:
