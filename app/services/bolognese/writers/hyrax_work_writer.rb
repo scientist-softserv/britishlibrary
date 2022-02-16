@@ -113,7 +113,7 @@ module Bolognese
           "#{field_name}_organization_name" => field["name"],
           "#{field_name}_family_name" => field["familyName"],
           "#{field_name}_given_name" => field["givenName"],
-          "#{field_name}_name_type" => field["nameType"]&.sub("Organizational", "Organisational"),
+          "#{field_name}_name_type" => field["nameType"]&.sub("Organizational", "Organisational") || "Personal",
           "#{field_name}_position" => index.to_s,
           "#{field_name}_orcid" => field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"]&.match(/orcid/i) }&.map { |a| a['nameIdentifier'] },
           "#{field_name}_isni" => field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"]&.match(/isni/i) }&.map { |a| a['nameIdentifier'] },
