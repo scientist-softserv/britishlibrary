@@ -132,7 +132,7 @@ module AccountSettings
     end
 
     def validate_doi_minting
-      if settings['doi_minting'] && !data_cite_endpoint.present?
+      if ActiveModel::Type::Boolean.new.cast(settings['doi_minting']) && !data_cite_endpoint.present?
         errors.add(:doi_minting, "Data Cite crednetials must be filled in if for DOI minting is enabled")
       end
     end
