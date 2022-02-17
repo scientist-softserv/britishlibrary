@@ -4,6 +4,7 @@ pt-BR:
     attributes:
       site:
         institution_name_full: Nome completo da instituição
+        research_repository_text: Texto do banner do repositório de pesquisa
   application:
     tagline: A solução de repos
   helpers:

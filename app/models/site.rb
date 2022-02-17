@@ -21,10 +21,16 @@ class Site < ApplicationRecord
   accepts_nested_attributes_for :account, update_only: true
 
   class << self
-    delegate :account, :application_name, :institution_name,
-      :institution_name_full, :reload, :update, :contact_email,
-      :favicon,
-      to: :instance
+    delegate  :account,
+              :application_name,
+              :institution_name,
+              :institution_name_full,
+              :reload,
+              :update,
+              :contact_email,
+              :favicon,
+              :research_repository_text,
+              to: :instance
 
     def instance
       return NilSite.instance if Account.global_tenant?

@@ -18,6 +18,10 @@ module HyraxHelper
     Site.institution_name_full || super
   end
 
+  def research_repository_text
+    Site.research_repository_text || 'Research Repository'
+  end
+
   def banner_image
     Site.instance.banner_image? ? Site.instance.banner_image.url : super
   end

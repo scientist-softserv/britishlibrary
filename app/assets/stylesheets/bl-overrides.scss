@@ -72,28 +72,43 @@ body.public-facing {
   }
 
   //padding and margin bootstrap classes
+  .mw-100 {
+    max-width: 100px;
+  }
+
+  .ml-auto {
+    margin-left: auto;
+  }
+
   .pt-20 {
     padding-top: 20px;
   }
+
   .pt-40 {
     padding-top: 40px;
   }
+
   .pb-40 {
     padding-bottom: 40px;
   }
+
   .pb-60 {
     padding-bottom: 60px;
   }
+
   .pt-80 {
     padding-top: 80px;
   }
+
   .pb-80 {
     padding-bottom: 80px;
   }
+
   .px-home-content {
     padding-right: 80px;
     padding-left: 80px;
   }
+
   @media only screen and (max-width: 768px) {
     .px-home-content {
       padding-right: 40px;
