@@ -4,7 +4,8 @@ en:
     attributes:
       site:
         institution_name_full: Full institution name
-        research_repository_text: Research repository banner text
+        research_repository_text: Research repository text
+        research_repository_help_text: This text will appear to the right of your logo. Most institutions use the label "Research Repository", but feel free to fill in any text that is to your liking.
   application:
     tagline: The next-generation repository solution
   helpers:
