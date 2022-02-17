@@ -344,7 +344,7 @@ pt-BR:
         empty: Este %{type} não tem arquivos associados a ele. Clique em "editar" para adicionar mais arquivos.
         header: Itens
         thumbnail: Miniatura
-        title: Título
+        title: Nome do arquivo
         unauthorized: Não há itens disponíveis publicamente neste %{type}.
         visibility: Visibilidade
       relationships:

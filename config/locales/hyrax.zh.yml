@@ -344,7 +344,7 @@ zh:
         empty: 此%{type}没有与其关联的文件。单击“编辑”添加更多文件。
         header: 物品
         thumbnail: 缩图
-        title: 标题
+        title: 文件名
         unauthorized: 此%{type}中没有公开可用的项目。
         visibility: 能见度
       relationships:
