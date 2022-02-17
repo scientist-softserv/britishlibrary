@@ -344,7 +344,7 @@ es:
         empty: Este %{type} no tiene archivos asociados. Haga clic en "editar" para agregar más archivos.
         header: Artículos
         thumbnail: Miniatura
-        title: Título
+        title: Nombre del archivo
         unauthorized: No hay elementos disponibles públicamente en este %{type}.
         visibility: Visibilidad
       relationships:
@@ -969,7 +969,7 @@ es:
         contact_form: Formulario de contacto
         contact_help: Si las instrucciones anteriores resultan insuficientes, póngase en contacto con nosotros.
         detail_help: Para usar Zotero en este sitio, visite la página de un elemento individual y haga clic derecho en el complemento de Zotero. Seleccione 'Guardar en Zotero' y use la opción 'Metadatos incrustados' para guardar metadatos detallados en su cita.
-        guide_help: Para obtener instrucciones sobre cómo usar Zotero, consulte su 
+        guide_help: Para obtener instrucciones sobre cómo usar Zotero, consulte su
         guides: Guía de inicio rápido.
         header: Instrucciones de Zotero
         instructions: Para usar Zotero, debe estar instalado en su dispositivo y se usa a través de un complemento del navegador.
