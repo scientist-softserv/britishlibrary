@@ -19,7 +19,7 @@ module HyraxHelper
   end
 
   def research_repository_text
-    Site.research_repository_text || super
+    Site.research_repository_text || 'Research Repository'
   end
 
   def banner_image
