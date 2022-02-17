@@ -4,6 +4,7 @@ fr:
     attributes:
       site:
         institution_name_full: Nom complet de l'établissement
+        research_repository_text: Texte de la bannière du référentiel de recherche
   application:
     tagline: La solution de dépôt de nouvelle génération
   helpers:

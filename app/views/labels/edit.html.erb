@@ -35,6 +35,13 @@
               <%= f.label :institution_name_full %><br>
               <%= f.text_field :institution_name_full, class: 'form-control'%>
           </div>
+
+          <div class="field form-group">
+              <%= f.label :research_repository_text %><br>
+              <span class="help-block"><%= t('activerecord.attributes.site.research_repository_help_text') %></span>
+              <%= f.text_field :research_repository_text,
+                    class: 'form-control'%>
+          </div>
         </div>
         <div class="panel-footer">
           <%= f.submit class: 'btn btn-primary pull-right' %>
