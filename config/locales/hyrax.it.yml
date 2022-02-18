@@ -344,7 +344,7 @@ it:
         empty: Questo %{type} non ha file associati. Fai clic su "modifica" per aggiungere altri file.
         header: Elementi
         thumbnail: Miniatura
-        title: Titolo
+        title: Nome del file
         unauthorized: Non ci sono articoli disponibili pubblicamente in questo %{type}.
         visibility: Visibilità
       relationships:
