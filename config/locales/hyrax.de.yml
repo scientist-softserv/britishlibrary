@@ -343,7 +343,7 @@ de:
         empty: Diesem %{type} sind keine Dateien zugeordnet. Klicken Sie auf "Bearbeiten", um weitere Dateien hinzuzufügen.
         header: Artikel
         thumbnail: Miniaturansicht
-        title: Titel
+        title: Dateinamen
         unauthorized: Es gibt keine öffentlich verfügbaren Artikel in diesem %{type}.
         visibility: Sichtweite
       relationships:

@@ -368,7 +368,7 @@ en:
         empty: This %{type} has no files associated with it. Click "edit" to add more files.
         header: Items
         thumbnail: Thumbnail
-        title: Title
+        title: File Name
         unauthorized: There are no publicly available items in this %{type}.
         visibility: Visibility
       relationships:
@@ -990,7 +990,7 @@ en:
         contact_form: Contact Form
         contact_help: Should the above instructions prove insufficient please contact us.
         detail_help: To use Zotero on this site visit an individual item's page and right click the Zotero plugin.  Select 'Save to Zotero' and use the 'Embedded Metadata' option to save detailed metadata to your citation.
-        guide_help: For instructions on how to use Zotero please see their 
+        guide_help: For instructions on how to use Zotero please see their
         guides: Quick Start Guide.
         header: Zotero Instructions
         instructions: To use Zotero it must be installed on your device and is used via a browser plugin.

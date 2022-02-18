@@ -342,7 +342,7 @@ fr:
         empty: Ce %{type} n'a aucun fichier associé. Cliquez sur "modifier" pour ajouter d'autres fichiers.
         header: Articles
         thumbnail: La vignette
-        title: Titre
+        title: Nom de fichier
         unauthorized: Il n'y a aucun élément accessible au public dans ce %{type}.
         visibility: Visibilité
       relationships:
