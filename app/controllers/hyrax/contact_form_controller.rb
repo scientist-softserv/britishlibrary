@@ -39,6 +39,7 @@ module Hyrax
       @marketing_text = ContentBlock.for(:marketing)
       @home_text = ContentBlock.for(:home_text)
       @featured_work_list = FeaturedWorkList.new
+      @featured_collection_list = FeaturedCollectionList.new
       @announcement_text = ContentBlock.for(:announcement)
     end
 

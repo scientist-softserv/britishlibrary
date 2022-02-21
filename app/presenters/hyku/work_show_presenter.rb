@@ -13,6 +13,7 @@ module Hyku
              :alternate_identifier, :related_identifier, :media, :duration, :related_exhibition, :related_exhibition_venue, :related_exhibition_date,
              :dewey, :library_of_congress_classification, :alt_title, :current_he_institution, :qualification_name, :qualification_level, :collection_names, :collection_id, :resource_type_label,
              to: :solr_document
+    delegate :collection_presenters, to: :member_presenter_factory
 
     # assumes there can only be one doi
     def doi
@@ -74,6 +75,30 @@ module Hyku
       solr_document.creator
     end
 
+    # Begin Featured Collections Methods
+    def collection_featurable?
+      user_can_feature_collection? && solr_document.public?
+    end
+
+    def display_feature_collection_link?
+      collection_featurable? && FeaturedCollection.can_create_another? && !collection_featured?
+    end
+
+    def display_unfeature_collection_link?
+      collection_featurable? && collection_featured?
+    end
+
+    def collection_featured?
+      # only look this up if it's not boolean; ||= won't work here
+      @collection_featured = FeaturedCollection.where(collection_id: solr_document.id).exists? if @collection_featured.nil?
+      @collection_featured
+    end
+
+    def user_can_feature_collection?
+      current_ability.can?(:create, FeaturedCollection)
+    end
+    # End Featured Collections Methods
+
     private
 
     def extract_from_identifier(rgx)
@@ -84,5 +109,5 @@ module Hyku
         end
         ref
       end
-  end
+    end
 end

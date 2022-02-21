@@ -87,6 +87,15 @@ Rails.application.routes.draw do
     end
   end
 
+  # Generic collection routes
+  resources :collections, only: [] do
+    member do
+      resource :featured_collection, only: [:create, :destroy]
+    end
+  end
+
+  resources :featured_collection_lists, path: 'featured_collections', only: :create
+
   post 'funder' => 'lookup#funder', as: :lookup_funder
   get 'all_collections' => 'hyrax/homepage#all_collections', as: :all_collections
   get 'browserconfig' => 'hyrax/homepage#browserconfig', as: :browserconfig
