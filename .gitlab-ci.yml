@@ -160,6 +160,28 @@ hyku.staging:
   tags:
     - kubernetes
 
+hyku.production:
+  stage: go
+  only:
+    refs:
+      - main
+  when: manual
+  variables:
+    DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
+    DEPLOY_TAG: $CI_COMMIT_SHORT_SHA
+    WORKER_IMAGE: $CI_REGISTRY_IMAGE/worker
+    HELM_EXPERIMENTAL_OCI: 1
+    HELM_RELEASE_NAME: hyku-production
+    KUBE_NAMESPACE: hyku-production
+    HELM_EXTRA_ARGS: >
+      --values ops/production-deploy.yaml
+  script:
+    - export KUBECONFIG=$KUBECONFIG_BL
+    - envsubst < ops/production-deploy.tmpl.yaml > ops/production-deploy.yaml
+    - ./bin/helm_deploy hyku-production hyku-production
+  tags:
+    - kubernetes
+
 hyku.staging.stop:
   stage: go
   extends:
