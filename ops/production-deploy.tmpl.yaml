@@ -118,7 +118,7 @@ extraEnvVars: &envVars
   - name: HYKU_ROOT_HOST
     value: iro.bl.uk
   - name: HYKU_SMTP_SETTINGS
-    value: '{"from":"openaccess@bl.uk","user_name":"apikey","password":"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","address":"smtp.sendgrid.net","domain":"bl.uk","port":"587","authentication":"plain","enable_starttls_auto":true}'
+    value: '{"from":"openaccess@bl.uk","user_name":"apikey","password":"$PROD_SMTP_PASSWORD","address":"smtp.sendgrid.net","domain":"bl.uk","port":"587","authentication":"plain","enable_starttls_auto":true}'
   - name: SMTP_ADDRESS
     value: smtp.sendgrid.net
   - name: SMTP_DOMAIN
@@ -126,7 +126,7 @@ extraEnvVars: &envVars
   - name: SMTP_ENABLED
     value: "true"
   - name: SMTP_PASSWORD
-    value: "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"
+    value: $PROD_SMTP_PASSWORD
   - name: SMTP_PORT
     value: "587"
   - name: SMTP_USER_NAME
