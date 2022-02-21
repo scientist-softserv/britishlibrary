@@ -134,12 +134,7 @@ test:
 
 hyku.staging:
   stage: go
-  extends:
-    - .deploy
-  environment:
-    name: hyku.staging
-    url: http://hyku-staging.$KUBE_INGRESS_BASE_DOMAIN
-    on_stop: hyku.staging.stop
+  image: dtzar/helm-kubectl:3.5.3
   only:
     refs:
       - main
@@ -161,6 +156,7 @@ hyku.staging:
     - kubernetes
 
 hyku.production:
+  image: dtzar/helm-kubectl:3.5.3
   stage: go
   only:
     refs:
@@ -181,22 +177,3 @@ hyku.production:
     - ./bin/helm_deploy hyku-production hyku-production
   tags:
     - kubernetes
-
-hyku.staging.stop:
-  stage: go
-  extends:
-    - .deploy
-  environment:
-    name: hyku.staging
-    url: http://hyku-staging.$KUBE_INGRESS_BASE_DOMAIN
-    action: stop
-  when: manual
-  allow_failure: true
-  script:
-    - export KUBECONFIG=$KUBECONFIG_BL
-    - ./bin/helm_delete hyku-staging hyku-staging
-  tags:
-    - kubernetes
-
-.deploy:
-  image: dtzar/helm-kubectl:3.5.3
