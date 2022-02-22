@@ -44,10 +44,6 @@ class Ability
     current_user.has_role? :superadmin
   end
 
-  def featured_collection_abilities
-    can [:create, :destroy, :update], FeaturedCollection if admin?
-  end
-
   # Override from blacklight-access_controls-0.6.2 to define registered to include having a role on this tenant
   def user_groups
     return @user_groups if @user_groups
