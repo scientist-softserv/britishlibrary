@@ -1,6 +1,8 @@
 <% # OVERRIDE hyrax 2.9.1- removes the inline styling for the collections, but keeps the thumbnails %>
 
-<% collections.each do |collection| %>
+<%
+=begin%>
+ <% collections.each do |collection| %>
   <div class="col-xs-12 col-sm-6 col-md-4 collection-card-container">
     <div class="collection-card">
       <%= link_to [hyrax, collection] do %>
@@ -14,4 +16,6 @@
       <% end %>
     </div>
   </div>
-<% end %>
+<% end %> 
+<%
+=end%>

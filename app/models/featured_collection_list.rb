@@ -17,7 +17,7 @@ class FeaturedCollectionList
     return @collections if @collections
     @collections = FeaturedCollection.all
     add_solr_document_to_collections
-    @collectionss = @collections.reject do |work|
+    @collections = @collections.reject do |collection|
       collection.destroy if collection.presenter.blank?
       collection.presenter.blank?
     end
