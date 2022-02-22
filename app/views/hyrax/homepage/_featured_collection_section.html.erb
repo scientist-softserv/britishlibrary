@@ -21,7 +21,7 @@
     <h2><%= t('hyrax.homepage.featured_collections.title') %></h2>
     <hr/>
   </div>
-  <div class="row pt-40 flex wrap collections-row pb-40">
+  <div class="row pt-40 collections-row pb-40">
     <% if @featured_collection_list.empty? %>
       <p><%= t('hyrax.homepage.featured_collections.no_collections') %></p>
     <% elsif can? :update, FeaturedCollection %>
@@ -36,9 +36,11 @@
         <%= f.submit("Save order", class: 'btn btn-default') %>
       <% end %>
     <% else %>
-      <div class="row center-block flex-center works-row">
-        <%= render partial: 'explore_collections', collection: @featured_collection_list.featured_collections %>
-      </div>
+        <%= form_for [main_app, @featured_collection_list] do |f| %>
+          <%= f.fields_for :featured_collections do |featured| %>
+            <%= render 'explore_collections', f: featured %>
+          <% end %>
+      <% end %>
     <% end %>
   </div>
     <%= link_to main_app.search_catalog_path(f: { human_readable_type_sim: ["Collection"]}), class: 'btn btn-primary pull-right' do %>
