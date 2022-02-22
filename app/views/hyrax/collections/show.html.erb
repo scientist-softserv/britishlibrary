@@ -78,6 +78,9 @@
         <% else %>
         <h1 class="mt-0"><%= @presenter.title.first %></h1>
         <% end %>
+        <div class='show-actions-container'>
+          <%= render "hyrax/dashboard/collections/show_actions", presenter: @presenter %>
+        </div>
       </div>
       <div class="pt-20">
         <%= render 'collection_description', presenter: @presenter %>
