@@ -1,5 +1,6 @@
-# TODO - override this file so its only overriding a single method instead of full file
+# TODO: override this file so its only overriding a single method instead of full file
 # frozen_string_literal: true
+
 module Hyrax
   class DefaultMiddlewareStack
     # rubocop:disable Metrics/MethodLength
