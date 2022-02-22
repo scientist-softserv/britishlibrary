@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Hyrax
   class FeaturedCollectionListsController < ApplicationController
     def create
@@ -12,8 +13,8 @@ module Hyrax
 
     private
 
-    def list_params
-      params.require(:featured_collection_list).permit(featured_collections_attributes: [:id, :order])
-    end
+      def list_params
+        params.require(:featured_collection_list).permit(featured_collections_attributes: [:id, :order])
+      end
   end
 end

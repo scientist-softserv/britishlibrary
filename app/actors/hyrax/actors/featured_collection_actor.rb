@@ -20,14 +20,14 @@ module Hyrax
 
       private
 
-      def cleanup_featured_collections(curation_concern)
-        FeaturedCollection.where(collection_id: curation_concern.id).destroy_all
-      end
+        def cleanup_featured_collections(curation_concern)
+          FeaturedCollection.where(collection_id: curation_concern.id).destroy_all
+        end
 
-      def check_featureability(curation_concern)
-        return unless curation_concern.private?
-        cleanup_featured_collections(curation_concern)
-      end
+        def check_featureability(curation_concern)
+          return unless curation_concern.private?
+          cleanup_featured_collections(curation_concern)
+        end
     end
   end
 end
