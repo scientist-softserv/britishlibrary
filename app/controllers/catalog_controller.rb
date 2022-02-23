@@ -403,7 +403,7 @@ class CatalogController < ApplicationController
 
   private
 
-  def show_additional_display_options?
-    @show_additional_display_options = false
-  end
+    def show_additional_display_options?
+      @show_additional_display_options = false
+    end
 end
