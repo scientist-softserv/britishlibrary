@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# OVERRIDE here to add collection methods to collection presenter
+
 require_dependency Hyrax::Engine.root.join('app', 'presenters', 'hyrax', 'collection_presenter').to_s
 
 Hyrax::CollectionPresenter.class_eval do

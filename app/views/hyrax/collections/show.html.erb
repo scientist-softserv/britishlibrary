@@ -1,5 +1,4 @@
-<%# OVERRIDE Hyrax 2.9.5 to change layout of collections page for BL layout %>
-<%# OVERRIDE Hyrax 2.9.5 to change layout of collections page for BL layout %>
+<%# OVERRIDE Hyrax 2.9.0 to change layout of collections page for BL layout & add show actions buttons to collection show page %>
 
 <% provide :page_title, construct_page_title(@presenter.title) %>
 <div class="hyc-container" itemscope itemtype="http://schema.org/CollectionPage">
@@ -78,6 +77,7 @@
         <% else %>
         <h1 class="mt-0"><%= @presenter.title.first %></h1>
         <% end %>
+        <%# OVERRIDE here to add admin actions buttons to show page %>
         <div class='show-actions-container'>
           <%= render "hyrax/dashboard/collections/show_actions", presenter: @presenter %>
         </div>
