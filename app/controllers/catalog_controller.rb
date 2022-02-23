@@ -400,4 +400,10 @@ class CatalogController < ApplicationController
     _, @document = fetch params[:id]
     render json: @document.to_h
   end
+
+  private
+
+    def show_additional_display_options?
+      @show_additional_display_options = false
+    end
 end
