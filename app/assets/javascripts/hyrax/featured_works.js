@@ -1,4 +1,4 @@
-//OVERRIDE this file to add the selector for featured collections (cc) at the bottom in addition to the selection for featured works (dd)
+//OVERRIDE this file to add the selector for featured collections (ff) at the bottom in addition to the selector for featured works (dd)
 
 function setWeight(node, weight) {
   weightField(node).val(weight);
@@ -62,5 +62,6 @@ Blacklight.onLoad(function() {
   });
 
   dragAndDrop($('#dd'));
+  //OVERRIDE this file to add the selector for featured collections (cc) at the bottom in addition to the selector for featured works (dd)
   dragAndDrop($('#ff'))
 });
