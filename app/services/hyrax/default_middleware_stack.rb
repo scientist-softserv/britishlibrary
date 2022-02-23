@@ -1,4 +1,4 @@
-# TODO: override this file so its only overriding a single method instead of full file
+# OVERRIDE Hyrax 2.9.1 to add Featured Collection Actor to build_stack method
 # frozen_string_literal: true
 
 module Hyrax
