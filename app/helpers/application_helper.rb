@@ -6,6 +6,7 @@ module ApplicationHelper
   include Hyrax::OverrideHelperBehavior
   include GroupNavigationHelper
   include Ubiquity::SolrSearchDisplayHelpers
+  include SharedSearchHelper
 
   def check_has_editor_fields?(presenter)
     ["Book", "BookContribution", "ConferenceItem", "Report", "GenericWork"].include? presenter

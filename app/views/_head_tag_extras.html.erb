@@ -1,4 +1,4 @@
-<%= render_gtm_head %>
+<%= render_gtm_head(request.original_url) %>
 <!-- generics -->
 <link rel="icon" href="<%= Site&.favicon&.url(:v32) %>" sizes="32x32">
 <link rel="icon" href="<%= Site&.favicon&.url(:v57) %>" sizes="57x57">
