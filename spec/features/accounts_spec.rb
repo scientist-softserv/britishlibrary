@@ -25,6 +25,8 @@ RSpec.describe 'Accounts administration', multitenant: true do
     end
 
     xit 'changes the associated cname' do # temp skip to get specs green
+    it 'changes the associated cname' do
+      pending "adjust for domain names instead of single cname"
       visit edit_proprietor_account_path(account)
 
       fill_in 'Tenant CNAME', with: 'example.com'
