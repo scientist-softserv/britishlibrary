@@ -5,7 +5,7 @@ module MultipleMetadataFieldsHelper
     if get_uri&.host && get_uri&.path
       true
     end
-  rescue
+  rescue StandardError
     false
   end
 

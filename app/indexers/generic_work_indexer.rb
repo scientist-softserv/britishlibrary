@@ -11,4 +11,3 @@ class GenericWorkIndexer < AppIndexer
   # this behavior
   include Hyrax::IndexesLinkedMetadata
 end
-

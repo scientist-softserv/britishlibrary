@@ -96,34 +96,50 @@ module Ubiquity
     end
 
     def standardize_dates
-      self.date_published = parse_dates(self.date_published)
-      self.date_submitted = parse_dates(self.date_submitted)
-      self.date_accepted = parse_dates(self.date_accepted)
+      self.date_published = parse_dates(date_published)
+      self.date_submitted = parse_dates(date_submitted)
+      self.date_accepted = parse_dates(date_accepted)
       save
     end
 
     def parse_dates(date)
       return nil if date.nil?
 
-      if date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)
+      if date =~ /[0-9]{4}-[0-9]{2}-[0-9]{2}/
         return date
-      elsif date.match(/[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}/)
-        parsed_date = Date.strptime(date, "%Y-%m-%d") rescue date
-      elsif date.match(/[0-9]{4}-[0-9]{1,2}/)
-        parsed_date = Date.strptime(date, "%Y-%m") rescue date
-      elsif date.match(/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/)
+      elsif date =~ /[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}/
+        parsed_date = begin
+                        Date.strptime(date, "%Y-%m-%d")
+                      rescue StandardError
+                        date
+                      end
+      elsif date =~ /[0-9]{4}-[0-9]{1,2}/
+        parsed_date = begin
+                        Date.strptime(date, "%Y-%m")
+                      rescue StandardError
+                        date
+                      end
+      elsif date =~ /[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/
         begin
           parsed_date = Date.strptime(date, "%m/%d/%Y")
         rescue Date::Error
-          parsed_date = Date.strptime(date, "%d/%m/%Y") rescue date
+          parsed_date = begin
+                          Date.strptime(date, "%d/%m/%Y")
+                        rescue StandardError
+                          date
+                        end
         end
-      elsif date.match(/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}/)
+      elsif date =~ /[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}/
         begin
           parsed_date = Date.strptime(date, "%m/%d/%y")
         rescue Date::Error
-          parsed_date = Date.strptime(date, "%d/%m/%y") rescue date
+          parsed_date = begin
+                          Date.strptime(date, "%d/%m/%y")
+                        rescue StandardError
+                          date
+                        end
         end
-      elsif date.match(/[0-9]{4}/)
+      elsif date =~ /[0-9]{4}/
         parsed_date = Date.strptime(date, "%Y")
       else
         return date

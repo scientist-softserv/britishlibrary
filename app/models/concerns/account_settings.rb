@@ -5,7 +5,6 @@
 
 module AccountSettings
   extend ActiveSupport::Concern
-  # rubocop:disable Metrics/BlockLength
   included do
     cattr_accessor :array_settings, :boolean_settings, :hash_settings, :string_settings, :private_settings do
       []
@@ -58,8 +57,6 @@ module AccountSettings
     before_save :update_feature_flippers
   end
   # rubocop:enable Metrics/BlockLength
-
-  # rubocop:disable Metrics/BlockLength
   class_methods do
     def setting(name, args)
       known_type = ['array', 'boolean', 'hash', 'string'].include?(args[:type])
@@ -111,9 +108,9 @@ module AccountSettings
   end
 
   def update_feature_flippers
-    return if self.settings["doi_minting"].nil?
+    return if settings["doi_minting"].nil?
     f = Hyrax::Feature.find_or_create_by(key: 'doi_minting')
-    f.update(enabled: self.doi_minting)
+    f.update(enabled: doi_minting)
   end
 
   private
@@ -132,9 +129,7 @@ module AccountSettings
     end
 
     def validate_doi_minting
-      if ActiveModel::Type::Boolean.new.cast(settings['doi_minting']) && !data_cite_endpoint.present?
-        errors.add(:doi_minting, "Data Cite crednetials must be filled in if for DOI minting is enabled")
-      end
+      errors.add(:doi_minting, "Data Cite crednetials must be filled in if for DOI minting is enabled") if ActiveModel::Type::Boolean.new.cast(settings['doi_minting']) && data_cite_endpoint.blank?
     end
 
     def validate_email_format
@@ -160,7 +155,7 @@ module AccountSettings
     end
 
     def set_smtp_settings
-      current_smtp_settings = self.smtp_settings.presence || {}
+      current_smtp_settings = smtp_settings.presence || {}
       self.smtp_settings = current_smtp_settings.with_indifferent_access.reverse_merge!(
         PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h
       )
