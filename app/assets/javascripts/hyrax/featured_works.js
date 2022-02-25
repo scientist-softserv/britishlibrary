@@ -46,7 +46,10 @@ Blacklight.onLoad(function() {
       type: "post",
       data: {"_method":"delete"},
       success: function(data) {
+        // this is to collapse the feature/unfeature buttons on the show page
         anchor.addClass('collapse');
+        // this is to collapse the entire featured collection/work item on the home page
+        anchor.closest('li.featured-item.dd-item').addClass('collapse');
         $('a[data-behavior="feature"]').removeClass('collapse')
       }
     });
