@@ -1,16 +1,8 @@
 //OVERRIDE this file to add the selector for featured collections (ff) at the bottom in addition to the selector for featured works (dd)
 
-function setWeight(node, weight) {
-  return weightField(node).val(weight);
-}
-
-/* find the input element with data-property="order" that is nested under the given node */
-function weightField(node) {
-  return findProperty(node, "order");
-}
-
-function findProperty(node, property) {
-  return node.find("input[data-property=" + property + "]");
+// /* find the input element with data-property="order" that is nested under the given node */
+function setWeight(node, weight, property) {
+  return node.find("input[data-property=" + property + "]").val(weight);
 }
 
 function findNode(id, container) {
@@ -27,7 +19,7 @@ function dragAndDrop(selector) {
     for(var i in data){
       var parent_id = data[i]['id'];
       parent_node = findNode(parent_id, container);
-      setWeight(parent_node, weight++);
+      setWeight(parent_node, weight++, "order");
     }
   });
 }
@@ -37,13 +29,12 @@ Blacklight.onLoad(function() {
     evt.preventDefault();
     anchor = $(this);
     $.ajax({
-       url: anchor.attr('href'),
-       type: "post",
-       success: function(data) {
-         anchor.addClass('collapse');
-         $('a[data-behavior="unfeature"]').removeClass('collapse')
-
-       }
+      url: anchor.attr('href'),
+      type: "post",
+      success: function(data) {
+        anchor.addClass('collapse');
+        $('a[data-behavior="unfeature"]').removeClass('collapse')
+      }
     });
   });
 
@@ -51,13 +42,13 @@ Blacklight.onLoad(function() {
     evt.preventDefault();
     anchor = $(this);
     $.ajax({
-       url: anchor.attr('href'),
-       type: "post",
-       data: {"_method":"delete"},
-       success: function(data) {
-         anchor.addClass('collapse');
-         $('a[data-behavior="feature"]').removeClass('collapse')
-       }
+      url: anchor.attr('href'),
+      type: "post",
+      data: {"_method":"delete"},
+      success: function(data) {
+        anchor.addClass('collapse');
+        $('a[data-behavior="feature"]').removeClass('collapse')
+      }
     });
   });
 
