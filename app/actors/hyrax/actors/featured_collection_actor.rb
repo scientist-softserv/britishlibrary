@@ -24,6 +24,7 @@ module Hyrax
           FeaturedCollection.where(collection_id: curation_concern.id).destroy_all
         end
 
+        # TODO(alishaevn): check references to this method in greater hyrax/hyku for spelling update to "featurability"
         def check_featureability(curation_concern)
           return unless curation_concern.private?
           cleanup_featured_collections(curation_concern)
