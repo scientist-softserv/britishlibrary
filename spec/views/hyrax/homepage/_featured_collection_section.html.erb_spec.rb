@@ -1,10 +1,9 @@
-
 # frozen_string_literal: true
 
 RSpec.describe "hyrax/homepage/_featured_collection_section.html.erb", type: :view, singletenant: true do
-  let(:list) { FeaturedCollectionList.new }
-
   subject { rendered }
+
+  let(:list) { FeaturedCollectionList.new }
 
   before { assign(:featured_collection_list, list) }
 

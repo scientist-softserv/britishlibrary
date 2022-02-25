@@ -39,6 +39,7 @@ RSpec.describe FeaturedCollectionList, type: :model do
 
   describe '#featured_collections_attributes=' do
     # We don't need to persist the given collection. This saves a few LDP calls.
+    subject { instance.featured_collections_attributes = attributes }
     let(:collection_id) { 'no-need-to-persist' }
     let(:featured_collection) { create(:featured_collection, collection_id: collection_id) }
 
@@ -52,7 +53,6 @@ RSpec.describe FeaturedCollectionList, type: :model do
     end
     let(:instance) { described_class.new }
 
-    subject { instance.featured_collections_attributes = attributes }
 
     it "sets order" do
       subject
