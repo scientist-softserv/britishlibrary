@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Hyrax
   module DOI
     class RegisterDOIJob < ApplicationJob
@@ -19,10 +20,12 @@ module Hyrax
       rescue Hyrax::DOI::DataCiteClient::Error => e
         user = ::User.find_by(email: model.depositor) if model.depositor
 
-        Hyrax::MessengerService.deliver(::User.audit_user,
-          user,
-          action(model, e),
-          "DOI failed to mint or update") if user
+        if user
+          Hyrax::MessengerService.deliver(::User.audit_user,
+                                          user,
+                                          action(model, e),
+                                          "DOI failed to mint or update")
+        end
         raise
       end
 

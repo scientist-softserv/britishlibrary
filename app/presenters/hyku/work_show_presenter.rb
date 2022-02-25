@@ -29,7 +29,7 @@ module Hyku
       #   return "#{ENV.fetch('DOI_BASE_URL', 'https://handle.stage.datacite.org')}/#{original_doi}" if original_doi
       # end
 
-      solr_document.doi.present? ? solr_document.doi : solr_document.original_doi
+      solr_document.doi.presence || solr_document.original_doi
     end
 
     # unlike doi, there can be multiple isbns
@@ -76,13 +76,13 @@ module Hyku
 
     private
 
-    def extract_from_identifier(rgx)
+      def extract_from_identifier(rgx)
         if solr_document['identifier_tesim'].present?
           ref = solr_document['identifier_tesim'].map do |str|
             str.scan(rgx)
           end
         end
         ref
-      end
+        end
   end
 end

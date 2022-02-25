@@ -1,6 +1,6 @@
 # OVERRIDE blacklight 6 to allow full url for show links
 Blacklight::CatalogHelperBehavior.module_eval do
-  def render_thumbnail_tag document, image_options = {}, url_options = {}
+  def render_thumbnail_tag(document, image_options = {}, url_options = {})
     value = if blacklight_config.view_config(document_index_view_type).thumbnail_method
               send(blacklight_config.view_config(document_index_view_type).thumbnail_method, document, image_options)
             elsif blacklight_config.view_config(document_index_view_type).thumbnail_field

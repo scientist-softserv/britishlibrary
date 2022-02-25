@@ -4,7 +4,7 @@ module Hyrax
     module DOIPresenterBehaviorDecorator
       # override from doi gem to skip link display
       def doi
-        solr_document.doi.present? ? solr_document.doi : solr_document.original_doi
+        solr_document.doi.presence || solr_document.original_doi
       end
     end
   end

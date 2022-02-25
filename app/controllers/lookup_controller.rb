@@ -1,5 +1,5 @@
 class LookupController < ApplicationController
-  # TODO do we need these other items from the poorly named AvailableUbiquityTitlesController?
+  # TODO: do we need these other items from the poorly named AvailableUbiquityTitlesController?
   # def check
   #   title = params["title"]
   #   alternative_title = params["alternative_title"].reject(&:blank?)
@@ -24,22 +24,21 @@ class LookupController < ApplicationController
   end
 end
 
-
 private
 
-  # def title_unavailable_message_based_on_count(record_ary)
-  #   if record_ary.count > 1
-  #     'The Following Titles are being used: '
-  #   else
-  #     'This Title is being used: '
-  #   end
-  # end
+# def title_unavailable_message_based_on_count(record_ary)
+#   if record_ary.count > 1
+#     'The Following Titles are being used: '
+#   else
+#     'This Title is being used: '
+#   end
+# end
 
-  # def title_available_message_based_on_count(record_ary)
-  #   record_ary.reject!(&:blank?)
-  #   if record_ary.count > 1
-  #     'The Titles are available'
-  #   else
-  #     'This Title is available'
-  #   end
-  # end
+# def title_available_message_based_on_count(record_ary)
+#   record_ary.reject!(&:blank?)
+#   if record_ary.count > 1
+#     'The Titles are available'
+#   else
+#     'This Title is available'
+#   end
+# end

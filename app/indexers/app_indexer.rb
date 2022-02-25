@@ -29,5 +29,4 @@ class AppIndexer < Hyrax::WorkIndexer
       solr_doc['account_institution_name_ssim'] = "#{Site.instance.institution_name} Research Repository"
     end
   end
-
 end

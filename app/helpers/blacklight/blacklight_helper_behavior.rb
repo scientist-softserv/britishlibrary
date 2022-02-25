@@ -402,5 +402,4 @@ module Blacklight
       link_to(document.title_or_label, generate_work_url(document, request))
     end
   end
-
 end
