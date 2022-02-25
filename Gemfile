@@ -138,13 +138,14 @@ group :aws do
 end
 
 gem 'bootstrap-datepicker-rails'
-# Sentry-raven for error handling
-gem "sentry-raven"
-
+gem "cocoon"
 gem 'codemirror-rails'
 gem 'parser', '~> 2.5.3'
+gem 'rdf', '~> 3.1.15' # rdf 3.2.0 removed SerializedTransaction which ldp requires
 gem 'riiif', '~> 1.1'
 gem 'secure_headers'
+# Sentry-raven for error handling
+gem "sentry-raven"
 gem 'sidekiq'
 gem 'tether-rails'
 gem "cocoon"
