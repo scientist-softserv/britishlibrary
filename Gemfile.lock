@@ -1248,6 +1248,7 @@ DEPENDENCIES
   rack-test (= 0.7.0)
   rails (~> 5.2.5)
   rails-controller-testing
+  rdf (~> 3.1.15)
   riiif (~> 1.1)
   rolify
   rsolr (~> 2.0)
