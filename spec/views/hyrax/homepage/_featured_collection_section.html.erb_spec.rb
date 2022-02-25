@@ -1,6 +1,7 @@
+
 # frozen_string_literal: true
 
-RSpec.describe "hyrax/homepage/_featured_collections.html.erb", type: :view do
+RSpec.describe "hyrax/homepage/_featured_collection_section.html.erb", type: :view, singletenant: true do
   let(:list) { FeaturedCollectionList.new }
 
   subject { rendered }
@@ -35,8 +36,8 @@ RSpec.describe "hyrax/homepage/_featured_collections.html.erb", type: :view do
 
     it do
       is_expected.not_to have_content 'No collections have been featured'
-      is_expected.not_to have_selector('form')
-      is_expected.to have_selector('ol#featured_collections')
+      is_expected.not_to have_selector('#no-collections')
+      is_expected.to have_selector('form')
     end
   end
 end

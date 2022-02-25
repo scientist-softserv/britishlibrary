@@ -1,7 +1,8 @@
+
 # frozen_string_literal: true
 
 RSpec.describe "file routes", type: :routing do
-  routes { Hyrax::Engine.routes }
+  routes { Rails.application.routes }
 
   it 'creates a featured_collection' do
     expect(post: '/collections/7/featured_collection').to route_to(controller: 'hyrax/featured_collections', action: 'create', id: '7')

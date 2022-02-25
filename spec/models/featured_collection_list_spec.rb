@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
+require 'rails_helper'
+
 RSpec.describe FeaturedCollectionList, type: :model do
-  let(:collection1) { build(:collection) }
-  let(:collection2) { build(:collection) }
+  let(:user) { create(:user).tap { |u| u.add_role(:admin, Site.instance) } }
+  let(:account) { create(:account) }
+  let(:collection1) { create(:collection, user: user) }
+  let(:collection2) { create(:collection, user: user) }
 
   describe 'featured_collections' do
     before do
+      Site.update(account: account)
       create(:featured_collection, collection_id: collection1.id)
       create(:featured_collection, collection_id: collection2.id)
     end
