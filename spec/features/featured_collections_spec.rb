@@ -1,8 +1,8 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe "The homepage", :clean_repo do
-
   let(:user) { create(:user).tap { |u| u.add_role(:admin, Site.instance) } }
   let(:account) { create(:account) }
   let(:collection1) { create(:collection, user: user) }
@@ -19,7 +19,6 @@ RSpec.describe "The homepage", :clean_repo do
   end
 
   context "as an admin" do
-
     before do
       login_as(user)
     end
