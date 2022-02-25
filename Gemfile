@@ -148,4 +148,3 @@ gem 'secure_headers'
 gem "sentry-raven"
 gem 'sidekiq'
 gem 'tether-rails'
-gem "cocoon"
