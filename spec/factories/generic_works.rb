@@ -15,6 +15,12 @@ FactoryBot.define do
       ]
     end
 
+    factory :public_generic_work, aliases: [:public_work], traits: [:public]
+
+    trait :public do
+      visibility { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
+    end
+
     factory :work_with_one_file do
       before(:create) do |work, evaluator|
         work.ordered_members << FactoryBot.create(:file_set,
