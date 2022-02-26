@@ -1,3 +1,5 @@
+# OVERRIDE Hyrax 2.9.0 to add featured collection routes
+
 require 'sidekiq/web'
 Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 
@@ -85,6 +87,17 @@ Rails.application.routes.draw do
         end
       end
     end
+  end
+
+  # OVERRIDE here to add featured collection routes
+  scope module: 'hyrax' do
+    # Generic collection routes
+    resources :collections, only: [] do
+      member do
+        resource :featured_collection, only: [:create, :destroy]
+      end
+    end
+    resources :featured_collection_lists, path: 'featured_collections', only: :create
   end
 
   post 'funder' => 'lookup#funder', as: :lookup_funder

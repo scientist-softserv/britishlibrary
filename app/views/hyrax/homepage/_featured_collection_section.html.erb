@@ -1,10 +1,29 @@
 <div class="container-fluid pt-40 pb-60 px-home-content">
   <div class="row">
-    <h2>Featured collections</h2>
+    <h2><%= t('hyrax.homepage.featured_collections.title') %></h2>
     <hr/>
   </div>
-  <div class="row pt-40 flex wrap collections-row pb-40">
-    <%= render 'explore_collections', collections: @presenter.collections %>
+  <div class="row pt-40 collections-row pb-40">
+    <% if @featured_collection_list.empty? %>
+      <p id='no-collections'><%= t('hyrax.homepage.featured_collections.no_collections') %></p>
+    <% elsif can? :update, FeaturedCollection %>
+      <%= form_for [main_app, @featured_collection_list] do |f| %>
+        <div class="panel-group dd" id="ff">
+          <ol id="featured_works row pb-40">
+            <%= f.fields_for :featured_collections do |featured| %>
+              <%= render 'sortable_featured_collections', f: featured %>
+            <% end %>
+          </ol>
+        </div>
+        <%= f.submit("Save order", class: 'btn btn-default') %>
+      <% end %>
+    <% else %>
+        <%= form_for [main_app, @featured_collection_list] do |f| %>
+          <%= f.fields_for :featured_collections do |featured| %>
+            <%= render 'explore_collections', f: featured %>
+          <% end %>
+      <% end %>
+    <% end %>
   </div>
     <%= link_to main_app.search_catalog_path(f: { human_readable_type_sim: ["Collection"]}), class: 'btn btn-primary pull-right' do %>
       <%= t('hyrax.homepage.admin_sets.link') %>
