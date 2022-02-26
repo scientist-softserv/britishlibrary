@@ -9,8 +9,8 @@
   <%# BEGIN HOMEPAGE CONTENT SECTIONS  %>
   <%= render "hyrax/homepage/marketing_text_section" if controller_name == 'homepage' %>
   <%= render "hyrax/homepage/featured_works_section" if controller_name == 'homepage' %>
-  <%= render "hyrax/homepage/featured_collection_section" if controller_name == 'homepage' %>
   <%= render "hyrax/homepage/recently_uploaded" if controller_name == 'homepage' %>
+  <%= render "hyrax/homepage/featured_collection_section" if controller_name == 'homepage' %>
   <% if @presenter&.display_featured_researcher? %>
     <%= render "hyrax/homepage/featured_researcher" if controller_name == 'homepage' %>
   <% end %>
