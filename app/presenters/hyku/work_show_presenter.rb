@@ -41,21 +41,21 @@ module Hyku
     end
 
     def date_published
-      date = solr_document['date_published_dtsim']
+      date = solr_document["date_published_dtsim"]
       return formatted_date(date) if date.present?
-      solr_document['date_published_tesim'] # kept for backward compatibility
+      solr_document["date_published_tesim"] # kept for backward compatibility
     end
 
     def date_accepted
-      date = solr_document['date_accepted_dtsim']
+      date = solr_document["date_accepted_dtsim"]
       return formatted_date(date) if date.present?
-      solr_document['date_accepted_tesim']
+      solr_document["date_accepted_tesim"]
     end
 
     def date_submitted
-      date = solr_document['date_submitted_dtsim']
+      date = solr_document["date_submitted_dtsim"]
       return formatted_date(date) if date.present?
-      solr_document['date_submitted_tesim']
+      solr_document["date_submitted_tesim"]
     end
 
     def file_licenses?
@@ -77,12 +77,12 @@ module Hyku
     private
 
       def extract_from_identifier(rgx)
-        if solr_document['identifier_tesim'].present?
-          ref = solr_document['identifier_tesim'].map do |str|
+        if solr_document["identifier_tesim"].present?
+          ref = solr_document["identifier_tesim"].map do |str|
             str.scan(rgx)
           end
         end
         ref
-        end
+      end
   end
 end

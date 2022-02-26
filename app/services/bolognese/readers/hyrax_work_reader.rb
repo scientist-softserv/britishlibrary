@@ -10,6 +10,7 @@ module Bolognese
     # m.datacite
     # Or:
     # m.ris
+    # rubocop:disable Metrics/ModuleLength
     module HyraxWorkReader
       # Not usable right now given how Metadata#initialize works
       # def get_hyrax_work(id: nil, **options)
@@ -21,7 +22,7 @@ module Bolognese
         read_options = ActiveSupport::HashWithIndifferentAccess.new(options.except(:doi, :id, :url, :sandbox, :validate, :ra))
         meta = string.present? ? Maremma.from_json(string) : {}
 
-        a = {
+        {
           "alternate_identifier" => read_alternate_identifiers(meta),
           "contributors" => read_hyrax_work_contributors(meta),
           "creators" => read_hyrax_work_creators(meta),
@@ -82,7 +83,7 @@ module Bolognese
           relation = {}
 
           journal_title = meta.fetch('journal_title', nil)
-          date_published = meta.fetch('date_published', nil)
+          # date_published = meta.fetch('date_published', nil) # rubocop: unusued var
           eissn = meta.fetch('eissn', nil)
           volume = meta.fetch('volume', nil)&.first
 
@@ -232,6 +233,7 @@ module Bolognese
           Array.wrap(meta.fetch("title", [])).select(&:present?).collect { |r| { "title" => sanitize(r) } }
         end
 
+        # rubocop:disable Metrics/MethodLength
         def read_hyrax_work_descriptions(meta)
           descriptions = []
           if meta.fetch('description').present?
@@ -280,6 +282,7 @@ module Bolognese
 
           descriptions.presence
         end
+        # rubocop:enable Metrics/MethodLength
 
         def read_hyrax_work_publication_year(meta)
           # First we get the year from the date_published (BL array date)
@@ -300,7 +303,7 @@ module Bolognese
           keywords = Array.wrap(meta.fetch("keyword", nil)).select(&:present?).collect { |r| { "subject" => sanitize(r) } }
           library_of_congress_classifications = Array.wrap(meta.fetch("library_of_congress_classification", nil)).select(&:present?).collect { |r| { "subject" => sanitize(r) } }
           subjects = Array.wrap(meta.fetch("subject", nil)).select(&:present?).collect { |r| { "subject" => sanitize(r) } }
-          deweys = Array.wrap(meta.fetch("dewey", nil)).select(&:present?).collect { |r| { "subject" => sanitize(r) } }
+          # deweys = Array.wrap(meta.fetch("dewey", nil)).select(&:present?).collect { |r| { "subject" => sanitize(r) } } # unused var
           keywords + library_of_congress_classifications + subjects
         end
 
@@ -323,5 +326,6 @@ module Bolognese
           parse_attributes(meta.fetch("publisher")).to_s.strip.presence || ":unav"
         end
     end
+    # rubocop:enable Metrics/ModuleLength
   end
 end

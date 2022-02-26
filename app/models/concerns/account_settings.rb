@@ -161,6 +161,7 @@ module AccountSettings
       )
     end
 
+    # rubocop:disable Metrics/MethodLength
     def reload_library_config
       Hyrax.config do |config|
         config.contact_email = contact_email
@@ -199,4 +200,5 @@ module AccountSettings
       Rails.application.default_url_options ||= {}
       Rails.application.default_url_options[:protocol] = 'https'
     end
+  # rubocop:enable Metrics/MethodLength
 end
