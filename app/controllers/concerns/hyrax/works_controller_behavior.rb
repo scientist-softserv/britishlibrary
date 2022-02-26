@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # OVERRIDE: British Libraries override to Hyrax v.2.9.5 so that a new work defaults to a "public" visibility
 # COPIED FROM HYRAX 2.9.0 to add inject_show_theme_views - Hyku theming
-require 'iiif_manifest'
+require "iiif_manifest"
 require "hyrax/doi/errors"
 
 module Hyrax
@@ -22,9 +22,7 @@ module Hyrax
       self.show_presenter = Hyrax::WorkShowPresenter
       self.work_form_service = Hyrax::WorkFormService
       self.search_builder_class = WorkSearchBuilder
-      self.iiif_manifest_builder = (
-        Flipflop.cache_work_iiif_manifest? ? Hyrax::CachingIiifManifestBuilder.new : Hyrax::ManifestBuilderService.new
-      )
+      self.iiif_manifest_builder = (Flipflop.cache_work_iiif_manifest? ? Hyrax::CachingIiifManifestBuilder.new : Hyrax::ManifestBuilderService.new)
       attr_accessor :curation_concern
       helper_method :curation_concern, :contextual_path
 
@@ -59,7 +57,7 @@ module Hyrax
     end
 
     def new
-      set_doi_data if params['doi'].present?
+      set_doi_data if params["doi"].present?
       # TODO: move these lines to the work form builder in Hyrax
       curation_concern.depositor = current_user.user_key
       curation_concern.admin_set_id = admin_set_id_for_new
@@ -76,13 +74,12 @@ module Hyrax
         respond_to do |wants|
           wants.html do
             build_form
-            render 'new', status: :unprocessable_entity
+            render "new", status: :unprocessable_entity
           end
           wants.json do
-
             render_json_response(
               response_type: :unprocessable_entity,
-              options: { errors: curation_concern.errors }
+              options: { errors: curation_concern.errors },
             )
           end
         end
@@ -104,19 +101,19 @@ module Hyrax
         end
         additional_response_formats(wants)
         wants.ttl do
-          render body: presenter.export_as_ttl, content_type: 'text/turtle'
+          render body: presenter.export_as_ttl, content_type: "text/turtle"
         end
         wants.jsonld do
-          render body: presenter.export_as_jsonld, content_type: 'application/ld+json'
+          render body: presenter.export_as_jsonld, content_type: "application/ld+json"
         end
         wants.nt do
-          render body: presenter.export_as_nt, content_type: 'application/n-triples'
+          render body: presenter.export_as_nt, content_type: "application/n-triples"
         end
       end
     end
 
     def edit
-      set_doi_data if params['doi'].present?
+      set_doi_data if params["doi"].present?
       build_form
     end
 
@@ -127,12 +124,12 @@ module Hyrax
         respond_to do |wants|
           wants.html do
             build_form
-            render 'edit', status: :unprocessable_entity
+            render "edit", status: :unprocessable_entity
           end
           wants.json do
             render_json_response(
               response_type: :unprocessable_entity,
-              options: { errors: curation_concern.errors }
+              options: { errors: curation_concern.errors },
             )
           end
         end
@@ -157,7 +154,7 @@ module Hyrax
     end
 
     def manifest
-      headers['Access-Control-Allow-Origin'] = '*'
+      headers["Access-Control-Allow-Origin"] = "*"
 
       json = json_manifest
 
@@ -172,18 +169,20 @@ module Hyrax
     end
 
     private
+
     def error_doi_not_found
       respond_to do |with|
-        with.all  { render :plain => "DOI not found.", :status => 404 }
-     with end
+        with.all { render :plain => "DOI not found.", :status => 404 }
+        with
+      end
     end
 
     def set_doi_data
-      if params['doi'].present?
+      if params["doi"].present?
         begin
-          @work_attributes = hyrax_work_from_doi(params['doi'])
+          @work_attributes = hyrax_work_from_doi(params["doi"])
           curation_concern.attributes = @work_attributes
-          flash_keys = @work_attributes.reject { |k,v| v.blank? }.keys.map { |k| t("simple_form.labels.defaults.#{k}", default: k.humanize) }.uniq
+          flash_keys = @work_attributes.reject { |k, v| v.blank? }.keys.map { |k| t("simple_form.labels.defaults.#{k}", default: k.humanize) }.uniq
           flash[:notice] = ["The following fields were auto-populated:", flash_keys.to_sentence]
         rescue => e
           Rails.logger.info(e.message)
@@ -199,20 +198,19 @@ module Hyrax
     def hyrax_work_from_doi(doi)
       # TODO: generalize this
       meta = Bolognese::Metadata.new(input: doi,
-        from: "datacite",
-        sandbox: false)
+                                     from: "datacite",
+                                     sandbox: false)
       meta = Bolognese::Metadata.new(input: doi,
-        from: "crossref",
-        sandbox: false) if meta.blank? || meta.doi.blank? || meta.state == "not_found"
+                                     from: "crossref",
+                                     sandbox: false) if meta.blank? || meta.doi.blank? || meta.state == "not_found"
       meta = Bolognese::Metadata.new(input: doi,
-        from: "datacite",
-        sandbox: true) if meta.blank? || meta.doi.blank? || meta.state == "not_found"
+                                     from: "datacite",
+                                     sandbox: true) if meta.blank? || meta.doi.blank? || meta.state == "not_found"
       # Check that a record was actually loaded
       raise Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." if meta.blank? || meta.doi.blank?
       meta.types["hyrax"] = curation_concern.class.to_s
       meta.hyrax_work
     end
-
 
     def iiif_manifest_builder
       self.class.iiif_manifest_builder
@@ -265,7 +263,7 @@ module Hyrax
     # Include 'hyrax/base' in the search path for views, while prefering
     # our local paths. Thus we are unable to just override `self.local_prefixes`
     def _prefixes
-      @_prefixes ||= super + ['hyrax/base']
+      @_prefixes ||= super + ["hyrax/base"]
     end
 
     def actor_environment
@@ -305,7 +303,7 @@ module Hyrax
         wants.html do
           unavailable_presenter
           flash[:notice] = message
-          render 'unavailable', status: :unauthorized
+          render "unavailable", status: :unauthorized
         end
         wants.json do
           render plain: message, status: :unauthorized
@@ -329,11 +327,11 @@ module Hyrax
 
     def decide_layout
       layout = case action_name
-               when 'show'
-                 '1_column'
-               else
-                 'dashboard'
-               end
+        when "show"
+          "1_column"
+        else
+          "dashboard"
+        end
       File.join(theme, layout)
     end
 
@@ -341,10 +339,10 @@ module Hyrax
     def attributes_for_actor
       raw_params = params[hash_key_for_curation_concern]
       attributes = if raw_params
-                     work_form_service.form_class(curation_concern).model_attributes(raw_params)
-                   else
-                     {}
-                   end
+          work_form_service.form_class(curation_concern).model_attributes(raw_params)
+        else
+          {}
+        end
 
       # If they selected a BrowseEverything file, but then clicked the
       # remove button, it will still show up in `selected_files`, but
@@ -354,7 +352,7 @@ module Hyrax
       uploaded_files = params.fetch(:uploaded_files, [])
       selected_files = params.fetch(:selected_files, {}).values
       browse_everything_urls = uploaded_files &
-        selected_files.map { |f| f[:url] }
+                               selected_files.map { |f| f[:url] }
 
       # we need the hash of files with url and file_name
       browse_everything_files = selected_files
@@ -362,7 +360,7 @@ module Hyrax
       attributes[:remote_files] = browse_everything_files
       # Strip out any BrowseEverthing files from the regular uploads.
       attributes[:uploaded_files] = uploaded_files -
-        browse_everything_urls
+                                    browse_everything_urls
       attributes
     end
 
@@ -371,8 +369,8 @@ module Hyrax
         wants.html do
           # Calling `#t` in a controller context does not mark _html keys as html_safe
           flash[:notice] = view_context.t(
-            'hyrax.works.create.after_create_html',
-            application_name: view_context.application_name
+            "hyrax.works.create.after_create_html",
+            application_name: view_context.application_name,
           )
           redirect_to [main_app, curation_concern]
         end
@@ -406,8 +404,8 @@ module Hyrax
     def additional_response_formats(format)
       format.endnote do
         send_data(presenter.solr_document.export_as_endnote,
-          type: "application/x-endnote-refer",
-          filename: presenter.solr_document.endnote_filename)
+                  type: "application/x-endnote-refer",
+                  filename: presenter.solr_document.endnote_filename)
       end
     end
 
@@ -421,14 +419,12 @@ module Hyrax
 
     # added to prepend the show theme views into the view_paths
     def inject_show_theme_views
-      if show_page_theme && show_page_theme != 'default_show'
+      if show_page_theme && show_page_theme != "default_show"
         original_paths = view_paths
-        show_theme_view_path = Rails.root.join('app', 'views', "themes", show_page_theme.to_s)
+        show_theme_view_path = Rails.root.join("app", "views", "themes", show_page_theme.to_s)
         prepend_view_path(show_theme_view_path)
         yield
-        # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-        view_paths=(original_paths)
-        # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+        original_paths
       else
         yield
       end
