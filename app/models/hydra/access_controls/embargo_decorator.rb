@@ -5,7 +5,7 @@ module Hydra
   module AccessControls
     module EmbargoDecorator
       def active?
-        (embargo_release_date.present? && Date.today.end_of_day < embargo_release_date)
+        (embargo_release_date.present? && Time.zone.today.end_of_day < embargo_release_date)
       end
     end
   end

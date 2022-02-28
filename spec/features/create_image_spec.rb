@@ -61,7 +61,7 @@ RSpec.describe 'Create a Image', js: true do
       find('body').click
       fill_in('image[creator_group][][creator_family_name]', with: 'Doe')
       fill_in('image[creator_group][][creator_given_name]', with: 'Jane')
-      
+
       select('In Copyright', from: 'Rights statement')
 
       # With selenium and the chrome driver, focus remains on the

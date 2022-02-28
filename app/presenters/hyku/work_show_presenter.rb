@@ -33,7 +33,7 @@ module Hyku
       #   return "#{ENV.fetch('DOI_BASE_URL', 'https://handle.stage.datacite.org')}/#{original_doi}" if original_doi
       # end
 
-      solr_document.doi.present? ? solr_document.doi : solr_document.original_doi
+      solr_document.doi.presence || solr_document.original_doi
     end
 
     # unlike doi, there can be multiple isbns
@@ -45,21 +45,21 @@ module Hyku
     end
 
     def date_published
-      date = solr_document['date_published_dtsim']
+      date = solr_document["date_published_dtsim"]
       return formatted_date(date) if date.present?
-      solr_document['date_published_tesim'] # kept for backward compatibility
+      solr_document["date_published_tesim"] # kept for backward compatibility
     end
 
     def date_accepted
-      date = solr_document['date_accepted_dtsim']
+      date = solr_document["date_accepted_dtsim"]
       return formatted_date(date) if date.present?
-      solr_document['date_accepted_tesim']
+      solr_document["date_accepted_tesim"]
     end
 
     def date_submitted
-      date = solr_document['date_submitted_dtsim']
+      date = solr_document["date_submitted_dtsim"]
       return formatted_date(date) if date.present?
-      solr_document['date_submitted_tesim']
+      solr_document["date_submitted_tesim"]
     end
 
     def file_licenses?

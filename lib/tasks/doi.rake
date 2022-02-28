@@ -1,5 +1,5 @@
 namespace :doi do
-  desc 'move single dois to original_doi field'
+  desc "move single dois to original_doi field"
   task doi_to_original_doi: :environment do
     Account.where(search_only: false).each do |account|
       switch!(account)
@@ -10,13 +10,13 @@ namespace :doi do
 
         work_type.find_each do |work|
           begin
-            print '.'
-            next unless work.doi.present?
+            print "."
+            next if work.doi.blank?
             logger.info(work.id)
             work.original_doi = work.doi
             work.doi = nil
             work.save!
-          rescue => e
+          rescue StandardError => e
             logger.error("E: #{work.id}\n#{e.message}")
           end
         end

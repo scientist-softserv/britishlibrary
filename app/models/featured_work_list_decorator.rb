@@ -3,8 +3,8 @@ module FeaturedWorkListDecorator
   def work_presenters
     ability = nil
     Hyrax::PresenterFactory.build_for(ids: ids,
-      presenter_class: Hyku::WorkShowPresenter,
-      presenter_args: ability)
+                                      presenter_class: Hyku::WorkShowPresenter,
+                                      presenter_args: ability)
   end
 end
 
