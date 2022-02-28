@@ -28,6 +28,7 @@ class LabelsController < SitesController
       params.require(:site).permit(:application_name,
                                    :institution_name,
                                    :institution_name_full,
-                                   :research_repository_text)
+                                   :research_repository_text,
+                                   :institution_url)
     end
 end

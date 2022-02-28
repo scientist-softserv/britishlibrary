@@ -18,6 +18,10 @@ module HyraxHelper
     Site.institution_name_full || super
   end
 
+  def institution_url
+    Site.institution_url.present? ? "//#{Site.institution_url}" : root_path
+  end
+
   def research_repository_text
     Site.research_repository_text || 'Research Repository'
   end
