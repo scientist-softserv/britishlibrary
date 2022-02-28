@@ -5,6 +5,8 @@ fr:
       site:
         institution_name_full: Nom complet de l'établissement
         research_repository_text: Texte de la bannière du référentiel de recherche
+        institution_url: URL de l'établissement
+        institution_url_help_text: Saisissez ici l'URL de votre institution. Ce lien s'ouvrira chaque fois qu'un utilisateur cliquera sur votre logo dans l'application.
   application:
     tagline: La solution de dépôt de nouvelle génération
   helpers:
