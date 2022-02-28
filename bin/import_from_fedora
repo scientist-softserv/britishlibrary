@@ -18,20 +18,21 @@ end
 file = ARGV[0]
 source_name, source_basename = File.basename(file).delete('.tgz').split("~")
 destination_url = ARGV[1]
-source_url = "http://fcrepo:8080/fcrepo/rest/#{source_basename}"
+# source_url = "http://fcrepo:8080/fcrepo/rest/#{source_basename}"
+source_url = "http://fcrepo.default.svc.cluster.local:8080/rest#{source_basename}"
 
 cmd = "wget https://github.com/fcrepo-exts/fcrepo-import-export/releases/download/fcrepo-import-export-0.3.0/fcrepo-import-export-0.3.0.jar"
 run cmd
 
-cmd = "tar zxfv #{file}"
+cmd = "mkdir -p tmp/from_fedora/#{source_name} && cd tmp/from_fedora/#{source_name} && tar zxfv #{file}"
 run cmd
 
-cmd = "java -jar fcrepo-import-export-0.3.0.jar --mode import --resource #{destination_url} --dir ./tmp/export --binaries --map #{source_url},#{destination_url} --legacyMode"
+cmd = "java -jar fcrepo-import-export-0.3.0.jar --mode import --resource #{destination_url} --dir tmp/from_fedora/#{source_name} --binaries --map #{source_url},#{destination_url} --legacyMode"
 run cmd
 
 puts "Dont for get to reindex!"
 
-cmd = %q{bundle exec rails runner 'apartment::tenant.switch!(account.find_by(name: "#{source_name}").tenant); activefedora::base.reindex_everything'}
+cmd = %q{bundle exec rails runner 'Apartment::Tenant.switch!(Account.find_by(name: "#{source_name}").tenant); ActiveFedora::Base.reindex_everything'}
 puts cmd
 
 # moved reindex to the seeds so we dont load rails twice. leaving this as a note
