@@ -131,6 +131,8 @@ extraEnvVars: &envVars
     value: "8983"
   - name: SOLR_URL
     value: http://admin:admin@hyku-staging-solr:8983/solr/
+  - name: SENTRY_DSN
+    value: https://07eb392c3e5c4dc0aac4d15b46b87a01:***REMOVED***@sentry.notch8.com/59
 
 worker:
   replicaCount: 1
