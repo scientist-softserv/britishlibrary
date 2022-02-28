@@ -25,6 +25,7 @@ class Site < ApplicationRecord
               :application_name,
               :institution_name,
               :institution_name_full,
+              :institution_url,
               :reload,
               :update,
               :contact_email,

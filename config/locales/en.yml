@@ -6,6 +6,8 @@ en:
         institution_name_full: Full institution name
         research_repository_text: Research repository text
         research_repository_help_text: This text will appear to the right of your logo. Most institutions use the label "Research Repository", but feel free to fill in any text that is to your liking.
+        institution_url: Institution URL
+        institution_url_help_text: Enter the URL to your institution here. This link will open whenever a user clicks on your logo throughout the app.
   application:
     tagline: The next-generation repository solution
   helpers:
