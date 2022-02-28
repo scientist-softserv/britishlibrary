@@ -720,7 +720,7 @@ body.public-facing {
     border-color: transparent;
   }
   .panel-heading.collapse-toggle .panel-title:after {
-    color: $mediumgrey;
+    color: $mediumgrey !important;
   }
 
   .panel {
