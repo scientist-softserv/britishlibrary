@@ -4,6 +4,7 @@
 # - add inject_theme_views method for theming
 # - add homepage presenter for access to feature flippers
 # - add access to content blocks in the show method
+# - add @featured_collection_list to new method
 
 module Hyrax
   class ContactFormController < ApplicationController
@@ -38,7 +39,9 @@ module Hyrax
       @featured_researcher = ContentBlock.for(:researcher)
       @marketing_text = ContentBlock.for(:marketing)
       @home_text = ContentBlock.for(:home_text)
+      # OVERRIDE: Hyrax 2.9.0 add @featured_collection_list
       @featured_work_list = FeaturedWorkList.new
+      @featured_collection_list = FeaturedCollectionList.new
       @announcement_text = ContentBlock.for(:announcement)
     end
 

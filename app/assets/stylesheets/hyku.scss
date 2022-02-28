@@ -39,6 +39,7 @@
 
 #banner.jumbotron {
   background: image_url("white-cloud-background.jpg") no-repeat;
+  background-color: $gray-lighter;
   background-position: center;
   height: 220px;
   background-color: $gray-lighter;
@@ -400,17 +401,20 @@ a.restore-default-color {
   }
 }
 
-// make sure that URLs don't go outside the container on all work-show pages
-.work-show ul.tabular li {
-  word-wrap: break-word;
+// FEATURED COLLECTIONS
+@media (max-width: $screen-sm-min) {
+  .admin-show-page
+    .collection-title-row-wrapper
+    .collection-title-row-content
+    .btn.collapse {
+    display: none;
+  }
 }
 
-// removes the extra whitespace extending past the sides of the page
-nav.navbar.navbar-default.navbar-static-top .container-fluid .row {
-  margin-left: 0;
-  margin-right: 0;
+.show-actions-container a.btn.btn-primary:nth-child(2) {
+  padding-left: 0;
+}
 
-  nav.navbar-nav.col-sm-5 {
-    padding-right: 0;
-  }
+.dd-item.collapse {
+  display: none;
 }
