@@ -7,7 +7,7 @@ module Hyrax
     # use the investigation hook to track work_type views
     after_action :send_irus_analytics_investigation, only: [:show]
 
-  public
+    public
     def item_identifier_for_irus_analytics
       # return the OAI identifier
       # http://www.openarchives.org/OAI/2.0/guidelines-oai-identifier.htm
