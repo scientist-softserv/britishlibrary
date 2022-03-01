@@ -124,6 +124,7 @@ gem 'flipflop', '~> 2.3'
 gem 'lograge'
 
 gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git', branch: 'play_nice_with_view_paths'
+gem 'bolognese', '1.9.7'
 gem 'httparty'
 gem 'mods', '~> 2.4'
 
@@ -137,13 +138,13 @@ group :aws do
 end
 
 gem 'bootstrap-datepicker-rails'
-gem "cocoon"
-gem 'codemirror-rails'
-gem 'parser', '~> 2.5.3'
-gem 'rdf', '~> 3.1.15' # rdf 3.2.0 removed SerializedTransaction which ldp requires
-gem 'riiif', '~> 1.1'
-gem 'secure_headers'
 # Sentry-raven for error handling
 gem "sentry-raven"
+
+gem 'codemirror-rails'
+gem 'parser', '~> 2.5.3'
+gem 'riiif', '~> 1.1'
+gem 'secure_headers'
 gem 'sidekiq'
 gem 'tether-rails'
+gem "cocoon"
