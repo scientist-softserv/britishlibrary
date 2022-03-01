@@ -415,7 +415,7 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faraday (0.17.4)
+    faraday (0.17.5)
       multipart-post (>= 1.2, < 3)
     faraday-encoding (0.0.4)
       faraday
@@ -587,7 +587,7 @@ GEM
       signet
       solrizer (>= 3.4, < 5)
       tinymce-rails (~> 4.1)
-    i18n (1.8.11)
+    i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     i18n-debug (1.2.0)
       i18n (< 2)
@@ -730,7 +730,7 @@ GEM
       scrub_rb (>= 1.0.1, < 2)
       unf
     marcel (1.0.2)
-    maremma (4.9.6)
+    maremma (4.9.7)
       activesupport (>= 4.2.5)
       addressable (>= 2.3.6)
       builder (~> 3.2, >= 3.2.2)
@@ -738,7 +738,7 @@ GEM
       faraday (~> 0.17.3)
       faraday-encoding (~> 0.0.4)
       faraday_middleware (~> 0.14.0)
-      nokogiri (~> 1.11.2)
+      nokogiri (>= 1.11.2, < 1.13.0)
       oj (>= 2.8.3)
       oj_mimic_json (~> 1.0, >= 1.0.1)
     matrix (0.4.2)
@@ -750,7 +750,7 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.1.2)
     mini_portile2 (2.5.3)
-    minitest (5.14.4)
+    minitest (5.15.0)
     mods (2.4.1)
       edtf
       iso-639
@@ -792,7 +792,7 @@ GEM
     octokit (4.21.0)
       faraday (>= 0.9)
       sawyer (~> 0.8.0, >= 0.5.3)
-    oj (3.13.9)
+    oj (3.13.11)
     oj_mimic_json (1.0.1)
     openseadragon (0.6.0)
       rails (> 3.2.0)
