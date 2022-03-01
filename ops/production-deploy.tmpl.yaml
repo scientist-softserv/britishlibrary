@@ -147,7 +147,8 @@ extraEnvVars: &envVars
     value: http://admin:$PROD_SOLR_PASSWORD@solr.default.svc.cluster.local:8983/solr/
   - name: SECRET_KEY_BASE
     value: 2b989efef38672467771269e8e430afebf55faf20da72e302e1893a3a5de22d9967b30b18d4ef369c9d34a6ca7315f99cb13fb98825aea4ee347a21be70f917e
-
+  - name: SENTRY_DSN
+    value: https://07eb392c3e5c4dc0aac4d15b46b87a01:a81586e18128478c93855c446ad388f2@sentry.notch8.com/59
 worker:
   replicaCount: 1
   extraVolumeMounts: *volMounts
