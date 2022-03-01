@@ -20,7 +20,8 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 20b4253314e52ddbabc941d759d91646cd4b4af7
+  revision: 289ebc73a6c60260e55deaac89d1fd71f002a62e
+  branch: bl-tmp
   specs:
     bulkrax (1.0.2)
       bagit (~> 0.4)
@@ -1138,7 +1139,7 @@ GEM
       unicode-display_width (~> 1.1, >= 1.1.1)
     tether-rails (1.4.0)
       rails (>= 3.1)
-    thor (1.2.1)
+    thor (0.20.3)
     thread (0.2.2)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -1201,7 +1202,6 @@ DEPENDENCIES
   aws-sdk-sqs
   blacklight (~> 6.7)
   blacklight_oai_provider (~> 6.1, >= 6.1.1)
-  bolognese (= 1.9.7)
   bootstrap-datepicker-rails
   browse-everything (~> 1.1.2)
   bulkrax!
