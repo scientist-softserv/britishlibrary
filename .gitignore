@@ -73,3 +73,4 @@ docker/local-docker-compose-2.yml
 data/**
 fcrepo-import-export-*
 solr_db_initialized
+ops/*-deploy.yaml
