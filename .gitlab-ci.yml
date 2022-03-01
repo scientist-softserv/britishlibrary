@@ -145,7 +145,7 @@ hyku.staging:
     WORKER_IMAGE: $CI_REGISTRY_IMAGE/worker
     HELM_EXPERIMENTAL_OCI: 1
     HELM_RELEASE_NAME: hyku-staging
-    KUBE_NAMESPACE: hyku-staging
+    KUBE_NAMESPACE: staging
     HELM_EXTRA_ARGS: >
       --values ops/staging-deploy.yaml
   script:
