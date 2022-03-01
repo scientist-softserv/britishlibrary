@@ -17,8 +17,11 @@ name = ARGV[0]
 source_url = ARGV[1]
 basename = File.basename(source_url)
 
-cmd = "java -jar fcrepo-import-export-0.3.0.jar --mode export --resource #{source_url} --dir ./hyrax-webapp/tmp/export --binaries"
+cmd = "wget https://github.com/fcrepo-exts/fcrepo-import-export/releases/download/fcrepo-import-export-0.3.0/fcrepo-import-export-0.3.0.jar"
 run cmd
 
-cmd = "tar zcfv data/#{name}~#{basename}.tgz tmp/export"
+cmd = "java -jar fcrepo-import-export-0.3.0.jar --mode export --resource #{source_url} --dir ./tmp/exports --binaries"
+run cmd
+
+cmd = "cd tmp/exports/rest && tar zcfv ../../../data/#{name}~#{basename}.tgz #{basename} #{basename}.ttl"
 run cmd
