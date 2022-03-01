@@ -22,6 +22,7 @@ hyku.build:
     refs:
       - merge_requests
       - main
+      - production
   tags:
     - local
 
@@ -161,6 +162,7 @@ hyku.production:
   only:
     refs:
       - main
+      - production
   when: manual
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
