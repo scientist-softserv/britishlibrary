@@ -1202,7 +1202,6 @@ DEPENDENCIES
   aws-sdk-sqs
   blacklight (~> 6.7)
   blacklight_oai_provider (~> 6.1, >= 6.1.1)
-  bolognese (= 1.9.13)
   bootstrap-datepicker-rails
   browse-everything (~> 1.1.2)
   bulkrax!
