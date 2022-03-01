@@ -151,7 +151,7 @@ hyku.staging:
   script:
     - export KUBECONFIG=$KUBECONFIG_BL
     - envsubst < ops/staging-deploy.tmpl.yaml > ops/staging-deploy.yaml
-    - ./bin/helm_deploy hyku-staging hyku-staging
+    - ./bin/helm_deploy hyku-staging staging
   tags:
     - kubernetes
 
