@@ -5,6 +5,8 @@ de:
       site:
         institution_name_full: Vollständiger Name der Institution
         research_repository_text: Bannertext des Forschungsarchivs
+        institution_url: Institutions-URL
+        institution_url_help_text: Geben Sie hier die URL zu Ihrer Institution ein. Dieser Link wird geöffnet, wenn ein Benutzer in der App auf Ihr Logo klickt.
   application:
     tagline: Die nächste Generation der Repository-Lösung
   helpers:
