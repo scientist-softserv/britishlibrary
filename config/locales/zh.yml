@@ -5,6 +5,8 @@ zh:
       site:
         institution_name_full: 完整的机构名称
         research_repository_text: 研究资料库横幅文本
+        institution_url: 机构网址
+        institution_url_help_text: 在此处输入您所在机构的 URL。每当用户在整个应用程序中单击您的徽标时，此链接就会打开。
   application:
     tagline: 下一代存储库解决方案
   helpers:

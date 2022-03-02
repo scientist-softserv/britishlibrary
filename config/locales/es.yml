@@ -5,6 +5,8 @@ es:
       site:
         institution_name_full: El nombre de la institución
         research_repository_text: Texto del banner del repositorio de investigación
+        institution_url: URL de la institución
+        institution_url_help_text: Introduzca aquí la URL de su institución. Este enlace se abrirá cada vez que un usuario haga clic en su logotipo en toda la aplicación.
   application:
     tagline: La solución de repositorio de próxima generación
   helpers:
