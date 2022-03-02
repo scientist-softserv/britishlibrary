@@ -1,9 +1,12 @@
 # frozen_string_literal: true
+require 'spec_helper.rb'
 
 RSpec.describe Site, type: :model do
   let(:admin1) { FactoryBot.create(:user, email: 'bob@was_here.net') }
   let(:admin2) { FactoryBot.create(:user, email: 'jane@was_here.net') }
   let(:admin3) { FactoryBot.create(:user, email: 'i@was_here.net') }
+
+  it { is_expected.to validate_url_of(:institution_url) }
 
   describe ".instance" do
     context "on global tenant" do

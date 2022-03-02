@@ -5,6 +5,8 @@ class Site < ApplicationRecord
 
   validates :application_name, presence: true, allow_nil: true
 
+  validates :institution_url, url: { allow_nil: true }
+
   # Allow for uploading of site's banner image
   mount_uploader :banner_image, Hyrax::AvatarUploader
   # Allow for uploading of site's logo image
