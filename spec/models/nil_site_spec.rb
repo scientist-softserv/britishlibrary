@@ -40,6 +40,12 @@ RSpec.describe NilSite do
     it { is_expected.to be nil }
   end
 
+  describe "#institution_url" do
+  subject { instance.institution_url }
+
+  it { is_expected.to be nil }
+  end
+
   describe "#reload" do
     subject { instance.reload }
 
