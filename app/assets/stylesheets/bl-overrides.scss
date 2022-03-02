@@ -159,7 +159,7 @@ body.public-facing {
 
   /* LINK COLORS */
   a {
-    color: $darkgrey;
+    color: $darkgrey !important;
     transition: 0.1s ease-in-out;
   }
 
@@ -328,7 +328,7 @@ body.public-facing {
     color: $mediumgrey !important;
   }
   .image-masthead .navbar .navbar-nav a {
-    color: $darkgrey;
+    color: $darkgrey !important;
     text-transform: none !important;
   }
 
@@ -345,7 +345,7 @@ body.public-facing {
 
   button#search-submit-header {
     color: $darkgrey;
-    background-color: $white;
+    background-color: $white !important;
     padding: 11px 12px;
     border-top: 2px solid $lightgrey !important;
     border-bottom: 2px solid $lightgrey !important;
@@ -579,7 +579,7 @@ body.public-facing {
 
   /* PRIMARY BUTTON STYLES */
   .btn-primary {
-    background-color: transparent;
+    background-color: transparent !important;
     border: 0;
     border-color: transparent;
     color: $darkgrey;
@@ -655,7 +655,7 @@ body.public-facing {
   }
   .btn-default:hover {
     color: $darkgrey !important;
-    background-color: transparent;
+    background-color: transparent !important;
     border: 0;
     border-color: transparent;
     text-decoration: underline;
@@ -713,14 +713,14 @@ body.public-facing {
   /* FACET PANEL STYLES */
   .panel-default > .panel-heading {
     color: $darkgrey;
-    background-color: transparent;
+    background-color: transparent !important;
     border-color: transparent;
   }
   .panel-default {
     border-color: transparent;
   }
   .panel-heading.collapse-toggle .panel-title:after {
-    color: $mediumgrey;
+    color: $mediumgrey !important;
   }
 
   .panel {
