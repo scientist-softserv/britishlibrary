@@ -485,7 +485,7 @@ en:
         reporting: Reporting a problem
       message_label: Message
       name_label: Your Name
-      notice: Questions or feedback about our repository? Use this form to contact us and we will respond as soon as possible. If your query concerns a particular item, please give as much detail as possible including the URL of its page. We would love to hear from you. 
+      notice: Questions or feedback about our repository? Use this form to contact us and we will respond as soon as possible. If your query concerns a particular item, please give as much detail as possible including the URL of its page. We would love to hear from you.
       select_type: Select an Issue Type
       subject_label: Subject
       type_label: Issue Type
@@ -835,10 +835,10 @@ en:
         drag: Drag
         no_works: No works have been featured
         tab_label: Featured Works
-        title: Featured Works
+        title: Featured items
       featured_collections:
         no_collections: No collections have been featured.
-        title: Featured Collections
+        title: Featured collections
         document:
           title_label: Title
       recently_uploaded:
@@ -852,7 +852,7 @@ en:
           title_label: Title
         no_public: No public work has been contributed.
         tab_label: Recently Uploaded
-        title: Recently Uploaded
+        title: Recent works
     icons:
       collection: fa fa-cubes
       default: fa fa-cube
