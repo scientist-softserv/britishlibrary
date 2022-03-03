@@ -11,36 +11,36 @@
         </div>
         <div class="panel-body">
           <% if @site.errors.any? %>
-              <div id="error_explanation">
-                  <h2><%= pluralize(@site.errors.count, "error") %> prohibited this site from being saved:</h2>
-
-                  <ul>
-                      <% @site.errors.full_messages.each do |message| %>
-                          <li><%= message %></li>
-                      <% end %>
-                  </ul>
-              </div>
+            <div id="error_explanation">
+              <h2><%= pluralize(@site.errors.count, "error") %> prohibited this site from being saved:</h2>
+              <ul>
+                <% @site.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
           <% end %>
           <div class="field form-group">
-              <%= f.label :application_name %><br>
-              <%= f.text_field :application_name, class: 'form-control'%>
+            <%= f.label :application_name %><br>
+            <%= f.text_field :application_name, class: 'form-control'%>
           </div>
-
           <div class="field form-group">
-              <%= f.label :institution_name %><br>
-              <%= f.text_field :institution_name, class: 'form-control'%>
+            <%= f.label :institution_name %><br>
+            <%= f.text_field :institution_name, class: 'form-control'%>
           </div>
-
           <div class="field form-group">
-              <%= f.label :institution_name_full %><br>
-              <%= f.text_field :institution_name_full, class: 'form-control'%>
+            <%= f.label :institution_name_full %><br>
+            <%= f.text_field :institution_name_full, class: 'form-control'%>
           </div>
-
           <div class="field form-group">
-              <%= f.label :research_repository_text %><br>
-              <span class="help-block"><%= t('activerecord.attributes.site.research_repository_help_text') %></span>
-              <%= f.text_field :research_repository_text,
-                    class: 'form-control'%>
+          <%= f.label :institution_url %><br>
+          <span class="help-block"><%= t('activerecord.attributes.site.institution_url_help_text') %></span>
+          <%= f.text_field :institution_url, class: 'form-control'%>
+          </div>
+          <div class="field form-group">
+            <%= f.label :research_repository_text %><br>
+            <span class="help-block"><%= t('activerecord.attributes.site.research_repository_help_text') %></span>
+            <%= f.text_field :research_repository_text, class: 'form-control'%>
           </div>
         </div>
         <div class="panel-footer">

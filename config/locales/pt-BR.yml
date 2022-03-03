@@ -5,6 +5,8 @@ pt-BR:
       site:
         institution_name_full: Nome completo da instituição
         research_repository_text: Texto do banner do repositório de pesquisa
+        institution_url: URL da instituição
+        institution_url_help_text: Insira o URL da sua instituição aqui. Esse link será aberto sempre que um usuário clicar em seu logotipo em todo o aplicativo.
   application:
     tagline: A solução de repos
   helpers:

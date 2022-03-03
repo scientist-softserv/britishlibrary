@@ -5,6 +5,8 @@ it:
       site:
         institution_name_full: Nome dell'istituto completo
         research_repository_text: Testo del banner del repository di ricerca
+        institution_url: URL dell'istituto
+        institution_url_help_text: Inserisci qui l'URL del tuo istituto. Questo collegamento si aprirà ogni volta che un utente fa clic sul tuo logo nell'app.
   application:
     tagline: La soluzione di repository di nuova generazione
   helpers:
