@@ -53,7 +53,7 @@
   <% if current_account.search_only %>
     <small>
     <span>From: 
-      <%= link_to "//#{document.account_cname.first}" do %> 
+      <%= link_to "//#{document.account_cname.first}", target: :_blank do %> 
             <%= document.account_institution_name&.join %>
       <% end %> 
     </span>
