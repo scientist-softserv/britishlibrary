@@ -202,6 +202,8 @@ externalPostgresql:
   password: $PROD_DATABASE_PASSWORD
   database: hyku
   host: postgresql.default.svc.cluster.local
+global:
+  hyraxName: hyku-production-hyrax
 
 nginx:
   enabled: true
