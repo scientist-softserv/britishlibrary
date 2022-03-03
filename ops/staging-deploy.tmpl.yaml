@@ -172,6 +172,8 @@ fcrepo:
   storage:
     size: 105Gi
 
+global:
+  hyraxName: hyku-staging-hyrax
 
 nginx:
   enabled: true
