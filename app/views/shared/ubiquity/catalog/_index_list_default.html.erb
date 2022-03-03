@@ -13,7 +13,9 @@
       </h4>
     <% if document.abstract.present? %>
       <div class="abstract-search-results">
-        <small><%= document.abstract[0].truncate_words(50) %></small>
+        <small>
+          <%= document.abstract[0].truncate_words(50) %>
+        </small>
       </div>
     <% end %>
   </div>
@@ -23,7 +25,11 @@
     <% index_fields(document).each_with_index do |(field_name, field), index| %>
         <% if should_render_index_field? document, field %>
           <% if ["creator_tesim"].include? field_name %>
-            <span class= "creator-search-results"><small><%= display_json_fields(document, field_name)%></small></span>
+            <span class= "creator-search-results">
+              <small>
+                <%= display_json_fields(document, field_name)%>
+              </small>
+            </span>
           <% end %>
           <% if ["keyword_tesim"].include? field_name %>
             <p class="keywords-search-results"><%= doc_presenter.field_value field %></p>
@@ -45,7 +51,11 @@
   <% end %>
   </table>
   <% if current_account.search_only %>
-    <span>From: <%= document.account_institution_name&.join %></span>
+    <small>
+      <span>From: <%= link_to "//#{document.account_cname.first}", target: :_blank do %>
+        <%= document.account_institution_name&.join %>
+      <% end %></span>
+    </small>
   <% end %>
 
 </div>
