@@ -42,6 +42,7 @@ gem 'browse-everything', '~> 1.1.2'
 gem 'irus_analytics', git: 'https://github.com/notch8/irus_analytics', branch: :active_job_edition
 
 group :development, :test do
+  gem 'pry-byebug'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -72,7 +73,7 @@ group :test do
   gem 'rspec-its'
   gem 'rspec-retry'
   gem 'rspec_junit_formatter'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '3.142.7'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'webdrivers', '~> 4.0'
   gem 'webmock'
