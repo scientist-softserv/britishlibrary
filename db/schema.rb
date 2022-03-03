@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_21_184835) do
+ActiveRecord::Schema.define(version: 2022_02_28_184931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -672,6 +672,7 @@ ActiveRecord::Schema.define(version: 2022_02_21_184835) do
     t.string "search_theme"
     t.string "favicon"
     t.string "research_repository_text"
+    t.string "institution_url"
   end
 
   create_table "subject_local_authority_entries", id: :serial, force: :cascade do |t|

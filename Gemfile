@@ -148,3 +148,4 @@ gem 'secure_headers'
 gem "sentry-raven"
 gem 'sidekiq'
 gem 'tether-rails'
+gem 'validate_url'
