@@ -69,9 +69,10 @@ Also, if this is the first time you have built get the tar file for your data di
 
 ```bash
 sc pull
-sc build
-# the following 2 commands delete solr_db_initialized file, and run the solr setup and seeds. do this again any time you do `docker-compose down -v`
+# this file may cause issues if it is created before you build
 rm -rf solr_db_initialized
+sc build
+# the following command runs the solr setup and seeds. do this again any time you do `docker-compose down -v`
 sc up -s initialize_app
 ```
 
@@ -204,6 +205,24 @@ This is for the admin login on the Shared Research Repository page or when loggi
 - Access the tenant at "<short-name>.bl.test"
   NOTE: Although there are institutional logo's on the home page, all accounts are not created by default. If you would like to create an account for one of them, hover over its logo to see the url in the bottom left corner of the screen. Use the subdomain as the "short name" in the process above.
 - Check the `authenticate_if_needed` method in application_controller.rb for the current username/password combination
+
+# Search only tenant creation
+
+- From the home page click on "Accounts" in the upper left corner
+- Press "Create New Account"
+- Select the check box for "search only account"
+- Name the tenant 'search' if you would like to use it to execute searches from the splash page (bl.test)
+- After clicking 'Save', select the button that says 'Edit Account'
+- Scroll down to the 'Add Accounts' section
+- Add any accounts you would like to include in the shared search
+  - If there is any text in the 'Solr URL' field, make sure to delete it. Save your edits.
+- You will likely need to reindex your works in order to make them searchable
+  ```bash
+  docker-compose exec web bash
+  rails hyku:reindex_works
+  ```
+- Visit bl.test
+- Execute a search from the search bar to check that your tenant works.
 
 ## Rescue Server Deploy
 
