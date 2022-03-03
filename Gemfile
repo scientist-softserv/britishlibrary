@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.5'
+gem 'pry-byebug'
 
 # pre release versions for index fixes
 gem 'ldp', '>= 1.0.3'
@@ -72,7 +73,7 @@ group :test do
   gem 'rspec-its'
   gem 'rspec-retry'
   gem 'rspec_junit_formatter'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '3.142.7'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'webdrivers', '~> 4.0'
   gem 'webmock'
