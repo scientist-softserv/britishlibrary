@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.5'
-gem 'pry-byebug'
 
 # pre release versions for index fixes
 gem 'ldp', '>= 1.0.3'
@@ -43,6 +42,7 @@ gem 'browse-everything', '~> 1.1.2'
 gem 'irus_analytics', git: 'https://github.com/notch8/irus_analytics', branch: :active_job_edition
 
 group :development, :test do
+  gem 'pry-byebug'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
