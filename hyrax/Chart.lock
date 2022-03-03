@@ -1,0 +1,24 @@
+dependencies:
+- name: fcrepo
+  repository: oci://ghcr.io/samvera
+  version: 0.8.0
+- name: memcached
+  repository: https://charts.bitnami.com/bitnami
+  version: 4.2.21
+- name: minio
+  repository: https://charts.bitnami.com/bitnami
+  version: 6.7.2
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 10.3.13
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 10.7.16
+- name: solr
+  repository: https://charts.bitnami.com/bitnami
+  version: 1.0.1
+- name: nginx
+  repository: https://charts.bitnami.com/bitnami
+  version: 9.8.0
+digest: sha256:b1de3590b62bf3df73889441be40efb8267f5a21469efea957aa1142cd1e8751
+generated: "2022-03-03T12:00:08.751333-08:00"
