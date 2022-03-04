@@ -3,9 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin can select home page theme', type: :feature, js: true, clean: true do
-  let(:account) { FactoryBot.create(:account) }
-  let(:admin) { FactoryBot.create(:admin, email: 'admin@example.com', display_name: 'Adam Admin') }
+  let(:account) { create(:account) }
+  let(:admin) { create(:user).tap { |u| u.add_role(:admin, Site.instance) } }
   let(:user) { create :user }
+
+  before do
+    Site.update(account: account)
+    login_as(admin)
+  end
 
   # rubocop:disable RSpec/LetSetup
   let!(:work) do
@@ -19,7 +24,6 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
 
   context "as a repository admin" do
     it "has a tab for themes on the appearance tab" do
-      login_as admin
       visit '/admin/appearance'
       expect(page).to have_content 'Appearance'
       click_link('Themes')
@@ -27,10 +31,9 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
     end
 
     it 'has a select box for the home, show, and search pages themes' do
-      login_as admin
       visit '/admin/appearance'
       click_link('Themes')
-      select('Default home', from: 'Home Page Theme')
+      select('BL Default Homepage', from: 'Home Page Theme')
       select('List view', from: 'Search Results Page Theme')
       select('Default Show Page', from: 'Show Page Theme')
       find('body').click
@@ -44,10 +47,9 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
     end
 
     it 'sets the themes when the theme form is saved' do
-      login_as admin
       visit 'admin/appearance'
       click_link('Themes')
-      select('Default home', from: 'Home Page Theme')
+      select('BL Default Homepage', from: 'Home Page Theme')
       select('Gallery view', from: 'Search Results Page Theme')
       select('Default Show Page', from: 'Show Page Theme')
       find('body').click
@@ -158,7 +160,7 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       expect(page).to have_css('nav.navbar.navbar-inverse.navbar-static-top.cultural-repository-nav')
       visit '/admin/appearance'
       click_link('Themes')
-      select('Default home', from: 'Home Page Theme')
+      select('BL Default Homepage', from: 'Home Page Theme')
       find('body').click
       click_on('Save')
       site = Site.last
