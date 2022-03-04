@@ -11,7 +11,7 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
     create(:generic_work,
            title: ['Pandas'],
            keyword: ['red panda', 'giant panda'],
-           creator: ["[{\"creator_given_name\":\"#{admin.name}\"}]"], 
+           creator: ["[{\"creator_given_name\":\"#{admin.name}\"}]"],
            user: admin)
   end
 
@@ -19,14 +19,14 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
     create(:collection,
            title: ['Pandas'],
            description: ['Giant Pandas and Red Pandas'],
-           creator: ["[{\"creator_given_name\":\"#{admin.name}\"}]"], 
-           user: admin, 
+           creator: ["[{\"creator_given_name\":\"#{admin.name}\"}]"],
+           user: admin,
            members: [work])
   end
 
   let!(:feature) { FeaturedWork.create(work_id: work.id) }
 
-  before do 
+  before do
     Site.update(account: account)
   end
 
@@ -89,8 +89,9 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
   end
 
   context 'when featured researcher exists' do
+    # rubocop:disable RSpec/ExampleLength
     it 'shows a featured researcher section' do
-      ContentBlock.create(name: 'featured_researcher', value: 'Jane Goodall' )
+      ContentBlock.create(name: 'featured_researcher', value: 'Jane Goodall')
       login_as admin
       visit 'admin/features'
       expect(page).to have_content 'Show featured researcher'
@@ -108,5 +109,6 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
       expect(page).to have_content 'Featured items'
       expect(page).to have_content 'Featured researcher'
     end
+    # rubocop:enable RSpec/ExampleLength
   end
 end
