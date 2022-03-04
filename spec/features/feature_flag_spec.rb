@@ -77,7 +77,6 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
       find("tr[data-feature='show-featured-works']").find_button('off').click
       find("tr[data-feature='show-recently-uploaded']").find_button('off').click
       find("tr[data-feature='show-featured-researcher']").find_button('off').click
-      find("tr[data-feature='show-share-button']").find_button('off').click
       visit '/'
       expect(page).not_to have_content 'Recent works'
       expect(page).not_to have_content 'Featured researcher'
