@@ -1,6 +1,5 @@
 <% provide :page_title, application_name %>
 
-<%# add check for featured works %>
 <% if @presenter.display_featured_works? %>
   <%= render 'themes/cultural_repository/featured_works_home_text_section' %>
 <% else %>
