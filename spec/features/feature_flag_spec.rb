@@ -32,7 +32,6 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
 
   # rubocop:enable RSpec/LetSetup
 
-  # most of the feature flags have been non-functional due to overridden homepage
   context 'as a repository admin' do
     it 'has a setting for featured works' do
       login_as admin
@@ -42,12 +41,14 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
       visit '/'
       expect(page).to have_content 'Recent works'
       expect(page).to have_content 'Pandas'
-      expect(page).to have_content 'Featured items'
+      expect(page).not_to have_content 'Featured items'
+      expect(page).not_to have_selector(:link_or_button, 'Explore All Items')
       visit 'admin/features'
       find("tr[data-feature='show-featured-works']").find_button('on').click
       visit '/'
       expect(page).to have_content 'Featured items'
       expect(page).to have_content 'Pandas'
+      expect(page).to have_selector(:link_or_button, 'Explore All Items')
     end
 
     it 'has a setting for recently uploaded' do
@@ -56,15 +57,15 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
       expect(page).to have_content 'Show recently uploaded'
       find("tr[data-feature='show-recently-uploaded']").find_button('off').click
       visit '/'
-      expect(page).to have_content 'Recent works'
+      expect(page).not_to have_content 'Recent works'
       expect(page).to have_content 'Pandas'
       expect(page).to have_content 'Featured items'
+      expect(page).not_to have_selector(:link_or_button, 'View All Recent Additions')
       visit 'admin/features'
       find("tr[data-feature='show-recently-uploaded']").find_button('on').click
       visit '/'
       expect(page).to have_content 'Recent works'
       expect(page).to have_content 'Pandas'
-      expect(page).to have_content 'Featured items'
       expect(page).to have_selector(:link_or_button, 'View All Recent Additions')
     end
   end
@@ -78,17 +79,16 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
       find("tr[data-feature='show-featured-researcher']").find_button('off').click
       find("tr[data-feature='show-share-button']").find_button('off').click
       visit '/'
-      expect(page).to have_content 'Recent works'
-      expect(page).not_to have_content 'Featured Researcher'
-      expect(page).to have_content 'Featured items'
-      # expect(page).not_to have_content 'Share your work' # removed due to override
+      expect(page).not_to have_content 'Recent works'
+      expect(page).not_to have_content 'Featured researcher'
+      expect(page).not_to have_content 'Featured items'
+      expect(page).not_to have_content 'Share your work'
       expect(page).to have_content 'Terms of Use'
-      # expect(page).to have_css('div.home-content') removed due to override
-      # expect(page).to have_content 'Explore Collections' # removed due to override
+      expect(page).to have_selector(:link_or_button, 'View All Collections')
     end
   end
 
-  context 'when featured researcher is toggled on' do
+  context 'when featured researcher exists' do
     it 'shows a featured researcher section' do
       ContentBlock.create(name: 'featured_researcher', value: 'Jane Goodall' )
       login_as admin
@@ -99,14 +99,14 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
       expect(page).to have_content 'Recent works'
       expect(page).to have_content 'Pandas'
       expect(page).to have_content 'Featured items'
-      expect(page).not_to have_content 'Featured Researcher'
+      expect(page).not_to have_content 'Featured researcher'
       visit 'admin/features'
       find("tr[data-feature='show-featured-researcher']").find_button('on').click
       visit '/'
       expect(page).to have_content 'Recent works'
       expect(page).to have_content 'Pandas'
       expect(page).to have_content 'Featured items'
-      expect(page).to have_content 'Featured Researcher'
+      expect(page).to have_content 'Featured researcher'
     end
   end
 end
