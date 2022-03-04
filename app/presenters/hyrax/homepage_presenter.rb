@@ -49,6 +49,10 @@ module Hyrax
       create_work_presenter.first_model
     end
 
+    # changed to add feature flag for featured collection
+    def display_featured_collections?
+      Flipflop.show_featured_collections?
+    end
     # changed to add feature flag for featured researcher
     def display_featured_researcher?
       Flipflop.show_featured_researcher?
