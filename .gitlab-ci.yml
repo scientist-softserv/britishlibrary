@@ -150,7 +150,7 @@ hyku.staging:
       --values ops/staging-deploy.yaml
   script:
     - export KUBECONFIG=$KUBECONFIG_BL
-    - envsubst < ops/staging-deploy.tmpl.yaml > ops/staging-deploy.yaml
+    - DOLLAR=$ envsubst < ops/staging-deploy.tmpl.yaml > ops/staging-deploy.yaml
     - ./bin/helm_deploy hyku-staging staging
   tags:
     - kubernetes
@@ -173,7 +173,7 @@ hyku.production:
       --values ops/production-deploy.yaml
   script:
     - export KUBECONFIG=$KUBECONFIG_BL
-    - envsubst < ops/production-deploy.tmpl.yaml > ops/production-deploy.yaml
+    - DOLLAR=$ envsubst < ops/production-deploy.tmpl.yaml > ops/production-deploy.yaml
     - ./bin/helm_deploy hyku-production hyku-production
   tags:
     - kubernetes
