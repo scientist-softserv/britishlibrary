@@ -822,7 +822,7 @@ en:
       featured_researcher:
         missing: No researchers have been featured.
         tab_label: Featured Researcher
-        title: Featured Researcher
+        title: Featured researcher
       featured_works:
         document:
           depositor_label: Depositor
