@@ -4,9 +4,14 @@ Flipflop.configure do
           default: true,
           description: "Shows the Featured Researcher tab on the homepage."
 
-  feature :show_share_button,
+  # Disabling due to overriden homepage
+  # feature :show_share_button,
+  #         default: true,
+  #         description: "Shows the 'Share Your Work' button on the homepage."
+
+  feature :show_featured_collections,
           default: true,
-          description: "Shows the 'Share Your Work' button on the homepage."
+          description: "Shows the Featured Collections tab on the homepage."
 
   feature :show_featured_works,
           default: true,
