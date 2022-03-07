@@ -1,5 +1,6 @@
+<!-- OVERRIDE Hyrax 2.9.6 -->
 <!-- Copied from  https://github.com/samvera/hyrax/blob/5a9d1be16ee1a9150646384471992b03aab527a5/app/views/hyrax/contact_form/new.html.erb-->
-<!-- renderd in app/views/hyrax/contact_form/new.html.erb -->
+<!-- rendered in app/views/hyrax/contact_form/new.html.erb -->
 
 <div class="alert alert-info">
   <%= render 'directions' %>
@@ -27,7 +28,7 @@
     <% issue_types = Hyrax::ContactForm.issue_types_for_locale.dup %>
     <%# issue_types.unshift([t('hyrax.contact_form.select_type'), nil]) %>
     <div class="col-sm-10">
-      <%= f.select 'category', options_for_select(issue_types), {}, {class: 'form-control', required: true } %>
+      <%= f.select 'category', options_for_select(issue_types), {}, { class: 'form-control', required: true } %>
     </div>
   </div>
 
