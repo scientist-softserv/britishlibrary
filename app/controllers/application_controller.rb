@@ -65,11 +65,11 @@ class ApplicationController < ActionController::Base
       users
     end
 
-  protected
+  # protected
 
-    def redirect_if_search
-      redirect_to "//#{Account.admin_host}" if current_account.search_only
-    end
+  #   def redirect_if_search
+  #     redirect_to "//#{Account.admin_host}" if current_account.search_only
+  #   end
 
   private
 
