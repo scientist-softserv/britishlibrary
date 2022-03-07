@@ -67,7 +67,6 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
 
   context 'when a search results theme is selected' do
     it 'updates the search results page with the selected layout view' do # rubocop:disable RSpec/ExampleLength
-      login_as admin
       visit '/admin/appearance'
       click_link('Themes')
       select('Gallery view', from: 'Search Results Page Theme')
@@ -87,7 +86,7 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       expect(page).to have_css('body.gallery_view')
       fill_in "search-field-header", with: "llama"
       click_button "search-submit-header"
-      expect(page).to have_css('a.view-type-gallery.active')
+      expect(page).to have_css('.row.gallery')
     end
 
     # TODO: temp skip until GroupAwareRoleChecker#has_group_aware_role? bug is resolved
@@ -104,7 +103,7 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       visit '/'
       fill_in "search-field-header", with: "llama"
       click_button "search-submit-header"
-      expect(page).to have_css('a.view-type-gallery.active')
+      expect(page).to have_css('.row.gallery')
       click_link "List"
       expect(page).to have_current_path('/catalog?locale=en&q=llama&search_field=all_fields&utf8=✓&view=list')
     end
