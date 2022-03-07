@@ -16,7 +16,7 @@ bl_shared_home:
   home_page_text: true
   marketing_text: true
   name: BL Shared Site Homepage
-  notes: This theme only recommended for the BL Shared Research Respository cross-search tenant.
+  notes: This theme is only recommended for the BL Shared Research Respository cross-search tenant.
 bl_non_shared_home:
   banner_image: true
   featured_researcher: true

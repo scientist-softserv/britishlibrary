@@ -59,13 +59,7 @@
   </div>
 <%end%>
 
-<% if controller_name == 'catalog' && current_account.search_only %>
-  <div class="banner-section-wrapper">
-    <div class="catalog-page-search catalog-only pb-40 mx-auto">
-      <%= render partial: 'catalog/search_form' %>
-    </div>
-  </div>
-<% elsif controller_name == 'catalog' %>
+<% if controller_name == 'catalog' %>
   <div class="banner-section-wrapper">
     <div class="pages-nav flex-center">
       <div class="col-xs-12 col-md-6 hidden-xs hidden-sm flex-center">
