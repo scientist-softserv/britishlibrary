@@ -28,7 +28,7 @@ module Hyrax
 
     # OVERRIDE default hyku to make the 'display_share_button?' method  always return false since the 'share your work' button should never display in BL's instance, and this method was causing spec failures.
     def display_share_button?
-      return false
+      false
     end
 
     # A presenter for selecting a work type to create
