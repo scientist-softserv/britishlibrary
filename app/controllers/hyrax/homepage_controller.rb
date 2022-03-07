@@ -18,7 +18,7 @@ module Hyrax
     include Blacklight::SearchHelper
     include Blacklight::AccessControls::Catalog
 
-    before_action :redirect_if_search
+    #before_action :redirect_if_search
     around_action :inject_theme_views
 
     # The search builder for finding recent documents
