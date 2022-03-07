@@ -19,7 +19,7 @@ module HyraxHelper
   end
 
   def institution_url
-    Site.institution_url.present? ? "//#{Site.institution_url}" : root_path
+    Site.institution_url.present? ? "#{Site.institution_url}" : root_path
   end
 
   def research_repository_text
