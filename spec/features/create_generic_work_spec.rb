@@ -63,6 +63,7 @@ RSpec.describe 'Create a GenericWork', js: true do
       fill_in('generic_work[creator_group][][creator_family_name]', with: 'Doe')
       fill_in('generic_work[creator_group][][creator_given_name]', with: 'Jane')
       select('Blog post', from: 'generic_work[resource_type][]')
+      select('MOLA', from: 'generic_work[institution][]')
       find('body').click
       select('In Copyright', from: 'Rights statement')
 
