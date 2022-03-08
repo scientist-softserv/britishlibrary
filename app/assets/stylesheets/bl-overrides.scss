@@ -178,7 +178,7 @@ body.public-facing {
 
   ///* MAIN NAV */
 
-  .navbar.navbar-inverse.navbar-static-top {
+  .navbar.navbar-inverse.navbar-static-top.default-color {
     background: linear-gradient(to right, $rust, $mustard);
     border: none;
     padding: 10px;
@@ -293,10 +293,10 @@ body.public-facing {
   .navbar-inverse .navbar-brand {
     color: $mediumgrey;
   }
-  .navbar-inverse {
-    background-color: transparent !important;
-    border-color: inherit;
-  }
+  // .navbar-inverse {
+  //   background-color: transparent !important;
+  //   border-color: inherit;
+  // }
 
   button.navbar-toggle,
   button.navbar-toggle.collapsed,
@@ -517,7 +517,9 @@ body.public-facing {
   div.col-md-6.catalog-logo-section,
   div.col-xs-12.catalog-logo-section {
     img {
-      height: 100px;
+      max-height: 100px;
+      max-width: 150px;
+      height: unset;
     }
   }
 

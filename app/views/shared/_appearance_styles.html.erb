@@ -26,7 +26,8 @@ body.public-facing #per_page-dropdown .dropdown-toggle { color: <%= appearance.l
 /* MAIN NAV */
 body.public-facing .navbar-inverse .navbar-link { color: <%= appearance.footer_link_color %>; }
 body.public-facing .navbar-inverse .navbar-link:hover { color: <%= appearance.footer_link_hover_color %> }
-body.public-facing .navbar-inverse { background-color: <%= appearance.header_background_color %>; }
+body.public-facing .navbar-inverse.non-shared-repo.navbar.navbar-static-top { background-color: <%= appearance.header_background_color %>; }
+body.public-facing .navbar-inverse,
 body.public-facing .navbar-inverse .navbar-nav > .open > a,
 body.public-facing .navbar-inverse .navbar-nav > .open > a:hover,
 body.public-facing .navbar-inverse .navbar-nav > .open > a:focus { background-color: <%= appearance.header_background_color %>; }

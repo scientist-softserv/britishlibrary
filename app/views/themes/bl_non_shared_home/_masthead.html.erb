@@ -1,5 +1,5 @@
 <%# OVERRIDE Hyrax 2.9.1 for BL Shared Site Homepage Theme%>
-<nav id="masthead" class="navbar navbar-inverse navbar-static-top default-color" role="navigation">
+<nav id="masthead" class="navbar navbar-inverse navbar-static-top non-shared-repo" role="navigation">
   <div class="container-fluid top-nav-container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -10,11 +10,6 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <div>
-          <%= link_to "//#{Account.admin_host}", class: "shared-research-repo-button" do %>
-            <span class="fa fa-caret-left"></span> <%= t("hyrax.shared_home_button") %>
-          <% end %>
-        </div>
       <% end %>
       <!-- OVERRIDE to remove the logo in the top header bar -->
     </div>
