@@ -178,10 +178,12 @@ body.public-facing {
 
   ///* MAIN NAV */
 
-  .navbar.navbar-inverse.navbar-static-top.default-color {
-    background: linear-gradient(to right, $rust, $mustard);
-    border: none;
+  .navbar.navbar-inverse.navbar-static-top {
     padding: 10px;
+    border: none;
+    .default-color {
+      background: linear-gradient(to right, $rust, $mustard);
+    }
   }
 
   .navbar.navbar-inverse.navbar-static-top,
