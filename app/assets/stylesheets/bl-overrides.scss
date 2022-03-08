@@ -639,7 +639,7 @@ body.public-facing {
 
   /* DEFAULT BUTTON STYLES */
   .btn-default {
-    background-color: transparent;
+    background-color: transparent !important;
     border: 0;
     border-color: transparent;
     color: $darkgrey;
