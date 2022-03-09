@@ -1573,9 +1573,11 @@ body.public-facing {
     font-size: 16px;
   }
 
-  .creator-search-results {
+  a.creator-search-results span,
+  a.creator-search-results:hover {
     color: $rust;
-    font-size: 16px;
+    font-size: 13px;
+    text-decoration-color: $rust;
   }
   .keywords-search-results {
     margin: 10px 0;
