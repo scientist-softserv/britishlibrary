@@ -22,9 +22,9 @@ RSpec.describe Hyrax::Actors::FeaturedCollectionActor do
   end
 
   describe "#destroy" do
-    let!(:feature) { FeaturedCollection.create(collection_id: collection.id) }
-
     it 'removes all the features' do
+      FeaturedCollection.create(collection_id: collection.id)
+
       expect { middleware.destroy(env) }.to change { FeaturedCollection.where(collection_id: collection.id).count }.from(1).to(0)
     end
   end
@@ -34,14 +34,14 @@ RSpec.describe Hyrax::Actors::FeaturedCollectionActor do
       let(:collection) { create(:collection) }
 
       it "does not modify the features" do
-        expect { middleware.update(env) }.not_to change { FeaturedCollection.where(collection_id: collection.id).count }
+        expect { middleware.update(env) }.not_to(change { FeaturedCollection.where(collection_id: collection.id).count })
       end
     end
 
     context "of a private collection" do
-      let!(:feature) { FeaturedCollection.create(collection_id: collection.id) }
-
       it "removes the features" do
+        FeaturedCollection.create(collection_id: collection.id)
+
         expect { middleware.update(env) }.to change { FeaturedCollection.where(collection_id: collection.id).count }.from(1).to(0)
       end
     end
