@@ -7,6 +7,7 @@ class CatalogController < ApplicationController
 
   # These before_action filters apply the hydra access controls
   before_action :enforce_show_permissions, only: :show
+  around_action :inject_theme_views
 
   def self.uploaded_field
     solr_name('system_create', :stored_sortable, type: :date)
@@ -405,5 +406,20 @@ class CatalogController < ApplicationController
 
     def show_additional_display_options?
       @show_additional_display_options = false
+    end
+
+    # Add this method to prepend the theme views into the view_paths
+    def inject_theme_views
+      if home_page_theme && home_page_theme != 'default_home'
+        original_paths = view_paths
+        home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
+        prepend_view_path(home_theme_view_path)
+        yield
+        # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+        view_paths=(original_paths)
+        # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+      else
+        yield
+      end
     end
 end
