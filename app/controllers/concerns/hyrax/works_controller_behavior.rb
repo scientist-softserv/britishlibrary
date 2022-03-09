@@ -419,8 +419,8 @@ module Hyrax
 
     # added to prepend the show theme views into the view_paths
     def inject_show_theme_views
+      original_paths = view_paths
       if show_page_theme && show_page_theme != "default_show"
-        original_paths = view_paths
         if home_page_theme && home_page_theme != 'default_home'
           home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
           prepend_view_path(home_theme_view_path)
