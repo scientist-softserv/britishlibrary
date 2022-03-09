@@ -181,7 +181,7 @@ body.public-facing {
   .navbar.navbar-inverse.navbar-static-top {
     padding: 10px;
     border: none;
-    .default-color {
+    &.default-color {
       background: linear-gradient(to right, $rust, $mustard);
     }
   }
