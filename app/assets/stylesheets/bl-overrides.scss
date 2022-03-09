@@ -53,7 +53,7 @@ body.public-facing {
   }
 
   p {
-    color: $darkgrey !important;
+    color: $darkgrey;
     font-size: 13px;
   }
 
@@ -642,7 +642,7 @@ body.public-facing {
   }
 
   /* DEFAULT BUTTON STYLES */
-  .btn-default {
+  &.hyrax-homepage .btn-default {
     background-color: transparent;
     border: 0;
     border-color: transparent;
@@ -741,7 +741,7 @@ body.public-facing {
   // HOMEPAGE CONTENT SECTIONS
 
   .creator-label {
-    color: $rust !important;
+    color: $rust;
     text-transform: capitalize;
   }
 
@@ -1190,7 +1190,7 @@ body.public-facing {
 
     li.attribute span a,
     li.attribute a {
-      color: $rust !important;
+      color: $rust;
     }
 
     button.collapse-fields {
