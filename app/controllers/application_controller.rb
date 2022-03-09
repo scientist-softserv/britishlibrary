@@ -65,8 +65,6 @@ class ApplicationController < ActionController::Base
       users
     end
 
-  protected # rubocop:disable Lint/UselessAccessModifier
-
     def redirect_if_search
       redirect_to "//#{Account.admin_host}" if current_account.search_only
     end
