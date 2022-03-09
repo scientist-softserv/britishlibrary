@@ -27,7 +27,7 @@
           <% if ["creator_tesim"].include? field_name %>
             <span class= "creator-search-results">
               <small>
-                <%=link_to main_app.search_catalog_path(f: { creator_search_sim: document.creator_search }), class: 'creator-search-results' do %> 
+                <%=link_to main_app.search_catalog_path(f: { creator_search_sim: document.creator_search }), class: 'creator-search-results' do %>
                   <%= display_json_fields(document, field_name)%>
                 <% end %>
               </small>
