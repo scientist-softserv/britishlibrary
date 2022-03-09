@@ -8,10 +8,8 @@
       <% if hash["#{attr_name}_family_name"]  %>
         <% last_name = hash["#{attr_name}_family_name"] %>
         <% last_name << ',' if display_comma?(hash.keys, ["#{attr_name}_family_name", "#{attr_name}_given_name"]) %>
-        <%#=link_to main_app.search_catalog_path(f: { creator_family_name: last_name }) do %> 
-          <%= last_name %><% if hash["#{attr_name}_given_name"] %> <%= hash["#{attr_name}_given_name"] %><% end %><span><%= remove_last_semicolon(array_size, index) %>&nbsp;</span>
-        <%# end%>
-      <% end %> 
+        <%= last_name %><% if hash["#{attr_name}_given_name"] %> <%= hash["#{attr_name}_given_name"] %><% end %><span><%= remove_last_semicolon(array_size, index) %>&nbsp;</span>
+      <% end %>
     </span>
   <% end %>
 </span>
