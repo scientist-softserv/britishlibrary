@@ -421,11 +421,25 @@ module Hyrax
     def inject_show_theme_views
       if show_page_theme && show_page_theme != "default_show"
         original_paths = view_paths
+        if home_page_theme && home_page_theme != 'default_home'
+          home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
+          prepend_view_path(home_theme_view_path)
+        end
         show_theme_view_path = Rails.root.join("app", "views", "themes", show_page_theme.to_s)
         prepend_view_path(show_theme_view_path)
         yield
-        original_paths
+        # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+        view_paths=(original_paths)
+        # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
       else
+        if home_page_theme && home_page_theme != 'default_home'
+          home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
+          prepend_view_path(home_theme_view_path)
+          yield
+          # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+          view_paths=(original_paths)
+          # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+        end
         yield
       end
     end
