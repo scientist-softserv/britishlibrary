@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 # OVERRIDE: British Libraries override to Hyrax v.2.9.5 so that a new work defaults to a "public" visibility
 # COPIED FROM HYRAX 2.9.0 to add inject_show_theme_views - Hyku theming
+# OVERRIDE: Hyrax 2.9.0 move inject_show_theme_views to application_controller so themes apply everywhere. in application controller the method is called inject_theme_views
+
 require "iiif_manifest"
 require "hyrax/doi/errors"
 
@@ -28,7 +30,6 @@ module Hyrax
 
       rescue_from WorkflowAuthorizationException, with: :render_unavailable
       # add around action to load theme show page views
-      around_action :inject_show_theme_views, except: :delete # rubocop:disable Rails/LexicallyScopedActionFilter
     end
 
     class_methods do
@@ -415,33 +416,6 @@ module Hyrax
 
     def permissions_changed?
       @saved_permissions != curation_concern.permissions.map(&:to_hash)
-    end
-
-    # added to prepend the show theme views into the view_paths
-    def inject_show_theme_views
-      original_paths = view_paths
-      if show_page_theme && show_page_theme != "default_show"
-        if home_page_theme && home_page_theme != 'default_home'
-          home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
-          prepend_view_path(home_theme_view_path)
-        end
-        show_theme_view_path = Rails.root.join("app", "views", "themes", show_page_theme.to_s)
-        prepend_view_path(show_theme_view_path)
-        yield
-        # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-        view_paths=(original_paths)
-        # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-      else
-        if home_page_theme && home_page_theme != 'default_home'
-          home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
-          prepend_view_path(home_theme_view_path)
-          yield
-          # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-          view_paths=(original_paths)
-          # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-        end
-        yield
-      end
     end
   end
 end
