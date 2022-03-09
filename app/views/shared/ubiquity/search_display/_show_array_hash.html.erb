@@ -5,7 +5,6 @@
       <% if hash["#{attr_name}_organization_name"] %>
         <%= hash["#{attr_name}_organization_name"] %><span><%= remove_last_semicolon(array_size, index) %>&nbsp;</span>
       <% end %>
-
       <% if hash["#{attr_name}_family_name"]  %>
         <% last_name = hash["#{attr_name}_family_name"] %>
         <% last_name << ',' if display_comma?(hash.keys, ["#{attr_name}_family_name", "#{attr_name}_given_name"]) %>
