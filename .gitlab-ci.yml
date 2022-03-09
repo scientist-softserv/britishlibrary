@@ -146,13 +146,13 @@ hyku.staging:
     WORKER_IMAGE: $CI_REGISTRY_IMAGE/worker
     HELM_EXPERIMENTAL_OCI: 1
     HELM_RELEASE_NAME: hyku-staging
-    KUBE_NAMESPACE: hyku-staging
+    KUBE_NAMESPACE: staging
     HELM_EXTRA_ARGS: >
       --values ops/staging-deploy.yaml
   script:
     - export KUBECONFIG=$KUBECONFIG_BL
     - envsubst < ops/staging-deploy.tmpl.yaml > ops/staging-deploy.yaml
-    - ./bin/helm_deploy hyku-staging hyku-staging
+    - ./bin/helm_deploy hyku-staging staging
   tags:
     - kubernetes
 
@@ -170,12 +170,12 @@ hyku.production:
     WORKER_IMAGE: $CI_REGISTRY_IMAGE/worker
     HELM_EXPERIMENTAL_OCI: 1
     HELM_RELEASE_NAME: hyku-production
-    KUBE_NAMESPACE: hyku-production
+    KUBE_NAMESPACE: production
     HELM_EXTRA_ARGS: >
       --values ops/production-deploy.yaml
   script:
     - export KUBECONFIG=$KUBECONFIG_BL
     - envsubst < ops/production-deploy.tmpl.yaml > ops/production-deploy.yaml
-    - ./bin/helm_deploy hyku-production hyku-production
+    - ./bin/helm_deploy hyku-production production
   tags:
     - kubernetes
