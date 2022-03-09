@@ -62,6 +62,7 @@ Style/WordArray:
 Metrics/ClassLength:
   Exclude:
     - "app/controllers/catalog_controller.rb"
+    - "app/controllers/hyrax/file_sets_controller.rb"
 
 Metrics/ModuleLength:
   Max: 200
