@@ -14,13 +14,5 @@ module Hyrax
     def iiif_viewer_display_partial(work_presenter)
       'hyrax/base/iiif_viewers/' + work_presenter.iiif_viewer.to_s
     end
-
-    def universal_viewer_base_url
-      "#{request&.base_url}/universalviewer/dist/uv-2.0.1/app.html"
-    end
-
-    def universal_viewer_config_url
-      "#{request&.base_url}/universalviewer/dist/uv-2.0.1/lib/uv-seadragon-extension.en-GB.config.json"
-    end
   end
 end
