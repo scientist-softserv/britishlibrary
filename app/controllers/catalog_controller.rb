@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# OVERRIDE: Hyrax 2.9.0 move inject_theme_views to application_controller so themes apply everywhere
+
 class CatalogController < ApplicationController
   include Hydra::Catalog
   include Hydra::Controller::ControllerBehavior

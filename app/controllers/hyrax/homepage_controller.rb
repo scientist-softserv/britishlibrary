@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-# OVERRIDE: Hyrax v2.9.0 to add home_text content block to the index method - Adding themes
-# OVERRIDE: Hyrax v2.9.0 from Hyrax v2.9.0 to add facets to home page - inheriting from
-# CatalogController rather than ApplicationController
-# OVERRIDE: Hyrax v2.9.0 from Hyrax v2.9.0 to add inject_theme_views method for theming
-# OVERRIDE: Hyrax v2.9.0 to add search_action_url method from Blacklight 6.23.0 to make facet links to go to /catalog
-# OVERRIDE: Hyrax v2.9.0 to add .sort_by to return collections in alphabetical order by title on the homepage
-# OVERRIDE: Hyrax v2.9.0 add all_collections page for IR theme
-# OVERRIDE: Hyrax v2.9.0 to add facet counts for resource types for IR theme
-# OVERRIDE: Hyrax v. 2.9.0 to add @featured_collection_list to index method
+# OVERRIDE: Hyrax v2.9.0
+# - add home_text content block to the index method - Adding themes
+# - add facets to home page - inheriting from CatalogController rather than ApplicationController
+# - add inject_theme_views add search_action_url method from Blacklight 6.23.0 to make facet links to go to /catalog
+# - add .sort_by to return collections in alphabetical order by title on the homepage
+# - add all_collections page for IR theme
+# - add facet counts for resource types for IR theme
+# - add @featured_collection_list to index method
+# - add inject_theme_views method to application_controller so themes apply everywhere
 
 module Hyrax
   # Changed to inherit from CatalogController for home page facets
@@ -17,9 +17,6 @@ module Hyrax
     include Blacklight::SearchContext
     include Blacklight::SearchHelper
     include Blacklight::AccessControls::Catalog
-
-    before_action :redirect_if_search
-    around_action :inject_theme_views
 
     # The search builder for finding recent documents
     # Override of Blacklight::RequestBuilders
@@ -111,21 +108,6 @@ module Hyrax
 
       def sort_field
         "#{Solrizer.solr_name('date_uploaded', :stored_sortable, type: :date)} desc"
-      end
-
-      # Add this method to prepend the theme views into the view_paths
-      def inject_theme_views
-        if home_page_theme && home_page_theme != 'default_home'
-          original_paths = view_paths
-          home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
-          prepend_view_path(home_theme_view_path)
-          yield
-          # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-          view_paths=(original_paths)
-          # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-        else
-          yield
-        end
       end
   end
 end

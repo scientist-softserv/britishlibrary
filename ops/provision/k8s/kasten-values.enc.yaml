@@ -1,0 +1,39 @@
+secrets:
+    awsAccessKeyId: ENC[AES256_GCM,data:nrcxHq78/csNB9Wwp3MAd6Z2z20=,iv:cFzFVdYJ4tgYRWzJA9wlxRx+pBmIMrGou0/HPjQVQjI=,tag:1dTO0P5h+V/aYe8WXZ3c2A==,type:str]
+    awsSecretAccessKey: ENC[AES256_GCM,data:AgVkydieLeUkm13EiQmzR8rpd0UzrWLExf10m81aHIxeK4r7I7waUg==,iv:5wR/7Mr7nBuS6SbQ8zNlNy6PmLElW84sqT2dO++7DME=,tag:BMxrWphSc5SIaKBr12I/0w==,type:str]
+auth:
+    tokenAuth:
+        enabled: ENC[AES256_GCM,data:fqrWyg==,iv:WocQK6T+tnf8v414wYmL525WltTXKoVKv1tC8jX+ZJ0=,tag:Oj79gX9sAvG6ZXtp6qZB5Q==,type:bool]
+externalGateway:
+    create: ENC[AES256_GCM,data:U67S/Q==,iv:EuvZj1JP1tPP1bYHqyUvvcAvsrhRkaHqm63825qDM+U=,tag:XXeNZt/FmGio/krYC5OPSw==,type:bool]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2022-03-09T01:23:58Z"
+    mac: ENC[AES256_GCM,data:09/2CVjIaeq2n8B7goe8LIx+5bl50m00PVAFC6fbZNwaug/x1DAaFPX+lVkDFAXzKoTanM39wJDlKeVMcWthy+lPw5h4oW1M8wJqe+j4yjhV3U0bCAS1EZ9n+kRHCU7b0L0+YEm+etMu5xikHMhdEYRCb9Jc+XtSOfvWRqETWGU=,iv:9QKvxCUwXAiIbq4X2PHRFc73AQyytS/nlTzgLXhYq4A=,tag:jdn89d6ITLgzD3uj+MUdpw==,type:str]
+    pgp:
+        - created_at: "2022-03-09T01:23:58Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            wcFMA7doaBdjNJH+ARAAdF9/lmu/qeCuACHqhOVEFvcONudA86SeVtxnERupM9ln
+            a0+kwNMy5sKngBjWPGhX6HOBoddRz0us+EwhYisAVm0PpaPFcoDBZTMW/AZrLuux
+            kDxti2riI3EgIQ3ukZYFKQD5P2kSI/DcLluIgqDyPDKc7WDJ6Y+G0uoDM+V+2/K6
+            1vRoRQXM30GjnrFRvykzQhwyP81ISmrUkSpXNv7PibPVOA1oOpcAQWyCmfirXbEp
+            sOF7gIDdoiIWE/+SSPrYaAGenpmYwbgJi7+pKpCR4HvuhLYiOcWzEThhFS7AfRzh
+            f3CgwEPVSNUm+au1siVG7EL4zrsoR+mG8WyXWPqBGfrqEDsJ/BAzOQaT/K4QFZcm
+            0bF+nAE4lXEp8FDWRX1tB7cCTZ/192f416OYFilQSmjCbR5Da48tDWlUeVsSWeM4
+            Diy0t7Ndq0976vdKjvHmHpzee/l0+NOxheKLIjD94r/zCOwru+uofWnGafNk3jRy
+            RBtQLbqr+bzeOhAcUgDiWlQZOxqrJ7xA5IuwbQ2g9ebAFfNB/FTFfKxkooG1U0Uo
+            xuoKjPYHNwotW7t+4Ivy6V0UbympO9PStxUkF8ih0vETAHSvriq9houbvcS/B6uk
+            1DrMxQXOIzOSmhT6zcddz3fK7qlzc/afyREoIEUe+V1/ZHUaN49A80P7WelDp7LS
+            5gGJ3CpBPrL4uWRzcJo84IEVvL/d66A5AhgsQJVDgdu65e6o2zKJZXOExsB2spdC
+            kSGkKjCVa/U1uvznpqKgRwnk/3fYh6LH1Y6pKAiXj2EdieJS+YH/AA==
+            =FKL7
+            -----END PGP MESSAGE-----
+          fp: 40B3DE7A02CAC8D1DE76223483DA3B754DD29AF9
+    unencrypted_suffix: _unencrypted
+    version: 3.7.1

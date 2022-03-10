@@ -5,11 +5,12 @@
 # - add homepage presenter for access to feature flippers
 # - add access to content blocks in the show method
 # - adds @featured_collection_list to show method
+# - move inject_theme_views to application_controller so themes apply everywhere
 
 module Hyrax
   # Shows the about and help page
   class PagesController < ApplicationController
-    before_action :redirect_if_search
+    #before_action :redirect_if_search
 
     load_and_authorize_resource class: ContentBlock, except: :show
     layout :pages_layout
@@ -19,9 +20,6 @@ module Hyrax
     include Blacklight::SearchContext
     include Blacklight::SearchHelper
     include Blacklight::AccessControls::Catalog
-
-    # OVERRIDE: Adding inject theme views method for theming
-    around_action :inject_theme_views
 
     # OVERRIDE: Hyrax v2.9.0 Add for theming
     # The search builder for finding recent documents
@@ -97,21 +95,6 @@ module Hyrax
         response.documents
       rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
         []
-      end
-
-      # OVERRIDE: Adding to prepend the theme views into the view_paths
-      def inject_theme_views
-        if home_page_theme && home_page_theme != 'default_home'
-          original_paths = view_paths
-          home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
-          prepend_view_path(home_theme_view_path)
-          yield
-          # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-          view_paths=(original_paths)
-          # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-        else
-          yield
-        end
       end
   end
 end

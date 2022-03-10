@@ -11,7 +11,7 @@ FactoryBot.define do
     end
 
     factory :admin do
-      after(:create) { |user| user.add_role(:admin) }
+      after(:create) { |user| user.add_role(:admin, Site.instance) }
     end
 
     factory :superadmin do
