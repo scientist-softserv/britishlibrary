@@ -2,10 +2,18 @@
 
 <tr class="<%= dom_class(member) %> attributes">
   <td class="thumbnail">
-    <%= render_thumbnail_tag member, {}, { href: hyrax.download_path(member.id) } %>
+    <% if user_signed_in? %>
+      <%= render_thumbnail_tag member %>
+    <% else %>
+      <%= render_thumbnail_tag member, {}, { href: hyrax.download_path(member.id) } %>
+    <% end %>
   </td>
   <td class="attribute attribute-filename ensure-wrapped">
-    <%= link_to(member.link_name, hyrax.download_path(member.id), target: :_blank) %>
+    <% if user_signed_in? %>
+      <%= link_to(member.link_name, contextual_path(member, @presenter)) %>
+    <% else %>
+      <%= link_to(member.link_name, hyrax.download_path(member.id), target: :_blank) %>
+    <% end %>
   </td>
   <% if parent_presenter.file_licenses? %>
     <td class="attribute file_licence">
