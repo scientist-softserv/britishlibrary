@@ -67,8 +67,6 @@ class ApplicationController < ActionController::Base
       users
     end
 
-  # protected
-
   #   def redirect_if_search
   #     redirect_to "//#{Account.admin_host}" if current_account.search_only
   #   end
@@ -148,30 +146,30 @@ class ApplicationController < ActionController::Base
       admin_host? ? 'GTM-KXSRB56' : current_account.settings['gtm_id']
     end
 
-  # added to prepend the theme views into the view_paths. this method was originally being called in catalog_controller, works_controller_behavior, and homepage_controller and it has been moved here to dry everthing up.
-  def inject_theme_views
-    original_paths = view_paths
-    if show_page_theme && show_page_theme != "default_show"
-      if home_page_theme && home_page_theme != 'default_home'
-        home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
-        prepend_view_path(home_theme_view_path)
-      end
-      show_theme_view_path = Rails.root.join("app", "views", "themes", show_page_theme.to_s)
-      prepend_view_path(show_theme_view_path)
-      yield
-      # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-      view_paths=(original_paths)
-      # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-    else
-      if home_page_theme && home_page_theme != 'default_home'
-        home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
-        prepend_view_path(home_theme_view_path)
+    # added to prepend the theme views into the view_paths. this method was originally being called in catalog_controller works_controller_behavior, and homepage_controller and it has been moved here to dry everthing up.
+    def inject_theme_views
+      original_paths = view_paths
+      if show_page_theme && show_page_theme != "default_show"
+        if home_page_theme && home_page_theme != 'default_home'
+          home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
+          prepend_view_path(home_theme_view_path)
+        end
+        show_theme_view_path = Rails.root.join("app", "views", "themes", show_page_theme.to_s)
+        prepend_view_path(show_theme_view_path)
         yield
         # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
         view_paths=(original_paths)
         # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+      else
+        if home_page_theme && home_page_theme != 'default_home'
+          home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
+          prepend_view_path(home_theme_view_path)
+          yield
+          # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+          view_paths=(original_paths)
+          # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+        end
+        yield
       end
-      yield
     end
-  end
 end

@@ -9,7 +9,7 @@ default_home:
   home_page_text: false
   marketing_text: true
   name: BL Default Homepage
-  notes: This theme is the default Hyku view. It is recommended for all organizations that are part of the British Libraries Shared Research Repository.
+  notes: This theme is the default Hyku view. It is recommended for all organizations that are part of the British Libraries Shared Research Repository. It contains a link to the Shared Research Repository shared homepage in the tup left of the navbar.
 bl_shared_home:
   banner_image: true
   featured_researcher: true
@@ -23,7 +23,7 @@ bl_non_shared_home:
   home_page_text: true
   marketing_text: true
   name: Non-Shared Site Homepage
-  notes: This theme is recommended for all UK Heritage Organizations that are not part of the shared research repository.
+  notes: This theme is recommended for all UK Heritage Organizations that are not part of the shared research repository. Users can edit the color of the navbar for this theme in the Settings → Appearance → Colors section of the dashboard by updating the "Header background color" field.
 cultural_repository:
   banner_image: true
   featured_researcher: false
