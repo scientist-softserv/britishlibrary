@@ -12,7 +12,7 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
     login_as(admin)
   end
 
-  # rubocop:disable RSpec/LetSetup
+  # rubocop:disable RSpec/ScatteredLet, RSpec/LetSetup
   let!(:work) do
     create(:generic_work,
            title: ['Llamas and Alpacas'],
@@ -20,7 +20,7 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
            user: user)
   end
 
-  # rubocop:enable RSpec/LetSetup
+  # rubocop:enable RSpec/ScatteredLet, RSpec/LetSetup
 
   context "as a repository admin" do
     it "has a tab for themes on the appearance tab" do

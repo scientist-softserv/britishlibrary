@@ -102,9 +102,11 @@ module Ubiquity
       save
     end
 
+    # rubocop:disable Metrics/MethodLength
     def parse_dates(date)
       return nil if date.nil?
 
+      # rubocop:disable Style/GuardClause
       if date =~ /[0-9]{4}-[0-9]{2}-[0-9]{2}/
         return date
       elsif date =~ /[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}/
@@ -119,7 +121,7 @@ module Ubiquity
                       rescue StandardError
                         date
                       end
-      elsif date =~ /[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/
+      elsif date =~ %r{[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}}
         begin
           parsed_date = Date.strptime(date, "%m/%d/%Y")
         rescue Date::Error
@@ -129,7 +131,7 @@ module Ubiquity
                           date
                         end
         end
-      elsif date =~ /[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}/
+      elsif date =~ %r{[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}}
         begin
           parsed_date = Date.strptime(date, "%m/%d/%y")
         rescue Date::Error
@@ -144,8 +146,10 @@ module Ubiquity
       else
         return date
       end
+      # rubocop:enable Style/GuardClause
       parsed_date.to_s
     end
+    # rubocop:enable Metrics/MethodLength
 
   end
 end
