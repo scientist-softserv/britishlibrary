@@ -14,11 +14,11 @@ module Hyrax
       # @param registrar [String] Note this is a string and not a symbol because ActiveJob cannot serialize a symbol
       # @param registrar_opts [Hash]
       def perform(model, registrar: Hyrax.config.identifier_registrars.keys.first, registrar_opts: {})
-        return if model.doi.blank?
+        return if model.original_doi.blank?
 
         Hyrax::Identifier::Dispatcher
           .for(registrar.to_sym, **registrar_opts)
-          .assign_for!(object: model, attribute: :doi)
+          .assign_for!(object: model, attribute: :original_doi)
       rescue Hyrax::DOI::DataCiteClient::Error => e
         user = ::User.find_by(email: model.depositor) if model.depositor
 
