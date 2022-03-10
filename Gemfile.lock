@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 289ebc73a6c60260e55deaac89d1fd71f002a62e
+  revision: b75ae2707a554325ac7cd37636eea56a0756896f
   branch: bl-tmp
   specs:
     bulkrax (1.0.2)
@@ -62,7 +62,7 @@ GIT
   specs:
     active_elastic_job (2.0.1)
       aws-sdk-sqs (~> 1)
-      rails (>= 5.0, < 7)
+      rails (>= 4.2)
 
 GEM
   remote: https://rubygems.org/
