@@ -3,7 +3,9 @@
 module Bulkrax
   module CsvEntryDecorator
     def find_collection(collection_identifier)
-      Collection.where(id: collection_identifier).first
+      Collection.find(collection_identifier)
+    rescue ActiveFedora::ObjectNotFoundError
+      nil
     end
   end
 end
