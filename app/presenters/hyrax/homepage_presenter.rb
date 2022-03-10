@@ -26,9 +26,9 @@ module Hyrax
     #   user has permission to create at least one kind of work
     #   and the feature flipper is enabled.
 
+    # OVERRIDE default hyku to make the 'display_share_button?' method  always return false since the 'share your work' button should never display in BL's instance, and this method was causing spec failures.
     def display_share_button?
-      Flipflop.show_share_button? && current_ability.can_create_any_work? ||
-        Flipflop.show_share_button? && user_unregistered?
+      false
     end
 
     # A presenter for selecting a work type to create
@@ -49,6 +49,10 @@ module Hyrax
       create_work_presenter.first_model
     end
 
+    # changed to add feature flag for featured collection
+    def display_featured_collections?
+      Flipflop.show_featured_collections?
+    end
     # changed to add feature flag for featured researcher
     def display_featured_researcher?
       Flipflop.show_featured_researcher?

@@ -2,6 +2,7 @@
 en:
   hyrax:
     home_button: "Shared Research Repository"
+    shared_home_button: "Home"
     product_name: "Hyku"
     product_twitter_handle: "@HydraInABox"
     institution_name: "Institution"
@@ -817,12 +818,13 @@ en:
         link: View All Collections
         tab_label: Explore Collections
         title: Explore Collections
+        thumbnail: Thumbnail
       items_button: Explore All Items
       recent_button: View All Recent Additions
       featured_researcher:
         missing: No researchers have been featured.
         tab_label: Featured Researcher
-        title: Featured Researcher
+        title: Featured researcher
       featured_works:
         document:
           depositor_label: Depositor
