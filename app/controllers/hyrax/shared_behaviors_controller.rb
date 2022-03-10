@@ -5,7 +5,9 @@ module Hyrax
     include Hyrax::BreadcrumbsForWorks
     include IrusAnalytics::Controller::AnalyticsBehaviour
     # use the investigation hook to track work_type views
-    after_action :send_irus_analytics_investigation, only: [:show]
+
+    # TODO(selamhabteab): revisit whether we need to define the show method in this file for irus_analytics (https://gitlab.com/notch8/britishlibrary/-/issues/108)
+    after_action :send_irus_analytics_investigation, only: [:show] # rubocop:disable Rails/LexicallyScopedActionFilter
 
     public
     def item_identifier_for_irus_analytics

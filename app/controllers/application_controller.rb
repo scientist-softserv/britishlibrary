@@ -67,8 +67,6 @@ class ApplicationController < ActionController::Base
       users
     end
 
-  # protected
-
   #   def redirect_if_search
   #     redirect_to "//#{Account.admin_host}" if current_account.search_only
   #   end
@@ -173,5 +171,5 @@ class ApplicationController < ActionController::Base
         end
         yield
       end
-  end
+    end
 end
