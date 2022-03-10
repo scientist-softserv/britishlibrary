@@ -1,24 +1,27 @@
 # frozen_string_literal: true
+
 # OVERRIDE: British Libraries override to Hyrax v.2.9.5 so that a new work defaults to a "public" visibility
 # COPIED FROM HYRAX 2.9.0 to add inject_show_theme_views - Hyku theming
+# OVERRIDE: Hyrax 2.9.0 move inject_show_theme_views to application_controller so themes apply everywhere. in application controller the method is called inject_theme_views
+
 require "iiif_manifest"
 require "hyrax/doi/errors"
 
 module Hyrax
-  module WorksControllerBehavior # rubocop:disable Metrics/ModuleLength
+  module WorksControllerBehavior 
     extend ActiveSupport::Concern
     include Blacklight::Base
     include Blacklight::AccessControls::Catalog
     included do
       with_themed_layout :decide_layout
       copy_blacklight_config_from(::CatalogController)
-      rescue_from Hyrax::DOI::NotFoundError, :with => :error_doi_not_found
+      rescue_from Hyrax::DOI::NotFoundError, with: :error_doi_not_found
 
       class_attribute :_curation_concern_type,
-        :show_presenter,
-        :work_form_service,
-        :search_builder_class,
-        :iiif_manifest_builder
+                      :show_presenter,
+                      :work_form_service,
+                      :search_builder_class,
+                      :iiif_manifest_builder
       self.show_presenter = Hyrax::WorkShowPresenter
       self.work_form_service = Hyrax::WorkFormService
       self.search_builder_class = WorkSearchBuilder
@@ -28,14 +31,13 @@ module Hyrax
 
       rescue_from WorkflowAuthorizationException, with: :render_unavailable
       # add around action to load theme show page views
-      around_action :inject_show_theme_views, except: :delete # rubocop:disable Rails/LexicallyScopedActionFilter
     end
 
     class_methods do
       def curation_concern_type=(curation_concern_type)
         load_and_authorize_resource class: curation_concern_type,
-          instance_name: :curation_concern,
-          except: %i[show file_manager inspect_work manifest]
+                                    instance_name: :curation_concern,
+                                    except: %i[show file_manager inspect_work manifest]
 
         # Load the fedora resource to get the etag.
         # No need to authorize for the file manager, because it does authorization via the presenter.
@@ -44,7 +46,7 @@ module Hyrax
         self._curation_concern_type = curation_concern_type
         # We don't want the breadcrumb action to occur until after the concern has
         # been loaded and authorized
-        before_action :save_permissions, only: :update # rubocop:disable Rails/LexicallyScopedActionFilter
+        before_action :save_permissions, only: :update
       end
 
       def curation_concern_type
@@ -79,7 +81,7 @@ module Hyrax
           wants.json do
             render_json_response(
               response_type: :unprocessable_entity,
-              options: { errors: curation_concern.errors },
+              options: { errors: curation_concern.errors }
             )
           end
         end
@@ -129,7 +131,7 @@ module Hyrax
           wants.json do
             render_json_response(
               response_type: :unprocessable_entity,
-              options: { errors: curation_concern.errors },
+              options: { errors: curation_concern.errors }
             )
           end
         end
@@ -172,19 +174,20 @@ module Hyrax
 
     def error_doi_not_found
       respond_to do |with|
-        with.all { render :plain => "DOI not found.", :status => 404 }
+        with.all { render plain: "DOI not found.", status: 404 }
         with
       end
     end
 
     def set_doi_data
-      if params["doi"].present?
+      # if params["doi"].present?
+      return unless !params["doi"].present?
         begin
           @work_attributes = hyrax_work_from_doi(params["doi"])
           curation_concern.attributes = @work_attributes
-          flash_keys = @work_attributes.reject { |k, v| v.blank? }.keys.map { |k| t("simple_form.labels.defaults.#{k}", default: k.humanize) }.uniq
+          flash_keys = @work_attributes.reject { |_k, v| v.blank? }.keys.map { |k| t("simple_form.labels.defaults.#{k}", default: k.humanize) }.uniq
           flash[:notice] = ["The following fields were auto-populated:", flash_keys.to_sentence]
-        rescue => e
+        rescue StandardError => e
           Rails.logger.info(e.message)
           if Rails.env.development?
             raise
@@ -198,14 +201,18 @@ module Hyrax
     def hyrax_work_from_doi(doi)
       # TODO: generalize this
       meta = Bolognese::Metadata.new(input: doi,
-                                     from: "datacite",
-                                     sandbox: false)
-      meta = Bolognese::Metadata.new(input: doi,
-                                     from: "crossref",
-                                     sandbox: false) if meta.blank? || meta.doi.blank? || meta.state == "not_found"
-      meta = Bolognese::Metadata.new(input: doi,
-                                     from: "datacite",
-                                     sandbox: true) if meta.blank? || meta.doi.blank? || meta.state == "not_found"
+                                      from: "datacite",
+                                      sandbox: false)
+      if meta.blank? || meta.doi.blank? || meta.state == "not_found"
+        meta = Bolognese::Metadata.new(input: doi,
+                                        from: "crossref",
+                                        sandbox: false)
+      end
+      if meta.blank? || meta.doi.blank? || meta.state == "not_found"
+        meta = Bolognese::Metadata.new(input: doi,
+                                        from: "datacite",
+                                        sandbox: true)
+      end
       # Check that a record was actually loaded
       raise Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." if meta.blank? || meta.doi.blank?
       meta.types["hyrax"] = curation_concern.class.to_s
@@ -327,10 +334,10 @@ module Hyrax
 
     def decide_layout
       layout = case action_name
-        when "show"
-          "1_column"
-        else
-          "dashboard"
+                when "show"
+                  "1_column"
+                else
+                  "dashboard"
         end
       File.join(theme, layout)
     end
@@ -339,9 +346,9 @@ module Hyrax
     def attributes_for_actor
       raw_params = params[hash_key_for_curation_concern]
       attributes = if raw_params
-          work_form_service.form_class(curation_concern).model_attributes(raw_params)
-        else
-          {}
+                      work_form_service.form_class(curation_concern).model_attributes(raw_params)
+                    else
+                      {}
         end
 
       # If they selected a BrowseEverything file, but then clicked the
@@ -352,11 +359,11 @@ module Hyrax
       uploaded_files = params.fetch(:uploaded_files, [])
       selected_files = params.fetch(:selected_files, {}).values
       browse_everything_urls = uploaded_files &
-                               selected_files.map { |f| f[:url] }
+                                selected_files.map { |f| f[:url] }
 
       # we need the hash of files with url and file_name
       browse_everything_files = selected_files
-        .select { |v| uploaded_files.include?(v[:url]) }
+                                .select { |v| uploaded_files.include?(v[:url]) }
       attributes[:remote_files] = browse_everything_files
       # Strip out any BrowseEverthing files from the regular uploads.
       attributes[:uploaded_files] = uploaded_files -
@@ -370,7 +377,7 @@ module Hyrax
           # Calling `#t` in a controller context does not mark _html keys as html_safe
           flash[:notice] = view_context.t(
             "hyrax.works.create.after_create_html",
-            application_name: view_context.application_name,
+            application_name: view_context.application_name
           )
           redirect_to [main_app, curation_concern]
         end
@@ -381,14 +388,12 @@ module Hyrax
     def after_update_response
       if curation_concern.file_sets.present?
         return redirect_to hyrax.confirm_access_permission_path(curation_concern) if permissions_changed?
-        if curation_concern.visibility_changed?
-          return redirect_to main_app.confirm_hyrax_permission_path(curation_concern)
-        end
+        return redirect_to main_app.confirm_hyrax_permission_path(curation_concern) if curation_concern.visibility_changed?
       end
       respond_to do |wants|
         wants.html do
           redirect_to [main_app, curation_concern],
-            notice: "Work \"#{curation_concern}\" successfully updated."
+                      notice: "Work \"#{curation_concern}\" successfully updated."
         end
         wants.json { render :show, status: :ok, location: polymorphic_path([main_app, curation_concern]) }
       end
@@ -415,19 +420,6 @@ module Hyrax
 
     def permissions_changed?
       @saved_permissions != curation_concern.permissions.map(&:to_hash)
-    end
-
-    # added to prepend the show theme views into the view_paths
-    def inject_show_theme_views
-      if show_page_theme && show_page_theme != "default_show"
-        original_paths = view_paths
-        show_theme_view_path = Rails.root.join("app", "views", "themes", show_page_theme.to_s)
-        prepend_view_path(show_theme_view_path)
-        yield
-        original_paths
-      else
-        yield
-      end
     end
   end
 end
