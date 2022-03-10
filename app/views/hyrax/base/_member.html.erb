@@ -31,7 +31,7 @@
     <% end %>
   </td>
   <td class="attribute attribute-file_size">
-    <%= number_to_human_size(member.file_size, precision: 2) %>
+    <%= number_to_human_size(member.try(:file_size), precision: 2) %>
   </td>
   <td>
     <%= render 'actions', member: member %>
