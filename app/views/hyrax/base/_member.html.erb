@@ -5,7 +5,7 @@
     <%= render_thumbnail_tag member, {}, { href: hyrax.download_path(member.id) } %>
   </td>
   <td class="attribute attribute-filename ensure-wrapped">
-    <%= link_to(member.link_name, hyrax.download_path(member.id), target: '_blank' ) %>
+    <%= link_to(member.link_name, hyrax.download_path(member.id), target: :_blank) %>
   </td>
   <% if parent_presenter.file_licenses? %>
     <td class="attribute file_licence">
