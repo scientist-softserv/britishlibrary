@@ -1,0 +1,27 @@
+.bl_non_shared_home.public-facing {
+  div.creator-work-show-header dd ul.tabular li.attribute.header-creator,
+  div.creator-work-show-header dd ul.tabular li.attribute.metadata-creator,
+  .creator-label,
+  a.creator-search-results span,
+  a.creator-search-results:hover,
+  .facet-values li .selected {
+    color: unset;
+  }
+
+  .label-success {
+    background-color: $darkgrey;
+  }
+  td.status span.on,
+  .metadata-group ul.tabular button.collapse-fields,
+  .metadata-group ul.tabular li.attribute a {
+    color: $darkgrey;
+  }
+
+  .alert.alert-warning.no-items-available {
+    border: 2px solid $darkgrey;
+  }
+
+  .metadata-group ul.tabular button.collapse-fields {
+    border: 1px solid $darkgrey;
+  }
+}
