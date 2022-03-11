@@ -25,6 +25,9 @@
   - [Enable Bulkrax](#enable-bulkrax)
   - [Disable Bulkrax](#disable-bulkrax)
   - [Create an Importer](#create-an-importer)
+- [DOI](#doi)
+  - [Reading](#reading)
+  - [Minting](#minting)
 
 ---
 
@@ -287,3 +290,40 @@ switch!('myaccount')
 - Click "New"
 - Fill in the required fields
   (Refer to this [Wiki article](https://github.com/samvera-labs/bulkrax/wiki/Bulkrax-User-Interface---Importers) for more details about the fields and save options)
+
+## DOI
+[What is a DOI?](https://datacite.org/dois.html)
+### Reading
+#### Enabling
+Reading a DOI will find the associated metadata for that object on DataCite and override the fields on your work with that data.
+- Sign in to the admin dashboard
+- Click Settings >> Account on the left navigation pane
+- Check the box that says "DOI reader"
+- Save changes
+
+#### Using
+TODO
+### Minting
+#### Enabling
+Minting a DOI will create a new entry on DataCite with the information from your work.
+- Go to the Accounts page to edit the mola tenant
+- Scroll down to the DataCite Endpoint section and input the following info
+  - Mode: test
+  - Prefix: 10.21259
+  - Username: RYUN.ZEOJHG
+  - Password: Acquaint5Reboot$showplace
+- Save changes
+- Sign in to the admin dashboard
+- Click Settings >> Account on the left navigation pane
+- Check the box that says "DOI minting"
+- Save changes
+
+#### Using
+- When creating or editing a work, you should see a tab that says "DOI"
+- Click the "Create draft DOI" button
+- Select any of the radio buttons (registered and findable can never be removed from DataCite):
+  - do not mint
+  - draft
+  - registered
+  - findable
+- Edit and save your work as normal
