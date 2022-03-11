@@ -43,7 +43,6 @@ module Hyrax
       @featured_work_list = FeaturedWorkList.new
       @featured_collection_list = FeaturedCollectionList.new
       @announcement_text = ContentBlock.for(:announcement)
-      render file: Rails.root.join('app', 'views', 'shared', 'ubiquity', 'contact', '_new.html.erb'), locals: { contact_form: @contact_form }
     end
 
     def create
@@ -81,7 +80,7 @@ module Hyrax
 
       def contact_form_params
         return {} unless params.key?(:contact_form)
-        params.require(:contact_form).permit(:contact_method, :category, :name, :email, :subject, :message)
+        params.require(:contact_form).permit(:contact_method, :category, :name, :email, :subject, :message, :message_value)
       end
 
       # OVERRIDE: return collections for theming
