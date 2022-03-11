@@ -20,19 +20,7 @@ module Hyku
 
     # assumes there can only be one doi
     def doi
-      # doi_regex = %r{10\.\d{4,9}\/[-._;()\/:A-Z0-9]+}i
-      # if solr_document.doi
-      #   doi = Array.wrap(solr_document.doi).first # for doi could be single or array
-      #   doi = doi.scan(doi_regex)&.join
-      #   return "#{ENV.fetch('DOI_BASE_URL', 'https://handle.stage.datacite.org')}/#{doi}" if doi
-      # end
-
-      # if solr_document.original_doi
-      #   original_doi = Array.wrap(solr_document.original_doi).first # for original_doi could be single or array
-      #   original_doi = original_doi.scan(original_doi_regex)&.join
-      #   return "#{ENV.fetch('DOI_BASE_URL', 'https://handle.stage.datacite.org')}/#{original_doi}" if original_doi
-      # end
-
+      # OVERRIDE hyku 3.0.0
       solr_document.doi.presence || solr_document.original_doi
     end
 

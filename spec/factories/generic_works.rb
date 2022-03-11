@@ -15,6 +15,8 @@ FactoryBot.define do
       ]
     end
 
+    doi { ["10.1038/nphys1170"] }
+
     factory :public_generic_work, aliases: [:public_work], traits: [:public]
 
     trait :public do
