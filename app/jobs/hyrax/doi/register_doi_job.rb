@@ -18,7 +18,7 @@ module Hyrax
 
         Hyrax::Identifier::Dispatcher
           .for(registrar.to_sym, **registrar_opts)
-          .assign_for!(object: model, attribute: :doi )
+          .assign_for!(object: model, attribute: :doi)
       rescue Hyrax::DOI::DataCiteClient::Error => e
         user = ::User.find_by(email: model.depositor) if model.depositor
 
