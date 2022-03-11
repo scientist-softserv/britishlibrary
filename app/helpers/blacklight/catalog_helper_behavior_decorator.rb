@@ -9,6 +9,7 @@ Blacklight::CatalogHelperBehavior.module_eval do
               image_tag url, image_options if url.present?
             end
 
+    #rubocop:disable Style/GuardClause
     if value
       if url_options == false
         Deprecation.warn(self, "passing false as the second argument to render_thumbnail_tag is deprecated. Use suppress_link: true instead. This behavior will be removed in Blacklight 7")
@@ -24,5 +25,6 @@ Blacklight::CatalogHelperBehavior.module_eval do
         link_to_document document, value, url_options
       end
     end
+    #rubocop:enable Style/GuardClause
   end
 end

@@ -54,10 +54,14 @@ module Hyrax
         end
 
         # TODO: Move this out to a partial that gets rendered?
+        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable Metrics/MethodLength
         def autofill_field(attribute_name, value)
           js = []
           # TODO: add error handling in the JS so an error doesn't leave the autofilling incomplete
+          # rubocop:disable Lint/UselessAssignment
           position = value if attribute_name == 'funder_position'
+          # rubocop:enable Lint/UselessAssignment
           js << "  doi_button_var = document.querySelectorAll('#{field_selector(attribute_name)} button.add');"
           Array(value).each_with_index do |v, index|
             # Is this the right way to do this?
@@ -91,6 +95,8 @@ module Hyrax
           end
           js.reject(&:blank?).join("\n")
         end
+        # rubocop:enable Metrics/AbcSize
+        # rubocop:enable Metrics/MethodLength
 
         # Override of Hyrax method (See https://github.com/samvera/hyrax/pull/4495)
         # render a json response for +response_type+
