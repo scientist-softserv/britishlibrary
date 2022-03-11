@@ -14,8 +14,7 @@ module Hyrax
       # @param registrar [String] Note this is a string and not a symbol because ActiveJob cannot serialize a symbol
       # @param registrar_opts [Hash]
       def perform(model, registrar: Hyrax.config.identifier_registrars.keys.first, registrar_opts: {})
-        doi = model.doi.presence || [model.original_doi]
-        return if doi.blank?
+        return if model.doi.blank?
 
         Hyrax::Identifier::Dispatcher
           .for(registrar.to_sym, **registrar_opts)
