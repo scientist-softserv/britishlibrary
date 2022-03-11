@@ -39,8 +39,8 @@ RSpec.describe Hyku::WorkShowPresenter do
     end
 
     describe "#doi" do
-      it "is nil" do
-        expect(presenter.doi).to be_nil
+      it "is an empty array" do
+        expect(presenter.doi).to eq([])
       end
     end
 
