@@ -11,7 +11,7 @@
             <ul>
             <% @account.errors.messages.each do |key, messages| %>
               <li><%= key %> &quot;<%= @account.errors.details[key].first[:value] %>&quot; <%= messages.join(' and ') %></li>
-            <% end %>
+    <% end %>
             </ul>
           </div>
         <% end %>
