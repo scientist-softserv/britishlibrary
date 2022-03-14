@@ -666,6 +666,8 @@ es:
           title: Título
           type: Tipo
           visibility: Visibilidad
+          date_published: Fecha de publicación
+          creator: Creadora
         highlighted: Mis mejores momentos
         shared: Obras compartidas conmigo
         sr:

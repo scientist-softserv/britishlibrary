@@ -692,6 +692,8 @@ en:
           title: Title
           type: Type
           visibility: Visibility
+          date_published: Date Published
+          creator: Creator
         highlighted: My Highlights
         shared: Works Shared with Me
         sr:

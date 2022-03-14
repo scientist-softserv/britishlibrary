@@ -150,15 +150,12 @@
       <div class="hyc-blacklight hyc-bl-title">
         <h4><%= t('.works_in_collection') %> (<%= @members_count %>)</h4>
       </div>
-
       <div class="hyc-blacklight hyc-bl-sort">
         <%= render 'sort_and_per_page', collection: @presenter %>
       </div>
-
       <div class="hyc-blacklight hyc-bl-results">
         <%= render_document_index @member_docs %>
       </div>
-
       <div class="hyc-blacklight hyc-bl-pager">
         <%= render 'paginate' %>
       </div>

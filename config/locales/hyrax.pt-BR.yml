@@ -666,6 +666,8 @@ pt-BR:
           title: Título
           type: Tipo
           visibility: Visibilidade
+          date_published: Data de publicação
+          creator: Criador
         highlighted: Meus destaques
         shared: Trabalhos compartilhados comigo
         sr:
