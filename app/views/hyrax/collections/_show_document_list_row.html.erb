@@ -5,20 +5,36 @@
       <i class="glyphicon glyphicon-share-alt" />
     <% end %>
   </td>
-  <td>
+  <td class="text-center">
     <div class="media">
-      <%= link_to [main_app, document], class: "media-left" do %>
+      <%= link_to [main_app, document] do %>
         <%= render_thumbnail_tag document, { class: "hidden-xs file_listing_thumbnail" }, { suppress_link: true } %>
       <% end %>
-      <div class="media-body">
-        <p class="media-heading">
-          <strong><%= link_to document.title_or_label, [main_app, document], id: "src_copy_link#{id}", class: "#{'document-title' if document.title_or_label == document.label}" %></strong>
-        </p>
-        <%= render_collection_links(document) %>
-      </div>
     </div>
   </td>
-  <td class="text-center"><%= document.date_uploaded %> </td>
+  <td class="media-body">
+    <h6 class="search-result-worktype">
+      <%= document.resource_type_label.first %>
+    </h6>
+    <h4 class="search-result-title">
+      <%= link_to document.title_or_label, [main_app, document], id: "src_copy_link#{id}", class: "#{'document-title' if document.title_or_label == document.label}" %>
+    </h4>
+  </td>
+  <td class="media-body">
+    <span class='creator-search-results'>
+      <small>
+        <%=link_to main_app.search_catalog_path(f: { creator_search_sim: document.creator_search }), class: 'creator-search-results' do %>
+          <%= display_json_fields(document, 'creator_tesim')%> 
+        <% end %>
+      </small>
+    </span>
+  </td>
+  <td class="text-center">
+    <%= document.year_published if document.year_published.present? %>
+  </td>
+  <td class="text-center">
+    <%= document.date_uploaded %>
+  </td>
   <td class="text-center">
     <%= visibility_badge(document.visibility).html_safe %>
   </td>
