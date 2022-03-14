@@ -4,7 +4,7 @@
 
 //TEXT STYLES
 
-body.public-facing {
+body.public-facing.bl-public-facing {
   font-family: "Noto Sans" !important;
   font-size: 13px;
   color: $darkgrey !important;
@@ -703,13 +703,6 @@ body.public-facing {
 
   a.btn.btn-danger {
     color: $white !important;
-  }
-
-  .btn-group.open .dropdown-toggle {
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    background-color: unset;
-    border-color: unset;
   }
 
   /* NEW/EDIT WORK PAGE BUTTON STYLES */
@@ -1556,7 +1549,6 @@ body.public-facing {
   a#startOverLink {
     border: 2px solid $lightgrey;
     border-radius: 4px;
-    background-color: $white;
   }
 
   .search-result-wrapper {

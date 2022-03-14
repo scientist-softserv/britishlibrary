@@ -20,7 +20,7 @@
                 <% if index != array_size %>
                   &nbsp;
                 <% end %>
-                <%= '…' if index == array_size && index != 0 %>
+                <%= '…' if index == array_size && array_of_hash.size > 5 %>
               </span>
             <% end %>
           <% end %>
