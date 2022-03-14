@@ -692,7 +692,7 @@ en:
           title: Title
           type: Type
           visibility: Visibility
-          date_published: Date Published
+          date_published: Year Published
           creator: Creator
         highlighted: My Highlights
         shared: Works Shared with Me

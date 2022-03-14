@@ -646,6 +646,7 @@ body.public-facing {
     font-size: 16px;
     transition: 0.2s;
   }
+
   .btn-default:focus,
   .btn-default.focus {
     color: $darkgrey !important;
@@ -702,6 +703,13 @@ body.public-facing {
 
   a.btn.btn-danger {
     color: $white !important;
+  }
+
+  .btn-group.open .dropdown-toggle {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    background-color: unset;
+    border-color: unset;
   }
 
   /* NEW/EDIT WORK PAGE BUTTON STYLES */
@@ -1049,6 +1057,9 @@ body.public-facing {
 
   .hyc-blacklight {
     padding: 0;
+    &.hyc-bl-results {
+      overflow-x: auto;
+    }
   }
 
   .gallery {
