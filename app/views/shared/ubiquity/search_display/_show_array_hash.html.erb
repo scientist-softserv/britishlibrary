@@ -1,6 +1,6 @@
-<% array_size = (array_of_hash.size - 1) %>
-<span>
-  <% array_of_hash.each_with_index do |hash, index| %>
+<% array_size = (array_of_hash.size <= 5 ? array_of_hash.size - 1 : 4) %>
+<% array_of_hash.each_with_index do |hash, index| %>
+  <% if index <= 4 %>
     <span itemprop='<%= "#{attr_name}" %>'>
       <% if hash["#{attr_name}_organization_name"] %>
         <%= hash["#{attr_name}_organization_name"] %><span><%= remove_last_semicolon(array_size, index) %>&nbsp;</span>
@@ -16,7 +16,11 @@
               <span>
                 <%= last_name %>
                 <%= first_name if first_name %>
-                <%= remove_last_semicolon(array_size, index) %>&nbsp;
+                <%= remove_last_semicolon(array_size, index) %>
+                <% if index != array_size %>
+                  &nbsp;
+                <% end %>
+                <%= '…' if index == array_size && index != 0 %>
               </span>
             <% end %>
           <% end %>
@@ -24,4 +28,4 @@
       <% end %>
     </span>
   <% end %>
-</span>
+<% end %>
