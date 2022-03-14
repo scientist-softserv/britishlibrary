@@ -17,7 +17,8 @@ module Hyrax
         Hyrax::Identifier::Dispatcher
           .for(registrar.to_sym, **registrar_opts)
           .assign_for!(object: model, attribute: :doi)
-      rescue Hyrax::DOI::DataCiteClient::Error => e
+      # rubocop:disable Style/RescueStandardError
+      rescue => e
         user = ::User.find_by(email: model.depositor) if model.depositor
 
         if user
@@ -26,8 +27,11 @@ module Hyrax
                                           action(model, e),
                                           "DOI failed to mint or update")
         end
-        raise
+        Raven.capture_exception(e)
+        # Requeue if this is a datacite connection issue
+        raise if e.is_a? Hyrax::DOI::DataCiteClient::Error
       end
+      # rubocop:enable Style/RescueStandardError
 
       def action(model, e)
         "DOI update filed for <a href='#{polymorphic_url(model)}'>#{model.title.first}</a>. Datacite said '#{e.message}'"

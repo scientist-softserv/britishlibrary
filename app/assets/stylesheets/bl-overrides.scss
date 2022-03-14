@@ -11,6 +11,15 @@ body.public-facing {
   overflow-x: hidden;
   margin-bottom: 75px;
 
+  .btn-default {
+    background-color: transparent !important;
+    border: 0;
+    border-color: transparent;
+    color: $darkgrey;
+    font-size: 16px;
+    transition: 0.2s;
+  }
+
   h1,
   h2,
   h3,
