@@ -666,6 +666,8 @@ zh:
           title: 标题
           type: 类型
           visibility: 能见度
+          date_published: 发布日期
+          creator: 创作者
         highlighted: 我的亮点
         shared: 与我分享的作品
         sr:
