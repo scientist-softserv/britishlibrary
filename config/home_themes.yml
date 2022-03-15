@@ -24,24 +24,24 @@ bl_non_shared_home:
   marketing_text: true
   name: Non-Shared Site Homepage
   notes: This theme is recommended for all UK Heritage Organizations that are not part of the shared research repository. Users can edit the color of the navbar for this theme in the Settings → Appearance → Colors section of the dashboard by updating the "Header background color" field.
-cultural_repository:
-  banner_image: true
-  featured_researcher: false
-  home_page_text: true
-  marketing_text: true
-  name: Cultural Repository
-  notes: This theme is recommended for cultural repositories
-institutional_repository:
-  banner_image: true
-  featured_researcher: true
-  home_page_text: true
-  marketing_text: true
-  name: Institutional Repository
-  notes: This theme is recommended for institutional repositories
-neutral_repository:
-  banner_image: true
-  featured_researcher: true
-  home_page_text: true
-  marketing_text: true
-  name: Neutral Repository
-  notes: This theme is neutral and is recommended for all types of repositories
+# cultural_repository:
+#   banner_image: true
+#   featured_researcher: false
+#   home_page_text: true
+#   marketing_text: true
+#   name: Cultural Repository
+#   notes: This theme is recommended for cultural repositories
+# institutional_repository:
+#   banner_image: true
+#   featured_researcher: true
+#   home_page_text: true
+#   marketing_text: true
+#   name: Institutional Repository
+#   notes: This theme is recommended for institutional repositories
+# neutral_repository:
+#   banner_image: true
+#   featured_researcher: true
+#   home_page_text: true
+#   marketing_text: true
+#   name: Neutral Repository
+#   notes: This theme is neutral and is recommended for all types of repositories
