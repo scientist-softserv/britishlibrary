@@ -14,7 +14,7 @@
       <%= link_to(member.link_name, contextual_path(member, @presenter)) %>
     <% else %>
       <%= link_to(member.link_name, hyrax.download_path(member.id), target: :_blank) %>
-    <% end %>
+    <% end %> 
   </td>
   <% if parent_presenter.file_licenses? %>
     <td class="attribute file_licence">
