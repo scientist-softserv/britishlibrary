@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'views/hyrax/contact_form/new', type: :feature do
-  let(:user) { User.create }
+  let(:user) { create(:user) }
   let(:dropdown) { 'contact_form_category' }
   let(:selection) { 'Depositing content' }
   let(:f_name) { 'contact_form_name' }
@@ -25,8 +25,8 @@ RSpec.describe 'views/hyrax/contact_form/new', type: :feature do
     visit '/contact'
   end
 
-  describe 'contact form with styled button' do
-    it 'succeeds with valid attributes' do
+  context 'contact form with styled button' do
+    it 'succeeds with valid attributes and resets' do
       expect(page).to have_content 'Contact Form'
       expect(page).to have_css button_css
       select selection, from: dropdown
@@ -36,6 +36,10 @@ RSpec.describe 'views/hyrax/contact_form/new', type: :feature do
       fill_in f_message, with: test_message
       click_button f_button
       expect(page).to have_content 'Thank you for your message!'
+      expect(find_field(f_name).text).to be_blank
+      expect(find_field(f_email).text).to be_blank
+      expect(find_field(f_subject).text).to be_blank
+      expect(find_field(f_message).text).to be_blank
       expect(page).to have_css button_css
     end
 
@@ -53,7 +57,7 @@ RSpec.describe 'views/hyrax/contact_form/new', type: :feature do
     end
   end
 
-  describe 'as a logged in user' do
+  context 'as a logged in user' do
     before do
       login_as user
       visit '/contact'
@@ -62,6 +66,32 @@ RSpec.describe 'views/hyrax/contact_form/new', type: :feature do
     it 'prefills the name and email fields' do
       expect(page).to have_field(f_name, with: user.name)
       expect(page).to have_field(f_email, with: user.email)
+      expect(page).to have_css button_css
+    end
+
+    it 'retains the filled out information after a failed submission' do
+      fill_in f_subject, with: test_subject
+      fill_in f_message, with: test_message
+      click_button f_button
+      expect(page).to have_content 'Sorry, this message was not delivered.'
+      expect(page).to have_field(f_name, with: user.name)
+      expect(page).to have_field(f_email, with: user.email)
+      expect(page).to have_field(f_subject, with: test_subject)
+      expect(page).to have_field(f_message, with: test_message)
+      expect(page).to have_css button_css
+    end
+
+    it 'succeeds with valid attributes and resets the form' do
+      select selection, from: dropdown
+      fill_in f_subject, with: test_subject
+      fill_in f_message, with: test_message
+      click_button f_button
+      expect(page).to have_field(f_name, with: user.name)
+      expect(page).to have_field(f_email, with: user.email)
+      expect(find_field(f_subject).text).to be_blank
+      expect(find_field(f_message).text).to be_blank
+      expect(page).to have_content 'Thank you for your message!'
+      expect(page).to have_css button_css
     end
   end
 end
