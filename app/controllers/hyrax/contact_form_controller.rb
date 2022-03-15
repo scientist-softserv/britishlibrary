@@ -43,7 +43,6 @@ module Hyrax
       @featured_work_list = FeaturedWorkList.new
       @featured_collection_list = FeaturedCollectionList.new
       @announcement_text = ContentBlock.for(:announcement)
-      render file: Rails.root.join('app', 'views', 'shared', 'ubiquity', 'contact', '_new.html.erb'), locals: { contact_form: @contact_form }
     end
 
     def create
