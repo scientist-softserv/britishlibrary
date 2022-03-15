@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'views/hyrax/contact_form/new', type: :feature do
+RSpec.describe 'Contact Form', type: :feature do
   let(:user) { create(:user) }
   let(:dropdown) { 'contact_form_category' }
   let(:selection) { 'Depositing content' }
@@ -25,7 +25,7 @@ RSpec.describe 'views/hyrax/contact_form/new', type: :feature do
     visit '/contact'
   end
 
-  context 'contact form with styled button' do
+  context 'as a public user' do
     it 'succeeds with valid attributes and resets' do
       expect(page).to have_content 'Contact Form'
       expect(page).to have_css button_css
