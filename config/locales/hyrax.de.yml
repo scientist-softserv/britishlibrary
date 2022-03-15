@@ -665,6 +665,8 @@ de:
           title: Titel
           type: Art
           visibility: Sichtweite
+          date_published: Veröffentlichungsdatum
+          creator: Schöpferin
         highlighted: Meine Highlights
         shared: Arbeiten mit mir geteilt
         sr:
