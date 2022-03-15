@@ -1,5 +1,5 @@
 ## Override from hyrax to fix file upload in logo and banner
-## OVERRIDE: Hyrax 2.9 to use work titles for collection thumbnail select
+## OVERRIDE: Hyrax 2.9 to use work titles for collection thumbnail select & to add an option to reset to the default thumbnail
 module Hyrax
   module Dashboard
     ## Shows a list of all collections to the admins
@@ -186,7 +186,7 @@ module Hyrax
 
       # Renders a JSON response with a list of files in this collection
       # This is used by the edit form to populate the thumbnail_id dropdown
-      # OVERRIDE: Hyrax 2.9 to use work titles for collection thumbnail select
+      # OVERRIDE: Hyrax 2.9 to use work titles for collection thumbnail select & to add an option to reset to the default thumbnail
       def files
         params[:q] = '' unless params[:q]
         builder = Hyrax::CollectionMemberSearchBuilder.new(scope: self, collection: collection, search_includes_models: :works)
@@ -194,6 +194,11 @@ module Hyrax
         result = response.documents.reject { |document| document["thumbnail_path_ss"].blank? }.map do |document|
           { id: document["thumbnail_path_ss"].split('/').last.gsub(/\?.*/, ''), text: document["title_tesim"].first }
         end
+        reset_thumbnail_option = {
+          id: '',
+          text: 'Default thumbnail'
+        }
+        result << reset_thumbnail_option
         render json: result
       end
 
