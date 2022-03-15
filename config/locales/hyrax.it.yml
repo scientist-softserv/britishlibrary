@@ -666,6 +666,8 @@ it:
           title: Titolo
           type: genere
           visibility: Visibilità
+          date_published: Data di pubblicazione
+          creator: Creatrice
         highlighted: I miei punti salienti
         shared: Opere condivise con me
         sr:
