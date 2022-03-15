@@ -664,6 +664,8 @@ fr:
           title: Titre
           type: Type
           visibility: Visibilité
+          date_published: Date publiée
+          creator: Créatrice
         highlighted: Mes temps forts
         shared: Œuvres partagées avec moi
         sr:
