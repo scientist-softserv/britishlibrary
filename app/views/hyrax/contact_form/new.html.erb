@@ -23,7 +23,7 @@
     <% issue_types = Hyrax::ContactForm.issue_types_for_locale.dup %>
     <% issue_types.unshift([t('hyrax.contact_form.select_type'), nil]) %>
     <div class="col-sm-10">
-      <%= f.select 'category', options_for_select(issue_types), {}, {class: 'form-control', required: true } %>
+      <%= f.select 'category', options_for_select(issue_types), {}, { class: 'form-control', required: true } %>
     </div>
   </div>
 
