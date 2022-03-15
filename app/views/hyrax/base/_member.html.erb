@@ -9,9 +9,9 @@
     <% end %>
   </td>
   <td class="attribute attribute-filename ensure-wrapped">
-    <% if user_signed_in? %>
 <%# (selamhabteab): testing pronto in view file%>
-      <%= link_to(member.link_name, contextual_path(member, @presenter)) %> 
+    <% if user_signed_in? %> 
+      <%= link_to(member.link_name, contextual_path(member, @presenter)) %>
     <% else %>
       <%= link_to(member.link_name, hyrax.download_path(member.id), target: :_blank) %>
     <% end %>

@@ -1,7 +1,7 @@
 all:
   exclude:
     - 'spec/**/*'
-    - 'views/**/*'
+    - 'app/views/**/*'
 # exclude files for single runner
 eslint:
   exclude:
