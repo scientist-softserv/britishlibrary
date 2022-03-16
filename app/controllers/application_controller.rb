@@ -161,6 +161,6 @@ class ApplicationController < ActionController::Base
 
       yield
 
-      view_paths = original_paths
+      view_paths = original_paths # rubocop:disable Lint/UselessAssignment
     end
 end
