@@ -1,0 +1,43 @@
+<footer class="navbar navbar-inverse site-footer">
+  <div class="container-fluid">
+    <div class="navbar-text">
+      <!-- /begin nav links: OVERRIDE here to include nav links on bottom bar -->
+      <div class="row">
+        <%# BEGIN LINKS ONLY VISIBLE IN INDIVIDUAL TENANTS %>
+        <% if controller_name != 'splash'%>
+          <div class = 'col-xs-6 col-md-2 footer-link' <%= 'class=active' if current_page?(hyrax.root_path) %>>
+            <%= link_to t(:'hyrax.controls.home'), hyrax.root_path, aria: current_page?(hyrax.root_path) ? {current: 'page'} : nil %>
+          </div>
+          <div class = 'col-xs-6 col-md-2 footer-link' <%= 'class=active' if current_page?(hyrax.about_path) %>>
+            <%= link_to t(:'hyrax.controls.about'), hyrax.about_path, aria: current_page?(hyrax.about_path) ? {current: 'page'} : nil %>
+          </div>
+          <div class = 'col-xs-6 col-md-2 footer-link' <%= 'class=active' if current_page?(hyrax.contact_path) %>>
+            <%= link_to t(:'hyrax.controls.contact'), hyrax.contact_path, aria: current_page?(hyrax.contact_path) ? {current: 'page'} : nil %>
+          </div>
+        <% end %>
+        <%# END LINKS ONLY VISIBLE IN INDIVIDUAL TENANTS %>
+        <%# BEGIN LINKS ONLY VISIBLE IN SPLASH CONTROLLER %>
+        <% if controller_name == 'splash' %>
+          <% if admin_host? && !user_signed_in? %>
+            <div class = 'col-xs-4 col-md-2 footer-link' >
+              <%= link_to t('hyku.footer.admin_login', default: [:'hyrax.toolbar.profile.login']), main_app.new_user_session_path %>
+            </div>
+          <% end %>
+          <div class = 'col-xs-4 col-md-2 footer-link'>
+            <%= link_to t(:'hyrax.controls.about'), "//#{host_for('search')}#{hyrax.about_path}", aria: current_page?(hyrax.about_path) ? {current: 'page'} : nil %>
+          </div>
+          <div class = 'col-xs-4 col-md-2 footer-link'>
+            <%= link_to t(:'hyrax.controls.contact'), "//#{host_for('search')}#{hyrax.contact_path}", aria: current_page?(hyrax.contact_path) ? {current: 'page'} : nil %>
+          </div>
+        <% end %>
+        <%# END LINKS ONLY VISIBLE IN SPLASH CONTROLLER %>
+      </div><!-- /.nav -->
+    </div>
+    <div class="navbar-right">
+      <div class="navbar-text text-right footer-link">
+        Managed by the <a href="https://www.bl.uk/">British Library</a>
+        <br/>Provided by <a href="https://www.notch8.com/">Notch8</a> & <a href="https://cosector.com/">CoSector</a>
+      </div>
+    </div>
+  </div>
+</footer>
