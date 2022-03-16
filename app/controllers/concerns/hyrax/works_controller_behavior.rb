@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 # OVERRIDE: British Libraries override to Hyrax v.2.9.5 so that a new work defaults to a "public" visibility
-# COPIED FROM HYRAX 2.9.0 to add inject_show_theme_views - Hyku theming
-# OVERRIDE: Hyrax 2.9.0 move inject_show_theme_views to application_controller so themes apply everywhere. in application controller the method is called inject_theme_views
 require "iiif_manifest"
 require "hyrax/doi/errors"
 
