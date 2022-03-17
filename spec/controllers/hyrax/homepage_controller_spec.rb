@@ -159,7 +159,9 @@ RSpec.describe Hyrax::HomepageController, type: :controller, clean: true do
       it { is_expected.to use_around_action(:inject_theme_views) }
     end
 
-    context 'with ir stats' do
+    # ir is specific to instutional repository
+    # skipping because institutional repository is disabled per config/home_themes.yml
+    xcontext 'with ir stats' do
       before do
         allow(controller).to receive(:home_page_theme).and_return('institutional_repository')
       end
