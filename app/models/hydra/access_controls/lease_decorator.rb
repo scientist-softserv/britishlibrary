@@ -5,7 +5,7 @@ module Hydra
   module AccessControls
     module LeaseDecorator
       def active?
-        (lease_release_date.present? && Time.zone.today.end_of_day < lease_release_date)
+        (lease_expiration_date.present? && Time.zone.today.end_of_day < lease_expiration_date)
       end
     end
   end
