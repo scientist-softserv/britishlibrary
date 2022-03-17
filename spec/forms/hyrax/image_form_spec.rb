@@ -3,8 +3,7 @@
 # Generated via
 # `rails generate hyrax:work Image`
 
-# TODO - expand test to match code. 
-# Researched that extent is no longer being user per 
+# Researched that extent is no longer being user per
 # commit 23125eae0da43dddc3bb040d5166e5d1de807099
 RSpec.describe Hyrax::ImageForm do
   let(:work) { Image.new }
