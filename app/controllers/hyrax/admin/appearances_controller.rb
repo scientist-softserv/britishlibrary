@@ -20,7 +20,7 @@ module Hyrax
         @show_theme_names = load_show_theme_names
         @search_themes = load_search_themes
 
-        flash[:alert] = t('hyrax.admin.appearances.show.forms.custom_css.warning')
+        flash[:alert] = t('.forms.custom_css.warning')
       end
 
       def update
@@ -42,47 +42,45 @@ module Hyrax
 
       private
 
-        def update_params
-          params.require(:admin_appearance).permit(form_class.permitted_params)
-        end
+      def update_params
+        params.require(:admin_appearance).permit(form_class.permitted_params)
+      end
 
-        def require_permissions
-          authorize! :update, :appearance
-        end
+      def require_permissions
+        authorize! :update, :appearance
+      end
 
-        def add_breadcrumbs
-          add_breadcrumb t(:'hyrax.controls.home'), root_path
-          add_breadcrumb t(:'hyrax.dashboard.breadcrumbs.admin'), hyrax.dashboard_path
-          add_breadcrumb t(:'hyrax.admin.sidebar.configuration'), '#'
-          add_breadcrumb t(:'hyrax.admin.sidebar.appearance'), request.path
-        end
+      def add_breadcrumbs
+        add_breadcrumb t(:'hyrax.controls.home'), root_path
+        add_breadcrumb t(:'hyrax.dashboard.breadcrumbs.admin'),
+                       hyrax.dashboard_path
+        add_breadcrumb t(:'hyrax.admin.sidebar.configuration'), '#'
+        add_breadcrumb t(:'hyrax.admin.sidebar.appearance'), request.path
+      end
 
-        def load_home_theme_names
-          home_theme_names = []
-          @home_theme_information.each do |theme, value_hash|
-            value_hash.each do |key, value|
-              home_theme_names << [value, theme] if key == 'name'
-            end
+      def load_home_theme_names
+        home_theme_names = []
+        @home_theme_information.each do |theme, value_hash|
+          value_hash.each do |key, value|
+            home_theme_names << [value, theme] if key == 'name'
           end
-          home_theme_names
         end
+        home_theme_names
+      end
 
-        def load_show_theme_names
-          show_theme_names = []
-          @show_theme_information.each do |theme, value_hash|
-            value_hash.each do |key, value|
-              show_theme_names << [value, theme] if key == 'name'
-            end
+      def load_show_theme_names
+        show_theme_names = []
+        @show_theme_information.each do |theme, value_hash|
+          value_hash.each do |key, value|
+            show_theme_names << [value, theme] if key == 'name'
           end
-          show_theme_names
         end
+        show_theme_names
+      end
 
-        def load_search_themes
-          {
-            'List view' => 'list_view',
-            'Gallery view' => 'gallery_view'
-          }
-        end
+      def load_search_themes
+        { 'List view' => 'list_view', 'Gallery view' => 'gallery_view' }
+      end
     end
   end
 end
