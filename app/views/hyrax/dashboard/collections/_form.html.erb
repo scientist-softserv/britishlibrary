@@ -39,12 +39,15 @@
                           input_html: { data: { text: f.object.thumbnail_title || 'Default thumbnail' } } %>
               <%# option to upload thumbnail %>
               <%= label_tag(:thumbnail_upload, "Upload a Thumbnail") %>
-              <p>Uploading an image will replace a thumbnail selected from a collection. For best results, use an image at least 500(width) x 900(height) px.</p>
-              <div id="uploaded-thumbnail">
+              <p class='help-block'>
+                Uploading an image here will replace a thumbnail selected from the above dropdown. For best results, use an image at least 500(width) x 900(height) px. If you would like to use an image from the dropdown above, click the "Clear upload" button below.
+              </p>
+              <%# raise 'hell' %>
+              <div id="uploaded-thumbnail mb-20">
                 <%= render "current_thumbnail" %>
               </div>
               <%= f.file_field :thumbnail_upload, class: "thumbnail-upload" %>
-              <%= link_to("Clear upload", main_app.delete_uploaded_thumbnail_path, method: :post, remote: :true, class: "btn btn-danger", id: "clear-upload") %>
+              <%= link_to("Clear upload", main_app.delete_uploaded_thumbnail_path, method: :post, remote: :true, class: "btn btn-danger mb-40 mt-20", id: "clear-upload") %>
             <% end %>
           </div>
           <% if f.object.display_additional_fields? %>
