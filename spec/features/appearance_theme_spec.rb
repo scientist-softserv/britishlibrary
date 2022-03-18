@@ -117,7 +117,7 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
   end
 
   context 'when a home page theme is selected' do
-    it 'renders theme notes and wireframe' do
+    xit 'renders theme notes and wireframe' do
       login_as admin
       visit '/admin/appearance'
       click_link('Themes')
