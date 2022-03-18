@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe HyraxHelper, type: :helper do
-  describe "#banner_image" do
+  xdescribe "#banner_image" do
     context "with uploaded banner image" do
       before do
         f = fixture_file_upload('/images/nypl-hydra-of-lerna.jpg', 'image/jpg')
@@ -20,7 +20,7 @@ RSpec.describe HyraxHelper, type: :helper do
     end
   end
 
-  describe "#directory_image" do
+  xdescribe "#directory_image" do
     context "with uploaded directory image" do
       before do
         f = fixture_file_upload('/images/nypl-hydra-of-lerna.jpg', 'image/jpg')
