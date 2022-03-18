@@ -790,11 +790,12 @@ body.public-facing.bl-public-facing {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    flex-grow: 1;
   }
   .collection-card-container {
     display: flex;
     flex-direction: column;
+    height: 300px;
   }
   .collection-label {
     border-top: 2px solid $lightgrey;
@@ -808,7 +809,8 @@ body.public-facing.bl-public-facing {
     object-position: center;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
-    &[src*="default_collection_images"] {
+    &[src*="default_collection_images"],
+    &[src^="/assets/collection"] {
       width: 130px;
       height: 130px;
       margin: 35px auto;
