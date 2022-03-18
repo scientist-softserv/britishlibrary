@@ -1,5 +1,5 @@
 # OVERRIDE Hyrax 2.9.0 to make collection thumbnails uploadable
-   
+
 module Hyrax
   module IndexesThumbnails
     extend ActiveSupport::Concern
@@ -26,7 +26,7 @@ module Hyrax
 
     # Returns the value for the thumbnail path to put into the solr document
     def thumbnail_path
-      if self.object.class == Collection && UploadedCollectionThumbnailPathService.uploaded_thumbnail?(self.object)
+      if object.class == Collection && UploadedCollectionThumbnailPathService.uploaded_thumbnail?(object)
         UploadedCollectionThumbnailPathService.call(object)
       else
         self.class.thumbnail_path_service.call(object)

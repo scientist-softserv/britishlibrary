@@ -5,6 +5,7 @@ class UploadedCollectionThumbnailPathService < Hyrax::ThumbnailPathService
       "/uploaded_collection_thumbnails/#{object.id}/#{object.id}_card.jpg"
     end
 
+    # rubocop:disable Rails/FilePath, Lint/StringConversionInInterpolation
     def uploaded_thumbnail?(collection)
       File.exist?("#{Rails.root.to_s}/public/uploaded_collection_thumbnails/#{collection.id}/#{collection.id}_card.jpg")
     end
@@ -12,6 +13,6 @@ class UploadedCollectionThumbnailPathService < Hyrax::ThumbnailPathService
     def upload_dir(collection)
       "#{Rails.root.to_s}/public/uploaded_collection_thumbnails/#{collection.id}"
     end
-
+    # rubocop:enable Rails/FilePath, Lint/StringConversionInInterpolation
   end
 end
