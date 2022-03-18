@@ -3,6 +3,8 @@
 # Generated via
 # `rails generate hyrax:work Image`
 
+# Researched that extent is no longer being user per
+# commit 23125eae0da43dddc3bb040d5166e5d1de807099
 RSpec.describe Hyrax::ImageForm do
   let(:work) { Image.new }
   let(:form) { described_class.new(work, nil, nil) }
@@ -14,13 +16,17 @@ RSpec.describe Hyrax::ImageForm do
     let(:params) { ActionController::Parameters.new(attributes) }
     let(:attributes) do
       {
-        title: ['foo'],
+        title: ['a', 'b'],
         extent: ['extent']
       }
     end
 
-    it 'permits parameters' do
-      expect(subject['extent']).to eq ['extent']
+    it 'permits metadata parameters' do
+      expect(subject['title']).to eq ['a', 'b']
+    end
+
+    it 'excludes non-permitted parameters' do
+      expect(subject).not_to have_key 'extent'
     end
   end
 

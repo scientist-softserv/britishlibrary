@@ -2,6 +2,8 @@
 
 require 'rails_helper'
 
+# Skipping tests due to disabled theme per config/home_themes.yml
+
 RSpec.describe 'Admin can select institutional repository theme', type: :feature, js: true, clean: true do
   let(:account) { FactoryBot.create(:account) }
   let(:admin) { FactoryBot.create(:admin, email: 'admin@example.com', display_name: 'Adam Admin') }
@@ -14,7 +16,7 @@ RSpec.describe 'Admin can select institutional repository theme', type: :feature
            user: user)
   end
 
-  context 'as a repository admin' do
+  xcontext 'as a repository admin' do
     it 'sets the institutional repository theme when the theme form is saved' do
       login_as admin
       visit 'admin/appearance'
@@ -31,7 +33,7 @@ RSpec.describe 'Admin can select institutional repository theme', type: :feature
     end
   end
 
-  context 'when the institutional repository theme is selected' do
+  xcontext 'when the institutional repository theme is selected' do
     it 'renders the partials in the theme folder' do # rubocop:disable RSpec/ExampleLength
       login_as admin
       visit '/admin/appearance'
