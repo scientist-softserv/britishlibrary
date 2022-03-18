@@ -10,4 +10,4 @@ module Bulkrax
   end
 end
 
-Bulkrax::CsvEntry.prepend(Bulkrax::CsvEntryDecorator)
+::Bulkrax::CsvEntry.prepend(Bulkrax::CsvEntryDecorator)
