@@ -36,7 +36,7 @@
     <% end %>
     <% if array_of_hash.length > 5 %>
       <li>
-        <button id="<%= section %>-creator-collapse" class="<%= section == 'header' ? 'btn-secondary' : 'collapse-fields' %>" data-toggle="collapse" data-target=".<%= section %>-creator.collapse" aria-expanded="false" aria-controls="collapse">
+        <button id="<%= section %>-creator-collapse" class="<%= section == 'header' ? 'btn-secondary collapse-fields' : 'collapse-fields' %>" data-toggle="collapse" data-target=".<%= section %>-creator.collapse" aria-expanded="false" aria-controls="collapse">
           <span>Show more</span>
           <span style='display:none'>Close list</span>
         </button>
