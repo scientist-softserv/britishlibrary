@@ -37,6 +37,14 @@
               <%# OVERRIDE here to make it say 'Default thumbnail' in the select box instead of 'undefined' %>
               <%= f.input :thumbnail_id,
                           input_html: { data: { text: f.object.thumbnail_title || 'Default thumbnail' } } %>
+              <%# option to upload thumbnail %>
+              <%= label_tag(:thumbnail_upload, "Upload a Thumbnail") %>
+              <p>Uploading an image will replace a thumbnail selected from a collection. For best results, use an image at least 500(width) x 900(height) px.</p>
+              <div id="uploaded-thumbnail">
+                <%= render "current_thumbnail" %>
+              </div>
+              <%= f.file_field :thumbnail_upload, class: "thumbnail-upload" %>
+              <%= link_to("Clear upload", main_app.delete_uploaded_thumbnail_path, method: :post, remote: :true, class: "btn btn-danger", id: "clear-upload") %>
             <% end %>
           </div>
           <% if f.object.display_additional_fields? %>
@@ -104,4 +112,12 @@
     </div>
   </div> <!-- end tab-content -->
 <% end # simple_form_for %>
+
+<script>
+  // loading message
+  $("#clear-upload").click(function() {
+    $("#uploaded-thumbnail").html("Removing uploaded thumbnail...");
+  });
+  $("label[for='collection_thumbnail_id']").html("Select a Thumbnail from Collection");
+</script>
 
