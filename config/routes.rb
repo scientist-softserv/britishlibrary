@@ -111,4 +111,8 @@ Rails.application.routes.draw do
 
   get '/search', to: redirect(path: '/catalog')
   get '/collection/:id', to: redirect(path: '/collections/%{id}')
+
+  # Upload a collection thumbnail
+  post "/dashboard/collections/:id/delete_uploaded_thumbnail", to: "hyrax/dashboard/collections#delete_uploaded_thumbnail", as: :delete_uploaded_thumbnail
+  
 end
