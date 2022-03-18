@@ -808,7 +808,7 @@ body.public-facing.bl-public-facing {
     object-position: center;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
-    &[src^="/assets/collection"] {
+    &[src*="default_collection_images"] {
       width: 130px;
       height: 130px;
       margin: 35px auto;
