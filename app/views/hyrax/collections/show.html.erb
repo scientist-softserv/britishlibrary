@@ -124,21 +124,23 @@
                 </div>
               <% end %>
               <!-- Search bar -->
-              <div class="hyc-bl-search hyc-body row">
-                <div class="col-sm-7">
-                  <%= render 'search_form', presenter: @presenter, url: hyrax.collection_path(@presenter.id) %>
+              <% if @presenter.total_viewable_items != 0 %>
+                <div class="hyc-bl-search hyc-body row">
+                  <div class="col-sm-7">
+                    <%= render 'search_form', presenter: @presenter, url: hyrax.collection_path(@presenter.id) %>
+                  </div>
                 </div>
-              </div>
-              <!-- Search results count -->
-              <% if @members_count == 0 %>
-                <div class="pt-20">
-                  <span>
-                    No results found for "<%= params["cq"] %>". Try modifying your search or return to the collection.
-                  </span>
-                  <br />
-                  <br />
-                </div>
-                <%=link_to "Return to Collection", "/collection/#{params[:id]}", :class => "collection_startOverLink btn btn-sm btn-text", :id=>"startOverLink" %>
+                <!-- Search results count -->
+                <% if @members_count == 0 %>
+                  <div class="pt-20">
+                    <span>
+                      No results found for "<%= params["cq"] %>". Try modifying your search or return to the collection.
+                    </span>
+                    <br />
+                    <br />
+                  </div>
+                  <%=link_to "Return to Collection", "/collection/#{params[:id]}", :class => "collection_startOverLink btn btn-sm btn-text", :id=>"startOverLink" %>
+                <% end %>
               <% end %>
               <!-- Subcollections -->
               <% if @presenter.collection_type_is_nestable? && @subcollection_count > 0 %>
