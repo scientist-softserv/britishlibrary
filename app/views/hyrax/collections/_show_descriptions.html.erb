@@ -1,0 +1,10 @@
+<dl>
+  <% present_terms(@presenter, @presenter.terms_with_values) do |r, term| %>
+    <% unless r.label(term) == 'Size' && !user_signed_in? %>
+      <div>
+        <dt><%= r.label(term) %></dt>
+        <dd><%= r.value(term) %></dd>
+      </div>
+      <% end %>
+  <% end %>
+</dl>
