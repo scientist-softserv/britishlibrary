@@ -1,68 +1,16 @@
-<!-- add body classes to make styling easier -->
-<!DOCTYPE html>
-<html lang="<%= I18n.locale.to_s %>" prefix="og:http://ogp.me/ns#">
-  <head>
-    <%= render partial: 'layouts/head_tag_content' %>
-    <%= content_for(:head) %>
-  </head>
-  <% content_for(:extra_body_classes, 'public-facing bl-public-facing') unless params[:controller].match(/^proprietor/) %>
-  <% content_for(:extra_body_classes, ' search-only') if current_account && current_account.search_only  %>
-  <% content_for :page_title, "Shared Research Repository" %>
+<%# OVERRIDE for homepage layout hyrax 2.9.1 - adds updated banner section, marketing text container, and home content containers, and fixes rubocop error %>
 
-  <body class="<%= body_class %> <%= home_page_theme %> <%= search_results_theme %> <%= show_page_theme %>">
-  <%= render_gtm_body(request.original_url) %>
-  <%= render '/masthead' %>
-    <div class="container homepage-container">
-    <%# raise 'hell'%>
-      <div class= "row">
-        <div class="col-sm-6 pt-40 homepage-left">
-          <h1>Shared Research Repository</h1>
-          <h3 class="splash-page">for cultural and heritage organisations</h3>
-          <h4 class="pt-40 splash-page">
-            Welcome to our shared repository where you’ll find research produced by staff of the British Library and our current partner organisations: the British Museum, MOLA (Museum of London Archaeology), National Museums Scotland, Royal Botanic Gardens Kew, and Tate.<br/><br/>
-            Visit one repository at a time, or use the search box to search and explore publications, reports, datasets and papers from across our combined content.
-        </div>
-        <div class="col-sm-6 pt-20 homepage-right">
-          <%# SEARCH BAR FOR HOME PAGE %>
-          <%= render partial: 'catalog/search_form', locals: { search_form_action: full_search_url } %>
-          <h2 class="pt-40">Browse our partner repositories:</h2>
-          <div class="row logo-grid">
-            <div class="col-xs-6 col-sm-4 text-center">
-              <%= link_to "//#{host_for('mola')}" do %>
-                <%= image_tag("splash-logos/MolaLogo.png", class: "tenant-logo", alt: "MOLA") %>
-              <% end %>
-            </div>
-            <div class="col-xs-6 col-sm-4 text-center">
-              <%= link_to "//#{host_for('nms')}" do %>
-                <%= image_tag("splash-logos/NMSlogo1.png", class: "tenant-logo", alt: "National Museum of Scotland") %>
-              <% end %>
-            </div>
-            <div class="col-xs-6 col-sm-4 text-center">
-              <%= link_to "//#{host_for('bl')}" do %>
-                <%= image_tag("splash-logos/britishlibrarylogo.png", class: "tenant-logo", alt: "British Library") %>
-              <% end %>
-            </div>
-            <div class="col-xs-6 col-sm-4 text-center">
-              <%= link_to "//#{host_for('kew')}" do %>
-                <%= image_tag("splash-logos/Kew_Logo.png", class: "tenant-logo", alt: "Kew Royal Botanic Gardens") %>
-              <% end %>
-            </div>
-            <div class="col-xs-6 col-sm-4 text-center">
-              <%= link_to "//#{host_for('tate')}" do %>
-                <%= image_tag("splash-logos/Tate_Logo.png", class: "tenant-logo", alt: "Tate Modern") %>
-                <% end %>
-            </div>
-            <div class="col-xs-6 col-sm-4 text-center">
-              <%= link_to "//#{host_for('britishmuseum')}" do %>
-                <%= image_tag("splash-logos/BMlogo.png", class: "tenant-logo", alt: "The British Museum") %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<% content_for(:navbar) do %>
+<%# BEGIN homepage, about, contact, and help page banner section  %>
+  <%= render "hyrax/homepage/banner_section" if controller_name == 'pages'|| controller_name == 'contact_form' %>
+  <%# END homepage, about, contact, and help page banner section  %>
 
-    <%= render 'shared/footer' %>
-    <%= render 'shared/ajax_modal' %>
-  </body>
-</html>
+
+  <%# Render the Shared Research Repo homepage, previously the 'splash' page  %>
+  <% if controller_name == 'homepage' %>
+    <%= render 'splash/index' %>
+  <% end %>
+  
+<% end %>
+
+<%= render template: 'layouts/hyrax' %>
