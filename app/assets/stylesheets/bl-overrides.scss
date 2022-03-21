@@ -1683,6 +1683,16 @@ body.public-facing.bl-public-facing {
   }
 }
 
+body.splash.splash-index.public-facing {
+  background-image: linear-gradient(90deg, $neutral 50%, $white 50%);
+}
+
+@media only screen and (max-width: 768px) {
+  body.splash.splash-index.public-facing {
+    background-image: linear-gradient(180deg, $neutral 30%, $white 70%);
+  }
+}
+
 @media (max-width: 992px) {
   body.public-facing {
     margin-bottom: 160px;
