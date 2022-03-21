@@ -1153,6 +1153,11 @@ body.public-facing.bl-public-facing {
       background-color: $neutral;
       border-radius: 5px;
     }
+    div.related_url {
+      background-color: transparent;
+      padding: 0;
+      word-break: break-all;
+    }
     div dt {
       flex-basis: auto;
       width: 30%;
