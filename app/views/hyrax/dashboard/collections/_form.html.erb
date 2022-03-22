@@ -46,7 +46,6 @@
                 <%= render "current_thumbnail" %>
               </div>
               <%= f.file_field :thumbnail_upload, class: "thumbnail-upload" %>
-              <%# raise 'hell' %>
               <%= link_to("Clear upload", main_app.delete_uploaded_thumbnail_path, method: :post, remote: :true, class: "btn btn-danger mb-40 mt-20", id: "clear-upload") %>
             <% end %>
           </div>
