@@ -3,6 +3,7 @@ class ExhibitionItem < ActiveFedora::Base
   include Ubiquity::UniversalMetadata
   include Ubiquity::SharedMetadata
   include Ubiquity::AllModelsVirtualFields
+  include Ubiquity::WorksVirtualFields
   include Ubiquity::VersionMetadataModelConcern
   # include Ubiquity::UpdateSharedIndex
   include Ubiquity::FileAvailabilityFaceting
