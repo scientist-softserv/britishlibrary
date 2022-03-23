@@ -17,7 +17,7 @@
     </div>
 
     <p class="form-group">
-      The person or group responsible for the work. Usually this is the author of the content.
+      <%= raw(t('simple_form.hints.collection.creator')) %>
     </p>
 
     <span class="ubiquity_organization_fields">
@@ -35,6 +35,9 @@
                             name: "#{template}[creator_group][][creator_organization_name]",
                             data: {field_name:'ubiquity_creator_organization_name'}
         %>
+        <p class="form-group">
+          <%= raw(t('simple_form.hints.collection.creator_org_name')) %>
+        </p>
       </div>
 
       <% unless template == 'collection' %>
