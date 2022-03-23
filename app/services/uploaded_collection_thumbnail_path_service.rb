@@ -2,7 +2,7 @@ class UploadedCollectionThumbnailPathService < Hyrax::ThumbnailPathService
   class << self
     # @param [Collection] object to get the thumbnail path for an uploaded image
     def call(object)
-      "/uploaded_collection_thumbnails/#{object.id}/#{object.id}_card.jpg"
+      "/uploads/uploaded_collection_thumbnails/#{object.id}/#{object.id}_card.jpg"
     end
 
     # rubocop:disable Rails/FilePath, Lint/StringConversionInInterpolation
