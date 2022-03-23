@@ -1,3 +1,6 @@
+<%# OVERRIDE Hyrax 2.9.6 to make more fields for creator 
+https://github.com/samvera/hyrax/blob/v2.9.6/app/views/records/show_fields/_creator.html.erb %>
+
 <% array_of_hash = JSON.parse record.creator.first %>
 <ul class="tabular" style="margin-left:0px; padding-left:0px;">
   <% array_of_hash.each_with_index do |hash, index| %>
