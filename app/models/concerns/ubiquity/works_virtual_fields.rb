@@ -4,13 +4,13 @@ module Ubiquity
 
     included do
 
-      before_save :save_funder, unless: proc { self.instance_of?(Collection) }
-      before_save :save_editor, unless: proc { self.instance_of?(Collection) }
-      before_save :save_alternate_identifier, unless: proc { self.instance_of?(Collection) }
-      before_save :save_related_identifier, unless: proc { self.instance_of?(Collection) }
+      before_save :save_funder
+      before_save :save_editor
+      before_save :save_alternate_identifier
+      before_save :save_related_identifier
       before_save :save_date_published, :save_date_accepted, :save_date_submitted,
-                  :save_event_date, :save_related_exhibition_date, unless: proc { self.instance_of?(Collection) }
-      before_save :save_current_he_institution, unless: proc { self.instance_of?(Collection) }
+                  :save_event_date, :save_related_exhibition_date
+      before_save :save_current_he_institution
 
       # TODO ~alignment: relates to doi and work expiry
       # after_save :update_external_service_record, :create_work_service_if_embargo_or_lease
