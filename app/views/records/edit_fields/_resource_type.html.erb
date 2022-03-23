@@ -13,7 +13,9 @@
       Resource Type <span class="label label-info required-tag">required</span>
     <% end %>
   </label>
-  <p class="help-block">Select the specific resource type that best describes the work.</p>
+  <p class="help-block">
+    <%= raw(t('simple_form.hints.collection.resource_type')) %>
+  </p>
   <% if template == 'generic_work' %>
     <%= select_tag "#{template}[resource_type][]", content_tag(:option,'Please Select ...',:value=>"")+
           options_from_collection_for_select( Hyrax::ResourceTypesService.select_template_options(model_name),
@@ -21,7 +23,7 @@
                                               :first,
                                               set_default), class: 'form-control resource-type' %>
   <% else %>
-    <%= select_tag "#{template}[resource_type][]", content_tag(:option,'The resource type that best describes the works in the collection.',:value=>"")+
+    <%= select_tag "#{template}[resource_type][]", content_tag(:option,'',:value=>"")+
         options_from_collection_for_select( Hyrax::ResourceTypesService.select_template_options(model_name),
                                             :last,
                                             :first,

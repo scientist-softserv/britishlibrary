@@ -1119,16 +1119,17 @@ en:
       collection:
         based_near: A place name related to the collection.
         contributor: A person or group you want to recognize for playing a role in the creation of the collection, but not the primary role.
-        creator: The person or group responsible for the collection. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John.&quot;.
+        creator: A person, group or organisation you want to name as the creator of the collection.
+        creator_org_name: A person, group or organisation you want to recognise in the collection description.
         date_created: The date on which the collection was created.
-        description: Free-text notes about the collection. Examples include abstracts of a paper or citation information for a journal article.
+        description: Free-text notes to describe the collection.
         identifier: A unique identifier assigned to the collection e.g. a DOI. If using a DOI, you may wish to express this as a URL e.g. <a href="https://doi.org/10.22020/z8aj-4r24">https://doi.org/10.22020/z8aj-4r24</a>
         keyword: Words or phrases you select to describe what the collection is about. These are used to search for content.
         language: The language of the collection's content.
         license: Licensing and distribution information governing access to the collection. Select from the provided drop-down list.
         publisher: Rarely used. The name of a publisher associated with this collection.
         related_url: A link to a website or other specific content (audio, video, PDF document) related to the collection. An example is the URL of a research project from which the collection was derived.
-        resource_type: Pre-defined categories to describe the type of content being uploaded, such as &quot;article&quot; or &quot;dataset.&quot;  More than one type may be selected.
+        resource_type: The resource type that best describes the works in the collection.
         subject: Headings or index terms describing what the collection is about; these do need to conform to an existing vocabulary.
         title: A name to aid in identifying a collection.
       collection_type:
