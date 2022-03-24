@@ -37,7 +37,7 @@ module Ubiquity
         creator_json = clean_submitted_data.to_json
         populate_creator_search_field(creator_json) unless self.instance_of?(Collection)
         self.creator = [creator_json]
-      elsif data == true || data == nil
+      elsif (data == true || data == nil) && self.respond_to?(:creator_search)
         self.creator_search = []
         #save an empty array since the submitted data contains only default keys & values
         self.creator = []
