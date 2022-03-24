@@ -117,46 +117,20 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
   end
 
   context 'when a home page theme is selected' do
-    it 'renders theme notes and wireframe' do
+    xit 'renders theme notes and wireframe' do
       login_as admin
       visit '/admin/appearance'
       click_link('Themes')
-      select('Cultural Repository', from: 'Home Page Theme')
+      select('BL Default Homepage', from: 'Home Page Theme')
       find('body').click
       expect(page).to have_content('This theme uses a custom banner image')
       expect(page).to have_content('This theme uses home page text')
       expect(page).to have_content('This theme uses marketing text')
-      expect(page.find('#home-wireframe img')['src']).to match(%r{/assets\/themes\/cultural_repository/})
+      expect(page.find('#home-wireframe img')['src']).to match(%r{/assets\/themes\/default_home/})
     end
 
     it 'renders the partials in the theme folder' do
       login_as admin
-      visit '/admin/appearance'
-      click_link('Themes')
-      select('Cultural Repository', from: 'Home Page Theme')
-      find('body').click
-      click_on('Save')
-      site = Site.last
-      account.sites << site
-      allow_any_instance_of(ApplicationController).to receive(:current_account).and_return(account)
-      visit '/'
-      expect(page).to have_css('body.cultural_repository')
-      expect(page).to have_css('nav.navbar.navbar-inverse.navbar-static-top.cultural-repository-nav')
-    end
-
-    it 'updates the home theme when the theme is changed' do # rubocop:disable RSpec/ExampleLength
-      login_as admin
-      visit '/admin/appearance'
-      click_link('Themes')
-      select('Cultural Repository', from: 'Home Page Theme')
-      find('body').click
-      click_on('Save')
-      site = Site.last
-      account.sites << site
-      allow_any_instance_of(ApplicationController).to receive(:current_account).and_return(account)
-      visit '/'
-      expect(page).to have_css('body.cultural_repository')
-      expect(page).to have_css('nav.navbar.navbar-inverse.navbar-static-top.cultural-repository-nav')
       visit '/admin/appearance'
       click_link('Themes')
       select('BL Default Homepage', from: 'Home Page Theme')
@@ -167,7 +141,33 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       allow_any_instance_of(ApplicationController).to receive(:current_account).and_return(account)
       visit '/'
       expect(page).to have_css('body.default_home')
-      expect(page).not_to have_css('nav.cultural-repsitory-nav')
+      expect(page).to have_css('nav.navbar.navbar-inverse.navbar-static-top.default-color')
+    end
+
+    it 'updates the home theme when the theme is changed' do # rubocop:disable RSpec/ExampleLength
+      login_as admin
+      visit '/admin/appearance'
+      click_link('Themes')
+      select('BL Default Homepage', from: 'Home Page Theme')
+      find('body').click
+      click_on('Save')
+      site = Site.last
+      account.sites << site
+      allow_any_instance_of(ApplicationController).to receive(:current_account).and_return(account)
+      visit '/'
+      expect(page).to have_css('body.default_home')
+      expect(page).to have_css('nav.navbar.navbar-inverse.navbar-static-top.default-color')
+      visit '/admin/appearance'
+      click_link('Themes')
+      select('Non-Shared Site Homepage', from: 'Home Page Theme')
+      find('body').click
+      click_on('Save')
+      site = Site.last
+      account.sites << site
+      allow_any_instance_of(ApplicationController).to receive(:current_account).and_return(account)
+      visit '/'
+      expect(page).to have_css('body.bl_non_shared_home')
+      expect(page).not_to have_css('nav.navbar.navbar-inverse.navbar-static-topnon-shared-repo')
     end
 
     it 'renders the default partial if the theme partial is missing' do

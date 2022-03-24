@@ -138,10 +138,6 @@ body.public-facing.bl-public-facing {
     margin-top: 40px;
   }
 
-  .mb-40 {
-    margin-bottom: 40px;
-  }
-
   .mt-auto {
     margin-top: auto;
   }
@@ -168,7 +164,7 @@ body.public-facing.bl-public-facing {
 
   /* LINK COLORS */
   a {
-    color: $darkgrey !important;
+    color: $darkgrey;
     transition: 0.1s ease-in-out;
   }
 
@@ -794,26 +790,31 @@ body.public-facing.bl-public-facing {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    padding: 10px 0px;
-    height: 100%;
+    flex-grow: 1;
   }
   .collection-card-container {
     display: flex;
     flex-direction: column;
+    height: 300px;
   }
   .collection-label {
     border-top: 2px solid $lightgrey;
     padding: 15px !important;
   }
 
-  .collection-thumbnail {
-    max-width: 200px;
-  }
-  .collection-thumbnail img.img-responsive {
+  .collection-thumbnail img {
+    width: 100%;
+    height: 200px;
     object-fit: cover;
     object-position: center;
-    width: 200px;
-    height: 200px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    &[src*="default_collection_images"],
+    &[src^="/assets/collection"] {
+      width: 130px;
+      height: 130px;
+      margin: 35px auto;
+    }
   }
 
   .works-row {
@@ -1574,6 +1575,7 @@ body.public-facing.bl-public-facing {
   a#startOverLink {
     border: 2px solid $lightgrey;
     border-radius: 4px;
+    margin-bottom: 150px;
   }
 
   .search-result-wrapper {
@@ -1593,11 +1595,13 @@ body.public-facing.bl-public-facing {
     font-size: 16px;
   }
 
-  a.creator-search-results span,
-  a.creator-search-results:hover {
-    color: $rust;
-    font-size: 13px;
-    text-decoration-color: $rust;
+  span {
+    a.creator-search-results,
+    a.creator-search-results:hover {
+      color: $rust;
+      font-size: 13px;
+      text-decoration-color: $rust;
+    }
   }
   .keywords-search-results {
     margin: 10px 0;
@@ -1698,4 +1702,17 @@ body.splash.splash-index.public-facing {
   body.public-facing {
     margin-bottom: 160px;
   }
+}
+
+//Styles we need access to in the dashboard
+.mb-40 {
+  margin-bottom: 40px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mt-20 {
+  margin-top: 20px;
 }

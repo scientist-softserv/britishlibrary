@@ -20,7 +20,7 @@ module Hyrax
         @show_theme_names = load_show_theme_names
         @search_themes = load_search_themes
 
-        flash[:alert] = t('hyrax.admin.appearances.show.forms.custom_css.warning')
+        flash[:alert] = t('.forms.custom_css.warning')
       end
 
       def update

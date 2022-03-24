@@ -31,6 +31,11 @@
                 <%= @presenter.collection_type_badge %>
                 <%= @presenter.permission_badge %>
               </div>
+              <% unless @presenter.creator.blank? %>
+                <div class="hyc-created-by">
+                  Created by: <%= @presenter.creator.first %>
+                </div>
+              <% end %>
               <% unless @presenter.modified_date.blank? %>
                 <div class="hyc-last-updated">
                   Last Updated: <%= @presenter.modified_date %>
