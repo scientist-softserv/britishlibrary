@@ -129,7 +129,7 @@ module AccountSettings
     end
 
     def validate_doi_minting
-      errors.add(:doi_minting, "Data Cite crednetials must be filled in if for DOI minting is enabled") if ActiveModel::Type::Boolean.new.cast(settings['doi_minting']) && data_cite_endpoint.blank?
+      errors.add(:doi_minting, "Data Cite credentials must be filled in if DOI minting is enabled") if ActiveModel::Type::Boolean.new.cast(settings['doi_minting']) && data_cite_endpoint.blank?
     end
 
     def validate_email_format
