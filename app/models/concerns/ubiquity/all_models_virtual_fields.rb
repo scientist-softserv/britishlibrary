@@ -28,9 +28,9 @@ module Ubiquity
     #
     def save_creator
       self.creator_group ||= JSON.parse(self.creator.first) if self.creator.present?
-      #remove Hash with empty values and nil
+      # remove Hash with empty values and nil
       clean_submitted_data ||= remove_hash_keys_with_empty_and_nil_values(self.creator_group)
-      #Check if the hash keys are only those used for default values like position
+      # Check if the hash keys are only those used for default values like position
       data = compare_hash_keys?(clean_submitted_data)
 
       if (self.creator_group.present? && clean_submitted_data.present? && data == false)
@@ -39,7 +39,7 @@ module Ubiquity
         self.creator = [creator_json]
       elsif (data == true || data == nil) && self.respond_to?(:creator_search)
         self.creator_search = []
-        #save an empty array since the submitted data contains only default keys & values
+        # save an empty array since the submitted data contains only default keys & values
         self.creator = []
       end
     end
@@ -49,6 +49,7 @@ module Ubiquity
       clean_incomplete_data(self.contributor_group) if self.contributor.present?
       clean_submitted_data ||= remove_hash_keys_with_empty_and_nil_values(self.contributor_group)
       data = compare_hash_keys?(clean_submitted_data)
+
       if (self.contributor_group.present? && clean_submitted_data.present? && data == false )
         contributor_json = clean_submitted_data.to_json
         self.contributor = [contributor_json]
@@ -76,7 +77,7 @@ module Ubiquity
       end
     end
 
-    #remove hash keys with value of nil, "", and "NaN"
+    # remove hash keys with value of nil, "", and "NaN"
     def remove_hash_keys_with_empty_and_nil_values(data)
       if (data.present? && data.class == Array)
         new_data = data.map do |hash|
@@ -98,7 +99,7 @@ module Ubiquity
       end
     end
 
-    #data is an array of hash eg [{"contributor_organization_name"=>""}},{"contributor_name_type"=>"Personal"}]
+    # data is an array of hash eg [{"contributor_organization_name"=>""}},{"contributor_name_type"=>"Personal"}]
     def get_default_hash_keys(data)
       if data.present? && data.first.present?
         #we get the first hash in the array and then get the first hash key
@@ -106,8 +107,8 @@ module Ubiquity
 
         splitted_record = record.split('_')
 
-        #the value of record will be "contributor_organization_name" when using array of hash from the above comments
-        #This means field name after the record.split will be 'contributor' and will change depending on the hash keys
+        # the value of record will be "contributor_organization_name" when using array of hash from the above comments
+        # This means field name after the record.split will be 'contributor' and will change depending on the hash keys
         field_name ||= splitted_record.first
         return   ["#{field_name}_position"] if (data.length == 1 && splitted_record.last == "position")
         ["#{field_name}_name_type", "#{field_name}_position"]
