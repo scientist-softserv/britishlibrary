@@ -3,7 +3,7 @@
   <% if index <= 4 %>
     <span itemprop='<%= "#{attr_name}" %>'>
       <% last_name = hash["#{attr_name}_family_name"] %>
-      <% first_name =  hash["#{attr_name}_given_name"] %>
+      <% first_name =  hash["#{attr_name}_given_name"] || '' %>
       <% organizational_creator = hash["#{attr_name}_organization_name"] %>
         <% last_name << ',' if last_name && display_comma?(hash.keys, ["#{attr_name}_family_name", "#{attr_name}_given_name"]) %>
         <% document.creator_search.each do |creator| %>
@@ -20,7 +20,8 @@
             <% end %>
             <% if last_name  %>
               <% if creator == "#{last_name} " + first_name ||
-                    creator + first_name == "#{last_name} " + first_name %>
+                    creator + first_name == "#{last_name} " + first_name ||
+                    creator == last_name %>
                 <%= link_to main_app.search_catalog_path(f: { creator_search_sim: Array(last_name + (" #{first_name}" if first_name)) }), class: 'creator-search-results' do %>
                     <%= last_name %>
                     <%= first_name if first_name %>
