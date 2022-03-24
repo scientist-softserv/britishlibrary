@@ -7,7 +7,7 @@
   <div class="collection-card">
     <%= link_to [hyrax, featured_collection] do %>
       <div class="collection-thumbnail center-block">
-        <%= render_thumbnail_tag(featured_collection, { class: "img-responsive", alt: "#{featured_collection.title.first} #{ t('hyrax.homepage.admin_sets.thumbnail')}" }, {suppress_link: true}) %>
+        <%= render_thumbnail_tag(featured_collection, { class: "center-block", alt: "#{featured_collection.title.first} #{ t('hyrax.homepage.admin_sets.thumbnail')}" }, {suppress_link: true}) %>
       </div>
       <div class= "collection-label">
         <%= link_to [hyrax, featured_collection] do %>

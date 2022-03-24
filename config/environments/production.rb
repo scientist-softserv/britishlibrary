@@ -21,6 +21,7 @@ Rails.application.configure do
     'Cache-Control' => 'public, s-maxage=31536000, maxage=15552000',
     'Expires' => "#{1.year.from_now.to_formatted_s(:rfc822)}"
   }
+  config.middleware.insert_before ActionDispatch::Static, NoCacheMiddleware, [/dashboard\/collections\/.*\/edit/, /uploaded_collection_thumbnails/]
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = Uglifier.new(harmony: true)
   # config.assets.css_compressor = :sass
@@ -92,6 +93,7 @@ Rails.application.configure do
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
+  config.i18n.enforce_available_locales = false
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify

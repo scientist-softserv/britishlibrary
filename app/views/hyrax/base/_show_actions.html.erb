@@ -4,7 +4,7 @@
   <% if presenter.iiif_viewer? %>
       <%= link_to 'View files in viewer',
                   "#{universal_viewer_base_url}?manifestUri=#{main_app.polymorphic_url [main_app, :manifest, presenter], { locale: nil }}&config=#{universal_viewer_config_url}",
-                  class: 'btn btn-secondary',
+                  class: 'btn btn-default devise-button',
                   target: :_blank
       %>
   <% end %>
