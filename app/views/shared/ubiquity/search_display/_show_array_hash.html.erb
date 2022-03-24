@@ -41,6 +41,16 @@
                     <%= '…' if index == array_size && array_of_hash.size > 5 %>
                 <% end %>
               <% end %>
+              <% if creator == first_name %>
+                <%= link_to main_app.search_catalog_path(f: { creator_search_sim: Array(first_name) }), class: 'creator-search-results' do %>
+                    <%= first_name %>
+                    <%= remove_last_semicolon(array_size, index) %>
+                    <% if index != array_size %>
+                      &nbsp;
+                    <% end %>
+                    <%= '…' if index == array_size && array_of_hash.size > 5 %>
+                <% end %>
+              <% end %>
             <% end %> 
           </span>
         <% end %>
