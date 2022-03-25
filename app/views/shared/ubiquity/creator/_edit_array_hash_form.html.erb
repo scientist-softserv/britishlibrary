@@ -1,96 +1,98 @@
 <% template = f.object.model.class.to_s.underscore %>
-
 <% array_of_hash.each_with_index do |hash, index| %>
   <div class="ubiquity-meta-creator" >
-    <% if template == 'collection' %>
+    <div class="<%= "#{template}_creator_name_type" %>">
       <label class="control-label multi_value optional" for="<%=template%>_creator_name_type">
-        Creator name type
+        <% if template == 'collection' %>
+          Creator name type
+        <% else %>
+          Creator name type <span class="label label-info required-tag">required</span>
+        <% end %>
       </label>
       <%= select_tag  "#{template}[creator_group][][creator_name_type]",
                       content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( NameTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("creator_name_type")),
                       class: 'ubiquity_creator_name_type',
                       data: { field_name: 'ubiquity_creator_name_type' }
       %>
-
-    <% else %>
-      <div class="<%= "#{template}_creator_name_type" %>">
-        <label class="control-label multi_value optional" for="<%=template%>_creator_name_type">
-          Creator name type <span class="label label-info required-tag">required</span>
-        </label>
-        <%= select_tag  "#{template}[creator_group][][creator_name_type]",
-                        content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( NameTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("creator_name_type")),
-                        required: true,
-                        class: 'ubiquity_creator_name_type',
-                        data: { field_name: 'ubiquity_creator_name_type' }
-        %>
-      </div>
-
-    <% end %>
+    </div>
 
     <p class="form-group">
-      The person or group responsible for the work. Usually this is the author of the content.
+      <%= raw(t('simple_form.hints.collection.creator')) %>
     </p>
 
     <span class="ubiquity_organization_fields">
       <div class="<%= "#{template}_creator_organization_name" %> form-group">
-        <label class="ubiquity_creator_organization_name_label control-label multi_value optional" for="#{template}_creator_organization_name">
-          Creator organisation name <span class="label label-info required-tag">required</span>
+        <label class="ubiquity_creator_organization_name_label control-label multi_value optional" for="<%=template%>_creator_organization_name">
+          <% if template == 'collection' %>
+            Creator organisation name
+          <% else %>
+            Creator organisation name <span class="label label-info required-tag">required</span>
+          <% end %>
         </label>
         <%= text_field_tag  "#{template}[creator_group][][creator_organization_name]", hash.dig("creator_organization_name"),
-                            class: "#{template}_creator_organization_name form-control multi-text-field multi_value ubiquity_creator_organization_name",
+                            class: "#{template}_creator_organization_name form-control multi-text-field multi_value",
                             placeholder: 'Please enter the organisation\'s name.',
                             name: "#{template}[creator_group][][creator_organization_name]",
                             data: {field_name:'ubiquity_creator_organization_name'}
         %>
+        <p class="form-group">
+          <%= raw(t('simple_form.hints.collection.creator_org_name')) %>
+        </p>
       </div>
 
-      <div class="<%= "#{template}_creator_ror" %> form-group">
-        <label class="control-label multi_value optional" for="<%=template%>_creator_ror">
-          Creator organisation ROR
-        </label>
-        <%= text_field_tag  "#{template}[creator_group][][creator_ror]",
-                            hash.dig("creator_ror"),
-                            class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_ror",
-                            placeholder: "Please enter the ROR ID, e.g. 05gknh003",
-                            name: "#{template}[creator_group][][creator_ror]",
-                            data: { field_name: 'ubiquity_creator_ror' }
-        %>
-      </div>
+      <% unless template == 'collection' %>
+        <div class="<%= "#{template}_creator_ror" %> form-group">
+          <label class="control-label multi_value optional" for="<%=template%>_creator_ror">
+            Creator organisation ROR
+          </label>
+          <%= text_field_tag  "#{template}[creator_group][][creator_ror]",
+                              hash.dig("creator_ror"),
+                              class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_ror",
+                              placeholder: "Please enter the ROR ID, e.g. 05gknh003",
+                              name: "#{template}[creator_group][][creator_ror]",
+                              data: { field_name: 'ubiquity_creator_ror' }
+          %>
+        </div>
 
-      <div class="<%= "#{template}_creator_grid" %> form-group">
-        <label class="control-label multi_value optional" for="<%=template%>_creator_grid">
-          Creator organisation GRID
-        </label>
-        <%= text_field_tag  "#{template}[creator_group][][creator_grid]",
-                            hash.dig("creator_grid"),
-                            class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_grid",
-                            placeholder: "Please enter the GRID ID, e.g. grid.280362.d",
-                            name: "#{template}[creator_group][][creator_grid]",
-                            data: { field_name: 'ubiquity_creator_grid' }
-        %>
-      </div>
+        <div class="<%= "#{template}_creator_grid" %> form-group">
+          <label class="control-label multi_value optional" for="<%=template%>_creator_grid">
+            Creator organisation GRID
+          </label>
+          <%= text_field_tag  "#{template}[creator_group][][creator_grid]",
+                              hash.dig("creator_grid"),
+                              class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_grid",
+                              placeholder: "Please enter the GRID ID, e.g. grid.280362.d",
+                              name: "#{template}[creator_group][][creator_grid]",
+                              data: { field_name: 'ubiquity_creator_grid' }
+          %>
+        </div>
 
-      <div class="<%= "#{template}_creator_wikidata" %> form-group">
-        <label class="control-label multi_value optional" for="<%=template%>_creator_wikidata">
-          Creator organisation Wikidata
-        </label>
-        <%= text_field_tag  "#{template}[creator_group][][creator_wikidata]",
-                            hash.dig("creator_wikidata"),
-                            class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_wikidata",
-                            placeholder: "Please enter the Wikidata ID, e.g. Q23308",
-                            name: "#{template}[creator_group][][creator_wikidata]",
-                            data: { field_name: 'ubiquity_creator_wikidata' }
-        %>
-      </div>
+        <div class="<%= "#{template}_creator_wikidata" %> form-group">
+          <label class="control-label multi_value optional" for="<%=template%>_creator_wikidata">
+            Creator organisation Wikidata
+          </label>
+          <%= text_field_tag  "#{template}[creator_group][][creator_wikidata]",
+                              hash.dig("creator_wikidata"),
+                              class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_wikidata",
+                              placeholder: "Please enter the Wikidata ID, e.g. Q23308",
+                              name: "#{template}[creator_group][][creator_wikidata]",
+                              data: { field_name: 'ubiquity_creator_wikidata' }
+          %>
+        </div>
+      <% end %>
     </span>
     <span class="ubiquity_personal_fields">
       <div class="<%= "#{template}_creator_family_name" %> form-group">
         <label class="control-label multi_value optional" for="<%=template%>_creator_family_name">
-          Creator family name <span class="label label-info required-tag">required</span>
+          <% if template == 'collection' %>
+            Creator family name
+          <% else %>
+            Creator family name <span class="label label-info required-tag">required</span>
+          <% end %>
         </label>
         <%= text_field_tag  "#{template}[creator_group][][creator_family_name]",
                             hash.dig("creator_family_name"),
-                            class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_family_name",
+                            class: "#{template}_creator_group form-control multi-text-field multi_value",
                             placeholder: 'Please enter the creator\'s last name/family name.',
                             name: "#{template}[creator_group][][creator_family_name]",
                             data: { field_name: 'ubiquity_creator_family_name' }
@@ -99,11 +101,15 @@
 
       <div class="<%= "#{template}_creator_given_name" %> form-group">
         <label class="control-label multi_value optional" for="<%=template%>_creator_given_name">
-          Creator given name <span class="label label-info required-tag">required</span>
+          <% if template == 'collection' %>
+            Creator given name
+          <% else %>
+            Creator given name <span class="label label-info required-tag">required</span>
+          <% end %>
         </label>
         <%= text_field_tag  "#{template}[creator_group][][creator_given_name]",
                             hash.dig("creator_given_name"),
-                            class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_given_name",
+                            class: "#{template}_creator_group form-control multi-text-field multi_value",
                             placeholder: 'Please enter the creator\'s first name/given name.',
                             name: "#{template}[creator_group][][creator_given_name]",
                             data: { field_name: 'ubiquity_creator_given_name' }

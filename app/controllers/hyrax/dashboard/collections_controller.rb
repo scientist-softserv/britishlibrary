@@ -32,7 +32,7 @@ module Hyrax
 
       self.presenter_class = Hyrax::CollectionPresenter
 
-      self.form_class = Hyrax::Forms::CollectionForm
+      self.form_class = Hyrax::CollectionForm
 
       # The search builder to find the collection
       self.single_item_search_builder_class = SingleCollectionSearchBuilder
@@ -217,7 +217,7 @@ module Hyrax
         params[:q] = '' unless params[:q]
         builder = Hyrax::CollectionMemberSearchBuilder.new(scope: self, collection: collection, search_includes_models: :works)
         response = repository.search(builder.where(params[:q]).query)
-        result = response.documents.reject { |document| document["thumbnail_path_ss"].blank? }.map do |document|
+        result = response.documents.reject { |document| document["thumbnail_path_ss"].blank? || document["thumbnail_path_ss"].include?('no-files') }.map do |document|
           { id: document["thumbnail_path_ss"].split('/').last.gsub(/\?.*/, ''), text: document["title_tesim"].first }
         end
         reset_thumbnail_option = {

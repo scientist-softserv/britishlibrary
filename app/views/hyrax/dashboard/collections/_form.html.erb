@@ -37,7 +37,10 @@
               <%# OVERRIDE here to make it say 'Default thumbnail' in the select box instead of 'undefined' %>
               <%= f.input :thumbnail_id,
                           input_html: { data: { text: f.object.thumbnail_title || 'Default thumbnail' } } %>
-              <%# option to upload thumbnail %>
+              <%# UNCOMMENT THESE LINES WHEN WE ENABLE COLLECTION THUMBNAILS %>
+              <%
+=begin%>
+ <%# option to upload thumbnail %>
               <%= label_tag(:thumbnail_upload, "Upload a Thumbnail") %>
               <p class='help-block'>
                 Uploading an image here will replace a thumbnail selected from the above dropdown. For best results, use an image at least 900(width) x 500(height) px. If you would like to use an image from the dropdown above, click the "Clear upload" button below.
@@ -47,7 +50,10 @@
               </div>
               <%= f.file_field :thumbnail_upload, class: "thumbnail-upload" %>
               <%= link_to("Clear upload", main_app.delete_uploaded_thumbnail_path, method: :post, remote: :true, class: "btn btn-danger mb-40 mt-20", id: "clear-upload") %>
-            <% end %>
+<%
+=end%>
+<%# END OF COLLECTION THUMBNAILS %>
+            <% end %> 
           </div>
           <% if f.object.display_additional_fields? %>
             <%= link_to t('hyrax.collection.form.additional_fields'),
@@ -116,7 +122,11 @@
 <% end # simple_form_for %>
 </div>
 
-<script>
+
+<%# UNCOMMENT THIS SCRIPT WHEN WE ENABLE COLLECTION THUMBNAILS %>
+<%
+=begin%>
+ <script>
   // loading message
   $("#clear-upload").click(function() {
     $("#uploaded-thumbnail").html("Removing uploaded thumbnail...");
