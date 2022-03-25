@@ -9,6 +9,6 @@ module AccountsHelper
   end
 
   def full_search_url
-    "//#{host_for('search')}/catalog"
+    main_app.search_catalog_path
   end
 end
