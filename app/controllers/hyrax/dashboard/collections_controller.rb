@@ -133,9 +133,6 @@ module Hyrax
       end
 
       def after_update
-        headers["Cache-Control"] = "no-cache, no-store, must-revalidate" # HTTP 1.1.
-        headers["Pragma"] = "no-cache" # HTTP 1.0.
-        headers["Expires"] = "0" # Proxies.
         respond_to do |format|
           format.html { redirect_to update_referer, notice: t('hyrax.dashboard.my.action.collection_update_success') }
           format.json { render json: @collection, status: :updated, location: dashboard_collection_path(@collection) }
