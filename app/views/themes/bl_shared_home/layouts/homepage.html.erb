@@ -1,0 +1,16 @@
+<%# OVERRIDE for homepage layout hyrax 2.9.1 - adds updated banner section, marketing text container, and home content containers, and fixes rubocop error %>
+
+<% content_for(:navbar) do %>
+<%# BEGIN homepage, about, contact, and help page banner section  %>
+  <%= render "hyrax/homepage/banner_section" if controller_name == 'pages'|| controller_name == 'contact_form' %>
+  <%# END homepage, about, contact, and help page banner section  %>
+
+
+  <%# Render the Shared Research Repo homepage, previously the 'splash' page  %>
+  <% if controller_name == 'homepage' %>
+    <%= render 'splash/index' %>
+  <% end %>
+  
+<% end %>
+
+<%= render template: 'layouts/hyrax' %>

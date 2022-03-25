@@ -1,0 +1,16 @@
+.bl_shared_home {
+  &.public-facing.hyrax-homepage.hyrax-homepage-index {
+    background-image: linear-gradient(90deg, $neutral 50%, $white 50%);
+  }
+
+  @media (max-width: 992px) {
+    &.public-facing.hyrax-homepage.hyrax-homepage-index {
+      margin-bottom: 160px;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    &.public-facing.hyrax-homepage.hyrax-homepage-index {
+      background-image: linear-gradient(180deg, $neutral 30%, $white 70%);
+    }
+  }
+}
