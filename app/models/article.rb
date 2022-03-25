@@ -3,6 +3,7 @@ class Article < ActiveFedora::Base
   include Ubiquity::UniversalMetadata
   include Ubiquity::SharedMetadata
   include Ubiquity::AllModelsVirtualFields
+  include Ubiquity::WorksVirtualFields
   # include Ubiquity::UpdateSharedIndex
   include Ubiquity::FileAvailabilityFaceting
   # include ::Ubiquity::CachingSingle

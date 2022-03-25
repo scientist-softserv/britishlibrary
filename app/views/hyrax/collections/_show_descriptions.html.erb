@@ -1,0 +1,11 @@
+<%# OVERRIDE Hyrax 2.9.6 to remove Size from public view https://github.com/samvera/hyrax/blob/v2.9.6/app/views/hyrax/collections/_show_descriptions.html.erb %>
+<dl>
+  <% present_terms(@presenter, @presenter.terms_with_values) do |r, term| %>
+    <% unless r.label(term) == 'Size' && !user_signed_in? %>
+      <div>
+        <dt><%= r.label(term) %></dt>
+        <dd><%= r.value(term) %></dd>
+      </div>
+      <% end %>
+  <% end %>
+</dl>
