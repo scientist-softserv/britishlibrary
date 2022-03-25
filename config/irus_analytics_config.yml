@@ -8,7 +8,7 @@ development:
   source_repository: bl.test
   verbose_debug: true
 test:
-  enabled: true
+  enabled: false
   enable_send_logger: false
   enable_send_investigations: true
   enable_send_requests: true

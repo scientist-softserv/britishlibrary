@@ -1,0 +1,47 @@
+<%# OVERRIDE Hyrax 2.9.6 to make more fields for contributor
+https://github.com/samvera/hyrax/blob/v2.9.6/app/views/records/show_fields/_contributor.html.erb %>
+
+<% array_of_hash = JSON.parse record.contributor.first %>
+<ul class="tabular" style="margin-left:0px; padding-left:0px;">
+  <% array_of_hash.each_with_index do |hash, index| %>
+    <li class="attribute collection-details-contributor <%= 'collapse' if index > 4 %>">
+      <span itemprop="contributor" style="float:left">
+        <% order_ary = ['contributor_family_name', 'contributor_given_name', 'contributor_organization_name'] %>
+        <%= display_data_with_comma_separated(hash, order_ary) %>
+      </span>
+      <span itemprop="contributor">
+        <% if display_paren?(hash.keys, ['contributor_orcid', 'contributor_isni']) %>
+          <span style="float:left" >&nbsp;(</span>
+            <% if hash['contributor_orcid'].present? %>
+              <% orcid_id = hash['contributor_orcid'] %>
+                <a href='<%= render_isni_or_orcid_url("#{orcid_id}", "orcid") %>' target="_blank">
+                <%= image_tag 'orcid.png', class: "img-responsive", alt: 'ORCID', style: 'float:left', height: '16', width: '16' %>
+              </a>
+            <% end %>
+
+            <% if add_image_space?(hash.keys) %>
+              <span style="float:left">&nbsp;</span>
+            <% end %>
+
+            <% if hash['contributor_isni'].present? %>
+              <% isni_id = hash['contributor_isni'] %>
+              <a href='<%= render_isni_or_orcid_url("#{isni_id}", "isni") %>' target="_blank">
+              <%= image_tag 'isni.png', class: "img-responsive", alt: 'ISNI', style: 'float:left', height: '16', width: '26' %>
+              </a>
+            <% end %>
+            <%# OVERRIDE here to remove the ROR %>
+          <span>)</span>
+        <% end %>
+      </span>
+      <br/>
+    </li>
+  <% end %>
+  <% if array_of_hash.length > 5 %>
+    <li>
+      <button id="collection-details-contributor-collapse" class="<%= section == 'header' ? 'btn-secondary' : 'collapse-fields' %>" data-toggle="collapse" data-target=".collection-details-contributor.collapse" aria-expanded="false" aria-controls="collapse">
+        <span>Show more</span>
+        <span style='display:none'>Close list</span>
+      </button>
+    </li>
+  <% end %>
+</ul>
