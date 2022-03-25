@@ -66,6 +66,7 @@ test:
     FF_NETWORK_PER_BUILD: 1
     GIT_STRATEGY: none
     JAVA_OPTIONS: -Djetty.port=8081
+    HYKU_BULKRAX_ENABLED: 'true'
     IN_DOCKER: "true"
     POSTGRESQL_DATABASE: hyku
     POSTGRESQL_PASSWORD: postgres
@@ -174,6 +175,6 @@ hyku.production:
   script:
     - export KUBECONFIG=$KUBECONFIG_BL
     - DOLLAR=$ envsubst < ops/production-deploy.tmpl.yaml > ops/production-deploy.yaml
-    - ./bin/helm_deploy hyku-production hyku-production
+    - ./bin/helm_deploy hyku-production production
   tags:
     - kubernetes

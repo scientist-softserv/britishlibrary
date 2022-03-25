@@ -2,8 +2,8 @@
 <% array_of_hash.each_with_index do |hash, index| %>
   <% if index <= 4 %>
     <span itemprop='<%= "#{attr_name}" %>'>
-      <% last_name = hash["#{attr_name}_family_name"] %>
-      <% first_name =  hash["#{attr_name}_given_name"] %>
+      <% last_name = hash["#{attr_name}_family_name"] || '' %>
+      <% first_name =  hash["#{attr_name}_given_name"] || '' %>
       <% organizational_creator = hash["#{attr_name}_organization_name"] %>
         <% last_name << ',' if last_name && display_comma?(hash.keys, ["#{attr_name}_family_name", "#{attr_name}_given_name"]) %>
         <% document.creator_search.each do |creator| %>
@@ -24,6 +24,26 @@
                 <%= link_to main_app.search_catalog_path(f: { creator_search_sim: Array(last_name + (" #{first_name}" if first_name)) }), class: 'creator-search-results' do %>
                     <%= last_name %>
                     <%= first_name if first_name %>
+                    <%= remove_last_semicolon(array_size, index) %>
+                    <% if index != array_size %>
+                      &nbsp;
+                    <% end %>
+                    <%= '…' if index == array_size && array_of_hash.size > 5 %>
+                <% end %>
+              <% end %>
+              <% if creator == last_name %>
+                <%= link_to main_app.search_catalog_path(f: { creator_search_sim: Array(last_name) }), class: 'creator-search-results' do %>
+                    <%= last_name %>
+                    <%= remove_last_semicolon(array_size, index) %>
+                    <% if index != array_size %>
+                      &nbsp;
+                    <% end %>
+                    <%= '…' if index == array_size && array_of_hash.size > 5 %>
+                <% end %>
+              <% end %>
+              <% if creator == first_name %>
+                <%= link_to main_app.search_catalog_path(f: { creator_search_sim: Array(first_name) }), class: 'creator-search-results' do %>
+                    <%= first_name %>
                     <%= remove_last_semicolon(array_size, index) %>
                     <% if index != array_size %>
                       &nbsp;

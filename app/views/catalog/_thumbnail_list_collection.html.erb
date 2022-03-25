@@ -1,0 +1,14 @@
+<div class="col-md-2">
+  <div class="list-thumbnail">
+      <%= render_thumbnail_tag document, {}, suppress_link: true %>
+  </div>
+  <%
+=begin%>
+ <div class="year-published text-center">
+    <% if document.date_published.present? %>
+      <h5><%= document.date_published[0].split('-')[0] %></h5>
+    <% end %>
+  </div> 
+<%
+=end%>
+</div>

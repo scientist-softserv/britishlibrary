@@ -6,45 +6,13 @@ module Ubiquity
 
       before_save :save_contributor
       before_save :save_creator
-      before_save :save_funder
-      before_save :save_editor
-      before_save :save_alternate_identifier
-      before_save :save_related_identifier
-      before_save :save_date_published, :save_date_accepted, :save_date_submitted,
-                  :save_event_date, :save_related_exhibition_date
-      before_save :save_current_he_institution
-
-      # TODO ~alignment: relates to doi and work expiry
-      # after_save :update_external_service_record, :create_work_service_if_embargo_or_lease
 
       #These are used in the forms to populate fields that will be stored in json fields
-      #The json fields in this case are creator, contributor, alternate_identifier, related_identifier and current_he_institution
-      attr_accessor :creator_group, :contributor_group, :funder_group, :alternate_identifier_group, :related_identifier_group,
-                    :date_published_group, :date_accepted_group, :date_submitted_group,
-                    :event_date_group, :related_exhibition_date_group, :current_he_institution_group, :editor_group
+      #The json fields in this case are creator and contributor
+      attr_accessor :creator_group, :contributor_group
     end
 
     private
-
-      # TODO ~alignment: relates to doi
-      # def update_external_service_record
-        # exter = ExternalService.where(draft_doi: self.draft_doi).first
-        # if exter.try(:work_id).blank?
-          # begin
-            # exter && exter.update!(work_id: self.id)
-          # rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => e
-            # puts'ExternalService record not saved in the model'
-            # AddWorkIdToExternalServiceJob.perform_later(self.id, self.draft_doi, self.account_cname)
-          # end
-        # end
-      # end
-
-      # TODO ~alignment: relates to work expiry
-      # def create_work_service_if_embargo_or_lease
-        # if under_embargo? || active_lease?
-          # create_work_expiry_service
-        # end
-      # end
 
     #
     # We are addressing 2 use case for each json field
@@ -60,32 +28,19 @@ module Ubiquity
     #
     def save_creator
       self.creator_group ||= JSON.parse(self.creator.first) if self.creator.present?
-      #remove Hash with empty values and nil
+      # remove Hash with empty values and nil
       clean_submitted_data ||= remove_hash_keys_with_empty_and_nil_values(self.creator_group)
-      #Check if the hash keys are only those used for default values like position
+      # Check if the hash keys are only those used for default values like position
       data = compare_hash_keys?(clean_submitted_data)
 
       if (self.creator_group.present? && clean_submitted_data.present? && data == false)
         creator_json = clean_submitted_data.to_json
-        populate_creator_search_field(creator_json)
+        populate_creator_search_field(creator_json) unless self.instance_of?(Collection)
         self.creator = [creator_json]
-      elsif data == true || data == nil
+      elsif (data == true || data == nil) && self.respond_to?(:creator_search)
         self.creator_search = []
-        #save an empty array since the submitted data contains only default keys & values
+        # save an empty array since the submitted data contains only default keys & values
         self.creator = []
-      end
-    end
-
-    def save_funder
-      self.funder_group ||= Ubiquity::JsonValidator.valid_json?( self.funder.try(:first) ) ? JSON.parse(self.funder.first) : nil if self.funder.present?
-      clean_incomplete_data_for_funder(self.funder_group) if self.funder.present?
-      clean_submitted_data ||= remove_hash_keys_with_empty_and_nil_values(self.funder_group)
-      data = compare_hash_keys?(clean_submitted_data)
-      if (self.funder_group.present? && clean_submitted_data.present? && data == false )
-        funder_json = clean_submitted_data.to_json
-        self.funder = [funder_json]
-      elsif data == true || data == nil
-       self.funder = []
       end
     end
 
@@ -94,122 +49,16 @@ module Ubiquity
       clean_incomplete_data(self.contributor_group) if self.contributor.present?
       clean_submitted_data ||= remove_hash_keys_with_empty_and_nil_values(self.contributor_group)
       data = compare_hash_keys?(clean_submitted_data)
+
       if (self.contributor_group.present? && clean_submitted_data.present? && data == false )
         contributor_json = clean_submitted_data.to_json
         self.contributor = [contributor_json]
       elsif data == true || data == nil
-       self.contributor = []
-      end
-    end
-
-    def save_editor
-      self.editor_group ||= JSON.parse(self.editor.first) if self.editor.present?
-      clean_incomplete_data(self.editor_group) if self.editor.present?
-      clean_submitted_data ||= remove_hash_keys_with_empty_and_nil_values(self.editor_group)
-      data = compare_hash_keys?(clean_submitted_data)
-      if (self.editor_group.present? && clean_submitted_data.present? && data == false )
-        editor_json = clean_submitted_data.to_json
-        self.editor = [editor_json]
-      elsif  data == true || data == nil
-        self.editor = []
-      end
-    end
-
-    def save_related_identifier
-      self.related_identifier_group ||= JSON.parse(self.related_identifier.first) if self.related_identifier.present?
-      clean_submitted_data ||= remove_hash_keys_with_empty_and_nil_values(self.related_identifier_group)
-      data = compare_hash_keys?(clean_submitted_data)
-      if (self.related_identifier_group.present?  && clean_submitted_data.present? && data == false)
-        related_identifier_json = clean_submitted_data.to_json
-        self.related_identifier = [related_identifier_json]
-      elsif data == true || data == nil
-       self.related_identifier = []
-      end
-    end
-
-    def save_alternate_identifier
-      self.alternate_identifier_group ||= JSON.parse(self.alternate_identifier.first) if self.alternate_identifier.present?
-      clean_submitted_data ||= remove_hash_keys_with_empty_and_nil_values(self.alternate_identifier_group)
-      data = compare_hash_keys?(clean_submitted_data)
-      if (self.alternate_identifier_group.present? && clean_submitted_data.present? && data == false)
-       #remove any empty hash in the array
-        clean_submitted_data = clean_submitted_data - [{}]
-        alternate_identifier_json = clean_submitted_data.to_json
-        self.alternate_identifier = [alternate_identifier_json]
-      elsif data == true || data == nil
-        self.alternate_identifier = []
-      end
-    end
-
-    def save_date_published
-      date ||= self.date_published if (self.date_published.present? && self.date_published.class == String)
-      new_value = populate_date_field(date, date_published)
-      self.date_published_group ||= new_value  if (new_value.present? && (not self.date_published_group.present?) )
-      self.date_published = transform_date_group(date_published_group.first) if date_published_group
-    end
-
-    def save_date_accepted
-      date ||= self.date_accepted if (self.date_accepted.present? && self.date_accepted.class == String)
-      new_value = populate_date_field(date, date_accepted)
-      self.date_accepted_group ||= new_value  if (new_value.present? && (not self.date_accepted_group.present?) )
-      self.date_accepted = transform_date_group(date_accepted_group.first) if date_accepted_group
-    end
-
-    def save_date_submitted
-      date ||= self.date_submitted if (self.date_submitted.present? && self.date_submitted.class == String)
-      new_value = populate_date_field(date, date_accepted)
-      self.date_submitted_group ||= new_value  if (new_value.present? && (not self.date_submitted_group.present?) )
-      self.date_submitted = transform_date_group(date_submitted_group.first) if date_submitted_group
-    end
-
-    def save_event_date
-      date ||= self.event_date if (self.event_date.present? && self.event_date.class == String)
-      new_value = populate_date_field(date, event_date)
-      self.event_date_group ||= new_value if (new_value.present? && (self.event_date_group.blank?) )
-      dates = []
-      if event_date_group
-        event_date_group.each do |e|
-          dates << transform_date_group(e).to_s
-        end
-      end
-      self.event_date = dates.reject(&:blank?)
-    end
-
-    def save_related_exhibition_date
-      date ||= self.related_exhibition_date if (self.related_exhibition_date.present? && self.related_exhibition_date.class == String)
-      new_value = populate_date_field(date, related_exhibition_date)
-      self.related_exhibition_date_group ||= new_value if (new_value.present? && (self.related_exhibition_date_group.blank?) )
-      dates = []
-      if related_exhibition_date_group
-        related_exhibition_date_group.each do |e|
-          dates << transform_date_group(e).to_s
-        end
-      end
-      self.related_exhibition_date = dates.reject(&:blank?)
-    end
-
-    def save_current_he_institution
-      self.current_he_institution_group ||=  Ubiquity::JsonValidator.valid_json?(self.current_he_institution.first) ?
-                                  JSON.parse(self.current_he_institution.first) : nil if self.current_he_institution.present?
-
-      clean_submitted_data ||= remove_hash_keys_with_empty_and_nil_values(self.current_he_institution_group)
-      data = compare_hash_keys?(clean_submitted_data)
-      if (self.current_he_institution_group.present? && clean_submitted_data.present? && data == false )
-        current_he_institution_json = clean_submitted_data.to_json
-        self.current_he_institution = [current_he_institution_json]
-      elsif data == true || data == nil
-        self.current_he_institution = []
+        self.contributor = []
       end
     end
 
     private
-
-    # TODO ~alignment: relates to work expiry
-    # def create_work_expiry_service
-      # work_service = WorkExpiryService.find_or_create_by(work_id: id)
-      # release_date = under_embargo? ? embargo.embargo_release_date : lease.lease_expiration_date
-      # work_service.update(work_type: 'work', tenant_name: account_cname, expiry_time: release_date)
-    # end
 
     #We parse the json in the an array before saving the value in creator_search
     def populate_creator_search_field(json_record)
@@ -228,7 +77,7 @@ module Ubiquity
       end
     end
 
-    #remove hash keys with value of nil, "", and "NaN"
+    # remove hash keys with value of nil, "", and "NaN"
     def remove_hash_keys_with_empty_and_nil_values(data)
       if (data.present? && data.class == Array)
         new_data = data.map do |hash|
@@ -250,7 +99,7 @@ module Ubiquity
       end
     end
 
-    #data is an array of hash eg [{"contributor_organization_name"=>""}},{"contributor_name_type"=>"Personal"}]
+    # data is an array of hash eg [{"contributor_organization_name"=>""}},{"contributor_name_type"=>"Personal"}]
     def get_default_hash_keys(data)
       if data.present? && data.first.present?
         #we get the first hash in the array and then get the first hash key
@@ -258,8 +107,8 @@ module Ubiquity
 
         splitted_record = record.split('_')
 
-        #the value of record will be "contributor_organization_name" when using array of hash from the above comments
-        #This means field name after the record.split will be 'contributor' and will change depending on the hash keys
+        # the value of record will be "contributor_organization_name" when using array of hash from the above comments
+        # This means field name after the record.split will be 'contributor' and will change depending on the hash keys
         field_name ||= splitted_record.first
         return   ["#{field_name}_position"] if (data.length == 1 && splitted_record.last == "position")
         ["#{field_name}_name_type", "#{field_name}_position"]
@@ -302,15 +151,6 @@ module Ubiquity
       field_name = get_field_name(data_hash)
       data_hash.each do |hash|
         if (hash["#{field_name}_family_name"].blank? && hash["#{field_name}_organization_name"].blank?)
-          hash.transform_values! { |v| nil }
-        end
-      end
-    end
-
-    def clean_incomplete_data_for_funder(data_hash)
-      return if data_hash.blank?
-      data_hash.each do |hash|
-        if hash["funder_name"].blank?
           hash.transform_values! { |v| nil }
         end
       end
