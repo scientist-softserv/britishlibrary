@@ -32,7 +32,7 @@ module Hyrax
 
       self.presenter_class = Hyrax::CollectionPresenter
 
-      self.form_class = Hyrax::Forms::CollectionForm
+      self.form_class = Hyrax::CollectionForm
 
       # The search builder to find the collection
       self.single_item_search_builder_class = SingleCollectionSearchBuilder
