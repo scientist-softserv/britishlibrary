@@ -3,7 +3,7 @@
 <% array_of_hash.each_with_index do |hash, index| %>
   <div class="ubiquity-meta-contributor">
     <div class="<%= "#{template}_contributor_name_type" %> form-group">
-      <label class="control-label multi_value optional" for="#{template}_contributor_name_type">
+      <label class="control-label multi_value optional" for="<%=template%>_contributor_name_type">
         Contributor name type
       </label>
       <%= select_tag  "#{template}[contributor_group][][contributor_name_type]",
@@ -19,7 +19,7 @@
 
     <span class="ubiquity_organization_fields">
       <div class="<%= "#{template}_contributor_organization_name" %> form-group">
-        <label class="ubiquity_contributor_organization_name_label control-label multi_value optional" for="#{template}_contributor_organization_name">
+        <label class="ubiquity_contributor_organization_name_label control-label multi_value optional" for="<%=template%>_contributor_organization_name">
           Contributor organisation name
         </label>
         <%= text_field_tag  "#{template}[contributor_group][][contributor_organization_name]",
@@ -31,51 +31,53 @@
         %>
       </div>
 
-      <div class="<%= "#{template}_contributor_ror" %> form-group">
-        <label class="control-label multi_value optional" for="#{template}_contributor_ror">
-          Contributor organisation ROR
-        </label>
-        <%= text_field_tag  "#{template}[creator_group][][contributor_ror]",
-                            hash.dig("contributor_ror"),
-                            class: "#{template}_contributor_group form-control multi-text-field multi_value ubiquity_contributor_ror",
-                            placeholder: "Please enter the ROR ID, e.g. 05gknh003",
-                            name: "#{template}[contributor_group][][contributor_ror]",
-                            data: { field_name: 'ubiquity_contributor_ror' }
+      <% unless template == 'collection' %>
+        <div class="<%= "#{template}_contributor_ror" %> form-group">
+          <label class="control-label multi_value optional" for="<%=template%>_contributor_ror">
+            Contributor organisation ROR
+          </label>
+          <%= text_field_tag  "#{template}[creator_group][][contributor_ror]",
+                              hash.dig("contributor_ror"),
+                              class: "#{template}_contributor_group form-control multi-text-field multi_value ubiquity_contributor_ror",
+                              placeholder: "Please enter the ROR ID, e.g. 05gknh003",
+                              name: "#{template}[contributor_group][][contributor_ror]",
+                              data: { field_name: 'ubiquity_contributor_ror' }
 
-        %>
-      </div>
+          %>
+        </div>
 
-      <div class="<%= "#{template}_contributor_grid" %> form-group">
-        <label class="control-label multi_value optional" for="#{template}_contributor_grid">
-          Contributor organisation GRID
-        </label>
-        <%= text_field_tag  "#{template}[contributor_group][][contributor_grid]",
-                            hash.dig("contributor_grid"),
-                            class: "#{template}_contributor_group form-control multi-text-field multi_value ubiquity_contributor_grid",
-                            placeholder: "Please enter the GRID ID, e.g. grid.280362.d",
-                            name: "#{template}[contributor_group][][contributor_grid]",
-                            data: { field_name: 'ubiquity_contributor_grid' }
+        <div class="<%= "#{template}_contributor_grid" %> form-group">
+          <label class="control-label multi_value optional" for="<%=template%>_contributor_grid">
+            Contributor organisation GRID
+          </label>
+          <%= text_field_tag  "#{template}[contributor_group][][contributor_grid]",
+                              hash.dig("contributor_grid"),
+                              class: "#{template}_contributor_group form-control multi-text-field multi_value ubiquity_contributor_grid",
+                              placeholder: "Please enter the GRID ID, e.g. grid.280362.d",
+                              name: "#{template}[contributor_group][][contributor_grid]",
+                              data: { field_name: 'ubiquity_contributor_grid' }
 
-        %>
-      </div>
+          %>
+        </div>
 
-      <div class="<%= "#{template}_contributor_wikidata" %> form-group">
-        <label class="control-label multi_value optional" for="#{template}_contributor_wikidata">
-          Contributor organisation Wikidata
-        </label>
-        <%= text_field_tag  "#{template}[contributor_group][][contributor_wikidata]",
-                            hash.dig("contributor_wikidata"),
-                            class: "#{template}_contributor_group form-control multi-text-field multi_value ubiquity_contributor_wikidata",
-                            placeholder: "Please enter the Wikidata ID, e.g. Q23308",
-                            name: "#{template}[contributor_group][][contributor_wikidata]",
-                            data: { field_name: 'ubiquity_contributor_wikidata' }
-        %>
-      </div>
+        <div class="<%= "#{template}_contributor_wikidata" %> form-group">
+          <label class="control-label multi_value optional" for="<%=template%>_contributor_wikidata">
+            Contributor organisation Wikidata
+          </label>
+          <%= text_field_tag  "#{template}[contributor_group][][contributor_wikidata]",
+                              hash.dig("contributor_wikidata"),
+                              class: "#{template}_contributor_group form-control multi-text-field multi_value ubiquity_contributor_wikidata",
+                              placeholder: "Please enter the Wikidata ID, e.g. Q23308",
+                              name: "#{template}[contributor_group][][contributor_wikidata]",
+                              data: { field_name: 'ubiquity_contributor_wikidata' }
+          %>
+        </div>
+      <% end %>
     </span> <!-- closes ubiquity_organizational_fields -->
 
     <span class="ubiquity_personal_fields">
       <div class="<%= "#{template}_contributor_family_name" %> form-group">
-        <label class="control-label multi_value optional" for="#{template}_contributor_family_name">
+        <label class="control-label multi_value optional" for="<%=template%>_contributor_family_name">
           Contributor family name
         </label>
         <%= text_field_tag  "#{template}[contributor_group][][contributor_family_name]",
@@ -88,7 +90,7 @@
       </div>
 
       <div class="<%= "#{template}_contributor_given_name" %> form-group">
-        <label class="control-label multi_value optional" for="#{template}_contributor_given_name">
+        <label class="control-label multi_value optional" for="<%=template%>_contributor_given_name">
           Contributor given name
         </label>
         <%= text_field_tag  "#{template}[contributor_group][][contributor_given_name]",
@@ -101,7 +103,7 @@
       </div>
 
       <div class="<%= "#{template}_contributor_orcid" %> form-group">
-        <label class="control-label multi_value optional" for="#{template}_contributor_orcid">
+        <label class="control-label multi_value optional" for="<%=template%>_contributor_orcid">
           Contributor ORCID
         </label>
         <%= text_field_tag  "#{template}[contributor_group][][contributor_orcid]",
@@ -114,7 +116,7 @@
       </div>
 
       <div class="<%= "#{template}_contributor_institutional_relationship" %> form-group">
-        <label class="control-label multi_value optional" for="#{template}_contributor_institutional_relationship">
+        <label class="control-label multi_value optional" for="<%=template%>_contributor_institutional_relationship">
           Contributor institutional relationship
         </label>
         <%= select_tag  "#{template}[contributor_group][][contributor_institutional_relationship]",
@@ -126,7 +128,7 @@
     </span> <!-- closes ubiquity_personal_fields -->
 
     <div class="<%= "#{template}_contributor_isni" %> form-group">
-      <label class="control-label multi_value optional" for="#{template}_contributor_isni">
+      <label class="control-label multi_value optional" for="<%=template%>_contributor_isni">
         Contributor ISNI
       </label>
       <%= text_field_tag  "#{template}[contributor_group][][contributor_isni]",
@@ -139,7 +141,7 @@
     </div>
 
     <div class="<%= "#{template}_contributor_type" %> form-group">
-      <label class="control-label multi_value optional" for="#{template}_contributor_type">
+      <label class="control-label multi_value optional" for="<%=template%>_contributor_type">
         Contributor Role
       </label>
       <%= select_tag  "#{template}[contributor_group][][contributor_type]",
