@@ -153,8 +153,7 @@ module Ubiquity
 
       def save_current_he_institution
         if current_he_institution.present?
-          self.current_he_institution_group ||= Ubiquity::JsonValidator.valid_json?(current_he_institution.first) ?
-                                      JSON.parse(current_he_institution.first) : nil
+          self.current_he_institution_group ||= JSON.parse(current_he_institution.first) if Ubiquity::JsonValidator.valid_json?(current_he_institution.first)
         end
 
         clean_submitted_data ||= remove_hash_keys_with_empty_and_nil_values(self.current_he_institution_group)
@@ -166,8 +165,6 @@ module Ubiquity
           self.current_he_institution = []
         end
       end
-
-    private
 
       def clean_incomplete_data_for_funder(data_hash)
         return if data_hash.blank?
