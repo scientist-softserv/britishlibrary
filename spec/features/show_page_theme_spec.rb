@@ -55,7 +55,7 @@ RSpec.describe 'Admin can select show page theme', type: :feature, js: true, cle
     end
   end
 
-  xcontext 'when a show page theme is selected' do
+  context 'when a show page theme is selected' do
     it 'renders theme notes and wireframe' do
       login_as admin
       visit '/admin/appearance'
