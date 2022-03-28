@@ -81,9 +81,11 @@
                 <%= render "hyrax/dashboard/collections/show_actions", presenter: @presenter %>
               </div>
             </div>
+            <% if @members_count > 0 %>
             <div class="pt-20">
               <%= render 'collection_description', presenter: @presenter %>
             </div>
+            <% end %>
             <% if @presenter.collection_type_is_nestable? && @presenter.total_parent_collections > 0 %>
               <div class="hyc-blacklight hyc-bl-title">
                 <h2>
