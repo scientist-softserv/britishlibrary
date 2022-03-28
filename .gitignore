@@ -75,3 +75,4 @@ data/**
 fcrepo-import-export-*
 solr_db_initialized
 ops/*-deploy.yaml
+public
