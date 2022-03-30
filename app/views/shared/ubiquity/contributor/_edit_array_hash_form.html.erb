@@ -7,7 +7,7 @@
         Contributor name type
       </label>
       <%= select_tag  "#{template}[contributor_group][][contributor_name_type]",
-                      content_tag(:option, 'select one...', :value => "") + options_from_collection_for_select(NameTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("contributor_name_type")),
+                      content_tag(:option, 'Select one', :value => "") + options_from_collection_for_select(NameTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("contributor_name_type")),
                       class: "ubiquity_contributor_name_type form-control",
                       data: { field_name: 'ubiquity_contributor_name_type' }
       %>
@@ -120,7 +120,7 @@
           Contributor institutional relationship
         </label>
         <%= select_tag  "#{template}[contributor_group][][contributor_institutional_relationship]",
-                        content_tag(:option, 'select one...', :value => "") + options_from_collection_for_select(['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("contributor_institutional_relationship")),
+                        content_tag(:option, 'Select one', :value => "") + options_from_collection_for_select(['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("contributor_institutional_relationship")),
                         multiple: true,
                         class: "form-control"
         %>
@@ -145,7 +145,7 @@
         Contributor Role
       </label>
       <%= select_tag  "#{template}[contributor_group][][contributor_type]",
-                      content_tag(:option, 'select one...', :value => "") + options_from_collection_for_select(ContributorGroupService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("contributor_type")),
+                      content_tag(:option, 'Select one', :value => "") + options_from_collection_for_select(ContributorGroupService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("contributor_type")),
                       class: "form-control"
       %>
     </div>

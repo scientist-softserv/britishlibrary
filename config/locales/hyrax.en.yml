@@ -1160,7 +1160,7 @@ en:
         license: Licensing and distribution information governing access to the work. Select from the provided drop-down list.
         publisher: The person or group making the work available. Generally this is the institution.
         related_url: A link to a website or other specific content (audio, video, PDF document) related to the work. An example is the URL of a research project from which the work was derived.
-        resource_type: Pre-defined categories to describe the type of content being uploaded, such as &quot;article&quot; or &quot;dataset.&quot;  More than one type may be selected.
+        resource_type: Select the specific resource type that best describes the work.
         subject: Headings or index terms describing what the work is about; these do need to conform to an existing vocabulary.
         title: A name to aid in identifying a work.
     labels:

@@ -10,14 +10,18 @@
         <% end %>
       </label>
       <%= select_tag  "#{template}[creator_group][][creator_name_type]",
-                      content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( NameTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("creator_name_type")),
+                      content_tag(:option,'Select one',:value=>"")+options_from_collection_for_select( NameTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("creator_name_type")),
                       class: 'ubiquity_creator_name_type',
                       data: { field_name: 'ubiquity_creator_name_type' }
       %>
     </div>
 
     <p class="form-group">
-      <%= raw(t('simple_form.hints.collection.creator')) %>
+      <% if template == 'collection' %>
+        <%= raw(t('simple_form.hints.collection.creator')) %>
+      <% else %>
+        <%= raw(t('simple_form.hints.defaults.creator')) %>
+      <% end %>
     </p>
 
     <span class="ubiquity_organization_fields">
@@ -36,7 +40,11 @@
                             data: {field_name:'ubiquity_creator_organization_name'}
         %>
         <p class="form-group">
-          <%= raw(t('simple_form.hints.collection.creator_org_name')) %>
+          <% if template == 'collection' %>
+            <%= raw(t('simple_form.hints.collection.creator_org_name')) %>
+          <% else %>
+            <%= raw(t('simple_form.hints.defaults.creator_org_name')) %>
+          <% end %>
         </p>
       </div>
 
@@ -134,7 +142,7 @@
           Creator institutional relationship
         </label>
         <%= select_tag  "#{template}[creator_group][][creator_institutional_relationship]",
-                        content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( ['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("creator_institutional_relationship")),
+                        content_tag(:option,'Select one',:value=>"")+options_from_collection_for_select( ['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("creator_institutional_relationship")),
                         multiple: true,
                         class: "form-control"
         %>
@@ -148,7 +156,7 @@
       <%= text_field_tag  "#{template}[creator_group][][creator_isni]",
                           hash.dig("creator_isni"),
                           class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_isni",
-                          placeholder: 'Please enter the creator\'s ISNI, e.g. 0000 1234 5678 9101.',
+                          placeholder: 'Please enter the creator\'s ISNI, e.g. 0000 1234 5678 9101',
                           name: "#{template}[creator_group][][creator_isni]",
                           data: { field_name: 'ubiquity_creator_isni' }
       %>

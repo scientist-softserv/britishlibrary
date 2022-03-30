@@ -195,12 +195,12 @@ RSpec.describe 'Help Text', type: :feature do
     end
 
     it 'displays correct help text' do
-      # expect(page).to have_css(".#{work}_title p", text: title)
-      # expect(page).to have_css(".#{work}_alt_title p", text: alternative_title)
-      # expect(page).to have_css(".#{work}_resource_type p", text: resource_type)
-      # expect(page).to have_css(".#{work}_creator_name_type option", text: creator_name_type)
+      expect(page).to have_css(".#{work}_title p", text: title)
+      expect(page).to have_css(".#{work}_alt_title p", text: alternative_title)
+      expect(page).to have_css(".#{work}_resource_type p", text: resource_type)
+      expect(page).to have_css(".#{work}_creator_name_type option", text: creator_name_type)
       expect(page.find(".#{work}_creator_isni input")['placeholder']).to eq creator_isni
-      # expect(page).to have_css(".#{work}_creator_isni input", text: creator_isni)
+      expect(page.find(".#{work}_creator_orcid input")['placeholder']).to eq creator_orcid
       # expect(page).to have_css(".#{work}_creator_orcid p", text: creator_orcid)
       # expect(page).to have_css(".#{work}_creator_family_name p", text: creator_family_name)
       # expect(page).to have_css(".#{work}_creator_given_name p", text: creator_given_name)
