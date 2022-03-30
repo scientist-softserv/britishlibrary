@@ -96,18 +96,26 @@ RSpec.describe 'Help Text', type: :feature do
     account = Account.new
     allow(Site).to receive(:instance).and_return(site)
     allow(Site).to receive(:account).and_return(account)
-  end
+  end 
+  
+  work = 'article'
+  context work do
+    before do
+      login_as user
+      visit "/concern/#{work}s/new#metadata"
+    end
 
-      # expect(page).to have_css(".#{work}_title p", text: title)
-      # expect(page).to have_css(".#{work}_alt_title p", text: alternative_title)
-      # expect(page).to have_css(".#{work}_resource_type p", text: resource_type)
-      # expect(page).to have_css(".#{work}_creator_name_type option", text: creator_name_type)
-      # expect(page).to have_css(".#{work}_creator_isni p", text: creator_isni)
-      # expect(page).to have_css(".#{work}_creator_orcid p", text: creator_orcid)
-      # expect(page).to have_css(".#{work}_creator_family_name p", text: creator_family_name)
-      # expect(page).to have_css(".#{work}_creator_given_name p", text: creator_given_name)
-      # expect(page).to have_css(".#{work}_creator_organisation p", text: creator_organisation)
-      # expect(page).to have_css(".#{work}_creator_ror p", text: creator_ror)
+    it 'displays correct help text' do
+      expect(page).to have_css(".#{work}_title p", text: title)
+      expect(page).to have_css(".#{work}_alt_title p", text: alternative_title)
+      expect(page).to have_css(".#{work}_resource_type p", text: resource_type)
+      expect(page).to have_css(".#{work}_creator_name_type option", text: creator_name_type)
+      expect(page.find(".#{work}_creator_isni input")['placeholder']).to eq creator_isni
+      expect(page.find(".#{work}_creator_orcid input")['placeholder']).to eq creator_orcid
+      expect(page.find(".#{work}_creator_family_name input")['placeholder']).to eq creator_family_name
+      expect(page.find(".#{work}_creator_given_name input")['placeholder']).to eq creator_given_name
+      # expect(page.find(".#{work}_creator_organisation input")['placeholder']).to eq creator_organisation
+      expect(page).to have_css(".#{work}_creator_ror p", text: creator_ror)
       # expect(page).to have_css(".#{work}_creator_grid p", text: creator_grid)
       # expect(page).to have_css(".#{work}_wiki_page p", text: wiki_page)
       # expect(page).to have_css(".#{work}_creator_institutional_relationship option", text: creator_institutional_relationship)
@@ -176,82 +184,6 @@ RSpec.describe 'Help Text', type: :feature do
       # expect(page).to have_css(".#{work}_doi p", text: doi)
       # expect(page).to have_css(".#{work}_qualification_name p", text: qualification_name)
       # expect(page).to have_css(".#{work}_qualification_level p", text: qualification_level)
-      # expect(page).to have_css(".#{work}_alternate_identifier p", text: alternate_identifier)
-      # expect(page).to have_css(".#{work}_type_of_alternate_identifier p", text: type_of_alternate_identifier)
-      # expect(page).to have_css(".#{work}_related_identifier p", text: related_identifier)
-      # expect(page).to have_css(".#{work}_type_of_related_identifier p", text: type_of_related_identifier)
-      # expect(page).to have_css(".#{work}_relationship_of_related_identifier p", text: relationship_of_related_identifier)
-      # expect(page).to have_css(".#{work}_peer_reviewed p", text: peer_reviewed)
-      # expect(page).to have_css(".#{work}_keywords p", text: keywords)
-      # expect(page).to have_css(".#{work}_dewey p", text: dewey)
-      # expect(page).to have_css(".#{work}_library_of_congress p", text: library_of_congress)
-      # expect(page).to have_css(".#{work}_additional_information p", text: additional_information)
-  
-  work = 'article'
-  context work do
-    before do
-      login_as user
-      visit "/concern/#{work}s/new#metadata"
-    end
-
-    it 'displays correct help text' do
-      expect(page).to have_css(".#{work}_title p", text: title)
-      expect(page).to have_css(".#{work}_alt_title p", text: alternative_title)
-      expect(page).to have_css(".#{work}_resource_type p", text: resource_type)
-      expect(page).to have_css(".#{work}_creator_name_type option", text: creator_name_type)
-      expect(page.find(".#{work}_creator_isni input")['placeholder']).to eq creator_isni
-      expect(page.find(".#{work}_creator_orcid input")['placeholder']).to eq creator_orcid
-      # expect(page).to have_css(".#{work}_creator_orcid p", text: creator_orcid)
-      # expect(page).to have_css(".#{work}_creator_family_name p", text: creator_family_name)
-      # expect(page).to have_css(".#{work}_creator_given_name p", text: creator_given_name)
-      # expect(page).to have_css(".#{work}_creator_organisation p", text: creator_organisation)
-      # expect(page).to have_css(".#{work}_creator_ror p", text: creator_ror)
-      # expect(page).to have_css(".#{work}_creator_grid p", text: creator_grid)
-      # expect(page).to have_css(".#{work}_wiki_page p", text: wiki_page)
-      # expect(page).to have_css(".#{work}_creator_institutional_relationship option", text: creator_institutional_relationship)
-      # expect(page).to have_css(".#{work}_contributor_name_type option", text: contributor_name_type)
-      # expect(page).to have_css(".#{work}_contributor_isni p", text: contributor_isni)
-      # expect(page).to have_css(".#{work}_contributor_orcid p", text: contributor_orcid)
-      # expect(page).to have_css(".#{work}_contributor_family_name p", text: contributor_family_name)
-      # expect(page).to have_css(".#{work}_contributor_given_name p", text: contributor_given_name)
-      # expect(page).to have_css(".#{work}_contributor_organisation p", text: contributor_organisation)
-      # expect(page).to have_css(".#{work}_contributor_ror p", text: contributor_ror)
-      # expect(page).to have_css(".#{work}_contributor_grid p", text: contributor_grid)
-      # expect(page).to have_css(".#{work}_contributor_wikidata p", text: contributor_wikidata)
-      # expect(page).to have_css(".#{work}_contributor_role p", text: contributor_role)
-      # expect(page).to have_css(".#{work}_contributor_institutional_relationship option", text: contributor_institutional_relationship)
-      # expect(page).to have_css(".#{work}_abstract p", text: abstract)
-      # expect(page).to have_css(".#{work}_date_published p", text: date_published)
-      # expect(page).to have_css(".#{work}_material_media p", text: material_media)
-      # expect(page).to have_css(".#{work}_duration p", text: duration)
-      # expect(page).to have_css(".#{work}_institution p", text: institution)
-      # expect(page).to have_css(".#{work}_organisational_unit p", text: organisational_unit)
-      # expect(page).to have_css(".#{work}_project_name p", text: project_name)
-      # expect(page).to have_css(".#{work}_funder p", text: funder)
-      # expect(page).to have_css(".#{work}_funder_doi p", text: funder_doi)
-      # expect(page).to have_css(".#{work}_funder_isni p", text: funder_isni)
-      # expect(page).to have_css(".#{work}_funder_ror p", text: funder_ror)
-      # expect(page).to have_css(".#{work}_funder_awards p", text: funder_awards)
-      # expect(page).to have_css(".#{work}_journal_title p", text: journal_title)
-      # expect(page).to have_css(".#{work}_alternative_journal_title p", text: alternative_journal_title)
-      # expect(page).to have_css(".#{work}_volume p", text: volume)
-      # expect(page).to have_css(".#{work}_version p", text: version)
-      # expect(page).to have_css(".#{work}_issue p", text: issue)
-      # expect(page).to have_css(".#{work}_pagination p", text: pagination)
-      # expect(page).to have_css(".#{work}_article_number p", text: article_number)
-      # expect(page).to have_css(".#{work}_publisher p", text: publisher)
-      # expect(page).to have_css(".#{work}_place_of_publication p", text: place_of_publication)
-      # expect(page).to have_css(".#{work}_issn p", text: issn)
-      # expect(page).to have_css(".#{work}_eissn p", text: eissn)
-      # expect(page).to have_css(".#{work}_date_accepted p", text: date_accepted)
-      # expect(page).to have_css(".#{work}_date_submitted p", text: date_submitted)
-      # expect(page).to have_css(".#{work}_official_url p", text: official_url)
-      # expect(page).to have_css(".#{work}_related_url p", text: related_url)
-      # expect(page).to have_css(".#{work}_language p", text: language)
-      # expect(page).to have_css(".#{work}_license p", text: license)
-      # expect(page).to have_css(".#{work}_rights_statement p", text: rights_statement)
-      # expect(page).to have_css(".#{work}_rights_holder p", text: rights_holder)
-      # expect(page).to have_css(".#{work}_doi p", text: doi)
       # expect(page).to have_css(".#{work}_alternate_identifier p", text: alternate_identifier)
       # expect(page).to have_css(".#{work}_type_of_alternate_identifier p", text: type_of_alternate_identifier)
       # expect(page).to have_css(".#{work}_related_identifier p", text: related_identifier)
