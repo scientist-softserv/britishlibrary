@@ -17,7 +17,11 @@
     </div>
 
     <p class="form-group">
-      <%= raw(t('simple_form.hints.collection.creator')) %>
+      <% if template == 'collection' %>
+        <%= raw(t('simple_form.hints.collection.creator')) %>
+      <% else %>
+        <%= raw(t('simple_form.hints.defaults.creator')) %>
+      <% end %>
     </p>
 
     <span class="ubiquity_organization_fields">
@@ -36,7 +40,9 @@
                             data: {field_name:'ubiquity_creator_organization_name'}
         %>
         <p class="form-group">
-          <%= raw(t('simple_form.hints.collection.creator_org_name')) %>
+          <% if template == 'collection' %>
+            <%= raw(t('simple_form.hints.collection.creator_org_name')) %>
+          <% end %>
         </p>
       </div>
 
