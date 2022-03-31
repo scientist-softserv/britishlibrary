@@ -14,7 +14,11 @@
     <% end %>
   </label>
   <p class="help-block">
-    <%= raw(t('simple_form.hints.collection.resource_type')) %>
+    <% if template == 'collection' %>
+      <%= raw(t('simple_form.hints.collection.resource_type')) %>
+    <% else %>
+      <%= raw(t('simple_form.hints.defaults.resource_type')) %>
+    <% end %>
   </p>
   <% if template == 'generic_work' %>
     <%= select_tag "#{template}[resource_type][]", content_tag(:option,'Please Select ...',:value=>"")+
