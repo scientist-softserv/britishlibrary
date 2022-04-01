@@ -132,7 +132,7 @@ module MultipleMetadataFieldsHelper
   end
 
   def display_data_with_comma_separated(creator_hash, display_order)
-    # VERY temporary hot fix 
+    # VERY temporary hot fix
     # TODO address the fact that DOI autofill is settign the creator_organisation_name with the creator_name string
     names = display_order.map { |ele| creator_hash[ele].presence }.compact
     names.pop if names.count > 2
