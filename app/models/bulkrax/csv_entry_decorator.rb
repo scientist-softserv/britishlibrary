@@ -3,7 +3,6 @@
 
 module Bulkrax
   module CsvEntryDecorator
-    # rubocop:disable Metrics/LineLength
     def build_metadata
       raise StandardError, 'Record not found' if record.nil?
       raise StandardError, "Missing required elements, missing element(s) are: #{importerexporter.parser.missing_elements(keys_without_numbers(record.keys)).join(', ')}" unless importerexporter.parser.required_elements?(keys_without_numbers(record.keys))
@@ -38,7 +37,6 @@ module Bulkrax
 
       @possible_collection_ids = identifiers.compact.presence || []
     end
-    # rubocop:enable Metrics/LineLength
   end
 end
 
