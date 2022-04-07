@@ -134,9 +134,9 @@ module MultipleMetadataFieldsHelper
   def display_data_with_comma_separated(creator_hash, display_order)
     # VERY temporary hot fix
     # TODO address the fact that DOI autofill is settign the creator_organisation_name with the creator_name string
-    names = display_order.map { |ele| creator_hash[ele].presence }
+    names = display_order.map { |ele| creator_hash[ele].presence }.compact
     names.pop if names.count > 2
-    names.compact.join(', ')
+    names.join(', ')
   end
 
   def remove_last_semicolon(array_size, index)
