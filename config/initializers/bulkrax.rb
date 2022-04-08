@@ -177,7 +177,10 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'volume' => { from: ['volume'] }
     }
 
-
+    config.field_mappings['Bulkrax::CsvParser'].merge!({
+      'parents' => { from: ['parents'], split: /\s*[;|]\s*/, related_parents_field_mapping: true },
+      'children' => { from: ['children'], split: /\s*[;|]\s*/, related_children_field_mapping: true },
+    })
 
     # Add to, or change existing mappings as follows
     #   e.g. to exclude date
