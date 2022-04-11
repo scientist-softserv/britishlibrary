@@ -201,13 +201,24 @@ module Bolognese
           get_authors(authors) if authors.present?
         end
 
+        def name_by_type(author, author_type, name_type)
+          organization = name_type.to_s.match(/org/i) || author["#{author_type}_family_name"].blank?
+          if organization
+            [author["#{author_type}_organization_name"], nil, nil]
+          else
+            [
+              nil,
+              author["#{author_type}_given_name"],
+              author["#{author_type}_family_name"]
+            ]
+          end
+        end
+
         def create_authors(meta, author_type)
           authors = []
           JSON.parse(meta[author_type].first).sort_by { |c| c["#{author_type}_position"].to_i }.each do |author|
             name_type = author["#{author_type}_name_type"]
-            given_name = author["#{author_type}_given_name"]
-            family_name = author["#{author_type}_family_name"]
-            name = author["#{author_type}_organization_name"]
+            name, given_name, family_name = name_by_type(author, author_type, name_type)
             name_identifier = []
             ['orcid', 'ror', 'isni', 'grid', 'wikidata'].each do |id_type|
               next if author["#{author_type}_#{id_type}"].blank?
