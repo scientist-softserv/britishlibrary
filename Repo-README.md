@@ -36,7 +36,7 @@
 ### Important URL's
 
 - Local site:
-  - With dory: bl.test
+  - With dory: admin.bl.test
   - Without dory: localhost:3000
 - Staging site: http://bl-staging.notch8.cloud/
 - Production site: http://iro.bl.uk/
@@ -66,33 +66,57 @@ We distribute two configuration files:
 
 - Download [Docker Desktop](https://www.docker.com/products/docker-desktop) and log in
 
-#### If this is your first time working in this repo or the Dockerfile has been updated you will need to pull your services first
-
-Also, if this is the first time you have built get the tar file for your data directory from a team member or your seeds will have no data to populate the app with.
+#### If this is your first time working in this repo recently, you may have remnants of an old setup that requires a few extra commands
 
 ```bash
-sc pull
-# this file may cause issues if it is created before you build
+docker compose down -v
 rm -rf solr_db_initialized
-sc build
-# the following command runs the solr setup and seeds. do this again any time you do `docker-compose down -v`
-sc up -s initialize_app
+#verify that the solr_db_initialized is actually gone
+ls
+docker compose build --no-cache
+docker compose up
+dory up
 ```
 
-#### Start the server
+#### If this is your first time working in this repo ever, you can use just the following
 
 ```bash
-sc up
+docker compose build --no-cache
+docker compose up
+dory up
 ```
 
-This command starts the web and worker containers allowing Rails to be started or stopped independent of the other services. Once that starts (you'll see the line `Listening on tcp://0.0.0.0:3000` to indicate a successful boot), you can view your app at one of the [dev URL's](#important-urls) above.
+#### If your Dockerfile has been updated, you may need to rebuild
 
-#### Seed the database
+```bash
+docker compose down -v
+docker compose build --no-cache
+docker compose up
+dory up
+```
+
+#### If you just want to start the server
+
+```bash
+docker compose up
+dory up
+```
+
+This command starts the web and worker containers allowing Rails to be started or stopped independent of the other services. You can now view your app at one of the [dev URL's](#important-urls) above.
+
+#### Seed the database and/or a superadmin
 
 if you want to automatically create a dataset, place the exported file in data/ before beginning. These files should not be added to the repo as they are often quite large.
 
 ```bash
 sc be rails db:seed
+```
+
+When you first rebuild your app after removing all the volumes, you may need to seed a superadmin
+
+```bash
+docker compose exec web bash
+rake hyku:superadmin:create
 ```
 
 #### Access the container
@@ -101,6 +125,12 @@ sc be rails db:seed
 
   ```bash
   sc sh
+  ```
+
+  or
+
+  ```bash
+  docker compose exec web bash
   ```
 
 - You need to be inside the container to:
@@ -117,6 +147,20 @@ sc be rails db:seed
   rspec
   ```
 
+#### Set up the app routes the same way as its set up in production
+
+1. Create a tenant called 'search' and check the box below make it search-only
+2. Change the cname of the search tenant
+
+```bash
+docker compose exec web bash
+rails c
+search_account = Account.find_by(cname: "search.bl.test")
+search_account.update(cname: 'bl.test')
+```
+
+3. if you'd like to use the logo links on the shared homepage, you can create tenants called 'mola', 'nms', 'bl', 'kew', 'tate', or 'britishmuseum'
+
 #### Stop the app and services
 
 - Press `Ctrl + C` in the window where `sc up` is running
@@ -127,17 +171,6 @@ sc be rails db:seed
 
 - Was the Dockerfile changed on your most recent `git pull`? Refer to the instructions above
 - Double check your dory set up
-
-- Issue: the `sc up -s initialize_app` command exits with code 1 (it should exit with code 0)
-- Try the following commands to completely kill all your containers/volumes, and go through a clean build with no cache.
-
-  ```bash
-  docker-compose down -v
-  rm -rf solr_db_initialized
-  docker-compose build --no-cache
-  sc up -s initialize_app
-  sc up
-  ```
 
 - Issue: `No such file or directory @ rb_sysopen - /app/samvera/hyrax-webapp/log/indexing.log`
 - Try:
@@ -151,11 +184,10 @@ sc be rails db:seed
 - Try:
 
   ```bash
-  docker-compose down -v
-  rm -rf solr_db_initialized
-  sc build
-  sc up -s initialize_app
-  sc up
+  docker compose down -v
+  docker compose build --no-cache
+  docker compose up
+  dory up
   ```
 
 - Issue: Want to follow the logs during the `initialize_app` phase
@@ -292,20 +324,30 @@ switch!('myaccount')
   (Refer to this [Wiki article](https://github.com/samvera-labs/bulkrax/wiki/Bulkrax-User-Interface---Importers) for more details about the fields and save options)
 
 ## DOI
+
 [What is a DOI?](https://datacite.org/dois.html)
+
 ### Reading
+
 #### Enabling
+
 Reading a DOI will find the associated metadata for that object on DataCite and override the fields on your work with that data.
+
 - Sign in to the admin dashboard
 - Click Settings >> Account on the left navigation pane
 - Check the box that says "DOI reader"
 - Save changes
 
 #### Using
+
 TODO
+
 ### Minting
+
 #### Enabling
+
 Minting a DOI will create a new entry on DataCite with the information from your work.
+
 - Go to the Accounts page to edit the mola tenant
 - Scroll down to the DataCite Endpoint section and input the following info
   - Mode: test
@@ -319,6 +361,7 @@ Minting a DOI will create a new entry on DataCite with the information from your
 - Save changes
 
 #### Using
+
 - When creating or editing a work, you should see a tab that says "DOI"
 - Click the "Create draft DOI" button
 - Select any of the radio buttons (registered and findable can never be removed from DataCite):
