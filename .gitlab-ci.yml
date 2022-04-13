@@ -162,6 +162,7 @@ hyku.production:
   only:
     refs:
       - main
+      - production*
   when: manual
   variables:
     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
