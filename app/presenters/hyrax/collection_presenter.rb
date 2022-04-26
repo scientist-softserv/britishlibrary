@@ -28,4 +28,11 @@ Hyrax::CollectionPresenter.class_eval do
     current_ability.can?(:create, FeaturedCollection)
   end
   # End Featured Collections Methods
+
+  def terms_with_values
+    self.class.terms.select do |t|
+      value = self[t]
+      value.is_a?(Array) ? value.first&.present? : value.present?
+    end
+  end
 end
