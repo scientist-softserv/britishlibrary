@@ -110,11 +110,26 @@ module Bolognese
           Hyrax::ResourceTypesService.select_options.select { |t| t.first == humanized }&.first&.last
         end
 
+        def name_by_type(field)
+          field["nameType"]&.sub("Organizational", "Organisational") || "Personal"
+          organization = field["nameType"].to_s.match(/org/i) || field["familyName"].blank?
+          if organization
+            [field['name'], nil, nil]
+          else
+            [
+              nil,
+              field["givenName"],
+              field["familyName"]
+            ]
+          end
+        end
+
         def build_hyrax_work_child(field_name:, field:, index:)
+          name, given_name, family_name = name_by_type(field)
           r = {
-            "#{field_name}_organization_name" => field["name"],
-            "#{field_name}_family_name" => field["familyName"],
-            "#{field_name}_given_name" => field["givenName"],
+            "#{field_name}_organization_name" => name,
+            "#{field_name}_family_name" => family_name,
+            "#{field_name}_given_name" => given_name,
             "#{field_name}_name_type" => field["nameType"]&.sub("Organizational", "Organisational") || "Personal",
             "#{field_name}_position" => index.to_s,
             "#{field_name}_orcid" => field["nameIdentifiers"]&.select { |a| a["nameIdentifierScheme"]&.match(/orcid/i) }&.map { |a| a['nameIdentifier'] },
