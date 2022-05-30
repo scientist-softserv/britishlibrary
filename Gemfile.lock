@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: d6faf2f9bd8c388f3f477cfbe8b03ca70dd2cd89
+  revision: 57677fccaaa9927ebc9e85c6886f5c34890a5138
   specs:
     bulkrax (3.1.2)
       bagit (~> 0.4)
@@ -38,8 +38,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/hyrax-doi.git
-  revision: 8bf97601760be673406ba5fe72e76e9257fd28f9
-  branch: play_nice_with_view_paths
+  revision: fd664029f42e490f98519cb96aba71bce2297a73
   specs:
     hyrax-doi (0.2.0)
       bolognese (~> 1.8, >= 1.8.6)
@@ -729,7 +728,7 @@ GEM
       scrub_rb (>= 1.0.1, < 2)
       unf
     marcel (1.0.2)
-    maremma (4.9.7)
+    maremma (4.9.8)
       activesupport (>= 4.2.5)
       addressable (>= 2.3.6)
       builder (~> 3.2, >= 3.2.2)
@@ -737,7 +736,7 @@ GEM
       faraday (~> 0.17.3)
       faraday-encoding (~> 0.0.4)
       faraday_middleware (~> 0.14.0)
-      nokogiri (>= 1.11.2, < 1.13.0)
+      nokogiri (>= 1.11.2, < 1.14.0)
       oj (>= 2.8.3)
       oj_mimic_json (~> 1.0, >= 1.0.1)
     matrix (0.4.2)
@@ -791,7 +790,7 @@ GEM
     octokit (4.21.0)
       faraday (>= 0.9)
       sawyer (~> 0.8.0, >= 0.5.3)
-    oj (3.13.11)
+    oj (3.13.13)
     oj_mimic_json (1.0.1)
     openseadragon (0.6.0)
       rails (> 3.2.0)
