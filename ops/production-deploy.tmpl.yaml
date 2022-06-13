@@ -1,5 +1,13 @@
 replicaCount: 2
 
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "100m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
+
 livenessProbe:
   enabled: false
 readinessProbe:
@@ -151,6 +159,13 @@ extraEnvVars: &envVars
     value: https://07eb392c3e5c4dc0aac4d15b46b87a01:a81586e18128478c93855c446ad388f2@sentry.notch8.com/59
 worker:
   replicaCount: 1
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
   extraVolumeMounts: *volMounts
   extraEnvVars: *envVars
   podSecurityContext:
