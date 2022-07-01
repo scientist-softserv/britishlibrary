@@ -190,7 +190,7 @@ module Bolognese
         end
 
         def read_hyrax_work_contributors(meta)
-          authors = create_authors(meta, 'contributor') if meta.fetch("contributor", nil).present?
+          authors = meta.fetch("contributor", nil).present? ? create_authors(meta, 'contributor') : []
           meta.fetch('rights_holder', []).each do |rights_holder|
             authors << {
               'contributorName' => rights_holder,
