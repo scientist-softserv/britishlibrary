@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
       </button>
         <div>
-          <%= link_to "//#{Account.admin_host}", class: "shared-research-repo-button" do %>
+          <%= link_to "//#{Account.root_host}", class: "shared-research-repo-button" do %>
             <span class="fa fa-caret-left"></span> <%= current_account.search_only ? t("hyrax.shared_home_button") : t("hyrax.home_button") %>
           <% end %>
         </div>
