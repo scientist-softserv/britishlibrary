@@ -17,7 +17,10 @@
   </td>
   <% if parent_presenter.file_licenses? %>
     <td class="attribute file_licence">
-      <%= link_to(master_license_hash[member.license], member.license, target: :_blank) if member.license %>
+      <% member.license&.each do | license | %>
+        <%= link_to(master_license_hash[license], license, target: :_blank) %>
+        <br/>
+      <% end %>
     </td>
   <% end %>
   <td class="attribute attribute-date_uploaded"><%= member.try(:date_uploaded) %></td>
