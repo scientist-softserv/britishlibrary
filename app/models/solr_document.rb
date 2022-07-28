@@ -152,7 +152,7 @@ class SolrDocument
       '%8' => [:date_uploaded],
       '%E' => [:formatted_contributor_and_editor],
       '%I' => [:publisher],
-      '%J' => [:series_title],
+      '%J' => [:journal_title],
       '%V' => [:volume],
       '%7' => [:edition],
       '%P' => [:pagination],
