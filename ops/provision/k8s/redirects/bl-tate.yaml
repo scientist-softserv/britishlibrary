@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: '[{"addresses":[""],"port":443,"protocol":"HTTPS","serviceName":"production:hyku-production-hyrax","ingressName":"production:bl-tate-redirect","hostname":"tate.iro.bl.uk","path":"/","allNodes":false}]'
+    nginx.ingress.kubernetes.io/permanent-redirect: https://www.bl.uk/repository-services/previous-partners
+    nginx.ingress.kubernetes.io/permanent-redirect-code: "301"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: bl-tate-redirect
+  namespace: production
+spec:
+  rules:
+  - host: tate.iro.bl.uk
+    http:
+      paths:
+      - backend:
+          service:
+            name: hyku-production-hyrax
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - tate.iro.bl.uk
+    secretName: bl-main
