@@ -11,6 +11,9 @@ class SolrEndpoint < Endpoint
   # @return [Hash] options for the RSolr connection.
   def connection_options
     bl_defaults = Blacklight.connection_config
+    # Removed for now as causes solr 404 error
+    # ActiveFedora::SolrService.reset!
+    # bl_defaults = Blacklight.blacklight_yml[::Rails.env].symbolize_keys
     af_defaults = ActiveFedora::SolrService.instance.conn.options
     switchable_options.reverse_merge(bl_defaults).reverse_merge(af_defaults)
   end

@@ -1,5 +1,13 @@
 replicaCount: 2
 
+resources:
+  requests:
+    memory: "1Gi"
+    cpu: "250m"
+  limits:
+    memory: "2Gi"
+    cpu: "1000m"
+
 livenessProbe:
   enabled: false
 readinessProbe:
@@ -39,11 +47,12 @@ ingress:
     - host: "*.bl-staging.notch8.cloud"
       paths:
         - path: /
-  annotations: {
-    kubernetes.io/ingress.class: "nginx",
-    nginx.ingress.kubernetes.io/proxy-body-size: "0",
-    cert-manager.io/cluster-issuer: letsencrypt-production-dns
-  }
+  annotations:
+    {
+      kubernetes.io/ingress.class: "nginx",
+      nginx.ingress.kubernetes.io/proxy-body-size: "0",
+      cert-manager.io/cluster-issuer: letsencrypt-production-dns,
+    }
   tls:
     - hosts:
         - bl-staging.notch8.cloud
@@ -150,6 +159,13 @@ extraEnvVars: &envVars
 
 worker:
   replicaCount: 1
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "250m"
+    limits:
+      memory: "2Gi"
+      cpu: "1000m"
   extraVolumeMounts: *volMounts
   extraEnvVars: *envVars
   podSecurityContext:
