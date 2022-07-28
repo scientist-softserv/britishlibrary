@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: '[{"addresses":[""],"port":443,"protocol":"HTTPS","serviceName":"production:hyku-production-hyrax","ingressName":"production:bl-nhs-redirect","hostname":"nhs.iro.bl.uk","path":"/","allNodes":false}]'
+    nginx.ingress.kubernetes.io/permanent-redirect: https://www.bl.uk/repository-services/nhs-pilot-shared-repository
+    nginx.ingress.kubernetes.io/permanent-redirect-code: "301"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: bl-nhs-redirect
+  namespace: production
+spec:
+  rules:
+  - host: nhs.iro.bl.uk
+    http:
+      paths:
+      - backend:
+          service:
+            name: hyku-production-hyrax
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - nhs.iro.bl.uk
+    secretName: bl-main
