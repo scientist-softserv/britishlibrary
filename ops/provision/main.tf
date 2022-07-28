@@ -108,6 +108,13 @@ resource "kubectl_manifest" "staging_issuer" {
   yaml_body = file("./k8s/staging_issuer.yaml")
 }
 
+resource "kubectl_manifest" "redirect" {
+  for_each = fileset("./k8s/redirects", "*.yaml")
+
+  depends_on = [helm_release.cert_manager]
+  yaml_body = file("./k8s/redirects/${each.value}")
+}
+
 resource "helm_release" "postgresql" {
   name = "postgresql"
   namespace = "default"
@@ -209,17 +216,4 @@ resource "kubernetes_namespace" "productionn" {
 resource "kubectl_manifest" "gitlab-secrets" {
   depends_on = [helm_release.cert_manager]
   yaml_body = file("k8s/gitlab-secret-values.yaml")
-}
-
-resource "helm_release" "kasten" {
-  # depends_on = [kubectl_manifest.crowd-pvc]
-  name = "k10"
-  namespace = "kasten-io"
-  version = "4.5.9"
-  create_namespace = true
-  repository= "https://charts.kasten.io/"
-  chart = "k10"
-  values = [
-    file("k8s/kasten-values.yaml")
-  ]
 }

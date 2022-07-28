@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/ingressState: '{"YmwtbWFpbg==":"p-98kns:bl-main","Ymwtc2VhcmNoLXJlZGlyZWN0L3Byb2R1Y3Rpb24vc2VhcmNoLmlyby5ibC51ay8vLzgw":""}'
+    field.cattle.io/publicEndpoints: '[{"addresses":[""],"port":443,"protocol":"HTTPS","serviceName":"production:hyku-production-hyrax","ingressName":"production:bl-search-redirect","hostname":"search.iro.bl.uk","path":"/","allNodes":false}]'
+    nginx.ingress.kubernetes.io/permanent-redirect: https://iro.bl.uk$request_uri
+    nginx.ingress.kubernetes.io/permanent-redirect-code: "308"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: bl-search-redirect
+  namespace: production
+spec:
+  rules:
+  - host: search.iro.bl.uk
+    http:
+      paths:
+      - backend:
+          service:
+            name: hyku-production-hyrax
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - search.iro.bl.uk
+    secretName: bl-main
