@@ -1,27 +1,51 @@
 development:
   enabled: true
-  enable_send_logger: true
-  enable_send_investigations: true
-  enable_send_requests: true
-  irus_server_address: https://irus.jisc.ac.uk/counter/test/
-  robots_file: irus_analytics_counter_robot_list.txt
-  source_repository: bl.test
-  verbose_debug: true
-test:
-  enabled: false
   enable_send_logger: false
   enable_send_investigations: true
   enable_send_requests: true
   irus_server_address: https://irus.jisc.ac.uk/counter/test/
   robots_file: irus_analytics_counter_robot_list.txt
-  source_repository: bl-staging.notch8.cloud
   verbose_debug: false
-production:
+  named_servers: true
+  bl.bl.test:
+    source_repository: bl.bl.test
+
+test:
   enabled: true
   enable_send_logger: false
   enable_send_investigations: true
   enable_send_requests: true
   irus_server_address: https://irus.jisc.ac.uk/counter/test/
   robots_file: irus_analytics_counter_robot_list.txt
-  source_repository: iro.bl.uk
   verbose_debug: false
+  named_servers: true
+  bl.bl-staging.notch8.cloud: 
+    source_repository: bl.bl-staging.notch8.cloud
+  britishmuseum.bl-staging.notch8.cloud:
+    source_repository: britishmuseum.bl-staging.notch8.cloud
+  kew.bl-staging.notch8.cloud:
+    source_repository: kew.bl-staging.notch8.cloud
+  nms.bl-staging.notch8.cloud:
+    source_repository: nms.bl-staging.notch8.cloud
+  mola.bl-staging.notch8.cloud:
+    source_repository: mola.bl-staging.notch8.cloud
+
+production:
+  enabled: true
+  enable_send_logger: false
+  enable_send_investigations: true
+  enable_send_requests: true
+  irus_server_address: https://irus.jisc.ac.uk/counter/
+  robots_file: irus_analytics_counter_robot_list.txt
+  verbose_debug: false
+  named_servers: true
+  bl.iro.bl.uk:
+    source_repository: bl.iro.bl.uk
+  britishmuseum.iro.bl.uk:
+    source_repository: britishmuseum.iro.bl.uk
+  kew.iro.bl.uk:
+    source_repository: kew.iro.bl.uk
+  nms.iro.bl.uk:
+    source_repository: nms.iro.bl.uk
+  mola.iro.bl.uk:
+    source_repository: mola.iro.bl.uk
