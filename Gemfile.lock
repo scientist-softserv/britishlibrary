@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/notch8/irus_analytics
-  revision: f4dcc0378f4ad255df7cef2ff0cd2d5668e36899
+  revision: 5ca7ad3e07b1dce2858ddb4842a32a8ce47d975c
   branch: active_job_edition
   specs:
     irus_analytics (1.0.3)
@@ -725,7 +725,7 @@ GEM
     mailboxer (0.15.1)
       carrierwave (>= 0.5.8)
       rails (>= 5.0.0)
-    marc (1.1.1)
+    marc (1.2.0)
       rexml
       scrub_rb (>= 1.0.1, < 2)
       unf
@@ -1167,7 +1167,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.8)
+    unf_ext (0.0.8.2)
     unicode-display_width (1.8.0)
     unicode-types (1.7.0)
     unicode_utils (1.4.0)
