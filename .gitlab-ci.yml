@@ -114,7 +114,7 @@ test:
     # debugging tip: un-comment the sleep below in order to use k8's or docker to log into the actual running container
     # - sleep 30m
     - rspec_booster --job $CI_NODE_INDEX/$CI_NODE_TOTAL
-    # - rspec --format progress --tag ~speed:slow --format RspecJunitFormatter --out rspec.xml
+    - rspec --format progress --tag ~speed:slow --format RspecJunitFormatter --out rspec.xml
   after_script:
     - test -e /home/app/webapp/tmp/capybara && cp -r /home/app/webapp/tmp/capybara $CI_PROJECT_DIR/capybara
     - test -e /home/app/webapp/rspec.xml && cp /home/app/webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
