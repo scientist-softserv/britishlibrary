@@ -6,6 +6,7 @@ development:
   irus_server_address: https://irus.jisc.ac.uk/counter/test/
   robots_file: irus_analytics_counter_robot_list.txt
   verbose_debug: false
+  source_repository: bl.test
   named_servers: true
   bl.bl.test:
     source_repository: bl.bl.test
@@ -18,6 +19,7 @@ test:
   irus_server_address: https://irus.jisc.ac.uk/counter/test/
   robots_file: irus_analytics_counter_robot_list.txt
   verbose_debug: false
+  source_repository: bl-staging.notch8.cloud
   named_servers: true
   bl.bl-staging.notch8.cloud: 
     source_repository: bl.bl-staging.notch8.cloud
@@ -38,6 +40,7 @@ production:
   irus_server_address: https://irus.jisc.ac.uk/counter/
   robots_file: irus_analytics_counter_robot_list.txt
   verbose_debug: false
+  source_repository: iro.bl.uk
   named_servers: true
   bl.iro.bl.uk:
     source_repository: bl.iro.bl.uk
