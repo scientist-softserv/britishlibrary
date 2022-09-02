@@ -11,7 +11,16 @@ development:
   bl.bl.test:
     source_repository: bl.bl.test
 
-test:
+# NB staging currently uses the rails production enviroment
+# So the config here for test will not get used. 
+# Instead staging will use the production config below and 
+# therefore (as the staging servers are not in that) will 
+# send the default source_repository (iro.bl.uk) to the 
+# production IRUS endpoint when triggered by *.bl-staging...
+# This is not too terrible as requests will be rare and IRUS 
+# will probably ignore them, however using the test rails.ENV 
+# on staging might be more wise in generally?
+test: 
   enabled: true
   enable_send_logger: false
   enable_send_investigations: true
