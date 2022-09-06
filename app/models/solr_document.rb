@@ -182,7 +182,7 @@ class SolrDocument
       '%X' => [:abstract],
       '%G' => [:language],
       '%[' => [:date_accessed],
-      '%9' => [:resource_type],
+      '%9' => [:resource_type_label],
       '%~' => I18n.t('hyrax.product_name'),
       '%W' => [:institution]
     }
