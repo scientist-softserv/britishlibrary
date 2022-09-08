@@ -4,8 +4,12 @@
     <% array_of_hash.each_with_index do |hash, index| %>
       <li class="attribute contributor <%= 'collapse' if index > 4 %>">
         <span itemprop="contributor" style="float:left">
-          <% order_ary = ['contributor_family_name', 'contributor_given_name', 'contributor_organization_name']%>
-          <%= display_data_with_comma_separated(hash, order_ary)%>
+          <% if hash['contributor_name_type'] == 'Personal' %>
+            <% order_ary = ['contributor_family_name', 'contributor_given_name'] %>
+          <% else %>
+            <% order_ary = ['contributor_organization_name'] %>
+          <% end %>
+          <%= display_data_with_comma_separated(hash, order_ary) %>
         </span>
         <span itemprop="contributor">
           <% if display_paren?(hash.keys, ["contributor_orcid", 'contributor_isni', 'contributor_type']) %>
