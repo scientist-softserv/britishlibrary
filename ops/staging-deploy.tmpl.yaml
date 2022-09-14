@@ -155,7 +155,7 @@ extraEnvVars: &envVars
   - name: SECRET_KEY_BASE
     value: b295778363a54dac25d7480b555b61377bb5dc9cf81405bf8044ce7db40b1e346bb8fa4564626b3d697a4cfe91389ec6d66707a154f07360d206025f2a4c65b1
   - name: SENTRY_DSN
-    value: https://07eb392c3e5c4dc0aac4d15b46b87a01:***REMOVED***@sentry.notch8.com/59
+    value: https://bcbcbdd237984028a7d0b76d96ba90dd@o1008683.ingest.sentry.io/6745017
 
 worker:
   replicaCount: 1
