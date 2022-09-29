@@ -102,6 +102,7 @@ function creatorUpdateRequired(self, field) {
 function hideCreatorOrganization(self) {
   self.siblings('.ubiquity_personal_fields').show();
   self.siblings('.ubiquity_organization_fields').find('.ubiquity_creator_organization_name').last().val('');
+  self.siblings('.isni_input_group').find('.ubiquity_creator_isni').last().val('');
   self.siblings('.ubiquity_organization_fields').find('.ubiquity_creator_organization_name').last().removeAttr('required');
   self.siblings('.ubiquity_organization_fields').hide();
 }
@@ -111,6 +112,7 @@ function hideCreatorPersonal(self) {
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_creator_family_name').last().val('').removeAttr('required');
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_creator_given_name').last().val('').removeAttr('required');
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_creator_orcid').last().val('');
+  self.siblings('.isni_input_group').find('.ubiquity_creator_isni').last().val('');
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_creator_institutional_relationship').last().val('');
   self.siblings('.ubiquity_personal_fields').hide();
 }
