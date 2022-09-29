@@ -34,7 +34,7 @@
           <% end %>
         </label>
         <%= text_field_tag  "#{template}[creator_group][][creator_organization_name]", hash.dig("creator_organization_name"),
-                            class: "#{template}_creator_organization_name form-control multi-text-field multi_valuee ubiquity_creator_organization_name",
+                            class: "#{template}_creator_organization_name form-control multi-text-field multi_value ubiquity_creator_organization_name",
                             placeholder: 'Please enter the organisation\'s name.',
                             name: "#{template}[creator_group][][creator_organization_name]",
                             data: {field_name:'ubiquity_creator_organization_name'}
@@ -147,7 +147,7 @@
       </div>
     </span> <!-- closes ubiquity_personal_fields -->
 
-    <div class="<%= "#{template}_creator_isni" %> form-group">
+    <div class="<%= "#{template}_creator_isni" %> form-group isni_input_group">
       <label class="control-label multi_value optional" for="<%=template%>_creator_isni">
         Creator ISNI
       </label>
