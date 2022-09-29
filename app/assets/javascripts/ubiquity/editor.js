@@ -65,6 +65,7 @@ function displayEditorFields(self, value) {
 function hideEditorOrganization(self) {
   self.siblings('.ubiquity_personal_fields').show();
   self.siblings('.ubiquity_organization_fields').find('.ubiquity_editor_organization_name').last().val('');
+  self.siblings('.isni_input_group').find('.ubiquity_editor_isni').last().val('');
   self.siblings('.ubiquity_organization_fields').hide();
 }
 
@@ -73,6 +74,7 @@ function hideEditorPersonal(self) {
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_editor_orcid').last().val('');
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_editor_family_name').last().val('');
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_editor_given_name').last().val('');
+  self.siblings('.isni_input_group').find('.ubiquity_editor_isni').last().val('');
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_editor_institutional_relationship').last().val('');
   self.siblings('.ubiquity_personal_fields').hide();
 }

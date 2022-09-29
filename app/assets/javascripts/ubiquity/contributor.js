@@ -63,6 +63,7 @@ function displayContributorFields(self, value) {
 function hideContributorOrganization(self) {
   self.siblings('.ubiquity_personal_fields').show();
   self.siblings('.ubiquity_organization_fields').find('.ubiquity_contributor_organization_name').last().val('');
+  self.siblings('.isni_input_group').find('.ubiquity_contributor_isni').last().val('');
   self.siblings('.ubiquity_organization_fields').find('.ubiquity_contributor_organization_name').last().removeAttr('required');
   self.siblings('.ubiquity_organization_fields').hide();
 }
@@ -72,6 +73,7 @@ function hideContributorPersonal(self) {
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_contributor_family_name').last().val('').removeAttr('required');
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_contributor_given_name').last().val('').removeAttr('required');
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_contributor_orcid').last().val('');
+  self.siblings('.isni_input_group').find('.ubiquity_contributor_isni').last().val('');
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_contributor_institutional_relationship').last().val('');
   self.siblings('.ubiquity_personal_fields').hide();
 }
