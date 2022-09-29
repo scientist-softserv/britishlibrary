@@ -119,6 +119,8 @@
 
 <!-- if you change the label DOI below you must change the if condition in
 app/renderers/ubiquity/external_url_attribute_renderer.rb to reflect the newly re-named label
+<%# The above comment is defunct (and an html comment rather than a ruby one) 
+  the presenter method doi will return either doi or original_doi if former is not set %>
 -->
 <% if presenter.doi.present? %>
   <%= presenter.attribute_to_html(:doi, label: "DOI") %>
