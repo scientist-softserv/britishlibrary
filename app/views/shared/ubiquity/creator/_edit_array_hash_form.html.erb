@@ -140,7 +140,7 @@
           Creator institutional relationship
         </label>
         <%= select_tag  "#{template}[creator_group][][creator_institutional_relationship]",
-                        content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( ['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("creator_institutional_relationship")),
+                        options_from_collection_for_select( ['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("creator_institutional_relationship")),
                         multiple: true,
                         class: "form-control"
         %>
