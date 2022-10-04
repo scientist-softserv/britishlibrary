@@ -28,7 +28,13 @@ module Bulkrax::HasLocalProcessing
         next unless parsed_metadata&.[](object)&.[](index)
         # skip if no object or no object at index
         # if object and index are preset, but key is either nil or empty AND obj[field] is present, set the key
-        parsed_metadata[object][index][key] = acceptable_values[relationship.to_sym] if parsed_metadata[object][index][key]&.first.blank? && obj[field].present?
+        if obj[field].present?
+          if parsed_metadata[object][index][key]&.first.blank?
+            parsed_metadata[object][index][key] = [acceptable_values[relationship.to_sym]]
+          else
+            parsed_metadata[object][index][key] << acceptable_values[relationship.to_sym]
+          end
+        end
 
         parsed_metadata&.[](object)&.[](index)&.delete(field)
       end
