@@ -77,7 +77,7 @@
           Editor institutional relationship
         </label>
         <%= select_tag  "#{template}[editor_group][][editor_institutional_relationship]",
-                        content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( ['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("editor_institutional_relationship")),
+                        options_from_collection_for_select( ['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("editor_institutional_relationship")),
                         multiple: true,
                         class: "form-control"
         %>
