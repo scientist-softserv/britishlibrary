@@ -6,3 +6,9 @@ en:
       time_based_media:
         name:               "Time Based Media"
         description:        "Multimedia outputs dependent on technology with a durational dimension."
+  simple_form:
+    hints:
+      defaults:
+        duration: State the length of time the output lasts and the unit of measurement e.g. minutes. 
+        event_location: The location of the conference, symposium or other event type.
+        event_date: The date of the conference, symposium or other event type.

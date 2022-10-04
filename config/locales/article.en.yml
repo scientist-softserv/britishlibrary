@@ -9,6 +9,7 @@ en:
   simple_form:
     hints:
       defaults:
+        title: A name to aid in identifying a work. 
         alt_title: Alternative title for the item, such as a translated or abbreviated form of the title.
         institution: The institution to which the item is affiliated.
         org_unit: The department, or unit, that the works sits within as per the organisational structure.
@@ -20,7 +21,7 @@ en:
         date_accepted: The date the item was accepted for publication. For example, this may be when receiving an acceptance letter from a publisher or when the final text has been copyedited and approved. You can provide just the year or a more specific date if you have this available.
         date_submitted: The date the item was submitted for review to the publisher.  You can provide just the year or a more specific date if you have this available.
         journal_title: Please enter the journal title, e.g. Journal of Eighteenth-Century Studies.
-        issue: Specify the issue number, where available.
+        issue: Specify the issue number, where available. 
         volume: Please enter the number, e.g. 2, 76. Leave blank if there are no volumes.
         pagination: For a contribution or article, this can be the range of pages e.g. 1-13, for an entire volume it can be the total number of pages.
         article_num: If there is an article number, e.g. e0183455 (usually found in online-only journals)
@@ -40,6 +41,10 @@ en:
         publisher: The name of the organisation making the work available.
         keyword: Words or phrases you select to describe what the work is about. These are used to search for content.
         rights_statement: Please select the most appropriate rights statement for the item.
+        language: Please provide the language.
+        license: Licensing and distribution information governing access to the work. Select from the provided drop-down list, or add to ‘additional information’ field below, if it is not included in the list.
+        original_doi: The DOI of the work. Enter it here if it hasn’t already been auto-added e.g. 10.21250/tcq. For related DOIs which do not refer to the work being deposited, use Related identifier field.
+        dewey: Enter the Dewey classmark.
         library_of_congress_classification: "The letter code corresponding to the LCC - eg 'QK' for 'Botany' - see: <a href='https://en.wikipedia.org/wiki/Library_of_Congress_Classification' target='_blank'>https://en.wikipedia.org/wiki/Library_of_Congress_Classification</a>"
     labels:
       defaults:

@@ -7,3 +7,7 @@ en:
       image:
         description: Single or multi-page image works.
         name: Image
+  simple_form:
+    hints:
+      defaults:
+        media: Describe the material and/or media of the item, e.g. drawing, sculpture, video.  
