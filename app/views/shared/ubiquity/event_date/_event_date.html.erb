@@ -5,7 +5,7 @@
 <% event_date.each do |date| %>
   <div class="ubiquity-meta-event-date">
   <label class="control-label" for="event_date">Event date</label>
-  <br>
+  <p class="help-block"><%= raw(t('simple_form.hints.defaults.event_date')) %></p>
   <%= select_year(parse_date(date, 'year').to_i, {start_year: (Date.today.year + 6), end_year: (Date.today.year - 159), prompt: "Select year"}, {name: "#{template}[event_date_group][][event_date_year]", class: 'form-control ubiquity-date-input'} ) %>
 
   <%= select_month(parse_date(date, 'month').to_i, { use_two_digit_numbers: true,
@@ -14,7 +14,7 @@
                                                            prompt: 'select day if available'},   {name:  "#{template}[event_date_group][][event_date_day]", :class => 'form-control ubiquity-date-input'}) %>
 
 
-  <br/><br/>
+  <br/>
   <a href="#" style="color:red;" class="remove_event_date form-group" data-removeUbiquityEventDate=".ubiquity-meta-event-date">
     <span class="glyphicon glyphicon-remove"></span>
     <span class="controls-remove-text">Remove</span>
@@ -22,6 +22,6 @@
     |
   <a href="#" class="add_event_date" data-addUbiquityEventDate=".ubiquity-meta-event-date">Add
     another </a>
-  <br/><br/><br/>
+  <br/><br/>
 </div>
 <% end %>
