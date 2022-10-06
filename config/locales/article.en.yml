@@ -10,6 +10,9 @@ en:
     hints:
       defaults:
         title: A name to aid in identifying a work. 
+        creator: The person or group responsible for the work. Usually this is the author of the content. If the name is mononymous, please fill in the given name only.
+        editor: The editors that produced this item, in priority order. To add multiple editors, repeat this property. If the name is mononymous, please fill in the given name only.
+        contributor: A person or group you want to recognise for playing a role in the creation of the work, but not the primary role. If the name is mononymous, please fill in the given name only.
         alt_title: Alternative title for the item, such as a translated or abbreviated form of the title.
         institution: The institution to which the item is affiliated.
         org_unit: The department, or unit, that the works sits within as per the organisational structure.
