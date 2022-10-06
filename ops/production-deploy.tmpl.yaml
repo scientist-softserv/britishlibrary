@@ -158,6 +158,8 @@ extraEnvVars: &envVars
     value: 2b989efef38672467771269e8e430afebf55faf20da72e302e1893a3a5de22d9967b30b18d4ef369c9d34a6ca7315f99cb13fb98825aea4ee347a21be70f917e
   - name: SENTRY_DSN
     value: https://bcbcbdd237984028a7d0b76d96ba90dd@o1008683.ingest.sentry.io/6745017
+  - name: LOAD_BALANCER_IP
+    value: 52.210.71.93 
 worker:
   replicaCount: 1
   resources:
