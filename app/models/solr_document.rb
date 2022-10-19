@@ -138,6 +138,26 @@ class SolrDocument
     Time.zone.today.strftime("%Y-%m-%d")
   end
 
+  # overides hyrax v2.9.6 Hyrax::SolrDocument::Export.export_as_endnote
+  # app/models/concerns/hyrax/solr_document/export.rb
+  def export_as_endnote
+    text = []
+    text << "%0 #{endnote_reference_types[human_readable_type.to_sym]}"
+    end_note_format.each do |endnote_key, mapping|
+      if mapping.is_a? String
+        values = [mapping]
+      else
+        values = send(mapping[0]) if respond_to? mapping[0]
+        values = mapping[1].call(values) if mapping.length == 2
+        values = Array.wrap(values)
+      end
+      next if values.blank? || values.first.nil?
+      spaced_values = values.join("; ")
+      text << "#{endnote_key} #{spaced_values}"
+    end
+    text.join("\n")
+  end
+
   def endnote_filename
     "#{id}.enw"
   end
@@ -152,7 +172,7 @@ class SolrDocument
       '%8' => [:date_uploaded],
       '%E' => [:formatted_contributor_and_editor],
       '%I' => [:publisher],
-      '%J' => [:series_title],
+      '%J' => [:journal_title],
       '%V' => [:volume],
       '%7' => [:edition],
       '%P' => [:pagination],
@@ -162,9 +182,28 @@ class SolrDocument
       '%X' => [:abstract],
       '%G' => [:language],
       '%[' => [:date_accessed],
-      '%9' => [:human_readable_type],
+      '%9' => [:resource_type_label],
       '%~' => I18n.t('hyrax.product_name'),
       '%W' => [:institution]
+    }
+  end
+
+  # map from the hyrax human readbla type to the endnote reference type
+  # huge caveat is that this is relying ona label for a key so if someone decides
+  # to change "Thesis Or Dissertation"  to "Thesis or Dissertation" it'll break
+  def endnote_reference_types
+    {
+      'Work': 'Generic',
+      'Image': 'Figure', #or Artwork or Generic?
+      'Book': 'Book',
+      'Book Contribution': 'Book Section',
+      'Article': 'Journal Article',
+      'Conference Item': 'Conference Paper', #or Conference Proceedings or Generic?
+      'Dataset': 'Online Database', #or Aggregated Database or Generic?
+      'Exhibition Item': 'Generic', #?
+      'Report': 'Report',
+      'Thesis Or Dissertation': 'Thesis',
+      'Time Based Media': 'Online Multimedia' #or Audiovisual Material or Music or Generic?
     }
   end
 end

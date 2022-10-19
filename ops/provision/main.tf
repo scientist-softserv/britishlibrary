@@ -42,7 +42,7 @@ resource "helm_release" "ingress-nginx" {
   name = "ingress-nginx"
   namespace = "ingress-nginx"
   create_namespace = true
-  version = "3.12.0"
+  version = "3.33.0"
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart = "ingress-nginx"
 
@@ -106,6 +106,13 @@ resource "kubectl_manifest" "prod_issuer_dns" {
 resource "kubectl_manifest" "staging_issuer" {
   depends_on = [helm_release.cert_manager]
   yaml_body = file("./k8s/staging_issuer.yaml")
+}
+
+resource "kubectl_manifest" "redirect" {
+  for_each = fileset("./k8s/redirects", "*.yaml")
+
+  depends_on = [helm_release.cert_manager]
+  yaml_body = file("./k8s/redirects/${each.value}")
 }
 
 resource "helm_release" "postgresql" {
@@ -209,17 +216,4 @@ resource "kubernetes_namespace" "productionn" {
 resource "kubectl_manifest" "gitlab-secrets" {
   depends_on = [helm_release.cert_manager]
   yaml_body = file("k8s/gitlab-secret-values.yaml")
-}
-
-resource "helm_release" "kasten" {
-  # depends_on = [kubectl_manifest.crowd-pvc]
-  name = "k10"
-  namespace = "kasten-io"
-  version = "4.5.9"
-  create_namespace = true
-  repository= "https://charts.kasten.io/"
-  chart = "k10"
-  values = [
-    file("k8s/kasten-values.yaml")
-  ]
 }

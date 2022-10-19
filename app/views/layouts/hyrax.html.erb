@@ -10,6 +10,7 @@
 
   <body class="<%= body_class %> <%= home_page_theme %> <%= search_results_theme %> <%= show_page_theme %>">
     <%= render_gtm_body(request.original_url) %>
+    <%= render_bl_gtm_body(request.original_url) %>
     <div class="skip-to-content">
       <%= link_to "Skip to Content", "#skip-to-content" %>
     </div>

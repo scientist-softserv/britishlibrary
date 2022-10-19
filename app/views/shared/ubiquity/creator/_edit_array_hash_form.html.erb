@@ -34,7 +34,7 @@
           <% end %>
         </label>
         <%= text_field_tag  "#{template}[creator_group][][creator_organization_name]", hash.dig("creator_organization_name"),
-                            class: "#{template}_creator_organization_name form-control multi-text-field multi_value",
+                            class: "#{template}_creator_organization_name form-control multi-text-field multi_value ubiquity_creator_organization_name",
                             placeholder: 'Please enter the organisation\'s name.',
                             name: "#{template}[creator_group][][creator_organization_name]",
                             data: {field_name:'ubiquity_creator_organization_name'}
@@ -98,7 +98,7 @@
         </label>
         <%= text_field_tag  "#{template}[creator_group][][creator_family_name]",
                             hash.dig("creator_family_name"),
-                            class: "#{template}_creator_group form-control multi-text-field multi_value",
+                            class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_family_name",
                             placeholder: 'Please enter the creator\'s last name/family name.',
                             name: "#{template}[creator_group][][creator_family_name]",
                             data: { field_name: 'ubiquity_creator_family_name' }
@@ -115,7 +115,7 @@
         </label>
         <%= text_field_tag  "#{template}[creator_group][][creator_given_name]",
                             hash.dig("creator_given_name"),
-                            class: "#{template}_creator_group form-control multi-text-field multi_value",
+                            class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_given_name",
                             placeholder: 'Please enter the creator\'s first name/given name.',
                             name: "#{template}[creator_group][][creator_given_name]",
                             data: { field_name: 'ubiquity_creator_given_name' }
@@ -140,14 +140,14 @@
           Creator institutional relationship
         </label>
         <%= select_tag  "#{template}[creator_group][][creator_institutional_relationship]",
-                        content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( ['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("creator_institutional_relationship")),
+                        options_from_collection_for_select( ['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("creator_institutional_relationship")),
                         multiple: true,
                         class: "form-control"
         %>
       </div>
     </span> <!-- closes ubiquity_personal_fields -->
 
-    <div class="<%= "#{template}_creator_isni" %> form-group">
+    <div class="<%= "#{template}_creator_isni" %> form-group isni_input_group">
       <label class="control-label multi_value optional" for="<%=template%>_creator_isni">
         Creator ISNI
       </label>
