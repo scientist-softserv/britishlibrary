@@ -37,29 +37,30 @@ $(document).on('turbolinks:load', function() {
 // display a new creator section on the new or edit form
 $(document).on('turbolinks:load', function() {
   return $('body').on('change', '.ubiquity_creator_name_type', function() {
-    displayCreatorFields($(this.parentElement), this.value);
+    displayCreatorFields($(this.parentElement), this.value, false);
   });
 });
 
 // set saved values in the creator section(s) on the edit work form
 $(document).on('turbolinks:load', function() {
   $('.ubiquity_creator_name_type').each(function() {
-    displayCreatorFields($(this).parent(), this.value);
+    displayCreatorFields($(this).parent(), this.value, true);
   })
 });
-
-function displayCreatorFields(self, value) {
+// init arg will tell us if we have been called as part of 
+// initialisation of form, or on a change to the name_type selector
+function displayCreatorFields(self, value, init) {
   if (value == 'Personal') {
     const lastPersonalSibling = self.siblings('.ubiquity_personal_fields').last();
 
-    hideCreatorOrganization(self);
+    hideCreatorOrganization(self, init);
     creatorUpdateRequired(lastPersonalSibling, 'family');
     creatorUpdateRequired(lastPersonalSibling, 'given');
 
   } else if (value == 'Organisational') {
     const lastOrgSibling = self.siblings('.ubiquity_organization_fields').last();
 
-    hideCreatorPersonal(self);
+    hideCreatorPersonal(self, init);
     creatorUpdateRequired(lastOrgSibling, 'organization');
 
   } else {
@@ -99,20 +100,24 @@ function creatorUpdateRequired(self, field) {
   }
 }
 
-function hideCreatorOrganization(self) {
+function hideCreatorOrganization(self, init) {
   self.siblings('.ubiquity_personal_fields').show();
   self.siblings('.ubiquity_organization_fields').find('.ubiquity_creator_organization_name').last().val('');
-  self.siblings('.isni_input_group').find('.ubiquity_creator_isni').last().val('');
+  if (init === false) {
+    self.siblings('.isni_input_group').find('.ubiquity_creator_isni').last().val('');
+  }
   self.siblings('.ubiquity_organization_fields').find('.ubiquity_creator_organization_name').last().removeAttr('required');
   self.siblings('.ubiquity_organization_fields').hide();
 }
 
-function hideCreatorPersonal(self) {
+function hideCreatorPersonal(self, init) {
   self.siblings('.ubiquity_organization_fields').show();
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_creator_family_name').last().val('').removeAttr('required');
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_creator_given_name').last().val('').removeAttr('required');
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_creator_orcid').last().val('');
-  self.siblings('.isni_input_group').find('.ubiquity_creator_isni').last().val('');
+  if (init === false) {
+    self.siblings('.isni_input_group').find('.ubiquity_creator_isni').last().val('');
+  }
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_creator_institutional_relationship').last().val('');
   self.siblings('.ubiquity_personal_fields').hide();
 }

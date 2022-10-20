@@ -218,6 +218,7 @@ module Bolognese
           authors = []
           JSON.parse(meta[author_type].first).sort_by { |c| c["#{author_type}_position"].to_i }.each do |author|
             name_type = author["#{author_type}_name_type"]
+            name_type = "Organizational" if name_type == "Organisational"
             name, given_name, family_name = reader_name_by_type(author, author_type, name_type)
             name_identifier = []
             ['orcid', 'ror', 'isni', 'grid', 'wikidata'].each do |id_type|
