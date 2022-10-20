@@ -41,10 +41,10 @@ extraVolumeMounts: &volMounts
 ingress:
   enabled: true
   hosts:
-    - host: britishlibrary-staging.notch8.cloud
+    - host: bl-staging.notch8.cloud
       paths:
         - path: /
-    - host: "*.britishlibrary-staging.notch8.cloud"
+    - host: "*.bl-staging.notch8.cloud"
       paths:
         - path: /
   annotations:
@@ -55,8 +55,8 @@ ingress:
     }
   tls:
     - hosts:
-        - britishlibrary-staging.notch8.cloud
-        - "*.britishlibrary-staging.notch8.cloud"
+        - bl-staging.notch8.cloud
+        - "*.bl-staging.notch8.cloud"
       secretName: notch8cloudstaging
 
 extraEnvVars: &envVars
@@ -67,7 +67,7 @@ extraEnvVars: &envVars
   - name: DATABASE_HOST
     value: postgresql.default.svc.cluster.local
   - name: DATABASE_NAME
-    value: britishlibrary-staging
+    value: bl-staging
   - name: DATABASE_PASSWORD
     value: $DATABASE_PASSWORD
   - name: DATABASE_USER
@@ -75,11 +75,11 @@ extraEnvVars: &envVars
   - name: FCREPO_BASE_PATH
     value: /blstaging
   - name: FCREPO_HOST
-    value: britishlibrary-staging-fcrepo:8080
+    value: hyku-staging-fcrepo:8080
   - name: FCREPO_PATH
     value: /rest
   - name: FEDORA_URL
-    value: http://britishlibrary-staging-fcrepo:8080/rest
+    value: http://hyku-staging-fcrepo:8080/rest
   - name: INITIAL_ADMIN_EMAIL
     value: support@notch8.com
   - name: INITIAL_ADMIN_PASSWORD
@@ -91,7 +91,7 @@ extraEnvVars: &envVars
   - name: PASSENGER_APP_ENV
     value: production
   - name: RAILS_CACHE_STORE_URL
-    value: redis://:staging@britishlibrary-staging-redis-master:6379/bl
+    value: redis://:staging@hyku-staging-redis-master:6379/bl
   - name: RAILS_ENV
     value: production
   - name: RAILS_LOG_TO_STDOUT
@@ -101,9 +101,9 @@ extraEnvVars: &envVars
   - name: RAILS_SERVE_STATIC_FILES
     value: "true"
   - name: REDIS_HOST
-    value: britishlibrary-staging-redis-master
+    value: hyku-staging-redis-master
   - name: REDIS_URL
-    value: redis://:staging@britishlibrary-staging-redis-master:6379/bl
+    value: redis://:staging@hyku-staging-redis-master:6379/bl
   - name: HYRAX_ACTIVE_JOB_QUEUE
     value: sidekiq
   - name: HYKU_BULKRAX_ENABLED
@@ -115,17 +115,17 @@ extraEnvVars: &envVars
   - name: HYRAX_FITS_PATH
     value: /app/fits/fits.sh
   - name: HYKU_ADMIN_HOST
-    value: admin.britishlibrary-staging.notch8.cloud
+    value: admin.bl-staging.notch8.cloud
   - name: HYKU_ADMIN_ONLY_TENANT_CREATION
     value: "true"
   - name: HYKU_ALLOW_SIGNUP
     value: "false"
   - name: HYKU_DEFAULT_HOST
-    value: "%{tenant}.britishlibrary-staging.notch8.cloud"
+    value: "%{tenant}.bl-staging.notch8.cloud"
   - name: HYKU_MULTITENANT
     value: "true"
   - name: HYKU_ROOT_HOST
-    value: britishlibrary-staging.notch8.cloud
+    value: bl-staging.notch8.cloud
   - name: SMTP_ADDRESS
     value: smtp.mailtrap.io
   - name: SMTP_DOMAIN
@@ -147,13 +147,13 @@ extraEnvVars: &envVars
   - name: SOLR_CONFIGSET_NAME
     value: hyku-bl
   - name: SOLR_HOST
-    value: britishlibrary-staging-solr
+    value: hyku-staging-solr
   - name: SOLR_PORT
     value: "8983"
   - name: SOLR_ADMIN_PASSWORD
     value: $SOLR_ADMIN_PASSWORD
   - name: SOLR_URL
-    value: http://admin:$SOLR_ADMIN_PASSWORD@britishlibrary-staging-solr:8983/solr/
+    value: http://admin:$SOLR_ADMIN_PASSWORD@hyku-staging-solr:8983/solr/
   - name: SECRET_KEY_BASE
     value: $SECRET_KEY_BASE
   - name: SENTRY_DSN
@@ -207,7 +207,7 @@ fcrepo:
     size: 105Gi
 
 global:
-  hyraxName: britishlibrary-staging-hyrax
+  hyraxName: hyku-staging-hyrax
 
 nginx:
   enabled: true
