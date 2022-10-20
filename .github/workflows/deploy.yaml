@@ -59,4 +59,4 @@ jobs:
         run: >-
           echo $KUBECONFIG_FILE | base64 -d > $KUBECONFIG;
           DOLLAR=$ envsubst < ops/${{ inputs.environment }}-deploy.tmpl.yaml > ops/${{ inputs.environment }}-deploy.yaml;
-          ./bin/helm_deploy ${{ inputs.environment }} ${{ inputs.environment }}
+          ./bin/helm_deploy ${{ inputs.environment }} hyku-${{ inputs.environment }}
