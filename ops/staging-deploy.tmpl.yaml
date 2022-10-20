@@ -41,10 +41,10 @@ extraVolumeMounts: &volMounts
 ingress:
   enabled: true
   hosts:
-    - host: bl-staging.notch8.cloud
+    - host: bl-gh-staging.notch8.cloud
       paths:
         - path: /
-    - host: "*.bl-staging.notch8.cloud"
+    - host: "*.bl-gh-staging.notch8.cloud"
       paths:
         - path: /
   annotations:
@@ -55,8 +55,8 @@ ingress:
     }
   tls:
     - hosts:
-        - bl-staging.notch8.cloud
-        - "*.bl-staging.notch8.cloud"
+        - bl-gh-staging.notch8.cloud
+        - "*.bl-gh-staging.notch8.cloud"
       secretName: notch8cloudstaging
 
 extraEnvVars: &envVars
@@ -115,17 +115,17 @@ extraEnvVars: &envVars
   - name: HYRAX_FITS_PATH
     value: /app/fits/fits.sh
   - name: HYKU_ADMIN_HOST
-    value: admin.bl-staging.notch8.cloud
+    value: admin.bl-gh-staging.notch8.cloud
   - name: HYKU_ADMIN_ONLY_TENANT_CREATION
     value: "true"
   - name: HYKU_ALLOW_SIGNUP
     value: "false"
   - name: HYKU_DEFAULT_HOST
-    value: "%{tenant}.bl-staging.notch8.cloud"
+    value: "%{tenant}.bl-gh-staging.notch8.cloud"
   - name: HYKU_MULTITENANT
     value: "true"
   - name: HYKU_ROOT_HOST
-    value: bl-staging.notch8.cloud
+    value: bl-gh-staging.notch8.cloud
   - name: SMTP_ADDRESS
     value: smtp.mailtrap.io
   - name: SMTP_DOMAIN
