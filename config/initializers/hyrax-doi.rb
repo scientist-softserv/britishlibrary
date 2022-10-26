@@ -31,6 +31,92 @@ Bolognese::DoiUtils.module_eval do
   end
 end
 
+# Name type is ignored/clobbered by bolognese in a confused attempt to parse 
+# it into an attribute. The result is name_type == nil
+# This override will fix that
+require_dependency Pathname.new(Gem.loaded_specs['bolognese'].full_gem_path).join('lib', 'bolognese', 'author_utils').to_s
+
+Bolognese::AuthorUtils.module_eval do
+
+  def get_one_author(author)
+    # author is a string
+    author = { "creatorName" => author } if author.is_a?(String)
+
+    # malformed XML
+    return nil if author.fetch("creatorName", nil).is_a?(Array)
+
+    name = parse_attributes(author.fetch("creatorName", nil)) ||
+           parse_attributes(author.fetch("contributorName", nil))
+    given_name = parse_attributes(author.fetch("givenName", nil))
+    family_name = parse_attributes(author.fetch("familyName", nil))
+    name = cleanup_author(name)
+    name = [family_name, given_name].join(", ") if family_name.present? && given_name.present?
+    contributor_type = parse_attributes(author.fetch("contributorType", nil))
+
+    # keep name_type simple here, it gets parsed as an attribute further down the line
+    name_type = parse_attributes(author.fetch("nameType",nil))
+    STDERR.puts "################# NAME_TYPE (mine): #{name_type}"
+
+    name_identifiers = Array.wrap(author.fetch("nameIdentifier", nil)).map do |ni|
+      if ni["nameIdentifierScheme"] == "ORCID"
+        {
+          "nameIdentifier" => normalize_orcid(ni["__content__"]),
+          "schemeUri" => "https://orcid.org",
+          "nameIdentifierScheme" => "ORCID" }.compact
+      elsif ni["schemeURI"].present?
+        {
+          "nameIdentifier" => ni["schemeURI"].to_s + ni["__content__"].to_s,
+          "schemeUri" => ni["schemeURI"].to_s,
+          "nameIdentifierScheme" => ni["nameIdentifierScheme"] }.compact
+      else
+        {
+          "nameIdentifier" => ni["__content__"],
+          "schemeUri" => nil,
+          "nameIdentifierScheme" => ni["nameIdentifierScheme"] }.compact
+      end
+    end.presence
+
+    author = { "nameType" => name_type,
+               "name" => name,
+               "givenName" => given_name,
+               "familyName" => family_name,
+               "nameIdentifiers" => name_identifiers,
+               "affiliation" => get_affiliations(author.fetch("affiliation", nil)),
+               "contributorType" => contributor_type }.compact
+
+    return author if family_name.present?
+
+    if is_personal_name?(author)
+      Namae.options[:include_particle_in_family] = true
+      names = Namae.parse(name)
+      parsed_name = names.first
+
+      if parsed_name.present?
+        given_name = parsed_name.given
+        family_name = parsed_name.family
+        name = [family_name, given_name].join(", ")
+      else
+        given_name = nil
+        family_name = nil
+      end
+
+      { "nameType" => "Personal",
+        "name" => name,
+        "givenName" => given_name,
+        "familyName" => family_name,
+        "nameIdentifiers" => Array.wrap(name_identifiers),
+        "affiliation" => Array.wrap(author.fetch("affiliation", nil)),
+        "contributorType" => contributor_type }.compact
+    else
+      { "nameType" => name_type,
+        "name" => name,
+        "nameIdentifiers" => Array.wrap(name_identifiers),
+        "affiliation" => Array.wrap(author.fetch("affiliation", nil)),
+        "contributorType" => contributor_type }.compact
+    end
+  end
+end
+
 ## Fix UTF8 encoding bug https://github.com/datacite/maremma/issues/17
 Maremma.class_eval do
   def self.parse_response(string, options = {})
