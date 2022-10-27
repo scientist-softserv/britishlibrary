@@ -55,7 +55,6 @@ Bolognese::AuthorUtils.module_eval do
 
     # keep name_type simple here, it gets parsed as an attribute further down the line
     name_type = parse_attributes(author.fetch("nameType",nil))
-    STDERR.puts "################# NAME_TYPE (mine): #{name_type}"
 
     name_identifiers = Array.wrap(author.fetch("nameIdentifier", nil)).map do |ni|
       if ni["nameIdentifierScheme"] == "ORCID"
@@ -135,5 +134,37 @@ Maremma.class_eval do
     return string if options[:raw]
 
     from_json(string) || from_xml(string) || from_string(string)
+  end
+end
+
+# Override Hyrax::Identifier::Dispatcher.assign_for (Hyrax 2.9.6)
+# to set official_url (official_link for some reason) with doi in 
+# certain conditions
+Hyrax::Identifier::Dispatcher.class_eval do
+
+      ##
+      # Assigns an identifier to the object.
+      #
+      # This involves two steps:
+      #   - Registering the identifier with the registrar service via `registrar`.
+      #   - Storing the new identifier on the object, in the provided `attribute`.
+      #
+      # @note the attribute for identifier storage must be multi-valued, and will
+      #  be overwritten during assignment.
+      #
+      # @param attribute [Symbol] the attribute in which to store the identifier.
+      #   This attribute will be overwritten during assignment.
+      # @param object    [ActiveFedora::Base, Hyrax::Resource] the object to assign an identifier.
+      #
+      # @return [ActiveFedora::Base, Hyrax::Resource] object
+  def assign_for(object:, attribute: :identifier)
+    record = registrar.register!(object: object)
+    object.public_send("#{attribute}=".to_sym, [record.identifier])
+    # Work is public and the status when public (annoyingly the gem's 
+    # public? method is private) is either findable or registered
+    if object.official_link.blank? and object.visibility == Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC and object.doi_status_when_public.in?(['registered', 'findable'])
+      object.official_link="https://doi.org/#{record.identifier}"
+    end
+    object
   end
 end
