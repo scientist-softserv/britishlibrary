@@ -7,7 +7,7 @@ x-app: &app
     args:
       - HYKU_BULKRAX_ENABLED=true
   # command: sh -l -c "bundle && bundle exec puma -v -b tcp://0.0.0.0:3000"
-  image: registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
+  image: ghcr.io/scientist-softserv/britishlibrary:${TAG:-latest}
   env_file:
     - .env
   # NOTE: all common env variables moved to .env
@@ -151,9 +151,9 @@ services:
       args:
         - HYKU_BULKRAX_ENABLED=true
       cache_from:
-        - registry.gitlab.com/notch8/britishlibrary:${TAG:-latest}
-        - registry.gitlab.com/notch8/britishlibrary/worker:${TAG:-latest}
-    image: registry.gitlab.com/notch8/britishlibrary/worker:${TAG:-latest}
+        - ghcr.io/scientist-softserv/britishlibrary:${TAG:-latest}
+        - ghcr.io/scientist-softserv/britishlibrary/worker:${TAG:-latest}
+    image: ghcr.io/scientist-softserv/britishlibrary/worker:${TAG:-latest}
     depends_on:
       check_volumes:
         condition: service_completed_successfully
