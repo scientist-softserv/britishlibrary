@@ -69,50 +69,50 @@ module Bolognese
         # map work type to an allowed resourceTypeGeneral value
         def work_to_resource_type_general_map
           {
-          'GenericWork': 'Text',
-          'Image': 'Image',
-          'Book': 'Book',
-          'BookContribution': 'BookChapter',
-          'Article': 'Text',
-          'ConferenceItem': 'ConferencePaper',
-          'Dataset': 'Dataset', 
-          'ExhibitionItem': 'Text', 
-          'Report': 'Report',
-          'ThesisOrDissertation': 'Dissertation',
-          'TimeBasedMedia': 'Audiovisual'
+            'GenericWork': 'Text',
+            'Image': 'Image',
+            'Book': 'Book',
+            'BookContribution': 'BookChapter',
+            'Article': 'Text',
+            'ConferenceItem': 'ConferencePaper',
+            'Dataset': 'Dataset',
+            'ExhibitionItem': 'Text',
+            'Report': 'Report',
+            'ThesisOrDissertation': 'Dissertation',
+            'TimeBasedMedia': 'Audiovisual'
           }
         end
+
         # map resource_type to an allowed resrouceTypeGeneral value
         # This is for when the default hyrax type => RTG doesn't quite work
         def resource_type_to_resource_type_general_map
           {
-          'Journal article': 'JournalArticle',  #Article
-          'Data paper': 'DataPaper',
-          'Book editorial': 'Text', #Book
-          'Abstract': 'Text', #ConferenceItem
-          'Lecture': 'Event',
-          'Poster (published)': 'Image',
-          'Poster (unpublished)': 'Image',
-          'Presentation': 'Event',
-          'Software': 'Software', #Dataset
-          'Exhibition': 'Event', #ExhibitionItem
-          'Exhibition-related event': 'Event',
-          'Exhibition audio-visual guide': 'Audiovisual',
-          'Festival': 'Event',
-          'Cartographic material': 'Image', #GenericWork
-          'Interactive resource': 'InteractiveResource',
-          'Journal issue': 'Journal',
-          'Leaflet': 'Leaflet',
-          'Learning object': 'InteractiveResource',
-          'Musical notation': 'Other',
-          'Website': 'InteractiveResource',
-          'Workflow': 'Workflow',
-          'Other': 'Other',
+            'Journal article': 'JournalArticle', #Article
+            'Data paper': 'DataPaper',
+            'Book editorial': 'Text', #Book
+            'Abstract': 'Text', #ConferenceItem
+            'Lecture': 'Event',
+            'Poster (published)': 'Image',
+            'Poster (unpublished)': 'Image',
+            'Presentation': 'Event',
+            'Software': 'Software', #Dataset
+            'Exhibition': 'Event', #ExhibitionItem
+            'Exhibition-related event': 'Event',
+            'Exhibition audio-visual guide': 'Audiovisual',
+            'Festival': 'Event',
+            'Cartographic material': 'Image', #GenericWork
+            'Interactive resource': 'InteractiveResource',
+            'Journal issue': 'Journal',
+            'Leaflet': 'Leaflet',
+            'Learning object': 'InteractiveResource',
+            'Musical notation': 'Other',
+            'Website': 'InteractiveResource',
+            'Workflow': 'Workflow',
+            'Other': 'Other'
           }
         end
 
         def read_hyrax_work_types(meta)
-
           # First we get the hyrax type from the model
           hyrax_resource_type = meta.fetch('has_model', nil) || "Work"
           # Our datacite resource type will be whatever has been selected as the resource type on the form
