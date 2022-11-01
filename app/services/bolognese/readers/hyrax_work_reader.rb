@@ -66,12 +66,64 @@ module Bolognese
           end
         end
 
+        # map work type to an allowed resourceTypeGeneral value
+        def work_to_resource_type_general_map
+          {
+            'GenericWork': 'Text',
+            'Image': 'Image',
+            'Book': 'Book',
+            'BookContribution': 'BookChapter',
+            'Article': 'Text',
+            'ConferenceItem': 'ConferencePaper',
+            'Dataset': 'Dataset',
+            'ExhibitionItem': 'Text',
+            'Report': 'Report',
+            'ThesisOrDissertation': 'Dissertation',
+            'TimeBasedMedia': 'Audiovisual'
+          }
+        end
+
+        # map resource_type to an allowed resrouceTypeGeneral value
+        # This is for when the default hyrax type => RTG doesn't quite work
+        def resource_type_to_resource_type_general_map
+          {
+            'Journal article': 'JournalArticle', #Article
+            'Data paper': 'DataPaper',
+            'Book editorial': 'Text', #Book
+            'Abstract': 'Text', #ConferenceItem
+            'Lecture': 'Event',
+            'Poster (published)': 'Image',
+            'Poster (unpublished)': 'Image',
+            'Presentation': 'Event',
+            'Software': 'Software', #Dataset
+            'Exhibition': 'Event', #ExhibitionItem
+            'Exhibition-related event': 'Event',
+            'Exhibition audio-visual guide': 'Audiovisual',
+            'Festival': 'Event',
+            'Cartographic material': 'Image', #GenericWork
+            'Interactive resource': 'InteractiveResource',
+            'Journal issue': 'Journal',
+            'Leaflet': 'Leaflet',
+            'Learning object': 'InteractiveResource',
+            'Musical notation': 'Other',
+            'Website': 'InteractiveResource',
+            'Workflow': 'Workflow',
+            'Other': 'Other'
+          }
+        end
+
         def read_hyrax_work_types(meta)
-          # TODO: Map work.resource_type or work.
-          resource_type_general = "Other"
+          # First we get the hyrax type from the model
           hyrax_resource_type = meta.fetch('has_model', nil) || "Work"
-          resource_type = Hyrax::ResourceTypesService.label(meta.fetch('resource_type', nil))
+          # Our datacite resource type will be whatever has been selected as the resource type on the form
+          resource_type = Hyrax::ResourceTypesService.label(meta.fetch('resource_type', nil).first)
+          # If we do not have a resource point by this point, we will default to the work type
           resource_type = hyrax_resource_type if resource_type.blank? || resource_type.match(/\[Error/)
+
+          # Now for resourceTypeGeneral use map from work type to datacite RTG
+          resource_type_general = work_to_resource_type_general_map[hyrax_resource_type.to_sym]
+          # But there is some further nuance we can apply in some cases
+          resource_type_general = resource_type_to_resource_type_general_map[resource_type.to_sym] if resource_type_to_resource_type_general_map[resource_type.to_sym].present?
           {
             "resourceTypeGeneral" => resource_type_general,
             "resourceType" => resource_type,
