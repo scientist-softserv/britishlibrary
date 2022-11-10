@@ -48,7 +48,7 @@ production:
   enable_send_requests: true
   irus_server_address: https://irus.jisc.ac.uk/counter/
   robots_file: irus_analytics_counter_robot_list.txt
-  verbose_debug: true
+  verbose_debug: false
   source_repository: iro.bl.uk
   named_servers: true
   bl.iro.bl.uk:
