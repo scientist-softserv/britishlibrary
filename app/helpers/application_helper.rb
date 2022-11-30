@@ -18,4 +18,13 @@ module ApplicationHelper
       full_url.host.split('.').first
     end
   end
+
+  def render_browse_everything_ui_upload_widget?
+    return false unless Hyrax.config.browse_everything?
+    return false unless defined?(BrowseEverything)
+    return true if params[:cloud].present?
+
+    # True if we have non- "file_system" BrowseEverything providers
+    BrowseEverything.config&.keys&.detect { |provider| provider.to_s != "file_system" }
+  end
 end
