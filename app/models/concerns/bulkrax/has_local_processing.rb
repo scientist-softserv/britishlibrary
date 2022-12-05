@@ -17,6 +17,7 @@ module Bulkrax::HasLocalProcessing
     acceptable_values = {
       'researchassociate': 'Research associate',
       'staffmember': 'Staff member'
+      'doctoralcollaborativestudent': 'Doctoral collaborative student'
     }
 
     # remove the invalid keys in the array below and use the `<object>_institional_relationship` key only

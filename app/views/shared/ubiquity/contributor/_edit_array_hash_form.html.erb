@@ -124,7 +124,7 @@
           Contributor institutional relationship
         </label>
         <%= select_tag  "#{template}[contributor_group][][contributor_institutional_relationship]",
-                        options_from_collection_for_select(['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("contributor_institutional_relationship")),
+                        options_from_collection_for_select(['Staff member', 'Research associate', 'Collaborative doctoral student'], :to_s, :to_s, hash.dig("contributor_institutional_relationship")),
                         multiple: true,
                         class: "form-control"
         %>
