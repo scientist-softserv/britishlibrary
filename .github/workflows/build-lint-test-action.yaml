@@ -38,11 +38,6 @@ jobs:
   test:
     needs: build-web
     uses: scientist-softserv/build-lint-test-action/.github/workflows/test.yaml@chmod-backport
-    with:
-      worker: true
   lint:
     needs: build-web
     uses: scientist-softserv/build-lint-test-action/.github/workflows/lint.yaml@chmod-backport
-    with:
-      worker: true
-
