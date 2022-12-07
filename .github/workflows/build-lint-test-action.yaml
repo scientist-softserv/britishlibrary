@@ -37,11 +37,11 @@ jobs:
       target: hyku-worker
   test:
     needs: build-web
-    uses: scientist-softserv/actions/.github/workflows/test.yaml@v0.0.5
+    uses: scientist-softserv/actions/.github/workflows/test.yaml@arm-wrestle
     with:
       worker: true
   lint:
     needs: build-web
-    uses: scientist-softserv/actions/.github/workflows/lint.yaml@v0.0.5
+    uses: scientist-softserv/actions/.github/workflows/lint.yaml@arm-wrestle
     with:
       worker: true
