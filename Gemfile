@@ -149,3 +149,4 @@ gem "sentry-raven"
 gem 'sidekiq'
 gem 'tether-rails'
 gem 'validate_url'
+gem 'hyrax-v2_graph_indexer'
