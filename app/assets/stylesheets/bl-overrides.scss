@@ -100,7 +100,11 @@ body.public-facing.bl-public-facing {
   .pb-40 {
     padding-bottom: 40px;
   }
-
+  
+  .pt-60 {
+    padding-top: 60px;
+  }
+  
   .pb-60 {
     padding-bottom: 60px;
   }
@@ -926,6 +930,9 @@ body.public-facing.bl-public-facing {
     //add these properties to make all logos greyscale
     // filter: grayscale(1);
     // -webkit-filter: grayscale(1);
+    &.banner-logo {
+      margin-top: 0;
+    };
   }
 
   .splash-searchbar {
