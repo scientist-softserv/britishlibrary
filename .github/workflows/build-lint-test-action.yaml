@@ -36,8 +36,8 @@ jobs:
     with:
       target: hyku-worker
   test:
-    needs: build-web
+    needs: [build-web, build-worker]
     uses: scientist-softserv/build-lint-test-action/.github/workflows/test.yaml@chmod-backport
   lint:
-    needs: build-web
+    needs: [build-web, build-worker]
     uses: scientist-softserv/build-lint-test-action/.github/workflows/lint.yaml@chmod-backport
