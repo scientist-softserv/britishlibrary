@@ -39,8 +39,8 @@ module Bulkrax
     end
 
     def add_authoridentifier
-      add_complicated_element('authoridentifier_isni', 'authoridentifier', 'dcterms:ISO639-2')
-      add_complicated_element('authoridentifier_orcid', 'authoridentifier', 'dcterms:ISO639-2')
+      add_complicated_element('authoridentifier_isni', 'authoridentifier', 'uketdterms:ISNI')
+      add_complicated_element('authoridentifier_orcid', 'authoridentifier', 'uketdterms:ORCID')
     end
 
     def add_subject
@@ -57,11 +57,10 @@ module Bulkrax
 
     def add_complicated_element(element_label, element_name, type_value)
       elements = record.xpath("//*[name()='#{element_name}']")
-      element_types = record.xpath("//*[name()='#{element_name}/@type']")
       return if elements.blank?
-      elements.each_with_index do |el, i|
+      elements.each do |el|
         el.children.map(&:content).each do |content|
-          add_metadata(element_label, content) if content.present? && element_types[i]&.content == type_value
+          add_metadata(element_label, content) if content.present? && el.attr('type') == type_value
         end
       end
 
