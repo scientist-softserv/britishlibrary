@@ -6,6 +6,9 @@ module Bulkrax
       Bulkrax::XmlEtdDcEntry
     end
 
+    # @todo not yet supported
+    def file_set_entry_class; end
+
     def create_file_sets
       create_objects(['file_set'])
     end

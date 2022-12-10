@@ -184,35 +184,36 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'children' => { from: ['children'], split: /\s*[;|]\s*/, related_children_field_mapping: true },
     })
 
-    config.field_mappings['Bulkrax::XMLEtdDcParser'] = {
-        'creator_family_name' => { from: ['dc:creator'], object: 'creator' },
-        'creator_given_name' => { from: ['dc:creator'], object: 'creator' },
-        # 'creator_isni' => { from: ['uketdterms:authoridentifier xsi:type="uketdterms:ISNI"'], object: 'creator' },
-        # 'creator_orcid' => { from: ['uketdterms:authoridentifier xsi:type="uketdterms:ORCID"'], object: 'creator' },
-        'title' => { from: ['dc:title'] },
-        # 'doi' => { from: ['dc:identifier xsi:type="dcterms:DOI"'] },
-        'alt_title' => { from: ['dcterms:alternative'] },
-        # 'language' => { from: ['dc:language xsi:type="dcterms:ISO639-2"'] },
-        'publisher' => { from: ['dc:publisher'] },
-        'current_he_institution_name' => { from: ['uketdterms:institution'], object: 'current_he_institution' },
-        'date_accepted' => { from: ['dcterms:issued'] },
-        'qualification_name' => { from: ['dc:type'] },
-        'qualification_level' => { from: ['uketdterms:qualificationlevel'] },
-        'abstract' => { from: ['dcterms:abstract'] },
-        'dewey' => { from: ['dc:subject xsi:type="dcterms:Ddc"'] },
-        'keyword' => { from: ['dc:coverage'], split: /\s*;\s*/ },
-        'contributor_family_name' => { from: ['uketdterms:advisor'], object: 'contributor' },
-        'contributor_given_name' => { from: ['uketdterms:advisor'], object: 'contributor' },
-        'funder_name' => { from: ['uketdterms:sponsor'], object: "funder" },
-        # 'embargo_date' => { from: ['uketdterms:embargodate'] },
+    config.field_mappings['Bulkrax::XmlEtdDcParser'] = {
+        'abstract' => { from: ['abstract'] },
+        'alt_title' => { from: ['alternative'] },
+        'contributor_family_name' => { from: ['advisor'], object: 'contributor' },
+        'contributor_given_name' => { from: ['advisor'], object: 'contributor' },
+        'creator_family_name' => { from: ['creator'], object: 'creator' },
+        'creator_given_name' => { from: ['creator'], object: 'creator' },
+        'creator_isni' => { from: ['authoridentifier_isni'], object: 'creator' }, # type="uketdterms:ISNI"
+        'creator_orcid' => { from: ['authoridentifier_orcid'], object: 'creator' }, # type="uketdterms:ORCID"
+        'current_he_institution_name' => { from: ['institution'], object: 'current_he_institution' },
+        'date_accepted' => { from: ['issued'] },
+        'dewey' => { from: ['subject'] }, # type="dcterms:Ddc"
+        'doi' => { from: ['identifier'] }, # type="dcterms:DOI"
+        'embargo_date' => { from: ['embargodate'] },
         # 'embargo_date' => { from: ['dcterms:accessRights'] },
-        'org_unit' => { from: ['uketdterms:department'] },
-        'funder_award' => { from: ['uketdterms:grantnumber'], object: "funder", split: /\s*;\s*/ },
-        'official_link' => { from: ['dcterms:isReferencedBy'] },
+        'funder_award' => { from: ['ugrantnumber'], object: "funder", split: /\s*;\s*/ },
+        'funder_name' => { from: ['sponsor'], object: "funder" },
+        'bulkrax_identifier' => { from: ['source'], source_identifier: true },
+        'keyword' => { from: ['coverage'], split: /\s*;\s*/ },
+        'language' => { from: ['language'] }, # type="dcterms:ISO639-2"
+        'org_unit' => { from: ['department'] },
+        'official_link' => { from: ['isReferencedBy'] },
+        'publisher' => { from: ['publisher'] },
+        'qualification_name' => { from: ['type'] },
+        'qualification_level' => { from: ['qualificationlevel'] },
+        'title' => { from: ['title'] },
         'parents' => { from: ['parents'], split: /\s*[;|]\s*/, related_parents_field_mapping: true },
         'children' => { from: ['children'], split: /\s*[;|]\s*/, related_children_field_mapping: true },
-        # 'alternate_identifier' => { from: ['dcterms:provenance', 'dc:source', 'dc:relation'], object: 'alternate_identifier' },
-        # 'alternate_identifier_type' => { from: ['dcterms:provenance', 'dc:source', 'dc:relation'], object: 'alternate_identifier' }
+        'alternate_identifier' => {from: %w[provenance source relation], object: 'alternate_identifier' },
+        'alternate_identifier_type' => {from: %w[provenance source relation], object: 'alternate_identifier' }
     #OAI identifier' => dcterms:provenance
     #EThOS identifier' => dc:source
     #Aleph system number => dc:relation
