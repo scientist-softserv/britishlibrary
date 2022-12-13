@@ -189,8 +189,12 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
         'alt_title' => { from: ['alternative'] },
         'contributor_family_name' => { from: ['advisor'], object: 'contributor' },
         'contributor_given_name' => { from: ['advisor'], object: 'contributor' },
+        'contributor_name_type' => { from: ['advisor'], object: 'contributor' },
+        'contributor_position' => { from: ['advisor'], object: 'contributor' },
         'creator_family_name' => { from: ['creator'], object: 'creator' },
         'creator_given_name' => { from: ['creator'], object: 'creator' },
+        'creator_name_type' => { from: ['creator'], object: 'creator' },
+        'creator_position' => { from: ['creator'], object: 'creator' },
         'creator_isni' => { from: ['authoridentifier_isni'], object: 'creator' }, # type="uketdterms:ISNI"
         'creator_orcid' => { from: ['authoridentifier_orcid'], object: 'creator' }, # type="uketdterms:ORCID"
         'current_he_institution_name' => { from: ['institution'], object: 'current_he_institution' },
