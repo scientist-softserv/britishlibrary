@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 # OVERRIDE here to add featured collection methods and to delegate collection presenters to the member presenter factory
+# And to add Hyrax IIIF AV
 
 module Hyku
   class WorkShowPresenter < Hyrax::WorkShowPresenter
-    Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::FileSetPresenter
+    # Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::FileSetPresenter
+     # Adds behaviors for hyrax-iiif_av plugin.
+     include Hyrax::IiifAv::DisplaysIiifAv
+     Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::IiifAv::IiifFileSetPresenter
 
     include MultipleMetadataFieldsHelper
     delegate :extent, :rendering_ids, :isni, :institution, :org_unit, :refereed, :doi, :original_doi, :isbn, :issn, :eissn,
@@ -90,6 +94,25 @@ module Hyku
       current_ability.can?(:create, FeaturedCollection)
     end
     # End Featured Collections Methods
+
+    # @return [Boolean] render a IIIF viewer
+    def iiif_viewer?
+      Hyrax.config.iiif_image_server? &&
+        representative_id.present? &&
+        representative_presenter.present? &&
+        iiif_media? &&
+        members_include_viewable?
+    end
+
+    def iiif_media?(presenter: representative_presenter)
+      presenter.image? || presenter.video? || presenter.audio?
+    end
+
+    def members_include_viewable?
+      file_set_presenters.any? do |presenter|
+        iiif_media?(presenter: presenter) && current_ability.can?(:read, presenter.id)
+      end
+    end
 
     private
 

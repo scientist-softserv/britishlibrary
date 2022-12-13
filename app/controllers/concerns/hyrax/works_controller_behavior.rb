@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # OVERRIDE: British Libraries override to Hyrax v.2.9.5 so that a new work defaults to a "public" visibility
+# Also to add Hyrax IIIF AV
 require "iiif_manifest"
 require "hyrax/doi/errors"
 
@@ -9,6 +10,7 @@ module Hyrax
     extend ActiveSupport::Concern
     include Blacklight::Base
     include Blacklight::AccessControls::Catalog
+    include Hyrax::IiifAv::ControllerBehavior # Adds behaviors for hyrax-iiif_av plugin.
     included do
       with_themed_layout :decide_layout
       copy_blacklight_config_from(::CatalogController)
@@ -22,7 +24,7 @@ module Hyrax
       self.show_presenter = Hyrax::WorkShowPresenter
       self.work_form_service = Hyrax::WorkFormService
       self.search_builder_class = WorkSearchBuilder
-      self.iiif_manifest_builder = (Flipflop.cache_work_iiif_manifest? ? Hyrax::CachingIiifManifestBuilder.new : Hyrax::ManifestBuilderService.new)
+
       attr_accessor :curation_concern
       helper_method :curation_concern, :contextual_path
 
@@ -151,16 +153,6 @@ module Hyrax
       presenter
     end
 
-    def manifest
-      headers["Access-Control-Allow-Origin"] = "*"
-
-      json = json_manifest
-
-      respond_to do |wants|
-        wants.json { render json: json }
-        wants.html { render json: json }
-      end
-    end
 
     def json_manifest
       iiif_manifest_builder.manifest_for(presenter: iiif_manifest_presenter)
@@ -211,9 +203,6 @@ module Hyrax
         meta.hyrax_work
       end
 
-      def iiif_manifest_builder
-        self.class.iiif_manifest_builder
-      end
 
       def iiif_manifest_presenter
         IiifManifestPresenter.new(curation_concern_from_search_results).tap do |p|
