@@ -153,7 +153,6 @@ module Hyrax
       presenter
     end
 
-
     def json_manifest
       iiif_manifest_builder.manifest_for(presenter: iiif_manifest_presenter)
     end
@@ -202,7 +201,6 @@ module Hyrax
         meta.types["hyrax"] = curation_concern.class.to_s
         meta.hyrax_work
       end
-
 
       def iiif_manifest_presenter
         IiifManifestPresenter.new(curation_concern_from_search_results).tap do |p|

@@ -6,9 +6,9 @@
 module Hyku
   class WorkShowPresenter < Hyrax::WorkShowPresenter
     # Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::FileSetPresenter
-     # Adds behaviors for hyrax-iiif_av plugin.
-     include Hyrax::IiifAv::DisplaysIiifAv
-     Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::IiifAv::IiifFileSetPresenter
+    # Adds behaviors for hyrax-iiif_av plugin.
+    include Hyrax::IiifAv::DisplaysIiifAv
+    Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::IiifAv::IiifFileSetPresenter
 
     include MultipleMetadataFieldsHelper
     delegate :extent, :rendering_ids, :isni, :institution, :org_unit, :refereed, :doi, :original_doi, :isbn, :issn, :eissn,

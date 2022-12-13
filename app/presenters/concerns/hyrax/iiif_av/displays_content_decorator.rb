@@ -96,7 +96,7 @@ module Hyrax
         end
 
         def stream_urls
-          return {} unless object['derivatives_metadata_ssi'].present?
+          return {} if object['derivatives_metadata_ssi'].blank?
           files_metadata = JSON.parse(object['derivatives_metadata_ssi'])
           file_locations = files_metadata.select { |f| f['file_location_uri'].present? }
           streams = {}
