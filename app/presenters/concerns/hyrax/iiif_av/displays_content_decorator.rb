@@ -1,6 +1,11 @@
 module Hyrax
   module IiifAv
     module DisplaysContentDecorator
+      # main reasons for this decorator is to override variable names from hyrax-iiif_av
+      #   solr_document => object
+      #   current_ability => @ability
+      #   request.base_url => hostname
+      # also to remove #auth_service since it was not working for now
       def display_content
         return nil unless display_content_allowed?
 
@@ -19,13 +24,39 @@ module Hyrax
           object.video? || object.audio? || object.image?
         end
 
+        def image_content
+          return nil unless latest_file_id
+
+          url = Hyrax.config.iiif_image_url_builder.call(
+            latest_file_id,
+            hostname,
+            Hyrax.config.iiif_image_size_default
+          )
+
+          image_content_v3(url)
+        end
+
+        def image_content_v3(url)
+          # @see https://github.com/samvera-labs/iiif_manifest
+          IIIFManifest::V3::DisplayContent.new(url,
+                                               format: object.mime_type,
+                                               width: width,
+                                               height: height,
+                                               type: 'Image',
+                                               iiif_endpoint: iiif_endpoint(latest_file_id, base_url: hostname))
+        end
+
         def video_content
           # @see https://github.com/samvera-labs/iiif_manifest
           streams = stream_urls
           if streams.present?
             streams.collect { |label, url| video_display_content(url, label) }
           else
-            [video_display_content(download_path('mp4'), 'mp4')]
+            [
+              video_display_content(download_path('mp4'), 'mp4'),
+              # commenting out webm to clean up manifest with only one derivative
+              # video_display_content(download_path('webm'), 'webm')
+            ]
           end
         end
 
