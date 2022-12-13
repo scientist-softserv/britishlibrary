@@ -61,12 +61,33 @@ module Hyrax
         end
 
         def video_display_content(_url, label = '')
-          IIIFManifest::V3::DisplayContent.new(Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(object.id, label: label, host: hostname),
+          IIIFManifest::V3::DisplayContent.new(Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_dcurl(object.id, label: label, host: hostname),
                                                label: label,
                                                width: Array(object.width).first.try(:to_i) || 320,
                                                height: Array(object.height).first.try(:to_i) || 240,
                                                duration: Array(object.duration).first.try(:to_i) || 400.0,
                                                type: 'Video',
+                                               format: object.mime_type)
+        end
+
+        def audio_content
+          streams = stream_urls
+          if streams.present?
+            streams.collect { |label, url| audio_display_content(url, label) }
+          else
+            [
+              # commenting out ogg to clean up manifest with only one derivative
+              # audio_display_content(download_path('ogg'), 'ogg'),
+              audio_display_content(download_path('mp3'), 'mp3')
+            ]
+          end
+        end
+
+        def audio_display_content(_url, label = '')
+          IIIFManifest::V3::DisplayContent.new(Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(object.id, label: label, host: hostname),
+                                               label: label,
+                                               duration: Array(object.duration).first.try(:to_i) || 400.0,
+                                               type: 'Sound',
                                                format: object.mime_type)
         end
 
