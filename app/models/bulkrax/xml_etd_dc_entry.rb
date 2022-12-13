@@ -12,9 +12,9 @@ module Bulkrax
 
     def build_metadata
       raise StandardError, 'Record not found' if record.nil?
-      raise StandardError, "Missing source identifier (#{source_identifier})" if self.raw_metadata[source_identifier].blank?
-      self.parsed_metadata = {}
-      self.parsed_metadata[work_identifier] = [self.raw_metadata[source_identifier]]
+      raise StandardError, "Missing source identifier (#{source_identifier})" if raw_metadata[source_identifier].blank?
+      parsed_metadata = {}
+      parsed_metadata[work_identifier] = [raw_metadata[source_identifier]]
       xml_elements.each do |element_name|
         next if complicated_elements.include?(element_name)
         elements = record.xpath("//*[name()='#{element_name}']")
@@ -30,24 +30,24 @@ module Bulkrax
       add_rights_statement
       add_admin_set_id
       add_collections
+
+      parsed_metadata['file'] = raw_metadata['file']
+
+      add_local
+      raise StandardError, "title is required" if parsed_metadata['title'].blank?
+      parsed_metadata
+    end
+
+    def add_model
+      parsed_metadata['model'] = 'ThesisOrDissertation'
+    end
+
+    def add_complicated_fields
       add_authoridentifier
       add_subject
       add_identifier
       add_language
       # alt identifier
-      add_creator
-      add_contributor
-      # etc
-
-      self.parsed_metadata['file'] = self.raw_metadata['file']
-
-      add_local
-      raise StandardError, "title is required" if self.parsed_metadata['title'].blank?
-      self.parsed_metadata
-    end
-
-    def add_model
-      self.parsed_metadata['model'] = 'ThesisOrDissertation'
     end
 
     def add_authoridentifier
@@ -77,6 +77,12 @@ module Bulkrax
       end
     end
 
+    def add_fields_with_names
+      add_creator
+      add_contributor
+      # etc
+    end
+
     def add_creator
       add_name_field('creator', 'creator')
     end
@@ -100,14 +106,14 @@ module Bulkrax
             add_metadata("#{name_field_prefix}_given_name", (separated_name.length > 1 ? separated_name.last : ''))
             add_metadata("#{name_field_prefix}_name_type", 'Personal')
             add_metadata("#{name_field_prefix}_position", position)
+            position += 1
           end
         end
       end
     end
 
     def complicated_elements
-      %w(authoridentifier_isni authoridentifier_orcid subject identifier language provenance source relation advisor creator) # maybe embargo_date
+      %w[authoridentifier_isni authoridentifier_orcid subject identifier language provenance source relation advisor creator] # maybe embargo_date
     end
   end
 end
-

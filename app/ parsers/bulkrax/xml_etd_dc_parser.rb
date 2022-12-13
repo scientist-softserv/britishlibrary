@@ -6,7 +6,7 @@ module Bulkrax
       Bulkrax::XmlEtdDcEntry
     end
 
-    # @todo not yet supported
+    # @this not yet supported yet in bulkrax
     def file_set_entry_class; end
 
     def create_file_sets
@@ -17,8 +17,7 @@ module Bulkrax
       ScheduleRelationshipsJob.set(wait: 5.minutes).perform_later(importer_id: importerexporter.id)
     end
 
-    # need to implement a passthrough as the xml parser doesn't support this yet.
+    # needed to implement a passthrough as the xml parser doesn't support this yet in bulkrax.
     def create_objects(type_array); end
-
   end
 end
