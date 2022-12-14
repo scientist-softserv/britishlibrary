@@ -4,7 +4,9 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
 
   Bulkrax.setup do |config|
     # Add local parsers
-    # config.parsers += []
+    config.parsers += [
+        { name: " XML - ETD DC Parser", class_name: "Bulkrax::XmlEtdDcParser", partial: "xml_fields" },
+    ]
 
     # WorkType to use as the default if none is specified in the import
     # Default is the first returned by Hyrax.config.curation_concerns
@@ -182,6 +184,44 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'children' => { from: ['children'], split: /\s*[;|]\s*/, related_children_field_mapping: true },
     })
 
+    config.field_mappings['Bulkrax::XmlEtdDcParser'] = {
+        'abstract' => { from: ['abstract'] },
+        'alt_title' => { from: ['alternative'] },
+        'contributor_family_name' => { from: ['advisor'], object: 'contributor' },
+        'contributor_given_name' => { from: ['advisor'], object: 'contributor' },
+        'contributor_name_type' => { from: ['advisor'], object: 'contributor' },
+        'contributor_position' => { from: ['advisor'], object: 'contributor' },
+        'creator_family_name' => { from: ['creator'], object: 'creator' },
+        'creator_given_name' => { from: ['creator'], object: 'creator' },
+        'creator_name_type' => { from: ['creator'], object: 'creator' },
+        'creator_position' => { from: ['creator'], object: 'creator' },
+        'creator_isni' => { from: ['authoridentifier_isni'], object: 'creator' }, # type="uketdterms:ISNI"
+        'creator_orcid' => { from: ['authoridentifier_orcid'], object: 'creator' }, # type="uketdterms:ORCID"
+        'current_he_institution_name' => { from: ['institution'], object: 'current_he_institution' },
+        'date_accepted' => { from: ['issued'] },
+        'dewey' => { from: ['subject'] }, # type="dcterms:Ddc"
+        'doi' => { from: ['identifier'] }, # type="dcterms:DOI"
+        'embargo_date' => { from: ['embargodate'] },
+        # 'embargo_date' => { from: ['dcterms:accessRights'] },
+        'funder_award' => { from: ['ugrantnumber'], object: "funder", split: /\s*;\s*/ },
+        'funder_name' => { from: ['sponsor'], object: "funder" },
+        'bulkrax_identifier' => { from: ['source'], source_identifier: true },
+        'keyword' => { from: ['coverage'], split: /\s*;\s*/ },
+        'language' => { from: ['language'] }, # type="dcterms:ISO639-2"
+        'org_unit' => { from: ['department'] },
+        'official_link' => { from: ['isReferencedBy'] },
+        'publisher' => { from: ['publisher'] },
+        'qualification_name' => { from: ['type'] },
+        'qualification_level' => { from: ['qualificationlevel'] },
+        'title' => { from: ['title'] },
+        'parents' => { from: ['parents'], split: /\s*[;|]\s*/, related_parents_field_mapping: true },
+        'children' => { from: ['children'], split: /\s*[;|]\s*/, related_children_field_mapping: true },
+        'alternate_identifier' => {from: %w[provenance source relation], object: 'alternate_identifier' },
+        'alternate_identifier_type' => {from: %w[provenance source relation], object: 'alternate_identifier' }
+    #OAI identifier' => dcterms:provenance
+    #EThOS identifier' => dc:source
+    #Aleph system number => dc:relation
+    }
     # Add to, or change existing mappings as follows
     #   e.g. to exclude date
     #   config.field_mappings['Bulkrax::OaiDcParser']['date'] = { from: ['date'], excluded: true  }
