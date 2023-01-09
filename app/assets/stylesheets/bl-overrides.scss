@@ -1335,14 +1335,6 @@ body.public-facing.bl-public-facing {
     color: $mediumgrey2 !important;
   }
 
-  li.attribute.creator,
-  li.attribute.contributor,
-  li.attribute.editor {
-    span a img.img-responsive {
-      filter: grayscale(1);
-    }
-  }
-
   //this selector edits the citations and social media buttons in the abstract section
   .work-show-buttons {
     justify-content: space-between;
