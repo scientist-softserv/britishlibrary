@@ -6,7 +6,7 @@ class Collection < ActiveFedora::Base
   # You can replace these metadata if they're not suitable
   include Hyrax::BasicMetadata
   include Ubiquity::UniversalMetadata
-  include Ubiquity::AllModelsVirtulFields
+  include Ubiquity::AllModelsVirtualFields
   self.indexer = CollectionIndexer
   after_update :remove_featured, if: proc { |collection| collection.private? }
   after_destroy :remove_featured
