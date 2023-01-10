@@ -5,12 +5,15 @@ class Collection < ActiveFedora::Base
   include ::Hyrax::CollectionBehavior
   # You can replace these metadata if they're not suitable
   include Hyrax::BasicMetadata
-  include Ubiquity::UniversalMetadata
   self.indexer = CollectionIndexer
-  after_update :remove_featured, if: proc { |collection| collection.private? }
+  after_update :check_featured
   after_destroy :remove_featured
 
   def remove_featured
     FeaturedCollection.where(collection_id: id).destroy_all
+  end
+
+  def check_featured
+    remove_featured if private?
   end
 end
