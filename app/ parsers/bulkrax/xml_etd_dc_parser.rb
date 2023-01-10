@@ -18,6 +18,16 @@ module Bulkrax
     end
 
     # needed to implement a passthrough as the xml parser doesn't support this yet in bulkrax.
-    def create_objects(type_array); end
+    def create_objects(type_array)
+      if type_array.include? 'collection'
+        create_works
+      end
+      if type_array.include? 'work'
+        create_collections
+      end
+      if type_array.include? 'relationship'
+        create_relationships
+      end
+    end
   end
 end

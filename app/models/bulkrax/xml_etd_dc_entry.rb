@@ -13,7 +13,7 @@ module Bulkrax
     def build_metadata
       raise StandardError, 'Record not found' if record.nil?
       raise StandardError, "Missing source identifier (#{source_identifier})" if raw_metadata[source_identifier].blank?
-      parsed_metadata = {}
+      self.parsed_metadata = {}
       parsed_metadata[work_identifier] = [raw_metadata[source_identifier]]
       xml_elements.each do |element_name|
         next if complicated_elements.include?(element_name)
