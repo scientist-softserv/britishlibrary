@@ -14,5 +14,4 @@ class Collection < ActiveFedora::Base
   def remove_featured
     FeaturedCollection.where(collection_id: id).destroy_all
   end
-
 end
