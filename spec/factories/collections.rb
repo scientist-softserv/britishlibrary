@@ -55,7 +55,7 @@ FactoryBot.define do
         collection.reset_access_controls!
       end
     end
-    
+
     factory :public_collection, traits: [:public]
 
     trait :public do

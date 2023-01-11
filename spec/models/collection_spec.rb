@@ -3,7 +3,6 @@
 require 'spec_helper'
 
 RSpec.describe Collection do
-
   let(:user) { create(:user).tap { |u| u.add_role(:admin, Site.instance) } }
   let(:account) { create(:account) }
   let(:collection) { create(:collection, user: user) }
