@@ -21,8 +21,6 @@ RSpec.describe Collection do
 
     it { is_expected.to eq CollectionIndexer }
   end
-
-  # rubocop:disable Metrics/LineLength, Lint/AmbiguousBlockAssociation, RSpec/LetSetup
   describe "Featured Collections" do
     before do
       FeaturedCollection.create(collection_id: collection.id)
