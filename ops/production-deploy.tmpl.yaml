@@ -75,11 +75,11 @@ extraEnvVars: &envVars
   - name: FCREPO_BASE_PATH
     value: /bl
   - name: FCREPO_HOST
-    value: fcrepo.default.svc.cluster.local:8080
+    value: fcrepo.fcrepo.svc.cluster.local:8080
   - name: FCREPO_PATH
     value: /rest
   - name: FEDORA_URL
-    value: http://fcrepo.default.svc.cluster.local:8080/rest
+    value: http://fcrepo.fcrepo.svc.cluster.local:8080/rest
   - name: INITIAL_ADMIN_EMAIL
     value: support@notch8.com
   - name: INITIAL_ADMIN_PASSWORD
@@ -215,7 +215,7 @@ externalSolrHost: solr.default.svc.cluster.local
 externalSolrUser: admin
 externalSolrPassword: $SOLR_ADMIN_PASSWORD
 externalSolrCollection: "hyku"
-externalFcrepoHost: fcrepo.default.svc.cluster.local
+externalFcrepoHost: fcrepo.fcrepo.svc.cluster.local
 externalPostgresql:
   username: postgres
   password: $DATABASE_PASSWORD
