@@ -45,11 +45,9 @@ resource "helm_release" "ingress-nginx" {
   version = "3.33.0"
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart = "ingress-nginx"
-
-  set {
-    name  = "controller.service.type"
-    value = "LoadBalancer"
-  }
+  values = [
+    file("k8s/ingress-nginx-values.yaml")
+  ]
 }
 
 resource "helm_release" "eks_efs_csi_driver" {
@@ -126,16 +124,27 @@ resource "helm_release" "postgresql" {
   ]
 }
 
-resource "helm_release" "fcrepo" {
-  depends_on = [helm_release.postgresql]
+resource "helm_release" "postgresql-fcrepo" {
+  name = "postgresql"
+  namespace = "fcrepo"
+  create_namespace = true
+  repository = "https://charts.bitnami.com/bitnami"
+  chart = "postgresql"
+  values = [
+    file("k8s/postgresql-values.yaml")
+  ]
+}
+
+resource "helm_release" "fcrepos3" {
+  depends_on = [helm_release.postgresql-fcrepo]
 
   name = "fcrepo"
-  namespace = "default"
+  namespace = "fcrepo"
   create_namespace = true
   repository = "https://samvera-labs.github.io/fcrepo-charts"
   chart = "fcrepo"
   values = [
-    file("k8s/fcrepo-values.yaml")
+    file("k8s/fcrepos3-values.yaml")
   ]
 
 }
