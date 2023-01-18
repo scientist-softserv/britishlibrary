@@ -16,6 +16,8 @@ module Bulkrax
       self.parsed_metadata = {}
       parsed_metadata[work_identifier] = [raw_metadata[source_identifier]]
       xml_elements.each do |element_name|
+        # TODO: Refactor this so we don't have duplicate loops and multiple places that repeat
+        #       knowledge (e.g. what's the field name, or how we loop over elements)
         next if complicated_elements.include?(element_name)
         elements = record.xpath("//*[name()='#{element_name}']")
         next if elements.blank?
@@ -26,6 +28,7 @@ module Bulkrax
         end
       end
       add_model
+      add_complicated_fields
       add_visibility
       add_rights_statement
       add_admin_set_id
