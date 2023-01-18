@@ -12,5 +12,15 @@ module Bulkrax
     def create_relationships
       ScheduleRelationshipsJob.set(wait: 5.minutes).perform_later(importer_id: importerexporter.id)
     end
+
+    # Override bulkrax v4.4.0 to address bug that is fixed in
+    # https://github.com/samvera-labs/bulkrax/pull/713
+    #
+    # @see # https://github.com/samvera-labs/bulkrax/pull/713
+    def create_objects(types = [])
+      types.each do |object_type|
+        send("create_#{object_type.pluralize}")
+      end
+    end
   end
 end
