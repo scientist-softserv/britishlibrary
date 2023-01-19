@@ -96,12 +96,17 @@ RSpec.describe Bulkrax::XmlEtdDcEntry do
 
       it "assigns parsed_metadata" do
         entry.build_metadata
+        # If we don't have this, we'll fail to map content.
+        expect(entry.factory_class).to eq(ThesisOrDissertation)
 
         expect(entry.parsed_metadata.fetch('publisher')).to eq(["City, University of London"])
         expect(entry.parsed_metadata.fetch('title')).to eq(["The social history of music development in the Greek Cypriot population during 1878-1945"])
         expect(entry.parsed_metadata.fetch('model')).to eq('ThesisOrDissertation')
-        expect(entry.parsed_metadata.fetch('source')).to eq(['M Music'])
-        expect(entry.factory_class).to eq(ThesisOrDissertation)
+        expect(entry.parsed_metadata.fetch('keyword')).to eq(['M Music'])
+        creator_0_json = '[{"creator_isni":"0000000460594066","creator_family_name":"Hasikou","creator_given_name":"Anastasia","creator_name_type":"Personal","creator_position":"0"}]'
+        expect(entry.parsed_metadata.fetch('creator')).to eq([creator_0_json])
+        expect(entry.parsed_metadata.fetch('dewey')).to eq('780.95693')
+        expect(entry.parsed_metadata.fetch('language')).to eq(['eng'])
       end
     end
   end
