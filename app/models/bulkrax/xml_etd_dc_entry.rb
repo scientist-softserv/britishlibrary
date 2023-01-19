@@ -7,7 +7,7 @@ module Bulkrax
     serialize :raw_metadata, JSON
 
     def factory_class
-      'ThesisOrDissertation'.constantize
+      ThesisOrDissertation
     end
 
     def build_metadata
@@ -16,16 +16,20 @@ module Bulkrax
       self.parsed_metadata = {}
       parsed_metadata[work_identifier] = [raw_metadata[source_identifier]]
       xml_elements.each do |element_name|
+        # TODO: Refactor this so we don't have duplicate loops and multiple places that repeat
+        #       knowledge (e.g. what's the field name, or how we loop over elements)
         next if complicated_elements.include?(element_name)
         elements = record.xpath("//*[name()='#{element_name}']")
         next if elements.blank?
         elements.each do |el|
-          el.children.map(&:content).each do |content|
+          el.children.each do |child|
+            content = child.content
             add_metadata(element_name, content) if content.present?
           end
         end
       end
       add_model
+      add_complicated_fields
       add_visibility
       add_rights_statement
       add_admin_set_id
@@ -42,23 +46,33 @@ module Bulkrax
       parsed_metadata['model'] = 'ThesisOrDissertation'
     end
 
+    def complicated_elements
+      %w[authoridentifier_isni authoridentifier_orcid subject identifier language provenance source relation advisor creator] # maybe embargo_date
+    end
+
     def add_complicated_fields
       add_authoridentifier
       add_subject
       add_identifier
       add_language
+      add_creator
+      add_contributor
+
       # alt identifier
     end
 
+    # @todo consider how we might put this "configuration logic" in the parser where it's a bit more visible
     def add_authoridentifier
       add_complicated_element('authoridentifier_isni', 'authoridentifier', 'uketdterms:ISNI')
       add_complicated_element('authoridentifier_orcid', 'authoridentifier', 'uketdterms:ORCID')
     end
 
+    # @todo consider how we might put this "configuration logic" in the parser where it's a bit more visible
     def add_subject
       add_complicated_element('subject', 'subject', 'dcterms:Ddc')
     end
 
+    # @todo consider how we might put this "configuration logic" in the parser where it's a bit more visible
     def add_identifier
       add_complicated_element('identifier', 'identifier', 'dcterms:DOI')
     end
@@ -71,16 +85,11 @@ module Bulkrax
       elements = record.xpath("//*[name()='#{element_name}']")
       return if elements.blank?
       elements.each do |el|
-        el.children.map(&:content).each do |content|
+        el.children.each do |child|
+          content = child.content
           add_metadata(element_label, content) if content.present? && el.attr('type') == type_value
         end
       end
-    end
-
-    def add_fields_with_names
-      add_creator
-      add_contributor
-      # etc
     end
 
     def add_creator
@@ -96,24 +105,22 @@ module Bulkrax
       return if elements.blank?
       position = 0
       elements.each do |el|
-        el.children.map(&:content).each do |content|
+        el.children.each do |child|
+          content = child.content
           names = content.split(/\s*;\s*/)
           next if names.blank?
           names.each do |name|
             separated_name = name.split(/\s*,\s*/)
             next if separated_name.blank?
-            add_metadata("#{name_field_prefix}_family_name", (separated_name.first || ''))
-            add_metadata("#{name_field_prefix}_given_name", (separated_name.length > 1 ? separated_name.last : ''))
-            add_metadata("#{name_field_prefix}_name_type", 'Personal')
-            add_metadata("#{name_field_prefix}_position", position)
+            # @todo consier using https://rubygems.org/gems/namae for name parsing
+            add_metadata("#{name_field_prefix}_family_name", (separated_name.first || ''), position)
+            add_metadata("#{name_field_prefix}_given_name", (separated_name.length > 1 ? separated_name.last : ''), position)
+            add_metadata("#{name_field_prefix}_name_type", 'Personal', position)
+            add_metadata("#{name_field_prefix}_position", position, position)
             position += 1
           end
         end
       end
-    end
-
-    def complicated_elements
-      %w[authoridentifier_isni authoridentifier_orcid subject identifier language provenance source relation advisor creator] # maybe embargo_date
     end
   end
 end
