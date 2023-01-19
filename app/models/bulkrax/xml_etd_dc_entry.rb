@@ -2,7 +2,7 @@
 
 require 'nokogiri'
 module Bulkrax
-  # Generic XML Entry
+  # Custom XML Entry for British Library's Electronic Theses and Dissertations.
   class XmlEtdDcEntry < XmlEntry
     serialize :raw_metadata, JSON
 
