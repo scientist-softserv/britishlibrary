@@ -113,10 +113,10 @@ module Bulkrax
             separated_name = name.split(/\s*,\s*/)
             next if separated_name.blank?
             # @todo consier using https://rubygems.org/gems/namae for name parsing
-            add_metadata("#{name_field_prefix}_family_name", (separated_name.first || ''))
-            add_metadata("#{name_field_prefix}_given_name", (separated_name.length > 1 ? separated_name.last : ''))
-            add_metadata("#{name_field_prefix}_name_type", 'Personal')
-            add_metadata("#{name_field_prefix}_position", position)
+            add_metadata("#{name_field_prefix}_family_name", (separated_name.first || ''), position)
+            add_metadata("#{name_field_prefix}_given_name", (separated_name.length > 1 ? separated_name.last : ''), position)
+            add_metadata("#{name_field_prefix}_name_type", 'Personal', position)
+            add_metadata("#{name_field_prefix}_position", position, position)
             position += 1
           end
         end
