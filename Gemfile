@@ -96,6 +96,7 @@ group :development do
   gem 'scss_lint', require: false
   gem 'spring', '~> 1.7'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-commands-rspec'
   # gem 'xray-rails' # when using this gem, know that sidekiq will not work
 end
 
