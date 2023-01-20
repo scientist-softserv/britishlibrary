@@ -97,10 +97,12 @@ module Bulkrax
     end
 
     def add_contributor
-      add_name_field('contributor', 'advisor')
+      add_name_field('contributor', 'advisor', type: 'Supervisor')
     end
 
-    def add_name_field(name_field_prefix, element_name)
+    # @param type [String] This value must match as an element in the ContributorGroupService's
+    #        authority.
+    def add_name_field(name_field_prefix, element_name, type: nil)
       elements = record.xpath("//*[name()='#{element_name}']")
       return if elements.blank?
       position = 0
@@ -117,10 +119,25 @@ module Bulkrax
             add_metadata("#{name_field_prefix}_given_name", (separated_name.length > 1 ? separated_name.last : ''), position)
             add_metadata("#{name_field_prefix}_name_type", 'Personal', position)
             add_metadata("#{name_field_prefix}_position", position, position)
+            if type
+              guard_type!(type)
+              add_metadata("#{name_field_prefix}_type", type, position)
+            end
             position += 1
           end
         end
       end
+    end
+
+    # @return [TrueClass] when the given type is valid
+    # @raise [RuntimeError] when the given type is not valid
+    #
+    # @see ./app/views/shared/ubiquity/contributor/_edit_array_hash_form.html.erb The UI element
+    #      that shows what is the range of values for the contributor_type field.
+    def guard_type!(type)
+      return true if ContributorGroupService.new.authority.find(type).present?
+
+      raise "Expected type: #{type.inspect} to be present in ContributorGroupService authority."
     end
   end
 end

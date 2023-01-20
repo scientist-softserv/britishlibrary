@@ -190,6 +190,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
         'contributor_family_name' => { from: ['advisor'], object: 'contributor' },
         'contributor_given_name' => { from: ['advisor'], object: 'contributor' },
         'contributor_name_type' => { from: ['advisor'], object: 'contributor' },
+        'contributor_type' => { from: ['advisor'], object: 'contributor' },
         'contributor_position' => { from: ['advisor'], object: 'contributor' },
         'creator_family_name' => { from: ['creator'], object: 'creator' },
         'creator_given_name' => { from: ['creator'], object: 'creator' },

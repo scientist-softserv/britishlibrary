@@ -107,8 +107,8 @@ RSpec.describe Bulkrax::XmlEtdDcEntry do
         expect(entry.parsed_metadata.fetch('keyword')).to eq(['M Music'])
         creator_1_json = '{"creator_isni":"0000000460594066","creator_orcid":"HI I AM AN ORCID","creator_family_name":"Hasikou","creator_given_name":"Anastasia","creator_name_type":"Personal","creator_position":"0"}'
         expect(entry.parsed_metadata.fetch('creator')).to eq(["[#{creator_1_json}]"])
-        contributor_0_json = '{"contributor_family_name":"Gunn","contributor_given_name":"Roger N.","contributor_name_type":"Personal","contributor_position":"0"}'
-        contributor_1_json = '{"contributor_family_name":"Mark","contributor_given_name":"Jenkinson","contributor_name_type":"Personal","contributor_position":"1"}'
+        contributor_0_json = '{"contributor_family_name":"Gunn","contributor_given_name":"Roger N.","contributor_name_type":"Personal","contributor_position":"0","contributor_type":"Supervisor"}'
+        contributor_1_json = '{"contributor_family_name":"Mark","contributor_given_name":"Jenkinson","contributor_name_type":"Personal","contributor_position":"1","contributor_type":"Supervisor"}'
         expect(entry.parsed_metadata.fetch('contributor')).to eq(["[#{contributor_0_json},#{contributor_1_json}]"])
         expect(entry.parsed_metadata.fetch('dewey')).to eq('780.95693')
         expect(entry.parsed_metadata.fetch('language')).to eq(['eng'])
