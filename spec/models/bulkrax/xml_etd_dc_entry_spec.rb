@@ -74,6 +74,7 @@ RSpec.describe Bulkrax::XmlEtdDcEntry do
            <uketddc schemaLocation="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/ http://naca.central.cranfield.ac.uk/ethos-oai/2.0/uketd_dc.xsd">
              <creator>Hasikou, Anastasia</creator>
              <authoridentifier type="uketdterms:ISNI">0000000460594066</authoridentifier>
+             <authoridentifier type="uketdterms:ORCID">HI I AM AN ORCID</authoridentifier>
              <issued>01/01/2017</issued>
              <subject type="dcterms:Ddc">780.95693</subject>
              <coverage>M Music</coverage>
@@ -104,7 +105,7 @@ RSpec.describe Bulkrax::XmlEtdDcEntry do
         expect(entry.parsed_metadata.fetch('title')).to eq(["The social history of music development in the Greek Cypriot population during 1878-1945"])
         expect(entry.parsed_metadata.fetch('model')).to eq('ThesisOrDissertation')
         expect(entry.parsed_metadata.fetch('keyword')).to eq(['M Music'])
-        creator_1_json = '{"creator_isni":"0000000460594066","creator_family_name":"Hasikou","creator_given_name":"Anastasia","creator_name_type":"Personal","creator_position":"0"}'
+        creator_1_json = '{"creator_isni":"0000000460594066","creator_orcid":"HI I AM AN ORCID","creator_family_name":"Hasikou","creator_given_name":"Anastasia","creator_name_type":"Personal","creator_position":"0"}'
         expect(entry.parsed_metadata.fetch('creator')).to eq(["[#{creator_1_json}]"])
         contributor_0_json = '{"contributor_family_name":"Gunn","contributor_given_name":"Roger N.","contributor_name_type":"Personal","contributor_position":"0"}'
         contributor_1_json = '{"contributor_family_name":"Mark","contributor_given_name":"Jenkinson","contributor_name_type":"Personal","contributor_position":"1"}'
