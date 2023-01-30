@@ -42,6 +42,13 @@ class CatalogController < ApplicationController
     config.view.gallery.partials = %i[index_header index]
     config.view.slideshow.partials = [:index]
 
+    # See https://github.com/samvera/hyrax/pull/4728 and
+    #     https://samvera.slack.com/archives/CA8ANGLEL/p1670511790348669
+    #
+    # Without this parameter, we can easily enter a situation where the Solr query is too long for a
+    # GET request.  Switching to :post avoids that problem.
+    # config.http_method :post
+
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
     config.default_solr_params = {
       qt: "search",

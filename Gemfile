@@ -96,12 +96,13 @@ group :development do
   gem 'scss_lint', require: false
   gem 'spring', '~> 1.7'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-commands-rspec'
   # gem 'xray-rails' # when using this gem, know that sidekiq will not work
 end
 
 # Bulkrax
 group :bulkrax do
-  gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git', tag: 'v3.5.1'
+  gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git', tag: 'v4.4.0'
   gem 'willow_sword', git: 'https://github.com/notch8/willow_sword.git'
 end
 
@@ -145,6 +146,7 @@ gem 'parser', '~> 2.5.3'
 gem 'rdf', '~> 3.1.15' # rdf 3.2.0 removed SerializedTransaction which ldp requires
 gem 'riiif', '~> 1.1'
 gem 'secure_headers'
+gem 'rubyzip', '~> 2.3.2'
 # Sentry-raven for error handling
 gem "sentry-raven"
 gem 'sidekiq'

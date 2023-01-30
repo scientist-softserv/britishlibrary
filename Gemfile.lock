@@ -20,10 +20,10 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 0a644637260378ac25fd9e3d4b2e68addb2b3ade
-  tag: v3.5.1
+  revision: db7d32ca0392d18c48a8593d28f050332557d9ca
+  tag: v4.4.0
   specs:
-    bulkrax (3.5.1)
+    bulkrax (4.4.0)
       bagit (~> 0.4)
       coderay
       iso8601 (~> 0.9.0)
@@ -1137,6 +1137,8 @@ GEM
       net-http-persistent (~> 4.0, >= 4.0.1)
       rdf (~> 3.1)
     spring (1.7.2)
+    spring-commands-rspec (1.0.4)
+      spring (>= 0.9.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
@@ -1286,6 +1288,7 @@ DEPENDENCIES
   rspec_junit_formatter
   rubocop (~> 0.50, <= 0.52.1)
   rubocop-rspec (~> 1.22, <= 1.22.2)
+  rubyzip (~> 2.3.2)
   samvera-nesting_indexer!
   sass-rails (~> 5.0)
   scss_lint
@@ -1297,6 +1300,7 @@ DEPENDENCIES
   simplecov
   solr_wrapper (~> 2.0)
   spring (~> 1.7)
+  spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
   tether-rails
   turbolinks (~> 5)
