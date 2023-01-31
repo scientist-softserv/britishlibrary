@@ -126,7 +126,7 @@ gem 'flipflop', '~> 2.3'
 gem 'lograge'
 
 gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git', branch: 'play_nice_with_view_paths'
-gem 'hyrax-iiif_av', git: 'https://github.com/samvera-labs/hyrax-iiif_av.git', branch: 'main'
+gem 'hyrax-iiif_av', git: 'https://github.com/samvera-labs/hyrax-iiif_av.git', ref: '888ad531'
 gem 'httparty'
 gem 'mods', '~> 2.4'
 

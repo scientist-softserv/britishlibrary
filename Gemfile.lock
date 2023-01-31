@@ -52,7 +52,7 @@ GIT
 GIT
   remote: https://github.com/samvera-labs/hyrax-iiif_av.git
   revision: 888ad531ec08e6c1040d609321972e2147f0c702
-  branch: main
+  ref: 888ad531
   specs:
     hyrax-iiif_av (0.2.0)
       blacklight
