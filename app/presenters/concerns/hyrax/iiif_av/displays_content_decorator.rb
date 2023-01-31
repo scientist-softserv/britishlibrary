@@ -61,11 +61,14 @@ module Hyrax
         end
 
         def video_display_content(_url, label = '')
+          width = Array(object.width).first.try(:to_i) || 320
+          height = Array(object.height).first.try(:to_i) || 240
+          duration = conformed_duration
           IIIFManifest::V3::DisplayContent.new(Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(object.id, label: label, host: hostname),
                                                label: label,
-                                               width: Array(object.width).first.try(:to_i) || 320,
-                                               height: Array(object.height).first.try(:to_i) || 240,
-                                               duration: Array(object.duration).first.try(:to_i) || 400.0,
+                                               width: width,
+                                               height: height,
+                                               duration: duration,
                                                type: 'Video',
                                                format: object.mime_type)
         end
@@ -84,9 +87,10 @@ module Hyrax
         end
 
         def audio_display_content(_url, label = '')
+          duration = conformed_duration
           IIIFManifest::V3::DisplayContent.new(Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(object.id, label: label, host: hostname),
                                                label: label,
-                                               duration: Array(object.duration).first.try(:to_i) || 400.0,
+                                               duration: duration,
                                                type: 'Sound',
                                                format: object.mime_type)
         end
@@ -109,6 +113,20 @@ module Hyrax
             end
           end
           streams
+        end
+
+        def conformed_duration
+          if Array(object.duration)&.first&.count(':') == 3
+            # takes care of milliseconds like ["0:0:01:001"]
+            Time.zone.parse(Array(object.duration).first.sub(/.*\K:/, '.')).seconds_since_midnight
+          elsif Array(object.duration)&.first&.include?(':')
+            # if object.duration evaluates to something like ["0:01:00"] which will get converted to seconds
+            Time.zone.parse(Array(object.duration).first).seconds_since_midnight
+          else
+            # handles cases if object.duration evaluates to something like ['25 s']
+            Array(object.duration).first.try(:to_f)
+          end ||
+            400.0
         end
     end
   end
