@@ -70,7 +70,13 @@
           <% else %>
             <div class="col-md-7 hyc-description">
             <% end %>
-            <div>
+            <section
+              data-source="my"
+              data-id="<%= @presenter.id %>"
+              data-colls-hash="<%= @presenter.available_parent_collections(scope: controller) %>"
+              data-post-url="<%= hyrax.dashboard_create_nest_collection_within_path(@presenter.id) %>"
+              data-post-delete-url="<%= hyrax.dashboard_collection_path(@presenter.id) %>">
+
               <% if @presenter.banner_file.blank? && @presenter.logo_record.present? %>
                 <h1 class="mt-0 pt-40"><%= @presenter.title.first %></h1>
               <% else %>
@@ -80,7 +86,7 @@
               <div class='show-actions-container'>
                 <%= render "hyrax/dashboard/collections/show_actions", presenter: @presenter %>
               </div>
-            </div>
+            </section>
             <% if @members_count > 0 || params['cq'] == nil %>
               <div class="pt-20">
                 <%= render 'collection_description', presenter: @presenter %>
