@@ -175,14 +175,14 @@ end
 # that the datacite credentials always come from the account that kicked the job off
 Hyrax::DOI::DataCiteRegistrar.class_eval do
 
-  def initialize(builder: Hyrax::Identifier::Builder.new(prefix: self.prefix))
+  def initialize(builder: nil)
     current_tenant = Apartment::Tenant.current
     datacite_endpoint ||= Account.find_by(tenant: current_tenant).data_cite_endpoint
     self.username = datacite_endpoint.username
     self.password = datacite_endpoint.password
     self.prefix = datacite_endpoint.prefix
     self.mode = datacite_endpoint.mode
-    super
+    super(builder: Hyrax::Identifier::Builder.new(prefix: self.prefix))
   end
 
   def client 
