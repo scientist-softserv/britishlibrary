@@ -6,22 +6,19 @@ module Hyrax
       #   current_ability => @ability
       #   request.base_url => hostname
       # also to remove #auth_service since it was not working for now
-      def display_content
-        return nil unless display_content_allowed?
-
-        return image_content if object.image?
-        return video_content if object.video?
-        return audio_content if object.audio?
-      end
 
       private
 
-        def display_content_allowed?
-          content_supported? && @ability.can?(:read, id)
+        def solr_document
+          defined?(super) ? super : object
         end
 
-        def content_supported?
-          object.video? || object.audio? || object.image?
+        def current_ability
+          defined?(super) ? super : @ability
+        end
+
+        def request
+          OpenStruct.new(base_url: hostname)
         end
 
         def image_content
@@ -29,102 +26,46 @@ module Hyrax
 
           url = Hyrax.config.iiif_image_url_builder.call(
             latest_file_id,
-            hostname,
+            request.base_url,
             Hyrax.config.iiif_image_size_default
           )
 
+          # Serving up only prezi 3
           image_content_v3(url)
         end
 
-        def image_content_v3(url)
-          # @see https://github.com/samvera-labs/iiif_manifest
-          IIIFManifest::V3::DisplayContent.new(url,
-                                               format: object.mime_type,
-                                               width: width,
-                                               height: height,
-                                               type: 'Image',
-                                               iiif_endpoint: iiif_endpoint(latest_file_id, base_url: hostname))
-        end
-
-        def video_content
-          # @see https://github.com/samvera-labs/iiif_manifest
-          streams = stream_urls
-          if streams.present?
-            streams.collect { |label, url| video_display_content(url, label) }
-          else
-            [
-              video_display_content(download_path('mp4'), 'mp4'),
-              # commenting out webm to clean up manifest with only one derivative
-              # video_display_content(download_path('webm'), 'webm')
-            ]
-          end
-        end
-
         def video_display_content(_url, label = '')
-          width = Array(object.width).first.try(:to_i) || 320
-          height = Array(object.height).first.try(:to_i) || 240
+          width = Array(solr_document.width).first.try(:to_i) || 320
+          height = Array(solr_document.height).first.try(:to_i) || 240
           duration = conformed_duration
-          IIIFManifest::V3::DisplayContent.new(Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(object.id, label: label, host: hostname),
+          IIIFManifest::V3::DisplayContent.new(Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(solr_document.id, label: label, host: request.base_url),
                                                label: label,
                                                width: width,
                                                height: height,
                                                duration: duration,
                                                type: 'Video',
-                                               format: object.mime_type)
-        end
-
-        def audio_content
-          streams = stream_urls
-          if streams.present?
-            streams.collect { |label, url| audio_display_content(url, label) }
-          else
-            [
-              # commenting out ogg to clean up manifest with only one derivative
-              # audio_display_content(download_path('ogg'), 'ogg'),
-              audio_display_content(download_path('mp3'), 'mp3')
-            ]
-          end
+                                               format: solr_document.mime_type)
         end
 
         def audio_display_content(_url, label = '')
           duration = conformed_duration
-          IIIFManifest::V3::DisplayContent.new(Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(object.id, label: label, host: hostname),
+          IIIFManifest::V3::DisplayContent.new(Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(solr_document.id, label: label, host: request.base_url),
                                                label: label,
                                                duration: duration,
                                                type: 'Sound',
-                                               format: object.mime_type)
-        end
-
-        def download_path(extension)
-          Hyrax::Engine.routes.url_helpers.download_url(object, file: extension, host: hostname)
-        end
-
-        def stream_urls
-          return {} if object['derivatives_metadata_ssi'].blank?
-          files_metadata = JSON.parse(object['derivatives_metadata_ssi'])
-          file_locations = files_metadata.select { |f| f['file_location_uri'].present? }
-          streams = {}
-          if file_locations.present?
-            file_locations.each do |f|
-              streams[f['label']] = Hyrax::IiifAv.config.iiif_av_url_builder.call(
-                f['file_location_uri'],
-                hostname
-              )
-            end
-          end
-          streams
+                                               format: solr_document.mime_type)
         end
 
         def conformed_duration
-          if Array(object.duration)&.first&.count(':') == 3
+          if Array(solr_document.duration)&.first&.count(':') == 3
             # takes care of milliseconds like ["0:0:01:001"]
-            Time.zone.parse(Array(object.duration).first.sub(/.*\K:/, '.')).seconds_since_midnight
-          elsif Array(object.duration)&.first&.include?(':')
-            # if object.duration evaluates to something like ["0:01:00"] which will get converted to seconds
-            Time.zone.parse(Array(object.duration).first).seconds_since_midnight
+            Time.zone.parse(Array(solr_document.duration).first.sub(/.*\K:/, '.')).seconds_since_midnight
+          elsif Array(solr_document.duration)&.first&.include?(':')
+            # if solr_document.duration evaluates to something like ["0:01:00"] which will get converted to seconds
+            Time.zone.parse(Array(solr_document.duration).first).seconds_since_midnight
           else
-            # handles cases if object.duration evaluates to something like ['25 s']
-            Array(object.duration).first.try(:to_f)
+            # handles cases if solr_document.duration evaluates to something like ['25 s']
+            Array(solr_document.duration).first.try(:to_f)
           end ||
             400.0
         end
