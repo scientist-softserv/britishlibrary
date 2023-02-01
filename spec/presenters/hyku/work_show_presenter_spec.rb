@@ -21,11 +21,27 @@ RSpec.describe Hyku::WorkShowPresenter do
 
     before do
       allow(solr_document).to receive(:representative_id).and_return(solr_document.member_ids.first)
-      allow_any_instance_of(Hyrax::IiifAv::IiifFileSetPresenter).to receive(:audio?).and_return true
       allow(ability).to receive(:can?).and_return true
+      allow_any_instance_of(Hyrax::IiifAv::IiifFileSetPresenter).to receive(:image?).and_return true
     end
 
     it { is_expected.to be true }
+
+    context "for an audio file" do
+      before do
+        allow_any_instance_of(Hyrax::IiifAv::IiifFileSetPresenter).to receive(:audio?).and_return true
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context "for a video file" do
+      before do
+        allow_any_instance_of(Hyrax::IiifAv::IiifFileSetPresenter).to receive(:video?).and_return true
+      end
+
+      it { is_expected.to be true }
+    end
   end
 
   context "when the work has valid doi and isbns" do

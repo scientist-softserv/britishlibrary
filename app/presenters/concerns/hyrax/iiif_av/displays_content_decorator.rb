@@ -37,7 +37,7 @@ module Hyrax
         def video_display_content(_url, label = '')
           width = Array(solr_document.width).first.try(:to_i) || 320
           height = Array(solr_document.height).first.try(:to_i) || 240
-          duration = conformed_duration
+          duration = conformed_duration_in_seconds
           IIIFManifest::V3::DisplayContent.new(Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(solr_document.id, label: label, host: request.base_url),
                                                label: label,
                                                width: width,
@@ -48,7 +48,7 @@ module Hyrax
         end
 
         def audio_display_content(_url, label = '')
-          duration = conformed_duration
+          duration = conformed_duration_in_seconds
           IIIFManifest::V3::DisplayContent.new(Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(solr_document.id, label: label, host: request.base_url),
                                                label: label,
                                                duration: duration,
@@ -56,7 +56,7 @@ module Hyrax
                                                format: solr_document.mime_type)
         end
 
-        def conformed_duration
+        def conformed_duration_in_seconds
           if Array(solr_document.duration)&.first&.count(':') == 3
             # takes care of milliseconds like ["0:0:01:001"]
             Time.zone.parse(Array(solr_document.duration).first.sub(/.*\K:/, '.')).seconds_since_midnight
