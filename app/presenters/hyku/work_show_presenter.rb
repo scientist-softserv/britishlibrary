@@ -104,17 +104,17 @@ module Hyku
         members_include_viewable?
     end
 
-    def iiif_media?(presenter: representative_presenter)
-      presenter.image? || presenter.video? || presenter.audio?
-    end
-
-    def members_include_viewable?
-      file_set_presenters.any? do |presenter|
-        iiif_media?(presenter: presenter) && current_ability.can?(:read, presenter.id)
-      end
-    end
-
     private
+
+      def iiif_media?(presenter: representative_presenter)
+        presenter.image? || presenter.video? || presenter.audio?
+      end
+
+      def members_include_viewable?
+        file_set_presenters.any? do |presenter|
+          iiif_media?(presenter: presenter) && current_ability.can?(:read, presenter.id)
+        end
+      end
 
       def extract_from_identifier(rgx)
         if solr_document['identifier_tesim'].present?

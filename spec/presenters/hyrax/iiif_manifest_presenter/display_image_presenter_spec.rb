@@ -1,5 +1,5 @@
 RSpec.describe Hyrax::IiifManifestPresenter::DisplayImagePresenter do
-  subject(:presenter) { described_class.new(work) }
+  let(:presenter) { described_class.new(work) }
 
   let(:work) { double(GenericWork) }
 
@@ -8,7 +8,9 @@ RSpec.describe Hyrax::IiifManifestPresenter::DisplayImagePresenter do
     expect(described_class.include?(Hyrax::IiifAv::DisplaysContent)).to be true
   end
 
-  it "overrides #display_image" do
-    expect(subject.display_image).to be nil
+  describe "#display_image" do
+    subject { presenter.display_image }
+
+    it { is_expected.to be_nil }
   end
 end

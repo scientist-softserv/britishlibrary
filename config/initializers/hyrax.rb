@@ -215,3 +215,6 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false) && Bulkrax.default_work_type.blank?
 end
 
 Hyrax::IiifAv.config.iiif_av_viewer = :universal_viewer
+
+require 'hydra/derivatives'
+Hydra::Derivatives::Processors::Video::Processor.config.video_bitrate = '1500k'

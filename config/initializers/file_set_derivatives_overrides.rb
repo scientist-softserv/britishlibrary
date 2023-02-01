@@ -41,6 +41,7 @@ Hyrax::FileSetDerivativesService.class_eval do
                                                             layer: 0 }])
   end
 
+  # Ensures the video dimensions do not get altered when it is ingested
   def create_video_derivatives(filename)
     width = Array(file_set.width).first
     height = Array(file_set.height).first

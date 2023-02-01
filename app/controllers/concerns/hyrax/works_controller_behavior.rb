@@ -10,7 +10,9 @@ module Hyrax
     extend ActiveSupport::Concern
     include Blacklight::Base
     include Blacklight::AccessControls::Catalog
-    include Hyrax::IiifAv::ControllerBehavior # Adds behaviors for hyrax-iiif_av plugin.
+
+    # Adds behaviors for hyrax-iiif_av plugin and provides #manifest and #iiif_manifest_builder
+    include Hyrax::IiifAv::ControllerBehavior
     included do
       with_themed_layout :decide_layout
       copy_blacklight_config_from(::CatalogController)
@@ -24,6 +26,8 @@ module Hyrax
       self.show_presenter = Hyrax::WorkShowPresenter
       self.work_form_service = Hyrax::WorkFormService
       self.search_builder_class = WorkSearchBuilder
+      # Set to nil for the #iiif_manifest_builder (provided by Hyrax::IiifAv) to work
+      self.iiif_manifest_builder = nil
 
       attr_accessor :curation_concern
       helper_method :curation_concern, :contextual_path

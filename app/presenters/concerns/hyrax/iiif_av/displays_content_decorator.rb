@@ -1,12 +1,11 @@
 module Hyrax
   module IiifAv
+    # main reasons for this decorator is to override variable names from hyrax-iiif_av
+    #   solr_document => object
+    #   current_ability => @ability
+    #   request.base_url => hostname
+    # also to remove #auth_service since it was not working for now
     module DisplaysContentDecorator
-      # main reasons for this decorator is to override variable names from hyrax-iiif_av
-      #   solr_document => object
-      #   current_ability => @ability
-      #   request.base_url => hostname
-      # also to remove #auth_service since it was not working for now
-
       private
 
         def solr_document
