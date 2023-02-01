@@ -17,7 +17,7 @@ module Hyrax
                      current_he_institution date_accepted date_submitted official_link related_url language license
                      rights_statement rights_holder original_doi draft_doi qualification_name qualification_level
                      alternate_identifier related_identifier refereed keyword dewey library_of_congress_classification
-                     add_info rendering_ids
+                     add_info rendering_ids ethos_access_rights
                     ]
 
     self.required_fields += %i[qualification_name qualification_level]

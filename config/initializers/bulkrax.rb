@@ -52,7 +52,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
     config.field_mappings['Bulkrax::CsvParser'] = {
       'abstract' => { from: ['abstract'] },
       'access_control_id' => { excluded: true },
-      'access_right' => { from: ['access_rights'] },
+      'ethos_access_rights' => { from: ['access_rights'] },
       'add_info' => { from: ['additional_information'] },
       'admin_set_id' => { from: ['admin_set'] },
       'alt_title' => { from: ['alternative_title'] },
@@ -187,7 +187,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
 
     config.field_mappings['Bulkrax::XmlEtdDcParser'] = {
         'abstract' => { from: ['abstract'] },
-        'access_right' => { from: ['accessRights'] },
+        'ethos_access_rights' => { from: ['accessRights'] },
         'alt_title' => { from: ['alternative'] },
         'contributor_family_name' => { from: ['advisor'], object: 'contributor' },
         'contributor_given_name' => { from: ['advisor'], object: 'contributor' },
