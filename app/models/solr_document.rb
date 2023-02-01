@@ -87,7 +87,6 @@ class SolrDocument
   attribute :collection_id, Solr::Array, solr_name('collection_id')
   attribute :ethos_access_rights, Solr::Array, solr_name('ethos_access_rights')
 
-
   field_semantics.merge!(
     contributor: ['contributor_list_tesim', 'editor_list_tesim', 'funder_tesim'],
     creator: 'creator_search_tesim',

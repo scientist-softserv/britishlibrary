@@ -116,4 +116,4 @@ RSpec.describe Bulkrax::XmlEtdDcEntry do
       end
     end
   end
-end  
+end
