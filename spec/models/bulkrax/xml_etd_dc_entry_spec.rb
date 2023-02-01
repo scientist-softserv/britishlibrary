@@ -112,7 +112,9 @@ RSpec.describe Bulkrax::XmlEtdDcEntry do
         expect(entry.parsed_metadata.fetch('contributor')).to eq(["[#{contributor_0_json},#{contributor_1_json}]"])
         expect(entry.parsed_metadata.fetch('dewey')).to eq('780.95693')
         expect(entry.parsed_metadata.fetch('language')).to eq(['eng'])
+        byebug
+        expect(entry.parsed_metadata.fetch('access_right')).to eq(["true"])
       end
     end
   end
-end
+end  
