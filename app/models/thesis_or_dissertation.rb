@@ -21,7 +21,7 @@ class ThesisOrDissertation < ActiveFedora::Base
   validates :title, presence: { message: 'Your work must have a title.' }
 
   #Added the property of the access rights for the XML tag handling.
-  property :ethos_access_rights, predicate: ::RDF::Vocab::DC.accessRights do |index|
+  property :ethos_access_rights, predicate: ::RDF::Vocab::MA.hasAccessConditions do |index|
     index.as :stored_searchable
   end
 
