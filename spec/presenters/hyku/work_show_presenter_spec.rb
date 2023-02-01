@@ -16,6 +16,18 @@ RSpec.describe Hyku::WorkShowPresenter do
     it { is_expected.to eq 'http://test.host/concern/generic_works/99/manifest' }
   end
 
+  describe "#iiif_viewer?" do
+    subject { presenter.iiif_viewer? }
+
+    before do
+      allow(solr_document).to receive(:representative_id).and_return(solr_document.member_ids.first)
+      allow_any_instance_of(Hyrax::IiifAv::IiifFileSetPresenter).to receive(:audio?).and_return true
+      allow(ability).to receive(:can?).and_return true
+    end
+
+    it { is_expected.to be true }
+  end
+
   context "when the work has valid doi and isbns" do
     # the values are set in generic_works factory
     describe "#doi" do
