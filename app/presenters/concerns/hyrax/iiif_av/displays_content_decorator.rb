@@ -17,8 +17,10 @@ module Hyrax
           defined?(super) ? super : @ability
         end
 
+        Request = Struct.new(:base_url, keyword_init: true)
+
         def request
-          OpenStruct.new(base_url: hostname)
+          Request.new(base_url: hostname)
         end
 
         def image_content
