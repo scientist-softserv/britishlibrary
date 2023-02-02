@@ -1,11 +1,5 @@
-name: "Build Lint Test"
+name: "Build Base"
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       debug_enabled:
@@ -20,12 +14,5 @@ jobs:
     secrets: inherit
     with:
       platforms: "linux/amd64"
-      target: hyku-web
-      worker: true
-      workerTarget: hyku-worker
-  test:
-    needs: build
-    uses: scientist-softserv/actions/.github/workflows/test.yaml@v0.0.6
-  lint:
-    needs: build
-    uses: scientist-softserv/actions/.github/workflows/lint.yaml@v0.0.6
+      target: hyku-base
+      
