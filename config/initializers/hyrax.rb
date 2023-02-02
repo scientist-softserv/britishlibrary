@@ -183,7 +183,7 @@ Hyrax.config do |config|
   end
 
   config.iiif_image_server = true
-    
+
   config.iiif_image_url_builder = lambda do |file_id, base_url, size|
     # Comment this next line to allow universal viewer to work in development
     # Issue with Hyrax v 2.9.0 where IIIF has mixed content error when running with SSL enabled
@@ -213,3 +213,8 @@ Qa::Authorities::Crossref::GenericAuthority.label = lambda { |item| [item['name'
 if ENV.fetch('HYKU_BULKRAX_ENABLED', false) && Bulkrax.default_work_type.blank?
   Bulkrax.default_work_type = Hyrax.config.curation_concerns.first.to_s
 end
+
+Hyrax::IiifAv.config.iiif_av_viewer = :universal_viewer
+
+require 'hydra/derivatives'
+Hydra::Derivatives::Processors::Video::Processor.config.video_bitrate = '1500k'

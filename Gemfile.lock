@@ -50,6 +50,17 @@ GIT
       rails (~> 5.2.4, >= 5.2.4.3)
 
 GIT
+  remote: https://github.com/samvera-labs/hyrax-iiif_av.git
+  revision: 888ad531ec08e6c1040d609321972e2147f0c702
+  ref: 888ad531
+  specs:
+    hyrax-iiif_av (0.2.0)
+      blacklight
+      hyrax (~> 2.9, >= 2.9.4)
+      iiif_manifest (~> 0.5)
+      rails (~> 5.1)
+
+GIT
   remote: https://github.com/samvera-labs/samvera-nesting_indexer.git
   revision: 8f87880846e75fe4d44787a373fadec8889e291e
   branch: skip_failure_option
@@ -1239,6 +1250,7 @@ DEPENDENCIES
   httparty
   hyrax (~> 2.9, >= 2.9.1)
   hyrax-doi!
+  hyrax-iiif_av!
   hyrax-v2_graph_indexer
   i18n-debug
   i18n-tasks
