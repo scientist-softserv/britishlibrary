@@ -55,48 +55,17 @@ RSpec.describe Bulkrax::CsvEntry do
     let(:identifier) { 'bl-26-0' }
     let(:data) do
       {
-        work_type: "Book",
-        resource_type: "Article default Journal article",
-        title: %(Can I believe what I see? Data visualisation and trust in the humanities Imported by GJ 23/01/23),
-        creator_name_type_1: "Personal",
-        creator_family_name_1: "Boyd Davis",
-        creator_given_name_1: "Stephen",
-        creator_orcid_1: "0000-0002-5391-4557",
-        creator_name_type_2: "Personal",
-        creator_family_name_2: "Vane",
-        creator_given_name_2: "Olivia",
-        creator_orcid_2: "0000-0002-3777-4910",
-        creator_staffmember_2: "TRUE",
-        creator_name_type_3: "Personal",
-        creator_family_name_3: "Kräutli",
-        creator_given_name_3: "Florian",
-        creator_orcid_3: "0000-0001-9039-0900",
-        abstract: %(Questions of trust are increasingly important in relation to data and its use.),
-        date_published: "12/10/2021",
-        institution_1: "British Library",
-        organisational_unit_1: "Digital Scholarship",
-        journal_title: "Interdisciplinary Science Reviews",
-        volume_1: 46,
-        issue: 4,
-        pagination: "522-546",
-        publisher_1: "Taylor and Francis",
-        place_of_publication_1: "UK",
-        issn: "0308-0188",
-        eissn: "1743-2790",
-        date_accepted: "12/09/2020",
-        official_url: "https://doi.org/10.1080/03080188.2021.1872874",
-        language_1: "English",
-        license_1: "https://creativecommons.org/licenses/by-nd/4.0/",
-        rights_statement: "http://rightsstatements.org/vocab/InC/1.0/",
-        rights_holder_1: "",
-        doi: "10.1080/03080188.2021.1872874",
-        bulkrax_identifier: identifier
+        work_type: "ThesisOrDissertation",
+        title: "Thesis",
+        bulkrax_identifier: identifier,
+        access_rights: "true"
       }
     end
 
     it "assigns factory_class and parsed_metadata" do
       entry.build_metadata
-      expect(entry.factory_class).to eq(Book)
+      expect(entry.factory_class).to eq(ThesisOrDissertation)
+      expect(entry.parsed_metadata.fetch("ethos_access_rights")).to eq(["true"])
     end
   end
 end
