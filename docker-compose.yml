@@ -7,9 +7,6 @@ x-app: &app
     args:
       - HYKU_BULKRAX_ENABLED=true
   # command: sh -l -c "bundle && bundle exec puma -v -b tcp://0.0.0.0:3000"
-    cache_from:
-      - ghcr.io/scientist-softserv/britishlibrary/base:latest
-      - ghcr.io/scientist-softserv/britishlibrary/web:latest
   image: ghcr.io/scientist-softserv/britishlibrary:${TAG:-latest}
   env_file:
     - .env
