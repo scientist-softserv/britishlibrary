@@ -88,6 +88,7 @@ RSpec.describe Bulkrax::CsvEntry do
         # metadata then attempting to handle the complex object.
         entry.build_metadata
         expect(entry.factory_class).to eq(Dataset)
+        expect(entry.parsed_metadata.fetch("current_he_institution")).to eq ["[{\"current_he_institution_name\":\"Hello World\"}]"]
       end
     end
   end
