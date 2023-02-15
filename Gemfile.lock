@@ -11,8 +11,8 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: c2ea600c771581311ec573a2c5745050fcc12559
-  ref: c2ea600c771581311ec573a2c5745050fcc12559
+  revision: 74576c457909f56e4f2a42cede113bbadcdeedf9
+  branch: main
   specs:
     bulkrax (5.0.0)
       bagit (~> 0.4)
@@ -1302,4 +1302,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.2.27
+   2.3.9
