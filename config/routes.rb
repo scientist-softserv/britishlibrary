@@ -6,6 +6,7 @@ Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 Rails.application.routes.draw do
   concern :oai_provider, BlacklightOaiProvider::Routes.new
 
+  mount Hyrax::IiifAv::Engine, at: '/'
   mount Riiif::Engine => 'images', as: :riiif if Hyrax.config.iiif_image_server?
 
   authenticate :user, lambda { |u| u.is_superadmin } do

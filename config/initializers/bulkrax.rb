@@ -52,6 +52,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
     config.field_mappings['Bulkrax::CsvParser'] = {
       'abstract' => { from: ['abstract'] },
       'access_control_id' => { excluded: true },
+      'ethos_access_rights' => { from: ['access_rights'] },
       'add_info' => { from: ['additional_information'] },
       'admin_set_id' => { from: ['admin_set'] },
       'alt_title' => { from: ['alternative_title'] },
@@ -91,7 +92,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'creator_staffmember' => { from: ['creator_staffmember'], object: 'creator' },
       'creator_type' => { from: ['creator_type'], object: 'creator' },
       'creator_wikidata' => { from: ['creator_wikidata'], object: 'creator' },
-      'current_he_institution_name' => { from: ['current_he_institution'], object: 'current_he_institution' },
+      'current_he_institution_name' => { from: ['current_he_institution_name'], object: 'current_he_institution' },
       'date_accepted' => { from: ['date_accepted'] },
       'date_published' => { from: ['date_published_1'] },
       'date_submitted' => { from: ['date_submitted'] },
@@ -186,6 +187,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
 
     config.field_mappings['Bulkrax::XmlEtdDcParser'] = {
         'abstract' => { from: ['abstract'] },
+        'ethos_access_rights' => { from: ['accessRights'] },
         'alt_title' => { from: ['alternative'] },
         'contributor_family_name' => { from: ['advisor'], object: 'contributor' },
         'contributor_given_name' => { from: ['advisor'], object: 'contributor' },

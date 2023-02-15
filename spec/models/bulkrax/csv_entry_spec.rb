@@ -20,8 +20,8 @@ module Bulkrax
     # @todo This could replace some of the factories in Bulkrax's spec suite.
     # @note This presently assumes as CSV oriented format; or "We haven't checked this against CSV".
     #       And the signature of this method should be considered volatile.
-    def self.build_csv_entry_for(identifier:, data:, parser_class_name:, entry_class:)
-      import_file_path = Rails.root.join("spec", "fixtures", "csv", "british-library.csv")
+    def self.build_csv_entry_for(identifier:, data:, parser_class_name:, entry_class:, **kwargs)
+      import_file_path = kwargs.fetch(:import_file_path)
       importer = Bulkrax::Importer.new(
         name: "Test importer for identifier #{identifier}",
         admin_set_id: "admin_set/default",
@@ -48,55 +48,48 @@ RSpec.describe Bulkrax::CsvEntry do
         data: data,
         identifier: identifier,
         parser_class_name: 'Bulkrax::CsvParser',
-        entry_class: described_class
+        entry_class: described_class,
+        import_file_path: import_file_path
       )
     end
 
-    let(:identifier) { 'bl-26-0' }
-    let(:data) do
-      {
-        work_type: "Book",
-        resource_type: "Article default Journal article",
-        title: %(Can I believe what I see? Data visualisation and trust in the humanities Imported by GJ 23/01/23),
-        creator_name_type_1: "Personal",
-        creator_family_name_1: "Boyd Davis",
-        creator_given_name_1: "Stephen",
-        creator_orcid_1: "0000-0002-5391-4557",
-        creator_name_type_2: "Personal",
-        creator_family_name_2: "Vane",
-        creator_given_name_2: "Olivia",
-        creator_orcid_2: "0000-0002-3777-4910",
-        creator_staffmember_2: "TRUE",
-        creator_name_type_3: "Personal",
-        creator_family_name_3: "Kräutli",
-        creator_given_name_3: "Florian",
-        creator_orcid_3: "0000-0001-9039-0900",
-        abstract: %(Questions of trust are increasingly important in relation to data and its use.),
-        date_published: "12/10/2021",
-        institution_1: "British Library",
-        organisational_unit_1: "Digital Scholarship",
-        journal_title: "Interdisciplinary Science Reviews",
-        volume_1: 46,
-        issue: 4,
-        pagination: "522-546",
-        publisher_1: "Taylor and Francis",
-        place_of_publication_1: "UK",
-        issn: "0308-0188",
-        eissn: "1743-2790",
-        date_accepted: "12/09/2020",
-        official_url: "https://doi.org/10.1080/03080188.2021.1872874",
-        language_1: "English",
-        license_1: "https://creativecommons.org/licenses/by-nd/4.0/",
-        rights_statement: "http://rightsstatements.org/vocab/InC/1.0/",
-        rights_holder_1: "",
-        doi: "10.1080/03080188.2021.1872874",
-        bulkrax_identifier: identifier
-      }
+    context 'basic parser test' do
+      let(:import_file_path) { Rails.root.join("spec", "fixtures", "csv", "british-library.csv") }
+      let(:identifier) { 'bl-26-0' }
+      let(:data) do
+        {
+          work_type: "ThesisOrDissertation",
+          title: "Thesis",
+          bulkrax_identifier: identifier,
+          access_rights: "true"
+        }
+      end
+
+      it "assigns factory_class and parsed_metadata" do
+        entry.build_metadata
+        expect(entry.factory_class).to eq(ThesisOrDissertation)
+        expect(entry.parsed_metadata.fetch("ethos_access_rights")).to eq(["true"])
+      end
     end
 
-    it "assigns factory_class and parsed_metadata" do
-      entry.build_metadata
-      expect(entry.factory_class).to eq(Book)
+    context 'with production metadata (see https://github.com/scientist-softserv/britishlibrary/issues/275)' do
+      let(:import_file_path) { Rails.root.join("spec", "fixtures", "csv", "BlackpoolGazetteHerald.csv") }
+      let(:identifier) { '123' }
+      let(:data) do
+        # We're using the fixture CSV for data.
+        Bulkrax::CsvEntry.read_data(import_file_path).first.to_h
+      end
+
+      it "builds the metadata without exception" do
+        # Note the `current_he_institution` column maps to `current_he_institution_name` which is
+        # part of a complex bulkrax object that is represented as the property.
+        #
+        # My suspicion is that we're first adding `current_he_institution` as `""` to the parsed
+        # metadata then attempting to handle the complex object.
+        entry.build_metadata
+        expect(entry.factory_class).to eq(Dataset)
+        expect(entry.parsed_metadata.fetch("current_he_institution")).to eq ["[{\"current_he_institution_name\":\"Hello World\"}]"]
+      end
     end
   end
 end
