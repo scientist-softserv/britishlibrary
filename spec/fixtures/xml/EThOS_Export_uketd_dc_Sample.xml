@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ListRecords>
+
+<uketd_dc:uketddc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:uketdterms="http://naca.central.cranfield.ac.uk/ethos-oai/terms/" xsi:schemaLocation="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/ http://naca.central.cranfield.ac.uk/ethos-oai/2.0/uketd_dc.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uketd_dc="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/">
+	<dc:creator>Tziortzi, Andri</dc:creator>
+	<uketdterms:authoridentifier xsi:type="uketdterms:ISNI">0000000453500463</uketdterms:authoridentifier>
+	<uketdterms:sponsor>BBSRC ; GlaxoSmithKline</uketdterms:sponsor>
+	<dcterms:issued>01/01/2014</dcterms:issued>
+	<dc:subject xsi:type="dcterms:Ddc">612.8042</dc:subject>
+	<dc:coverage>Anatomy ; Neuroscience ; Cognitive Neuroscience ; Emotion research ; Psychopharmacology ; Neurology ; Behavioural Neuroscience ; Emotion ; Positron Emission Tomography ; Magnetic resonance imaging ; Diffusion weighted imaging ; Dopamine ; Dopamine Receptor ; Basal ganglia ; Brain ; Regions of Interest ; Striatum ; Pallidum ; Substantia nigra</dc:coverage>
+	<dcterms:abstract>Dopamine is an important neurotransmitter that is involved in several human functions such as reward, cognition, emotions and movement. Abnormalities of the neurotransmitter itself, or the dopamine receptors through which it exerts its actions, contribute to a wide range of psychiatric and neurological disorders such as Parkinson’s disease and schizophrenia. Thus far, despite the great interest and extensive research, the exact role of dopamine and the causalities of dopamine related disorders are not fully understood. Here we have developed multimodal imaging methods, to investigate the release of dopamine and the distribution of the dopamine D2-like receptor family in-vivo in healthy humans. We use the [&lt;sup&gt;11&lt;/sup&gt;C]PHNO PET ligand, which enables exploration of dopamine-related parameters in striatal regions, and for the first time in extrastriatal regions, that are known to be associated with distinctive functions and disorders. Our methods involve robust approaches for the manual and automated delineation of these brain regions, in terms of structural and functional organisation, using information from structural and diffusion MRI images. These data have been combined with [&lt;sup&gt;11&lt;/sup&gt;C]PHNO PET data for quantitative dopamine imaging. Our investigation has revealed the distribution and the relative density of the D3R and D2R sites of the dopamine D2-like receptor family, in healthy humans. In addition, we have demonstrated that the release of dopamine has a functional rather than a structural specificity and that the relative densities of the D3R and D2R sites do not drive this specificity. We have also shown that the dopamine D3R receptor is primarily distributed in regions that have a central role in reward and addiction. A finding that supports theories that assigns a primarily limbic role to the D3R.</dcterms:abstract>
+	<dc:language xsi:type="dcterms:ISO639-2">eng</dc:language>
+	<uketdterms:institution>University of Oxford</uketdterms:institution>
+	<dc:publisher>University of Oxford</dc:publisher>
+	<dc:title>Quantitative dopamine imaging in humans using magnetic resonance and positron emission tomography</dc:title>
+	<dc:type>Thesis (Ph.D.)</dc:type>
+	<uketdterms:qualificationlevel>Doctoral</uketdterms:qualificationlevel>
+	<dcterms:isReferencedBy>http://ora.ox.ac.uk/objects/uuid:26b8b4c2-0237-4c40-8c84-9ae818a0dabf</dcterms:isReferencedBy>
+	<dc:source>http://ethos.bl.uk/ProcessSearch.do?query=600007</dc:source>
+	<dc:relation>016705971</dc:relation>
+	<uketdterms:advisor>Gunn, Roger N. ; Mark, Jenkinson</uketdterms:advisor>
+	<dcterms:accessRights>true</dcterms:accessRights>
+	<dcterms:provenance>oai:ora.ouls.ox.ac.uk:uuid:26b8b4c2-0237-4c40-8c84-9ae818a0dabf</dcterms:provenance>
+</uketd_dc:uketddc>
+
+<uketd_dc:uketddc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:uketdterms="http://naca.central.cranfield.ac.uk/ethos-oai/terms/" xsi:schemaLocation="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/ http://naca.central.cranfield.ac.uk/ethos-oai/2.0/uketd_dc.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uketd_dc="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/">
+	<dc:creator>Hamood, Alaa</dc:creator>
+	<uketdterms:authoridentifier xsi:type="uketdterms:ISNI">0000000453484408</uketdterms:authoridentifier>
+	<dcterms:issued>01/01/2014</dcterms:issued>
+	<dc:subject xsi:type="dcterms:Ddc">628.3</dc:subject>
+	<dc:coverage>Raw Sewage Sludge (RSS) ; unprocessed fly ash ; sustainable construction materials</dc:coverage>
+	<dcterms:abstract>Prior to the implementation of the European Union Urban Waste Water Treatment Directive (91/271/EEC) in 31 Dec 1998, around a quarter of the sewage sludge produced in the UK was either discharged to surface waters via pipes or disposed from ships at sea. Discontinuing this route together with the quality requirements of the European Waste Water Directive, led to the generation of significant quantities of sewage sludge. It has therefore become required to treat this waste effectively before it can be sent back to the environment. Consequently, this added greater challenges for the environmental agencies, as well as local authorities. The treatment process comprises costly and energy consuming applications including physical, chemical, biological and thermal. In addition to the sewage sludge, the power generation industry produces massive quantities of fly ash from burning coal. In the UK, there is about 5,300,000 tonnes of fly ash that are generated annually, which require to be processed and classified in order to meet the standard requirements before it can be used in the construction applications. The classifying process also involves a series of costly and energy consuming mechanical and physical applications. This research programme has introduced an innovative alternative to the traditional re-use and disposal routes of Raw Sewage Sludge (RSS) and unprocessed fly ash. It has suggested the utilisation of RSS and unprocessed fly ash as raw ingredients for the production of sustainable construction materials. This research programme has therefore examined the performance of cement-based materials containing Raw Sewage Sludge (RSS) as a water replacement and unprocessed fly ash as cement replacement. Mortar and concrete mixes incorporating these materials were tested for their flowability/workability, density, Total Water Absorption (TWA), Ultrasonic Pulse Velocity (UPV), compressive strength, flexural strength, drying shrinkage, sulphate attack and leaching properties. Three series of cement-based materials were studied including mortar mixes with RSS and unprocessed fly ash (Series 1), mortar mixes with RSS and large proportions of unprocessed fly ash (Series 2), and concrete mixes with RSS and unprocessed fly ash (Series 3). The outcomes of the investigation were encouraging in that cement-based materials containing RSS and unprocessed fly ash that were produced demonstrated relatively good engineering, durability and environmental properties in comparison to the control mixes. The inclusion of unprocessed fly ash significantly reduced flowability/workability; however it improved long-term compressive strength for both mixes with RSS and water. The best compressive strength results were recorded when cement was replaced with 10-20% unprocessed fly ash by weight of total binder. The results also showed that sulphate attack resistance improved when fly ash was included. Moreover, safe concentration levels of heavy metals and free ions were detected when leaching test was performed. However, it must be kept in mind that more environmental tests must be performed before any large scale use is undertaken.</dcterms:abstract>
+	<dc:language xsi:type="dcterms:ISO639-2">eng</dc:language>
+	<uketdterms:institution>University of Wolverhampton</uketdterms:institution>
+	<dc:publisher>University of Wolverhampton</dc:publisher>
+	<dc:title>Sustainable utilisation of raw sewage sludge (RSS) as a water replacement in cement-based materials containing unprocessed fly ash</dc:title>
+	<dc:type>Thesis (Ph.D.)</dc:type>
+	<uketdterms:qualificationlevel>doctoral</uketdterms:qualificationlevel>
+	<dcterms:isReferencedBy>http://hdl.handle.net/2436/332182</dcterms:isReferencedBy>
+	<dc:identifier xsi:type="dcterms:URI">http://wlv.openrepository.com/wlv/bitstream/2436/332182/1/Hamood-PhD%20Thesis.pdf</dc:identifier>
+	<dc:source>http://ethos.bl.uk/ProcessSearch.do?query=629358</dc:source>
+	<dc:relation>016962585</dc:relation>
+	<uketdterms:advisor>Khatib, Jamal</uketdterms:advisor>
+	<dcterms:accessRights>false</dcterms:accessRights>
+	<dcterms:provenance>oai:wlv.openrepository.com:2436/332182</dcterms:provenance>
+</uketd_dc:uketddc>
+
+<uketd_dc:uketddc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:uketdterms="http://naca.central.cranfield.ac.uk/ethos-oai/terms/" xsi:schemaLocation="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/ http://naca.central.cranfield.ac.uk/ethos-oai/2.0/uketd_dc.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uketd_dc="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/">
+	<dc:creator>Hawking, Stephen</dc:creator>
+	<uketdterms:authoridentifier xsi:type="uketdterms:ORCID">000000029079593X</uketdterms:authoridentifier>
+	<uketdterms:authoridentifier xsi:type="uketdterms:ISNI">0000000121034996</uketdterms:authoridentifier>
+	<dcterms:issued>01/01/1966</dcterms:issued>
+	<dc:subject xsi:type="dcterms:Ddc">500</dc:subject>
+	<dc:coverage>Cosmology</dc:coverage>
+	<dcterms:abstract>Some implications and consequences of the expansion of the universe are examined. In Chapter 1 it is shown that this expansion creates grave difficulties for the Hoyle-Narlikar theory of gravitation. Chapter 2 deals with perturbations of an expanding homogeneous and isotropic universe. The conclusion is reached that galaxies cannot be formed as a result of the growth of perturbations that were initially small. The propagation and absorption of gravitational radiation is also investigated in this approximation. In Chapter 3 gravitational radiation in an expanding universe is examined by a method of asymptotic expansions. The 'peeling off' behaviour and the asymptotic group are derived. Chapter 4 deals with the occurrence of singularities in cosmological models. It is shown that a singularity is inevitable provided that certain very general conditions are satisfied.</dcterms:abstract>
+	<dc:language xsi:type="dcterms:ISO639-2">eng</dc:language>
+	<uketdterms:institution>University of Cambridge</uketdterms:institution>
+	<dc:publisher>University of Cambridge</dc:publisher>
+	<dc:title>Properties of expanding universes</dc:title>
+	<dc:type>Thesis (Ph.D.)</dc:type>
+	<uketdterms:qualificationlevel>Doctoral</uketdterms:qualificationlevel>
+	<dcterms:isReferencedBy>https://doi.org/10.17863/CAM.11283</dcterms:isReferencedBy>
+	<dc:source>http://ethos.bl.uk/ProcessSearch.do?query=601153</dc:source>
+	<dc:relation>016731246</dc:relation>
+	<uketdterms:department>Applied Mathematics and Theoretical Physics</uketdterms:department>
+	<dcterms:accessRights>false</dcterms:accessRights>
+	<dcterms:provenance>oai:www.repository.cam.ac.uk:1810/251038</dcterms:provenance>
+	<dc:identifier xsi:type="dcterms:DOI">10.17863/CAM.11283</dc:identifier>
+</uketd_dc:uketddc>
+
+<uketd_dc:uketddc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:uketdterms="http://naca.central.cranfield.ac.uk/ethos-oai/terms/" xsi:schemaLocation="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/ http://naca.central.cranfield.ac.uk/ethos-oai/2.0/uketd_dc.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uketd_dc="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/">
+	<dc:creator>Perry, Catherine Anne</dc:creator>
+	<dcterms:issued>01/01/2013</dcterms:issued>
+	<dc:subject xsi:type="dcterms:Ddc">362.19892</dc:subject>
+	<dc:coverage>childhood obesity ; children ; weight ; north west England</dc:coverage>
+	<dcterms:abstract>Prevalence of overweight and obesity has increased in adult and child populations during the last two to three decades in both developed and developing countries. Childhood obesity is common in the United Kingdom and has become a major public health issue. There is a growing body of evidence to suggest that the development of overweight and obesity in children has its roots in early life, with evidence of increasing weight over time in pre-school children. The study explored the early development of overweight in infants in Halton, an area of Northwest England. It was a mixed methods study comprising a quantitative analysis of routinely collected infant weight data and a longitudinal qualitative study of the process of weaning. Phase one - patterns of weight in Halton infants: The retrospective quantitative study utilised birthweight, and weight and length/height at eight weeks, eight months and 40 months of age from Halton infants born between 1994 and 2006 (16,328 singleton births). Analysis of these data provided further evidence of the early development of overweight, and highlighted patterns of infant overweight at eight months of age not previously reported. Phase two - longitudinal qualitative study of the process of weaning: Given the findings of phase one, factors that may influence early weight gain were considered. Therefore, the second phase focussed upon weaning, which has been little researched in terms of the way in which mothers manage the process. The aim was to explore weaning as a social process, focussing on the experience, knowledge, perceptions and actions of mothers as they weaned, in order to consider whether this could shed light on infant growth and development in general and the early development of overweight in particular. A grounded theory approach was utilised. Twenty one women were recruited and interviewed antenatally and then up to three times after their babies were born. A total of 67 interviews took place. A grounded theory, or ‘plausible account’, of the weaning process was developed. The centrality of the baby, and the way in which mothers talk about following the lead of the baby as they wean was highlighted, along with the ways in which this focus may falter or shift because of the complexity of influences on mothers’ lives. The primacy of embodied knowledge, that is the knowledge that mothers built up through the experience of feeding and weaning their infant, and the significance of being a mother in terms of being an ‘authority’ on feeding and weaning, were evident. In addition, the limitations of providing information, such as the feeding and weaning guidelines, without taking account of the individual mother, infant and their context was indicated. This is how some mistrust of the advice of health professionals, and possibly other ‘health messages’ emerged, as mothers did not see the advice as appropriate to them, their infant, or circumstances. Mothers did recognise babies as ‘bigger’ or ‘smaller’, but through valuing weight and weight gain were particularly aware of having small babies, which may have limited their capacity for recognising the significance of early signs of overweight in their infants. Final conclusions: Using mixed methods in this study allowed a broad picture of patterns of weight and overweight in Halton infants, and what some of the contributory factors to those patterns might be, to emerge, than if a single research method had been used. A number of implications for policy and practice: at an individual level in terms of the way in which women are supported to feed and wean their babies; and at a population level in terms of the monitoring of weight, were identified.</dcterms:abstract>
+	<dc:language xsi:type="dcterms:ISO639-2">eng</dc:language>
+	<uketdterms:institution>University of Chester</uketdterms:institution>
+	<dc:publisher>University of Liverpool</dc:publisher>
+	<dc:title>A mixed methods study of the early development of childhood overweight and obesity : understanding the process of infant feeding</dc:title>
+	<dc:type>Thesis (Ph.D.)</dc:type>
+	<uketdterms:qualificationlevel>doctoral</uketdterms:qualificationlevel>
+	<uketdterms:embargodate>01/05/2018</uketdterms:embargodate>
+	<dcterms:isReferencedBy>http://hdl.handle.net/10034/314712</dcterms:isReferencedBy>
+	<dc:source>http://ethos.bl.uk/ProcessSearch.do?query=600654</dc:source>
+	<dc:relation>016730755</dc:relation>
+	<uketdterms:advisor>Thurston, Miranda</uketdterms:advisor>
+	<dcterms:accessRights>false</dcterms:accessRights>
+	<dcterms:provenance>oai:chesterrep.openrepository.com:10034/314712</dcterms:provenance>
+</uketd_dc:uketddc>
+
+<uketd_dc:uketddc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:uketdterms="http://naca.central.cranfield.ac.uk/ethos-oai/terms/" xsi:schemaLocation="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/ http://naca.central.cranfield.ac.uk/ethos-oai/2.0/uketd_dc.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uketd_dc="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/">
+	<dc:creator>Furlong, Claire Rosemary</dc:creator>
+	<uketdterms:authoridentifier xsi:type="uketdterms:ISNI">0000000453537397</uketdterms:authoridentifier>
+	<uketdterms:sponsor>Arts and Humanities Research Council</uketdterms:sponsor>
+	<dcterms:issued>01/01/2015</dcterms:issued>
+	<dc:subject xsi:type="dcterms:Ddc">052</dc:subject>
+	<dc:coverage>Victorian ; periodicals ; history of science ; print culture ; history of medicine ; Victorian literature ; popular culture</dc:coverage>
+	<dcterms:abstract>Over the course of the 1830s and 1840s, a professional scientific and medical community was coming into being. Exclusive membership, limits to the definition of science, and separation of the professional from the popular sphere became important elements in the consolidation of scientific authority. Studies exploring Victorian scientific authority have tended to focus on professional journals and organs of middle-class culture; this thesis takes a new approach in exploring how this authority is reflected and negotiated across the content of the popular mass-market periodicals which provided leisure reading for working- and lower-class men and women. It uses as examples Chambers's Edinburgh Journal, Reynolds's Miscellany and the Family Herald. The readers of these publications were consumers of scientific information, participants in popularised science and beneficiaries and subjects of new research, but were increasingly excluded from the formal processes of developing scientific theory and practice. Examining representations of anatomy and of mesmerism, health advice and theories of class and gender, the thesis argues for an expanded understanding of mass-market periodicals as communicators of scientific ideas, showing how such material widely informs the content of these publications from fiction to jokes to full-length factual articles. However, the role of the periodicals is much wider than simply the transmission of received ideas, and the thesis reveals a plurality of positions with regard to science and medicine within the popular press. The periodicals engage with modern science in complex and varied ways, accepting, modifying and challenging scientific theories and methods from different positions. The form of the periodical is key, presenting multiple sources of knowledge and ways in which readers may be invited to respond. Chambers's broad support for scientific progress is informed by its useful knowledge identity but tempered by its founding editor's own ambivalent relationship to the scientific establishment. The Herald, influenced by both the periodical's commercial character and its editor's adherence to a spiritual, anti-materialist view of existence, is strongly resistant to modern science, while Reynolds's incorporates it alongside other forms of knowledge in its aim to educate, entertain and empower readers from a socialist perspective.</dcterms:abstract>
+	<dc:language xsi:type="dcterms:ISO639-2">eng</dc:language>
+	<uketdterms:institution>University of Exeter</uketdterms:institution>
+	<dc:publisher>University of Exeter</dc:publisher>
+	<dc:title>Bodies of knowledge : science, medicine and authority in popular periodicals, 1832-1850</dc:title>
+	<dc:type>Thesis (Ph.D.)</dc:type>
+	<uketdterms:qualificationlevel>doctoral</uketdterms:qualificationlevel>
+	<uketdterms:embargodate>30/09/2020</uketdterms:embargodate>
+	<dcterms:isReferencedBy>http://hdl.handle.net/10871/18117</dcterms:isReferencedBy>
+	<dc:identifier xsi:type="dcterms:URI">https://ore.exeter.ac.uk/repository/bitstream/handle/10871/18117/FurlongC.pdf</dc:identifier>
+	<dc:source>http://ethos.bl.uk/ProcessSearch.do?query=666351</dc:source>
+	<dc:relation>017597111</dc:relation>
+	<uketdterms:advisor>Richardson, Angelique</uketdterms:advisor>
+	<uketdterms:department>English</uketdterms:department>
+	<dcterms:accessRights>false</dcterms:accessRights>
+	<dcterms:provenance>oai:ore.exeter.ac.uk:10871/18117</dcterms:provenance>
+</uketd_dc:uketddc>
+
+<uketd_dc:uketddc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:uketdterms="http://naca.central.cranfield.ac.uk/ethos-oai/terms/" xsi:schemaLocation="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/ http://naca.central.cranfield.ac.uk/ethos-oai/2.0/uketd_dc.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uketd_dc="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/">
+	<dc:creator>Hasikou, Anastasia</dc:creator>
+	<uketdterms:authoridentifier xsi:type="uketdterms:ISNI">0000000460594066</uketdterms:authoridentifier>
+	<dcterms:issued>01/01/2017</dcterms:issued>
+	<dc:subject xsi:type="dcterms:Ddc">780.95693</dc:subject>
+	<dc:coverage>M Music</dc:coverage>
+	<dcterms:abstract>This thesis examines relationships between the music of the Greek community of Cyprus and the social, economic and political history of the island from the beginning of British colonialism in 1878 to the end of the Second World War in 1945. In particular, it examines the ways in which folk, church, and European art music were practised, promoted and interpreted in the different social strata of Greek Cypriot society during this period. The main primary sources for this research project are items that appeared in the early print media of the island, which are supplemented by a few other publications containing musical material published elsewhere during this period by Cypriots. The central part of the thesis is divided into three chronologically arranged chapters, the boundaries of which are dictated by historical landmarks in British rule. Chapter Two covers the years 1878–1914 and describes the importation of European art music to Cyprus as a counterpart to the wider establishment of capitalist relations in the island, its promotion by the colonial regime, and its initial reception by Greek Cypriot urban classes. Chapter Three begins in 1914 with the advent of the First World War and traces the rise of Greek Cypriot nationalism in music alongside social and economic developments through the political crisis of 1931, by which point Western forms of musical culture had been firmly established on the island. Chapter Four covers the years 1931–1945, during which Greek Cypriot musical nationalism is further developed and an emergent labour identity finds expression through music. A concluding chapter provides an overall picture of the development of music in Cyprus during the period under investigation, including: discussions about the impact of capitalisation on local musical forms, events and practices; the emergence of European art music and its impact on the local folk and church traditions; the reception of different musical genres by particular social classes; and the place of music in Greek Cypriot nationalism and the Cypriot labour movement.</dcterms:abstract>
+	<dc:language xsi:type="dcterms:ISO639-2">eng</dc:language>
+	<uketdterms:institution>City, University of London</uketdterms:institution>
+	<dc:publisher>City, University of London</dc:publisher>
+	<dc:title>The social history of music development in the Greek Cypriot population during 1878-1945</dc:title>
+	<dc:type>Thesis (Ph.D.)</dc:type>
+	<uketdterms:qualificationlevel>doctoral</uketdterms:qualificationlevel>
+	<dcterms:isReferencedBy>https://openaccess.city.ac.uk/id/eprint/17030/</dcterms:isReferencedBy>
+	<dc:source>http://ethos.bl.uk/ProcessSearch.do?query=709645</dc:source>
+	<dc:relation>018328594</dc:relation>
+	<uketdterms:department>Department of Music</uketdterms:department>
+	<dcterms:accessRights>true</dcterms:accessRights>
+	<dcterms:provenance>oai:openaccess.city.ac.uk:17030</dcterms:provenance>
+</uketd_dc:uketddc>
+
+<uketd_dc:uketddc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:uketdterms="http://naca.central.cranfield.ac.uk/ethos-oai/terms/" xsi:schemaLocation="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/ http://naca.central.cranfield.ac.uk/ethos-oai/2.0/uketd_dc.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uketd_dc="http://naca.central.cranfield.ac.uk/ethos-oai/2.0/">
+	<dc:creator>Franco, Elisangela Abadia</dc:creator>
+	<uketdterms:authoridentifier xsi:type="uketdterms:ISNI">000000046425320X</uketdterms:authoridentifier>
+	<dcterms:issued>01/01/2017</dcterms:issued>
+	<dc:subject xsi:type="dcterms:Ddc">861</dc:subject>
+	<dcterms:abstract>During the Spanish Civil War and its aftermath, many Republican writers chose exile over oppression. Carmen Conde (1907-1986) and Ángela Figuera (1902-1984), were among those who remained in Spain and confronted the task of finding a voice for the voiceless. This study offers a sustained analysis of a representative sample of their work, illuminated within a methodological frame work that combines revisionary perspectives of feminist criticism with theories of allegory and reader response, while remaining sensitive to the socio-political contexts in which their work was written. The primary texts at the core of the thesis are: by Conde, Mujer sin Edén (1947) and by Figuera, Mujer de barro (1948), Soria pura (1949), Vencida por el ángel (1950), El grito inútil (1952), Víspera de la vida (1953), Los días duros (1953), Belleza cruel (1958) y Toco la Tierra. Letanías (1962).
+This thesis argues that Conde and Figuera create a third, feminine, space, in which the voices of Eve and Mary resonate in opposition to dominant discourses of patriarchy. In the work of both poets, though in distinct ways, these maternal figures, so central to the misogynistic rhetoric of Franco’s regime, emerge transformed, with the potential to challenge and redefine views of women and the feminine. The study explores how the female protagonists of politically-charged allegorical environments are constructed in resistance to prevailing anti-feminist imperatives, particularly the pronatalist policies imposed during Franco’s regime. The revised personae of Eve and Mary thus operate as dynamic sites of resistance against a dictatorial discourse that veiled death, violence, rape and hunger. Ultimately, this thesis demonstrates how the objective female body, upon which silence is imposed and techniques of control exerted, becomes in the work of these poets, an articulate, active agent of transgression, a potent counter-narrative in tension with the contemporary politics of silence.
+</dcterms:abstract>
+	<dc:language xsi:type="dcterms:ISO639-2">eng</dc:language>
+	<uketdterms:institution>Queen's University Belfast</uketdterms:institution>
+	<dc:publisher>Queen's University Belfast</dc:publisher>
+	<dc:title>Reading Eve and Mary in the poetry of Carmen Conde and Ángela Figuera</dc:title>
+	<dcterms:alternative>Una lectura de las figuras de Eva y María en la poesía de Carmen Conde y Ángela Figuera</dcterms:alternative>
+	<dc:type>Thesis (Ph.D.)</dc:type>
+	<uketdterms:qualificationlevel>Doctoral</uketdterms:qualificationlevel>
+	<dc:source>http://ethos.bl.uk/ProcessSearch.do?query=726347</dc:source>
+	<dc:relation>018629278</dc:relation>
+	<dcterms:accessRights>false</dcterms:accessRights>
+</uketd_dc:uketddc>
+
+</ListRecords>
+
+
