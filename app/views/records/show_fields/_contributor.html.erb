@@ -38,7 +38,7 @@ https://github.com/samvera/hyrax/blob/v2.9.6/app/views/records/show_fields/_cont
   <% end %>
   <% if array_of_hash.length > 5 %>
     <li>
-      <button id="collection-details-contributor-collapse" class="<%= section == 'header' ? 'btn-secondary' : 'collapse-fields' %>" data-toggle="collapse" data-target=".collection-details-contributor.collapse" aria-expanded="false" aria-controls="collapse">
+      <button id="collection-details-contributor-collapse" class="<%= defined?(section) && section == 'header' ? 'btn-secondary' : 'collapse-fields' %>" data-toggle="collapse" data-target=".collection-details-contributor.collapse" aria-expanded="false" aria-controls="collapse">
         <span>Show more</span>
         <span style='display:none'>Close list</span>
       </button>
