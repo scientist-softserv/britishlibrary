@@ -109,51 +109,56 @@ module Ubiquity
       end
 
       def save_date_published
-         save_single_date('date_published')
+        save_single_date('date_published')
       end
+
       def save_date_accepted
         save_single_date('date_accepted')
       end
+
       def save_date_submitted
         save_single_date('date_submitted')
       end
+
       def save_single_date(value_name)
-        value = send(value_name)
+        value = public_send(value_name)
         # We have value and that value is a string
         new_value = populate_date_field(value, value_name) if value.present? && value.class == String
-        value_group = eval("#{value_name}_group")
+        value_group = public_send("#{value_name}_group")
         # No existing value so we set the value_group to new_value
         value_group ||= new_value if new_value.present? && value_group.blank?
         self[value_name] = transform_date_group(value_group.first) if value_group
       end
 
       def save_event_date
-         save_multiple_date('event_date')
+        save_multiple_date('event_date')
       end
+
       def save_related_exhibition_date
         save_multiple_date('related_exhibition_date')
       end
-      def save_multiple_date(value_name)
 
-        value = send(value_name)
-        # If date is present and a String (rather than an ActiveTriple) use populate_date_field 
-        # to create a new_value that is a group format i.e. array of hashes with 
-        # {'field_name'_year=>XX, 'field_name'_month=>XX, ...} 
+      def save_multiple_date(value_name)
+        value = public_send(value_name)
+        # If date is present and a String (rather than an ActiveTriple) use populate_date_field
+        # to create a new_value that is a group format i.e. array of hashes with
+        # {'field_name'_year=>XX, 'field_name'_month=>XX, ...}
         new_value = populate_date_field(value, value_name) if value.present? && value.class == String
 
         # Use new_value if we don't already have a value_group to set the value_group
-        value_group = eval("#{value_name}_group")
+        value_group = public_send("#{value_name}_group")
+
         value_group ||= new_value if new_value.present? && value_group.blank?
 
-        # If value_group is blank _and_ there is no new_value use value (ActiveTriple) and 
+        # If value_group is blank _and_ there is no new_value use value (ActiveTriple) and
         # populate_date_field to create the group format date (see above) and set the value_group
-        if value&.first.present? && value_group.blank? 
+        if value&.first.present? && value_group.blank?
           value_group = []
-          value.each{ |d| value_group+=populate_date_field(d, value_name) }
+          value.each { |d| value_group += populate_date_field(d, value_name) }
         end
 
         # Now we can resonably sure that all our dates are in the 'group' format output by populate_date_field
-        # We can transform the dates into strings and put them in an array... why like this? ¯\_(")_/¯
+        # We can transform the dates into strings and put them in an array... why like this? \_(")_/
         dates = []
         value_group&.each { |e| dates << transform_date_group(e).to_s }
         self[value_name] = dates.reject(&:blank?)
