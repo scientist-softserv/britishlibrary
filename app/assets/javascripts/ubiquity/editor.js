@@ -37,44 +37,49 @@ $(document).on('turbolinks:load', function() {
 // display a new editor section on the new or edit form
 $(document).on('turbolinks:load', function() {
   return $('body').on('change', '.ubiquity_editor_name_type', function() {
-    displayEditorFields($(this), this.value);
+    displayEditorFields($(this), this.value, false);
   });
 });
 
 // set saved values in the editor section(s) on the edit work form
 $(document).on('turbolinks:load', function() {
   $('.ubiquity_editor_name_type').each(function() {
-    displayEditorFields($(this), this.value);
+    displayEditorFields($(this), this.value, true);
   })
 });
 
 // default the editor type to personal
 // if one hasn't been selected
-function displayEditorFields(self, value) {
+// init arg added
+function displayEditorFields(self, value, init) {
   if (value == 'Personal') {
-    hideEditorOrganization(self);
+    hideEditorOrganization(self, init);
 
   } else if (value == 'Organisational') {
-    hideEditorPersonal(self);
+    hideEditorPersonal(self, init);
 
   } else {
     $('.ubiquity_editor_name_type').last().val('Personal').change();
   }
 }
 
-function hideEditorOrganization(self) {
+function hideEditorOrganization(self, init) {
   self.siblings('.ubiquity_personal_fields').show();
   self.siblings('.ubiquity_organization_fields').find('.ubiquity_editor_organization_name').last().val('');
-  self.siblings('.isni_input_group').find('.ubiquity_editor_isni').last().val('');
+  if (init === false) {
+    self.siblings('.isni_input_group').find('.ubiquity_editor_isni').last().val('');
+  }
   self.siblings('.ubiquity_organization_fields').hide();
 }
 
-function hideEditorPersonal(self) {
+function hideEditorPersonal(self, init) {
   self.siblings('.ubiquity_organization_fields').show();
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_editor_orcid').last().val('');
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_editor_family_name').last().val('');
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_editor_given_name').last().val('');
-  self.siblings('.isni_input_group').find('.ubiquity_editor_isni').last().val('');
+  if (init === false) {
+    self.siblings('.isni_input_group').find('.ubiquity_editor_isni').last().val('');
+  }
   self.siblings('.ubiquity_personal_fields').find('.ubiquity_editor_institutional_relationship').last().val('');
   self.siblings('.ubiquity_personal_fields').hide();
 }
