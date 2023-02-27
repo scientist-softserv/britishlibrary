@@ -11,10 +11,10 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 74576c457909f56e4f2a42cede113bbadcdeedf9
-  branch: main
+  revision: 4cf0207fc7a04d4ca8061e2637a9e332efcddcc8
+  ref: 4cf0207fc7a04d4ca8061e2637a9e332efcddcc8
   specs:
-    bulkrax (5.0.0)
+    bulkrax (5.1.0)
       bagit (~> 0.4)
       coderay
       iso8601 (~> 0.9.0)
@@ -1220,7 +1220,7 @@ DEPENDENCIES
   blacklight_oai_provider (~> 6.1, >= 6.1.1)
   bootstrap-datepicker-rails
   browse-everything (~> 1.1.2)
-  bulkrax (~> 5.0.0)!
+  bulkrax (~> 5.1.0)!
   byebug
   capybara
   capybara-screenshot (~> 1.0)
