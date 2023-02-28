@@ -191,32 +191,4 @@ Hyrax::DOI::DataCiteRegistrar.class_eval do
 
 end
 
-Hyrax::Actors::EmbargoActor.class_eval do
-
-  # Update the visibility of the work to match the correct state of the embargo, then clear the embargo date, etc.
-  # Saves the embargo and the work
-  # Overrides hyrax 2.9.6 (app/actors/embargo_actor.rb)
-  def destroy
-    work.embargo_visibility! # If the embargo has lapsed, update the current visibility.
-    work.deactivate_embargo!
-    work.embargo.save!
-    work.save!
-    # When we destroy the embargo we need to run RegisterDOIJob as the hyrax visiblity may have an impact on the doi status
-    create_or_update_doi(work)
-  end
-
-  # Horrendous duplication of private DOIActor methods
-  def create_or_update_doi(work)
-    # OVERRIDE Hyrax-DOI 0.2.0 to stop register jobs being started when option to register is "do not mint"
-    # By checking that the doi_status_when_public is one of the valid Hyrax::DOI::DataCiteRegistrar::STATES
-    return true unless doi_enabled_work_type?(work) && Flipflop.enabled?(:doi_minting) && work.doi_status_when_public.in?(Hyrax::DOI::DataCiteRegistrar::STATES)
-
-    Hyrax::DOI::RegisterDOIJob.perform_later(work, registrar: work.doi_registrar.presence, registrar_opts: work.doi_registrar_opts)
-  end
-
-  # Check if work is DOI enabled
-  def doi_enabled_work_type?(work)
-    work.class.ancestors.include? Hyrax::DOI::DOIBehavior
-  end
-
-end
+Hyrax::Actors::EmbargoActor.prepend(Hyrax::Actors::EmbargoActorDecorator)
