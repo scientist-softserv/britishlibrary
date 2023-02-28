@@ -45,7 +45,7 @@ module Hyrax
         return true unless work.class.ancestors.include?(Hyrax::DOI::DOIBehavior) && Flipflop.enabled?(:doi_minting) && work.doi_status_when_public.in?(Hyrax::DOI::DataCiteRegistrar::STATES)
 
         Hyrax::DOI::RegisterDOIJob.perform_later(work, registrar: work.doi_registrar.presence, registrar_opts: work.doi_registrar_opts)
-      end 
+      end
     end
   end
 end

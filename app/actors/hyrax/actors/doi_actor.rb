@@ -25,7 +25,7 @@ module Hyrax
       # @see Hyrax::Actors::AbstractActor
       def create(env)
         # Assume the model actor has already run and saved the work
-         Hyrax::DOI::RegisterDOIJob.conditionally_create_or_update_doi_for(env.curation_concern) && next_actor.create(env)
+        Hyrax::DOI::RegisterDOIJob.conditionally_create_or_update_doi_for(env.curation_concern) && next_actor.create(env)
       end
 
       ##
@@ -39,7 +39,6 @@ module Hyrax
 
         Hyrax::DOI::RegisterDOIJob.conditionally_create_or_update_doi_for(env.curation_concern) && next_actor.update(env)
       end
-
     end
   end
 end
