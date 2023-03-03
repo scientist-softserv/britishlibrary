@@ -6,7 +6,7 @@
 <div class="<%= my_model_name %>_institution form-group">
   <%= f.input :institution,
           collection: institution_service.select_active_options,
-          selected: f.object.institution&.to_a.all?(&:blank?) ? fetch_institution_by_tenant : f.object.institution.to_a,
+          selected: f.object.institution.select(&:present?).presence || fetch_institution_by_tenant,
           input_html: { class: 'form-control ubiquity-institution', multiple: true }
   %>
 </div>
