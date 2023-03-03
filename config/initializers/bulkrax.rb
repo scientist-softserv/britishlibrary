@@ -5,7 +5,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
   Bulkrax.setup do |config|
     # Add local parsers
     config.parsers += [
-        { name: " XML - ETD DC Parser", class_name: "Bulkrax::XmlEtdDcParser", partial: "xml_fields" },
+        { name: " XML - UKETD DC Parser", class_name: "Bulkrax::XmlEtdDcParser", partial: "xml_fields" },
     ]
 
     # WorkType to use as the default if none is specified in the import
