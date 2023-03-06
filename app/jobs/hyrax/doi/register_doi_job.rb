@@ -36,6 +36,16 @@ module Hyrax
       def action(model, e)
         "DOI update filed for <a href='#{polymorphic_url(model)}'>#{model.title.first}</a>. Datacite said '#{e.message}'"
       end
+
+      # OVERRIDE Hyrax-DOI 0.2.0 to stop register jobs being started when option to register is "do not mint"
+      # By checking that the doi_status_when_public is one of the valid Hyrax::DOI::DataCiteRegistrar::STATES
+      # Also move this method to RegisterDOIJob to be accessible from DOI and Embargo Actors
+
+      def self.conditionally_create_or_update_doi_for(work)
+        return true unless work.class.ancestors.include?(Hyrax::DOI::DOIBehavior) && Flipflop.enabled?(:doi_minting) && work.doi_status_when_public.in?(Hyrax::DOI::DataCiteRegistrar::STATES)
+
+        Hyrax::DOI::RegisterDOIJob.perform_later(work, registrar: work.doi_registrar.presence, registrar_opts: work.doi_registrar_opts)
+      end
     end
   end
 end

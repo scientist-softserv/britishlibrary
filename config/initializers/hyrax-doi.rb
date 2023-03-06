@@ -190,3 +190,5 @@ Hyrax::DOI::DataCiteRegistrar.class_eval do
   end
 
 end
+
+Hyrax::Actors::EmbargoActor.prepend(Hyrax::Actors::EmbargoActorDecorator)
