@@ -519,7 +519,7 @@ module Hyrax
         #   search_field: 'all_fields'
         # @return <Hash> the inputs required for the collection member search builder
         def params_for_query
-          params.merge(q: params[:cq])
+          params.merge(q: params[:cq], search_field: 'all_fields')
         end
 
         ## NEW METHOD

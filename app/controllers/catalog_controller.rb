@@ -169,7 +169,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name('date_submitted', :stored_searchable)
     config.add_show_field solr_name('related_url', :stored_searchable)
     config.add_show_field solr_name('rights_holder', :stored_searchable)
-    config.add_show_field solr_name('original_doi / doi', :stored_searchable)
+    config.add_show_field solr_name('original_doi', :stored_searchable)
     config.add_show_field solr_name('qualification_name', :stored_searchable)
     config.add_show_field solr_name('qualification_level', :stored_searchable)
     config.add_show_field solr_name('related_identifier', :stored_searchable)
