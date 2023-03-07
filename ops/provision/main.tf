@@ -42,7 +42,7 @@ resource "helm_release" "ingress-nginx" {
   name = "ingress-nginx"
   namespace = "ingress-nginx"
   create_namespace = true
-  version = "3.33.0"
+  version = "4.5.2"
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart = "ingress-nginx"
   values = [
@@ -81,7 +81,7 @@ resource "helm_release" "cert_manager" {
   name = "cert-manager"
   namespace = "cert-manager"
   create_namespace = true
-  version = "1.1.0"
+  version = "1.4.0"
   repository = "https://charts.jetstack.io"
   chart = "cert-manager"
 
