@@ -1265,7 +1265,7 @@ DEPENDENCIES
   hyrax-v2_graph_indexer
   i18n-debug
   i18n-tasks
-  iiif_print!
+  iiif_print (~> 1.0)!
   irus_analytics!
   is_it_working
   jbuilder (~> 2.5)
