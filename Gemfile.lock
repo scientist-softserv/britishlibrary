@@ -61,8 +61,8 @@ GIT
 
 GIT
   remote: https://github.com/scientist-softserv/iiif_print.git
-  revision: 1adcf45c141be085121a465bff265a4740997ab6
-  branch: main
+  revision: ced827e19e7f20314bdce11269ce201784b8e053
+  ref: ced827e19e7f20314bdce11269ce201784b8e053
   specs:
     iiif_print (1.0.0)
       blacklight_iiif_search (~> 1.0)
@@ -1265,7 +1265,7 @@ DEPENDENCIES
   hyrax-v2_graph_indexer
   i18n-debug
   i18n-tasks
-  iiif_print!
+  iiif_print (~> 1.0)!
   irus_analytics!
   is_it_working
   jbuilder (~> 2.5)
