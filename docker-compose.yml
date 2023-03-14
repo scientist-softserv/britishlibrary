@@ -257,14 +257,16 @@ services:
       internal:
 
   chrome:
-    image: selenium/standalone-chrome-debug:3.141.59-20201010
+    # password is 'secret'
+    image: seleniarm/standalone-chromium:latest
     logging:
       driver: none
     volumes:
       - /dev/shm:/dev/shm
-    shm_size: 2G
+    shm_size: 3G
     networks:
       internal:
-    ports:
-      - "4444"
-      - "5960:5900"
+    environment:
+      - JAVA_OPTS=-Dwebdriver.chrome.whitelistedIps=
+      - VIRTUAL_PORT=7900
+      - VIRTUAL_HOST=chrome.hyku.test

@@ -3,7 +3,7 @@
 module SharedSearchHelper
   def generate_work_url(model, request)
     # needed because some attributes eg id is a symbol 7 others are string
-    model = model.with_indifferent_access
+    model = model.to_h.with_indifferent_access
 
     cname = model["account_cname_tesim"]
     account_cname = Array.wrap(cname).first
