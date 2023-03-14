@@ -107,7 +107,8 @@ gem 'bulkrax', "~> 5.1.0", git: 'https://github.com/samvera-labs/bulkrax.git', r
 gem 'blacklight', '~> 6.7'
 gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'
 
-gem 'hyrax', '~> 2.9', '>= 2.9.1'
+# Updating Hyrax to a branch that brings in iiif_manifest v1.3.1
+gem 'hyrax', git: 'https://github.com/samvera/hyrax.git', branch: 'hyrax-iiif-manifest-upgrade'
 
 gem 'rsolr', '~> 2.0'
 
@@ -124,7 +125,7 @@ gem 'flipflop', '~> 2.3'
 gem 'lograge'
 
 gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git', branch: 'main'
-gem 'hyrax-iiif_av', git: 'https://github.com/samvera-labs/hyrax-iiif_av.git', ref: '888ad531'
+gem 'hyrax-iiif_av', git: 'https://github.com/samvera-labs/hyrax-iiif_av.git', ref: '6273f90'
 gem 'httparty'
 gem 'mods', '~> 2.4'
 
@@ -151,4 +152,4 @@ gem 'sidekiq'
 gem 'tether-rails'
 gem 'validate_url'
 gem 'hyrax-v2_graph_indexer'
-gem 'iiif_print', "~> 1.0", git: 'https://github.com/scientist-softserv/iiif_print.git', ref: 'ced827e19e7f20314bdce11269ce201784b8e053'
+gem 'iiif_print', git: 'https://github.com/scientist-softserv/iiif_print.git', branch: 'main'
