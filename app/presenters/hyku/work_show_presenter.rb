@@ -95,15 +95,6 @@ module Hyku
     end
     # End Featured Collections Methods
 
-    # @return [Boolean] render a IIIF viewer
-    def iiif_viewer?
-      Hyrax.config.iiif_image_server? &&
-        representative_id.present? &&
-        representative_presenter.present? &&
-        iiif_media? &&
-        members_include_viewable?
-    end
-
     private
 
       def iiif_media?(presenter: representative_presenter)
