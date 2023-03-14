@@ -15,7 +15,7 @@ module Bulkrax
       raise StandardError, "Missing source identifier (#{source_identifier})" if raw_metadata[source_identifier].blank?
       self.parsed_metadata = {}
       parsed_metadata[work_identifier] = [raw_metadata[source_identifier]]
-      xml_elements.each do |element_name|
+      field_mapping_from_values_for_xml_element_names.each do |element_name|
         # TODO: Refactor this so we don't have duplicate loops and multiple places that repeat
         #       knowledge (e.g. what's the field name, or how we loop over elements)
         next if complicated_elements.include?(element_name)
