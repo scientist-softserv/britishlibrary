@@ -14,13 +14,7 @@ class Book < ActiveFedora::Base
   # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
   include IiifPrint.model_configuration(
-    pdf_split_child_model: self,
-    pdf_splitter_service: IiifPrint::SplitPdfs::PagesToJpgsSplitter,
-    derivative_service_plugins: [
-      IiifPrint::JP2DerivativeService,
-      IiifPrint::PDFDerivativeService,
-      IiifPrint::TextExtractionDerivativeService
-    ]
+    pdf_split_child_model: self
   )
 
   self.indexer = BookIndexer
