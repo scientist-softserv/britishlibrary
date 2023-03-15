@@ -11,8 +11,8 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: e7d58e6171173d30cf4b6272c124078936882e37
-  ref: e7d58e6171173d30cf4b6272c124078936882e37
+  revision: 4a04f8b9b19af78f75d286dd2d78516fe4cf474e
+  ref: 4a04f8b9b19af78f75d286dd2d78516fe4cf474e
   specs:
     bulkrax (5.1.0)
       bagit (~> 0.4)
@@ -115,6 +115,15 @@ GIT
       signet
       solrizer (>= 3.4, < 5)
       tinymce-rails (~> 4.1)
+
+GIT
+  remote: https://github.com/scientist-softserv/hyrax-v2_graph_indexer.git
+  revision: e8b5976c6aa91ac18af8b29acb949e8f30152c2d
+  ref: e8b5976c6aa91ac18af8b29acb949e8f30152c2d
+  specs:
+    hyrax-v2_graph_indexer (0.3.0)
+      hyrax (~> 2.9)
+      railties
 
 GIT
   remote: https://github.com/scientist-softserv/iiif_print.git
@@ -612,9 +621,6 @@ GEM
       hydra-derivatives (~> 3.0)
       hydra-file_characterization (~> 1.0)
       hydra-pcdm (>= 0.9)
-    hyrax-v2_graph_indexer (0.1.0)
-      hyrax (~> 2.9)
-      railties
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     i18n-debug (1.2.0)
@@ -1268,7 +1274,7 @@ DEPENDENCIES
   hyrax!
   hyrax-doi!
   hyrax-iiif_av!
-  hyrax-v2_graph_indexer
+  hyrax-v2_graph_indexer (~> 0.3)!
   i18n-debug
   i18n-tasks
   iiif_print!
