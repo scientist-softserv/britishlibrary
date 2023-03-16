@@ -51,7 +51,7 @@ class CatalogController < ApplicationController
     config.advanced_search[:query_parser] ||= 'dismax'
     config.advanced_search[:form_solr_parameters] ||= {}
 
-    config.search_builder_class = Hyrax::CatalogSearchBuilder
+    config.search_builder_class = IiifPrint::CatalogSearchBuilder
 
     # Show gallery view
     config.view.gallery.partials = %i[index_header index]
@@ -68,7 +68,7 @@ class CatalogController < ApplicationController
     config.default_solr_params = {
       qt: "search",
       rows: 10,
-      qf: "title_tesim description_tesim creator_tesim keyword_tesim"
+      qf: "title_tesim description_tesim creator_tesim keyword_tesim all_text_timv"
     }
 
     # Specify which field to use in the tag cloud on the homepage.
