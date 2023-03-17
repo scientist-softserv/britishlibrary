@@ -75,11 +75,11 @@ extraEnvVars: &envVars
   - name: FCREPO_BASE_PATH
     value: /blstaging
   - name: FCREPO_HOST
-    value: hyku-staging-fcrepo:8080
+    value: fcrepo.fcrepo.svc.cluster.local:8080
   - name: FCREPO_PATH
     value: /rest
   - name: FEDORA_URL
-    value: http://hyku-staging-fcrepo:8080/rest
+    value: http://fcrepo.fcrepo.svc.cluster.local:8080/rest
   - name: INITIAL_ADMIN_EMAIL
     value: support@notch8.com
   - name: INITIAL_ADMIN_PASSWORD
@@ -206,6 +206,8 @@ fcrepo:
 
 global:
   hyraxName: hyku-staging-hyrax
+
+externalFcrepoHost: fcrepo.fcrepo.svc.cluster.local
 
 nginx:
   enabled: true

@@ -135,6 +135,17 @@ resource "helm_release" "postgresql-fcrepo" {
   ]
 }
 
+resource "helm_release" "postgresql-fcrepo-staging" {
+  name = "postgresql"
+  namespace = "fcrepo-staging"
+  create_namespace = true
+  repository = "https://charts.bitnami.com/bitnami"
+  chart = "postgresql"
+  values = [
+    file("k8s/postgresql-values.yaml")
+  ]
+}
+
 resource "helm_release" "fcrepos3" {
   depends_on = [helm_release.postgresql-fcrepo]
 
@@ -145,6 +156,20 @@ resource "helm_release" "fcrepos3" {
   chart = "fcrepo"
   values = [
     file("k8s/fcrepos3-values.yaml")
+  ]
+
+}
+
+resource "helm_release" "fcrepos3-staging" {
+  depends_on = [helm_release.postgresql-fcrepo-staging]
+
+  name = "fcrepo-staging"
+  namespace = "fcrepo-staging"
+  create_namespace = true
+  repository = "https://samvera-labs.github.io/fcrepo-charts"
+  chart = "fcrepo"
+  values = [
+    file("k8s/fcrepos3-staging-values.yaml")
   ]
 
 }
