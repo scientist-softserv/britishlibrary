@@ -90,7 +90,10 @@ module Hyrax
       end
 
       def mime_type_for(file)
-        MIME::Types.type_for(File.extname(file)).first.content_type
+        file_extension = File.extname(file)
+        # ruby-mime-types v3.4.1 does not support .glb files so we have to add it
+        MIME::Types.add(MIME::Type.new('model/gltf-binary').tap { |type| type.add_extensions('glb') }) if file_extension == '.glb'
+        MIME::Types.type_for(file_extension).first.content_type
       end
 
       def dereference_file(file_reference)
