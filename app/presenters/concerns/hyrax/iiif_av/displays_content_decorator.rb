@@ -36,9 +36,10 @@ module Hyrax
         end
 
         def mesh_content
-          IIIFManifest::V3::DisplayContent.new(Hyrax::Engine.routes.url_helpers.download_url(id, file: 'glb', protocol: 'https'),
-                                               type: 'Model',
-                                               format: solr_document.mime_type
+          IIIFManifest::V3::DisplayContent.new(
+            Hyrax::Engine.routes.url_helpers.download_url(id, file: 'glb', protocol: 'https'),
+            type: 'Model',
+            format: solr_document.mime_type
           )
         end
 
@@ -55,26 +56,55 @@ module Hyrax
           image_content_v3(url)
         end
 
+        def image_content_v3(url)
+          # @see https://github.com/samvera-labs/iiif_manifest
+          IIIFManifest::V3::DisplayContent.new(
+            url,
+            type: 'Image',
+            format: 'image/jpeg',
+            width: width,
+            height: height,
+            iiif_endpoint: iiif_endpoint(latest_file_id)
+          )
+        end
+
         def video_display_content(_url, label = '')
           width = Array(solr_document.width).first.try(:to_i) || 320
           height = Array(solr_document.height).first.try(:to_i) || 240
           duration = conformed_duration_in_seconds
-          IIIFManifest::V3::DisplayContent.new(Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(solr_document.id, label: label, host: request.base_url),
-                                               label: label,
-                                               width: width,
-                                               height: height,
-                                               duration: duration,
-                                               type: 'Video',
-                                               format: solr_document.mime_type)
+          IIIFManifest::V3::DisplayContent.new(
+            Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(
+              solr_document.id, label: label, host: request.base_url
+            ),
+            type: 'Video',
+            format: 'video/mp4',
+            label: label,
+            duration: duration,
+            width: width,
+            height: height
+          )
+        end
+
+        def audio_content
+          streams = stream_urls
+          if streams.present?
+            streams.collect { |label, url| audio_display_content(url, label) }
+          else
+            [audio_display_content(download_path('mp3'), 'mp3')]
+          end
         end
 
         def audio_display_content(_url, label = '')
           duration = conformed_duration_in_seconds
-          IIIFManifest::V3::DisplayContent.new(Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(solr_document.id, label: label, host: request.base_url),
-                                               label: label,
-                                               duration: duration,
-                                               type: 'Sound',
-                                               format: solr_document.mime_type)
+          IIIFManifest::V3::DisplayContent.new(
+            Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(
+              solr_document.id, label: label, host: request.base_url
+            ),
+            type: 'Sound',
+            format: 'audio/mp3',
+            label: label,
+            duration: duration
+          )
         end
 
         def conformed_duration_in_seconds
