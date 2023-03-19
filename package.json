@@ -3,7 +3,7 @@
   "private": true,
   "repository": "https://github.com/scientist-softserv/britishlibrary.git",
   "dependencies": {
-    "universalviewer": "^3.0.36"
+    "universalviewer": "^4.0.17"
   },
   "scripts": {
     "preinstall": "rm -rf ./public/uv",
