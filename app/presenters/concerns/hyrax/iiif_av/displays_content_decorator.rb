@@ -6,7 +6,20 @@ module Hyrax
     #   request.base_url => hostname
     # also to remove #auth_service since it was not working for now
     module DisplaysContentDecorator
+      def display_content
+        return nil unless display_content_allowed?
+
+        return image_content if solr_document.image?
+        return video_content if solr_document.video?
+        return audio_content if solr_document.audio?
+        return mesh_content if solr_document.mesh?
+      end
+
       private
+
+        def content_supported?
+          solr_document.video? || solr_document.audio? || solr_document.image? || solr_document.mesh?
+        end
 
         def solr_document
           defined?(super) ? super : object
@@ -20,6 +33,13 @@ module Hyrax
 
         def request
           Request.new(base_url: hostname)
+        end
+
+        def mesh_content
+          IIIFManifest::V3::DisplayContent.new(Hyrax::Engine.routes.url_helpers.download_url(id, file: 'glb', protocol: 'https'),
+                                               type: 'Model',
+                                               format: solr_document.mime_type
+          )
         end
 
         def image_content

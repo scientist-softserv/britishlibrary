@@ -13,7 +13,8 @@ Hyrax::IiifAv::DisplaysIiifAv.module_eval do
     def file_type_and_permissions_valid?(presenter)
       current_ability.can?(:read, presenter.id) &&
         (presenter.try(:image?) || presenter.try(:solr_document).try(:image?) ||
-        presenter.try(:video?) || presenter.try(:solr_document).try(:video?) ||
-        presenter.try(:audio?) || presenter.try(:solr_document).try(:audio?))
+         presenter.try(:video?) || presenter.try(:solr_document).try(:video?) ||
+         presenter.try(:audio?) || presenter.try(:solr_document).try(:audio?) ||
+         presenter.try(:mesh?)  || presenter.try(:solr_document).try(:mesh?))
     end
 end

@@ -98,7 +98,7 @@ module Hyku
     private
 
       def iiif_media?(presenter: representative_presenter)
-        presenter.image? || presenter.video? || presenter.audio?
+        presenter.image? || presenter.video? || presenter.audio? || presenter.mesh?
       end
 
       def members_include_viewable?
