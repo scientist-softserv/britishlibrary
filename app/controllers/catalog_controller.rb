@@ -22,7 +22,22 @@ class CatalogController < ApplicationController
     solr_name('year_published', :stored_sortable)
   end
 
+  # CatalogController-scope behavior and configuration for BlacklightIiifSearch
+  include BlacklightIiifSearch::Controller
+
   configure_blacklight do |config|
+    # IiifPrint index fields
+    config.add_index_field 'all_text_tsimv', highlight: true, helper_method: :render_ocr_snippets
+
+    # configuration for Blacklight IIIF Content Search
+    config.iiif_search = {
+      full_text_field: 'all_text_tsimv',
+      object_relation_field: 'is_page_of_ssim',
+      supported_params: %w[q page],
+      autocomplete_handler: 'iiif_suggest',
+      suggester_name: 'iiifSuggester'
+    }
+
     config.view.gallery.partials = %i[index_header index]
     config.view.masonry.partials = [:index]
     config.view.slideshow.partials = [:index]
@@ -36,7 +51,7 @@ class CatalogController < ApplicationController
     config.advanced_search[:query_parser] ||= 'dismax'
     config.advanced_search[:form_solr_parameters] ||= {}
 
-    config.search_builder_class = Hyrax::CatalogSearchBuilder
+    config.search_builder_class = IiifPrint::CatalogSearchBuilder
 
     # Show gallery view
     config.view.gallery.partials = %i[index_header index]
@@ -53,7 +68,7 @@ class CatalogController < ApplicationController
     config.default_solr_params = {
       qt: "search",
       rows: 10,
-      qf: "title_tesim description_tesim creator_tesim keyword_tesim"
+      qf: "title_tesim description_tesim creator_tesim keyword_tesim all_text_timv"
     }
 
     # Specify which field to use in the tag cloud on the homepage.
@@ -169,7 +184,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name('date_submitted', :stored_searchable)
     config.add_show_field solr_name('related_url', :stored_searchable)
     config.add_show_field solr_name('rights_holder', :stored_searchable)
-    config.add_show_field solr_name('original_doi / doi', :stored_searchable)
+    config.add_show_field solr_name('original_doi', :stored_searchable)
     config.add_show_field solr_name('qualification_name', :stored_searchable)
     config.add_show_field solr_name('qualification_level', :stored_searchable)
     config.add_show_field solr_name('related_identifier', :stored_searchable)
@@ -177,6 +192,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name('dewey', :stored_searchable)
     config.add_show_field solr_name('library_of_congress_classification', :stored_searchable)
     config.add_show_field solr_name('add_info', :stored_searchable)
+    config.add_show_field solr_name('ethos_access_rights', :stored_searchable)
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

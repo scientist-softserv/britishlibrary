@@ -14,11 +14,19 @@ class ThesisOrDissertation < ActiveFedora::Base
   include Hyrax::DOI::DOIBehavior
   # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
+  include IiifPrint.model_configuration(
+    pdf_split_child_model: self
+  )
 
   self.indexer = ThesisOrDissertationIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
+
+  #Added the property of the access rights for the XML tag handling.
+  property :ethos_access_rights, predicate: ::RDF::Vocab::MA.hasAccessConditions do |index|
+    index.as :stored_searchable
+  end
 
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)

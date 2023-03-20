@@ -10,26 +10,17 @@ GIT
       openurl
 
 GIT
-  remote: https://github.com/notch8/willow_sword.git
-  revision: 0a669d78617c6003e4aa1a46a10447be92be27d5
-  specs:
-    willow_sword (0.2.0)
-      bagit (~> 0.4.1)
-      rails (>= 5.1.6)
-      rubyzip (>= 1.0.0)
-
-GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: db7d32ca0392d18c48a8593d28f050332557d9ca
-  tag: v4.4.0
+  revision: 4a04f8b9b19af78f75d286dd2d78516fe4cf474e
+  ref: 4a04f8b9b19af78f75d286dd2d78516fe4cf474e
   specs:
-    bulkrax (4.4.0)
+    bulkrax (5.1.0)
       bagit (~> 0.4)
       coderay
       iso8601 (~> 0.9.0)
       kaminari
       language_list (~> 1.2, >= 1.2.1)
-      libxml-ruby (~> 3.1.0)
+      libxml-ruby (~> 3.2.4)
       loofah (>= 2.2.3)
       oai (>= 0.4, < 2.x)
       rack (>= 2.0.6)
@@ -40,14 +31,25 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/hyrax-doi.git
-  revision: 8bf97601760be673406ba5fe72e76e9257fd28f9
-  branch: play_nice_with_view_paths
+  revision: d494a50ef8ce3eae594c7ed7148c33b3c977d4a7
+  branch: main
   specs:
     hyrax-doi (0.2.0)
       bolognese (~> 1.8, >= 1.8.6)
       flipflop (~> 2.3)
-      hyrax (~> 2.9)
+      hyrax (>= 2.9, < 4.0)
       rails (~> 5.2.4, >= 5.2.4.3)
+
+GIT
+  remote: https://github.com/samvera-labs/hyrax-iiif_av.git
+  revision: 6273f90016c153d2add33f85cc24285d51a25382
+  ref: 6273f90
+  specs:
+    hyrax-iiif_av (0.2.0)
+      blacklight
+      hyrax (>= 2.9, < 4.0)
+      iiif_manifest (> 0.5)
+      rails (~> 5.1)
 
 GIT
   remote: https://github.com/samvera-labs/samvera-nesting_indexer.git
@@ -56,6 +58,85 @@ GIT
   specs:
     samvera-nesting_indexer (2.0.0)
       dry-equalizer
+
+GIT
+  remote: https://github.com/samvera/hyrax.git
+  revision: 92e22e5d015737e06020aa43563353af56b44305
+  branch: hyrax-iiif-manifest-upgrade
+  specs:
+    hyrax (2.9.6)
+      active-fedora (>= 11.5.2, < 13)
+      almond-rails (~> 0.1)
+      awesome_nested_set (~> 3.1)
+      blacklight (~> 6.14)
+      blacklight-gallery (~> 0.7)
+      breadcrumbs_on_rails (~> 3.0)
+      browse-everything (>= 0.16)
+      carrierwave (~> 1.0)
+      clipboard-rails (~> 1.5)
+      draper (~> 4.0)
+      dry-equalizer (~> 0.2)
+      dry-struct (>= 0.1, < 2.0)
+      dry-transaction (~> 0.11)
+      dry-validation (>= 0.9, < 2.0)
+      flipflop (~> 2.3)
+      flot-rails (~> 0.0.6)
+      font-awesome-rails (~> 4.2)
+      hydra-derivatives (~> 3.3)
+      hydra-editor (>= 3.3, < 6.0)
+      hydra-head (>= 10.6.1, < 12)
+      hydra-works (>= 0.16, < 2.0)
+      iiif_manifest (>= 0.3, < 2.0)
+      jquery-datatables-rails (~> 3.4)
+      jquery-ui-rails (~> 6.0)
+      json-schema
+      kaminari_route_prefix (~> 0.1.1)
+      legato (~> 0.3)
+      linkeddata (~> 3.1)
+      mailboxer (~> 0.12)
+      nest (~> 3.1)
+      noid-rails (~> 3.0.0)
+      oauth
+      oauth2 (~> 1.2)
+      posix-spawn
+      power_converter (~> 0.1, >= 0.1.2)
+      pul_uv_rails (~> 2.0)
+      qa (>= 2.0, < 6.0)
+      rails (~> 5.0)
+      rails_autolink (~> 1.1)
+      rdf-rdfxml
+      rdf-vocab (< 3.1.5)
+      redis-namespace (~> 1.5)
+      redlock (>= 0.1.2)
+      retriable (>= 2.9, < 4.0)
+      samvera-nesting_indexer (~> 2.0)
+      sass-rails (~> 5.0)
+      select2-rails (~> 3.5)
+      signet
+      solrizer (>= 3.4, < 5)
+      tinymce-rails (~> 4.1)
+
+GIT
+  remote: https://github.com/scientist-softserv/hyrax-v2_graph_indexer.git
+  revision: e8b5976c6aa91ac18af8b29acb949e8f30152c2d
+  ref: e8b5976c6aa91ac18af8b29acb949e8f30152c2d
+  specs:
+    hyrax-v2_graph_indexer (0.3.0)
+      hyrax (~> 2.9)
+      railties
+
+GIT
+  remote: https://github.com/scientist-softserv/iiif_print.git
+  revision: ec8da2e7bb144b9daaaaf0770174f47f00f96fb8
+  branch: main
+  specs:
+    iiif_print (1.0.0)
+      blacklight_iiif_search (~> 1.0)
+      dry-monads (~> 1.4.0)
+      hyrax (>= 2.5, < 4.0)
+      nokogiri (>= 1.13.2)
+      rails (~> 5.0)
+      rdf-vocab (~> 3.0)
 
 GIT
   remote: https://github.com/tawan/active-elastic-job.git
@@ -175,7 +256,7 @@ GEM
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
-    bagit (0.4.4)
+    bagit (0.4.5)
       docopt (~> 0.5.0)
       validatable (~> 1.6)
     bcp47 (0.3.3)
@@ -204,10 +285,14 @@ GEM
       bootstrap-sass (~> 3.0)
       openseadragon (>= 0.2.0)
       rails
+    blacklight_iiif_search (1.0.0)
+      blacklight (~> 6.0)
+      iiif-presentation
+      rails (>= 4.2, < 6)
     blacklight_oai_provider (6.1.1)
       blacklight (~> 6.0)
       oai (~> 1.0)
-    bolognese (1.9.13)
+    bolognese (1.11.0)
       activesupport (>= 4.2.5)
       benchmark_methods (~> 0.7)
       bibtex-ruby (>= 5.1.0)
@@ -217,7 +302,6 @@ GEM
       concurrent-ruby (~> 1.1, >= 1.1.5)
       csl-styles (~> 1.0, >= 1.0.1.10)
       edtf (~> 3.0, >= 3.0.4)
-      faraday (~> 0.17.3)
       gender_detector (~> 0.1.2)
       iso8601 (~> 0.9.1)
       json-ld-preloaded (~> 3.1, >= 3.1.3)
@@ -225,7 +309,7 @@ GEM
       loofah (~> 2.0, >= 2.0.3)
       maremma (>= 4.9.4, < 5)
       namae (~> 1.0)
-      nokogiri (~> 1.12.0)
+      nokogiri (>= 1.13.2, < 1.14)
       oj (~> 3.10)
       oj_mimic_json (~> 1.0, >= 1.0.1)
       postrank-uri (~> 1.0, >= 1.0.18)
@@ -537,60 +621,6 @@ GEM
       hydra-derivatives (~> 3.0)
       hydra-file_characterization (~> 1.0)
       hydra-pcdm (>= 0.9)
-    hyrax (2.9.6)
-      active-fedora (>= 11.5.2, < 13)
-      almond-rails (~> 0.1)
-      awesome_nested_set (~> 3.1)
-      blacklight (~> 6.14)
-      blacklight-gallery (~> 0.7)
-      breadcrumbs_on_rails (~> 3.0)
-      browse-everything (>= 0.16)
-      carrierwave (~> 1.0)
-      clipboard-rails (~> 1.5)
-      draper (~> 4.0)
-      dry-equalizer (~> 0.2)
-      dry-struct (>= 0.1, < 2.0)
-      dry-transaction (~> 0.11)
-      dry-validation (>= 0.9, < 2.0)
-      flipflop (~> 2.3)
-      flot-rails (~> 0.0.6)
-      font-awesome-rails (~> 4.2)
-      hydra-derivatives (~> 3.3)
-      hydra-editor (>= 3.3, < 6.0)
-      hydra-head (>= 10.6.1, < 12)
-      hydra-works (>= 0.16, < 2.0)
-      iiif_manifest (>= 0.3, < 0.6)
-      jquery-datatables-rails (~> 3.4)
-      jquery-ui-rails (~> 6.0)
-      json-schema
-      kaminari_route_prefix (~> 0.1.1)
-      legato (~> 0.3)
-      linkeddata (~> 3.1)
-      mailboxer (~> 0.12)
-      nest (~> 3.1)
-      noid-rails (~> 3.0.0)
-      oauth
-      oauth2 (~> 1.2)
-      posix-spawn
-      power_converter (~> 0.1, >= 0.1.2)
-      pul_uv_rails (~> 2.0)
-      qa (>= 2.0, < 6.0)
-      rails (~> 5.0)
-      rails_autolink (~> 1.1)
-      rdf-rdfxml
-      rdf-vocab (< 3.1.5)
-      redis-namespace (~> 1.5)
-      redlock (>= 0.1.2)
-      retriable (>= 2.9, < 4.0)
-      samvera-nesting_indexer (~> 2.0)
-      sass-rails (~> 5.0)
-      select2-rails (~> 3.5)
-      signet
-      solrizer (>= 3.4, < 5)
-      tinymce-rails (~> 4.1)
-    hyrax-v2_graph_indexer (0.1.0)
-      hyrax (~> 2.9)
-      railties
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     i18n-debug (1.2.0)
@@ -606,7 +636,11 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       terminal-table (>= 1.5.1)
     ice_nine (0.11.2)
-    iiif_manifest (0.5.0)
+    iiif-presentation (1.1.0)
+      activesupport (>= 3.2.18)
+      faraday (>= 0.9)
+      json
+    iiif_manifest (1.3.1)
       activesupport (>= 4)
     is_it_working (1.1.0)
     iso-639 (0.3.5)
@@ -658,7 +692,7 @@ GEM
     kaminari_route_prefix (0.1.1)
       kaminari (~> 1.0)
     language_list (1.2.1)
-    latex-decode (0.3.2)
+    latex-decode (0.4.0)
     launchy (2.5.0)
       addressable (~> 2.7)
     ld-patch (3.1.3)
@@ -683,7 +717,7 @@ GEM
       rdf (~> 3.0)
     legato (0.7.0)
       multi_json
-    libxml-ruby (3.1.0)
+    libxml-ruby (3.2.4)
     link_header (0.0.8)
     linkeddata (3.1.1)
       equivalent-xml (~> 0.6)
@@ -734,7 +768,7 @@ GEM
       scrub_rb (>= 1.0.1, < 2)
       unf
     marcel (1.0.2)
-    maremma (4.9.7)
+    maremma (4.9.8)
       activesupport (>= 4.2.5)
       addressable (>= 2.3.6)
       builder (~> 3.2, >= 3.2.2)
@@ -742,7 +776,7 @@ GEM
       faraday (~> 0.17.3)
       faraday-encoding (~> 0.0.4)
       faraday_middleware (~> 0.14.0)
-      nokogiri (>= 1.11.2, < 1.13.0)
+      nokogiri (>= 1.11.2, < 1.14.0)
       oj (>= 2.8.3)
       oj_mimic_json (~> 1.0, >= 1.0.1)
     matrix (0.4.2)
@@ -753,7 +787,7 @@ GEM
     mime-types-data (3.2021.1115)
     mini_magick (4.11.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.6.1)
+    mini_portile2 (2.8.1)
     minitest (5.15.0)
     mods (2.4.1)
       edtf
@@ -773,8 +807,8 @@ GEM
     noid-rails (3.0.3)
       actionpack (>= 5.0.0, < 7)
       noid (~> 0.9)
-    nokogiri (1.12.5)
-      mini_portile2 (~> 2.6.1)
+    nokogiri (1.13.10)
+      mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     nokogumbo (2.0.5)
       nokogiri (~> 1.8, >= 1.8.4)
@@ -796,7 +830,7 @@ GEM
     octokit (4.21.0)
       faraday (>= 0.9)
       sawyer (~> 0.8.0, >= 0.5.3)
-    oj (3.13.11)
+    oj (3.14.2)
     oj_mimic_json (1.0.1)
     openseadragon (0.6.0)
       rails (> 3.2.0)
@@ -1218,7 +1252,7 @@ DEPENDENCIES
   blacklight_oai_provider (~> 6.1, >= 6.1.1)
   bootstrap-datepicker-rails
   browse-everything (~> 1.1.2)
-  bulkrax!
+  bulkrax (~> 5.1.0)!
   byebug
   capybara
   capybara-screenshot (~> 1.0)
@@ -1237,11 +1271,13 @@ DEPENDENCIES
   flipflop (~> 2.3)
   flutie
   httparty
-  hyrax (~> 2.9, >= 2.9.1)
+  hyrax!
   hyrax-doi!
-  hyrax-v2_graph_indexer
+  hyrax-iiif_av!
+  hyrax-v2_graph_indexer (~> 0.3)!
   i18n-debug
   i18n-tasks
+  iiif_print!
   irus_analytics!
   is_it_working
   jbuilder (~> 2.5)
@@ -1297,7 +1333,6 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webdrivers (~> 4.0)
   webmock
-  willow_sword!
 
 BUNDLED WITH
-   2.2.27
+   2.3.9

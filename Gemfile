@@ -100,16 +100,15 @@ group :development do
   # gem 'xray-rails' # when using this gem, know that sidekiq will not work
 end
 
-# Bulkrax
-group :bulkrax do
-  gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git', tag: 'v4.4.0'
-  gem 'willow_sword', git: 'https://github.com/notch8/willow_sword.git'
-end
+# Bulkrax :: While we technically don't need a version when we tag on the branch, this helps us have
+#            a quick scan of what version we're assuming/working with.
+gem 'bulkrax', "~> 5.1.0", git: 'https://github.com/samvera-labs/bulkrax.git', ref: '4a04f8b9b19af78f75d286dd2d78516fe4cf474e'
 
 gem 'blacklight', '~> 6.7'
 gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'
 
-gem 'hyrax', '~> 2.9', '>= 2.9.1'
+# Updating Hyrax to a branch that brings in iiif_manifest v1.3.1
+gem 'hyrax', git: 'https://github.com/samvera/hyrax.git', branch: 'hyrax-iiif-manifest-upgrade'
 
 gem 'rsolr', '~> 2.0'
 
@@ -125,7 +124,8 @@ gem 'rolify'
 gem 'flipflop', '~> 2.3'
 gem 'lograge'
 
-gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git', branch: 'play_nice_with_view_paths'
+gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git', branch: 'main'
+gem 'hyrax-iiif_av', git: 'https://github.com/samvera-labs/hyrax-iiif_av.git', ref: '6273f90'
 gem 'httparty'
 gem 'mods', '~> 2.4'
 
@@ -151,4 +151,5 @@ gem "sentry-raven"
 gem 'sidekiq'
 gem 'tether-rails'
 gem 'validate_url'
-gem 'hyrax-v2_graph_indexer'
+gem 'hyrax-v2_graph_indexer', "~> 0.3", git: 'https://github.com/scientist-softserv/hyrax-v2_graph_indexer.git', ref: 'e8b5976c6aa91ac18af8b29acb949e8f30152c2d'
+gem 'iiif_print', git: 'https://github.com/scientist-softserv/iiif_print.git', branch: 'main'

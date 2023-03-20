@@ -168,3 +168,27 @@ Hyrax::Identifier::Dispatcher.class_eval do
     object
   end
 end
+
+# Forces DataCiteRegistrar to initializew a new client everytime. 
+# A fix for #245 https://github.com/scientist-softserv/britishlibrary/issues/245
+# Prevents leaching of datacite config between tenants when minting DOIs by ensuring
+# that the datacite credentials always come from the account that kicked the job off
+Hyrax::DOI::DataCiteRegistrar.class_eval do
+
+  def initialize(builder: nil)
+    current_tenant = Apartment::Tenant.current
+    datacite_endpoint ||= Account.find_by(tenant: current_tenant).data_cite_endpoint
+    self.username = datacite_endpoint.username
+    self.password = datacite_endpoint.password
+    self.prefix = datacite_endpoint.prefix
+    self.mode = datacite_endpoint.mode
+    super(builder: Hyrax::Identifier::Builder.new(prefix: self.prefix))
+  end
+
+  def client 
+    Hyrax::DOI::DataCiteClient.new(username: self.username, password: self.password, prefix: self.prefix, mode: self.mode)
+  end
+
+end
+
+Hyrax::Actors::EmbargoActor.prepend(Hyrax::Actors::EmbargoActorDecorator)

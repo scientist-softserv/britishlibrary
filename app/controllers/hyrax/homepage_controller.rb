@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "iiif_print/homepage_search_builder"
+
 # OVERRIDE: Hyrax v2.9.0
 # - add home_text content block to the index method - Adding themes
 # - add facets to home page - inheriting from CatalogController rather than ApplicationController
@@ -21,7 +23,7 @@ module Hyrax
     # The search builder for finding recent documents
     # Override of Blacklight::RequestBuilders
     def search_builder_class
-      Hyrax::HomepageSearchBuilder
+      IiifPrint::HomepageSearchBuilder
     end
 
     class_attribute :presenter_class

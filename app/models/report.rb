@@ -11,6 +11,9 @@ class Report < ActiveFedora::Base
   include Hyrax::DOI::DOIBehavior
   # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
+  include IiifPrint.model_configuration(
+    pdf_split_child_model: self
+  )
 
   self.indexer = ReportIndexer
   # Change this to restrict which works can be added as a child.

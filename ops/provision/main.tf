@@ -42,7 +42,7 @@ resource "helm_release" "ingress-nginx" {
   name = "ingress-nginx"
   namespace = "ingress-nginx"
   create_namespace = true
-  version = "3.33.0"
+  version = "4.5.2"
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart = "ingress-nginx"
   values = [
@@ -81,7 +81,7 @@ resource "helm_release" "cert_manager" {
   name = "cert-manager"
   namespace = "cert-manager"
   create_namespace = true
-  version = "1.1.0"
+  version = "1.4.0"
   repository = "https://charts.jetstack.io"
   chart = "cert-manager"
 
@@ -135,6 +135,17 @@ resource "helm_release" "postgresql-fcrepo" {
   ]
 }
 
+resource "helm_release" "postgresql-fcrepo-staging" {
+  name = "postgresql"
+  namespace = "fcrepo-staging"
+  create_namespace = true
+  repository = "https://charts.bitnami.com/bitnami"
+  chart = "postgresql"
+  values = [
+    file("k8s/postgresql-values.yaml")
+  ]
+}
+
 resource "helm_release" "fcrepos3" {
   depends_on = [helm_release.postgresql-fcrepo]
 
@@ -145,6 +156,20 @@ resource "helm_release" "fcrepos3" {
   chart = "fcrepo"
   values = [
     file("k8s/fcrepos3-values.yaml")
+  ]
+
+}
+
+resource "helm_release" "fcrepos3-staging" {
+  depends_on = [helm_release.postgresql-fcrepo-staging]
+
+  name = "fcrepo-staging"
+  namespace = "fcrepo-staging"
+  create_namespace = true
+  repository = "https://samvera-labs.github.io/fcrepo-charts"
+  chart = "fcrepo"
+  values = [
+    file("k8s/fcrepos3-staging-values.yaml")
   ]
 
 }

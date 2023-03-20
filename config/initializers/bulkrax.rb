@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
-
+  # rubocop:disable Metrics/BlockLength
   Bulkrax.setup do |config|
     # Add local parsers
     config.parsers += [
-        { name: " XML - ETD DC Parser", class_name: "Bulkrax::XmlEtdDcParser", partial: "xml_fields" },
+      { name: " XML - UKETD DC Parser", class_name: "Bulkrax::XmlEtdDcParser", partial: "xml_fields" }
     ]
 
     # WorkType to use as the default if none is specified in the import
@@ -52,6 +52,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
     config.field_mappings['Bulkrax::CsvParser'] = {
       'abstract' => { from: ['abstract'] },
       'access_control_id' => { excluded: true },
+      'ethos_access_rights' => { from: ['access_rights'] },
       'add_info' => { from: ['additional_information'] },
       'admin_set_id' => { from: ['admin_set'] },
       'alt_title' => { from: ['alternative_title'] },
@@ -78,20 +79,20 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'contributor_staffmember' => { from: ['contributor_staffmember'], object: 'contributor' },
       'contributor_type' => { from: ['contributor_type'], object: 'contributor' },
       'contributor_wikidata' => { from: ['contributor_wikidata'], object: 'contributor' },
-      'creator_family_name' => { from: ['creator_family_name'], object: 'creator' },
-      'creator_given_name' => { from: ['creator_given_name'], object: 'creator' },
-      'creator_grid' => { from: ['creator_grid'], object: 'creator' },
-      'creator_institutional_relationship' => { from: ['creator_institutional_relationship'], object: 'creator', nested_type: 'Array' },
-      'creator_isni' => { from: ['creator_isni'], object: 'creator' },
-      'creator_name_type' => { from: ['creator_name_type'], object: 'creator' },
-      'creator_orcid' => { from: ['creator_orcid'], object: 'creator' },
-      'creator_organization_name' => { from: ['creator_organization_name', 'creator_organisation_name'], object: 'creator' },
-      'creator_researchassociate' => { from: ['creator_researchassociate'], object: 'creator' },
-      'creator_ror' => { from: ['creator_ror'], object: 'creator' },
-      'creator_staffmember' => { from: ['creator_staffmember'], object: 'creator' },
-      'creator_type' => { from: ['creator_type'], object: 'creator' },
-      'creator_wikidata' => { from: ['creator_wikidata'], object: 'creator' },
-      'current_he_institution_name' => { from: ['current_he_institution'], object: 'current_he_institution' },
+      'creator_family_name' => { from: ['creator_family_name'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_given_name' => { from: ['creator_given_name'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_grid' => { from: ['creator_grid'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_institutional_relationship' => { from: ['creator_institutional_relationship'], object: 'creator', skip_object_for_model_names: ['FileSet'], nested_type: 'Array' },
+      'creator_isni' => { from: ['creator_isni'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_name_type' => { from: ['creator_name_type'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_orcid' => { from: ['creator_orcid'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_organization_name' => { from: ['creator_organization_name', 'creator_organisation_name'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_researchassociate' => { from: ['creator_researchassociate'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_ror' => { from: ['creator_ror'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_staffmember' => { from: ['creator_staffmember'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_type' => { from: ['creator_type'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_wikidata' => { from: ['creator_wikidata'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'current_he_institution_name' => { from: ['current_he_institution_name'], object: 'current_he_institution' },
       'date_accepted' => { from: ['date_accepted'] },
       'date_published' => { from: ['date_published_1'] },
       'date_submitted' => { from: ['date_submitted'] },
@@ -179,49 +180,50 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'volume' => { from: ['volume'] }
     }
 
-    config.field_mappings['Bulkrax::CsvParser'].merge!({
+    config.field_mappings['Bulkrax::CsvParser'].merge!(
       'parents' => { from: ['parents'], split: /\s*[;|]\s*/, related_parents_field_mapping: true },
-      'children' => { from: ['children'], split: /\s*[;|]\s*/, related_children_field_mapping: true },
-    })
+      'children' => { from: ['children'], split: /\s*[;|]\s*/, related_children_field_mapping: true }
+    )
 
     config.field_mappings['Bulkrax::XmlEtdDcParser'] = {
-        'abstract' => { from: ['abstract'] },
-        'alt_title' => { from: ['alternative'] },
-        'contributor_family_name' => { from: ['advisor'], object: 'contributor' },
-        'contributor_given_name' => { from: ['advisor'], object: 'contributor' },
-        'contributor_name_type' => { from: ['advisor'], object: 'contributor' },
-        'contributor_type' => { from: ['advisor'], object: 'contributor' },
-        'contributor_position' => { from: ['advisor'], object: 'contributor' },
-        'creator_family_name' => { from: ['creator'], object: 'creator' },
-        'creator_given_name' => { from: ['creator'], object: 'creator' },
-        'creator_name_type' => { from: ['creator'], object: 'creator' },
-        'creator_position' => { from: ['creator'], object: 'creator' },
-        'creator_isni' => { from: ['authoridentifier_isni'], object: 'creator' }, # type="uketdterms:ISNI"
-        'creator_orcid' => { from: ['authoridentifier_orcid'], object: 'creator' }, # type="uketdterms:ORCID"
-        'current_he_institution_name' => { from: ['institution'], object: 'current_he_institution' },
-        'date_accepted' => { from: ['issued'] },
-        'dewey' => { from: ['subject'] }, # type="dcterms:Ddc"
-        'doi' => { from: ['identifier'] }, # type="dcterms:DOI"
-        'embargo_date' => { from: ['embargodate'] },
-        # 'embargo_date' => { from: ['dcterms:accessRights'] },
-        'funder_award' => { from: ['ugrantnumber'], object: "funder", split: /\s*;\s*/ },
-        'funder_name' => { from: ['sponsor'], object: "funder" },
-        'bulkrax_identifier' => { from: ['source'], source_identifier: true },
-        'keyword' => { from: ['coverage'], split: /\s*;\s*/ },
-        'language' => { from: ['language'] }, # type="dcterms:ISO639-2"
-        'org_unit' => { from: ['department'] },
-        'official_link' => { from: ['isReferencedBy'] },
-        'publisher' => { from: ['publisher'] },
-        'qualification_name' => { from: ['type'] },
-        'qualification_level' => { from: ['qualificationlevel'] },
-        'title' => { from: ['title'] },
-        'parents' => { from: ['parents'], split: /\s*[;|]\s*/, related_parents_field_mapping: true },
-        'children' => { from: ['children'], split: /\s*[;|]\s*/, related_children_field_mapping: true },
-        'alternate_identifier' => {from: %w[provenance source relation], object: 'alternate_identifier' },
-        'alternate_identifier_type' => {from: %w[provenance source relation], object: 'alternate_identifier' }
-    #OAI identifier' => dcterms:provenance
-    #EThOS identifier' => dc:source
-    #Aleph system number => dc:relation
+      'abstract' => { from: ['abstract'] },
+      'ethos_access_rights' => { from: ['accessRights'] },
+      'alt_title' => { from: ['alternative'] },
+      'contributor_family_name' => { from: ['advisor'], object: 'contributor' },
+      'contributor_given_name' => { from: ['advisor'], object: 'contributor' },
+      'contributor_name_type' => { from: ['advisor'], object: 'contributor' },
+      'contributor_type' => { from: ['advisor'], object: 'contributor' },
+      'contributor_position' => { from: ['advisor'], object: 'contributor' },
+      'creator_family_name' => { from: ['creator'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_given_name' => { from: ['creator'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_name_type' => { from: ['creator'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_position' => { from: ['creator'], object: 'creator', skip_object_for_model_names: ['FileSet'] },
+      'creator_isni' => { from: ['authoridentifier_isni'], object: 'creator', skip_object_for_model_names: ['FileSet'] }, # type="uketdterms:ISNI"
+      'creator_orcid' => { from: ['authoridentifier_orcid'], object: 'creator', skip_object_for_model_names: ['FileSet'] }, # type="uketdterms:ORCID"
+      'current_he_institution_name' => { from: ['institution'], object: 'current_he_institution' },
+      'date_accepted' => { from: ['issued'] },
+      'dewey' => { from: ['subject'] }, # type="dcterms:Ddc"
+      'doi' => { from: ['identifier'] }, # type="dcterms:DOI"
+      'embargo_date' => { from: ['embargodate'] },
+      # 'embargo_date' => { from: ['dcterms:accessRights'] },
+      'funder_award' => { from: ['ugrantnumber'], object: "funder", split: /\s*;\s*/ },
+      'funder_name' => { from: ['sponsor'], object: "funder" },
+      'bulkrax_identifier' => { from: ['source'], source_identifier: true },
+      'keyword' => { from: ['coverage'], split: /\s*;\s*/ },
+      'language' => { from: ['language'] }, # type="dcterms:ISO639-2"
+      'org_unit' => { from: ['department'] },
+      'official_link' => { from: ['isReferencedBy'] },
+      'publisher' => { from: ['publisher'] },
+      'qualification_name' => { from: ['type'] },
+      'qualification_level' => { from: ['qualificationlevel'] },
+      'title' => { from: ['title'] },
+      'parents' => { from: ['parents'], split: /\s*[;|]\s*/, related_parents_field_mapping: true },
+      'children' => { from: ['children'], split: /\s*[;|]\s*/, related_children_field_mapping: true },
+      'alternate_identifier' => { from: %w[provenance source relation], object: 'alternate_identifier' },
+      'alternate_identifier_type' => { from: %w[provenance source relation], object: 'alternate_identifier' }
+      #OAI identifier' => dcterms:provenance
+      #EThOS identifier' => dc:source
+      #Aleph system number => dc:relation
     }
     # Add to, or change existing mappings as follows
     #   e.g. to exclude date
@@ -234,4 +236,5 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
     # Properties that should not be used in imports/exports. They are reserved for use by Hyrax.
     # config.reserved_properties += ['my_field']
   end
+  # rubocop:enable Metrics/BlockLength
 end

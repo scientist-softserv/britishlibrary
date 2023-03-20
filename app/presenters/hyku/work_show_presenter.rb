@@ -1,14 +1,18 @@
 # frozen_string_literal: true
 
 # OVERRIDE here to add featured collection methods and to delegate collection presenters to the member presenter factory
+# And to add Hyrax IIIF AV
 
 module Hyku
   class WorkShowPresenter < Hyrax::WorkShowPresenter
-    Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::FileSetPresenter
+    # Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::FileSetPresenter
+    # Adds behaviors for hyrax-iiif_av plugin.
+    include Hyrax::IiifAv::DisplaysIiifAv
+    Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::IiifAv::IiifFileSetPresenter
 
     include MultipleMetadataFieldsHelper
     delegate :extent, :rendering_ids, :isni, :institution, :org_unit, :refereed, :doi, :original_doi, :isbn, :issn, :eissn,
-             :funder, :fndr_project_ref, :add_info,
+             :funder, :fndr_project_ref, :add_info, :ethos_access_rights,
              :journal_title, :alternative_journal_title, :issue, :volume, :pagination, :article_num, :project_name, :rights_holder,
              :official_link, :place_of_publication, :series_name, :edition, :abstract, :version,
              :event_title, :event_date, :event_location, :book_title, :editor,
@@ -92,6 +96,16 @@ module Hyku
     # End Featured Collections Methods
 
     private
+
+      def iiif_media?(presenter: representative_presenter)
+        presenter.image? || presenter.video? || presenter.audio?
+      end
+
+      def members_include_viewable?
+        file_set_presenters.any? do |presenter|
+          iiif_media?(presenter: presenter) && current_ability.can?(:read, presenter.id)
+        end
+      end
 
       def extract_from_identifier(rgx)
         if solr_document['identifier_tesim'].present?

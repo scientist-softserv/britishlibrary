@@ -1,4 +1,4 @@
-<%# OVERRIDE Hyrax 2.9.6 to make more fields for creator 
+<%# OVERRIDE Hyrax 2.9.6 to make more fields for creator
 https://github.com/samvera/hyrax/blob/v2.9.6/app/views/records/show_fields/_creator.html.erb %>
 
 <% array_of_hash = JSON.parse record.creator.first %>
@@ -38,7 +38,7 @@ https://github.com/samvera/hyrax/blob/v2.9.6/app/views/records/show_fields/_crea
   <% end %>
   <% if array_of_hash.length > 5 %>
     <li>
-      <button id="collection-details-creator-collapse" class="<%= section == 'header' ? 'btn-secondary' : 'collapse-fields' %>" data-toggle="collapse" data-target=".collection-details-creator.collapse" aria-expanded="false" aria-controls="collapse">
+      <button id="collection-details-creator-collapse" class="<%= defined?(section) && section == 'header' ? 'btn-secondary' : 'collapse-fields' %>" data-toggle="collapse" data-target=".collection-details-creator.collapse" aria-expanded="false" aria-controls="collapse">
         <span>Show more</span>
         <span style='display:none'>Close list</span>
       </button>
