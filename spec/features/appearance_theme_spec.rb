@@ -122,7 +122,6 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       visit '/admin/appearance'
       click_link('Themes')
       select('BL Default Homepage', from: 'Home Page Theme')
-      find('body').click
       expect(page).to have_content('This theme uses a custom banner image')
       expect(page).to have_content('This theme uses marketing text')
       expect(page.find('#home-wireframe img')['src']).to match(%r{/assets\/themes\/default_home/})
