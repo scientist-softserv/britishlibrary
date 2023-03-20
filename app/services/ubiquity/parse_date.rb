@@ -17,16 +17,13 @@ module Ubiquity
 
     def self.return_date_part(date, date_part)
       return nil if date.blank?
-      split_date = date.split('-') if date.respond_to?(:split)
+      date = date.to_date 
       if date_part == 'year'
-        return date.strftime("%Y") if date.respond_to?(:strftime)
-        split_date[0]
+        date.strftime("%Y") if date.respond_to?(:strftime)
       elsif date_part == 'month'
-        return date.strftime("%m") if date.respond_to?(:strftime)
-        split_date[1] if split_date.length > 1
+        date.strftime("%m") if date.respond_to?(:strftime)
       elsif date_part == 'day'
-        return date.strftime("%d") if date.respond_to?(:strftime)
-        split_date[2] if split_date.length == 3
+        date.strftime("%d") if date.respond_to?(:strftime)
       end
     end
 
