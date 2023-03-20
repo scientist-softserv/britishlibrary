@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "iiif_print/homepage_search_builder"
 
 # OVERRIDE: Hyrax v2.9.0
