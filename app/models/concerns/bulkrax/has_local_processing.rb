@@ -6,6 +6,8 @@ module Bulkrax::HasLocalProcessing
   # to add a custom property from outside of the import data
   def add_local
     parsed_metadata['creator_search'] = parsed_metadata&.[]('creator_search')&.map { |c| c.values.join(', ') }
+    parsed_metadata["qualification_name"] = parsed_metadata['qualification_name'].gsub(/\s+/, "").downcase.tr('.
+      ', '').include?('phd') ? 'PhD' : parsed_metadata['qualification_name']
     set_institutional_relationships
 
     ['funder', 'creator', 'contributor', 'editor', 'alternate_identifier', 'related_identifier', 'current_he_institution'].each do |key|
