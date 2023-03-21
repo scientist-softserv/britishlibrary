@@ -5,6 +5,7 @@ module Bulkrax::HasLocalProcessing
   # add any special processing here, for example to reset a metadata property
   # to add a custom property from outside of the import data
   def add_local
+    parsed_metadata['resource_type'] = ['ThesisOrDissertation Doctoral thesis'] if parser.is_a? Bulkrax::XmlEtdDcParser
     parsed_metadata['creator_search'] = parsed_metadata&.[]('creator_search')&.map { |c| c.values.join(', ') }
     parsed_metadata["qualification_name"] = if parsed_metadata['qualification_name'].gsub(/\s+/, "").downcase.tr('.', '').include?('phd')
                                               'PhD'
