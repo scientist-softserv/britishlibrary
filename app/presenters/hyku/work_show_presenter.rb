@@ -45,7 +45,8 @@ module Hyku
     def date_accepted
       date = solr_document["date_accepted_dtsim"]
       return formatted_date(date) if date.present?
-      solr_document["date_accepted_tesim"].map { |d| d.to_date.strftime("%Y") } if solr_document["date_accepted_tesim"] 
+      return if solr_document["date_accepted_tesim"].blank?
+      solr_document["date_accepted_tesim"].map { |d| d.to_date.strftime("%Y") }
     end
 
     def date_submitted
