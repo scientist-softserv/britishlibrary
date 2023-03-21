@@ -36,7 +36,6 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       select('BL Default Homepage', from: 'Home Page Theme')
       select('List view', from: 'Search Results Page Theme')
       select('Default Show Page', from: 'Show Page Theme')
-      find('body').click
       click_on('Save')
       expect(page).to have_content('The appearance was successfully updated')
     end
@@ -52,7 +51,6 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       select('BL Default Homepage', from: 'Home Page Theme')
       select('Gallery view', from: 'Search Results Page Theme')
       select('Default Show Page', from: 'Show Page Theme')
-      find('body').click
       click_on('Save')
       site = Site.last
       account.sites << site
@@ -73,7 +71,6 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
 
       expect(page).to have_content('This will select a default view for the search results page. Users can select their preferred views on the search results page that will override this selection')
 
-      find('body').click
       click_on('Save')
       site = Site.last
       account.sites << site
@@ -122,7 +119,6 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       visit '/admin/appearance'
       click_link('Themes')
       select('BL Default Homepage', from: 'Home Page Theme')
-      find('body').click
       expect(page).to have_content('This theme uses a custom banner image')
       expect(page).to have_content('This theme uses marketing text')
       expect(page.find('#home-wireframe img')['src']).to match(%r{/assets\/themes\/default_home/})
@@ -133,7 +129,6 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       visit '/admin/appearance'
       click_link('Themes')
       select('BL Default Homepage', from: 'Home Page Theme')
-      find('body').click
       click_on('Save')
       site = Site.last
       account.sites << site
@@ -148,7 +143,6 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       visit '/admin/appearance'
       click_link('Themes')
       select('BL Default Homepage', from: 'Home Page Theme')
-      find('body').click
       click_on('Save')
       site = Site.last
       account.sites << site
@@ -159,7 +153,6 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       visit '/admin/appearance'
       click_link('Themes')
       select('Non-Shared Site Homepage', from: 'Home Page Theme')
-      find('body').click
       click_on('Save')
       site = Site.last
       account.sites << site
