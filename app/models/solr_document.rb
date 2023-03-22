@@ -86,6 +86,7 @@ class SolrDocument
   attribute :collection_names, Solr::Array, solr_name('collection_names')
   attribute :collection_id, Solr::Array, solr_name('collection_id')
   attribute :ethos_access_rights, Solr::Array, solr_name('ethos_access_rights')
+  attribute :digest, Solr::String, "digest_ssim"
 
   field_semantics.merge!(
     contributor: ['contributor_list_tesim', 'editor_list_tesim', 'funder_tesim'],
@@ -206,6 +207,10 @@ class SolrDocument
       'Thesis Or Dissertation': 'Thesis',
       'Time Based Media': 'Online Multimedia' #or Audiovisual Material or Music or Generic?
     }
+  end
+
+  def digest_sha1
+    digest[/urn:sha1:([\w]+)/, 1]
   end
 end
 # rubocop:enable Metrics/ClassLength
