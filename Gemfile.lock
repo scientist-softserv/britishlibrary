@@ -127,8 +127,8 @@ GIT
 
 GIT
   remote: https://github.com/scientist-softserv/iiif_print.git
-  revision: ec8da2e7bb144b9daaaaf0770174f47f00f96fb8
-  branch: main
+  revision: a3cda4e11d5e8fb09703505c2a3346f0759fddf7
+  branch: i335-import-nnp-serverless-code-into-iiif-print
   specs:
     iiif_print (1.0.0)
       blacklight_iiif_search (~> 1.0)
