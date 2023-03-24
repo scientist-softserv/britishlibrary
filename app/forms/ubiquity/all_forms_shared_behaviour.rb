@@ -85,7 +85,9 @@ module Ubiquity
                                                                  current_he_institution_isni
                                                                  current_he_institution_ror] }
 
-            permitted_params << :doi_options
+          permitted_params << :doi_options
+
+          permitted_params << :record_level_file_version_declaration
         end
       end
     end # closes class class_methods

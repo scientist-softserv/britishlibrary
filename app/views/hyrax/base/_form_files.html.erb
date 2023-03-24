@@ -1,4 +1,5 @@
-<!-- OVERRIDE Hyrax 2.9 to get browse everything working properyl -->
+<!-- OVERRIDE Hyrax 2.9 to get browse everything working properly
+     and to add render form_declaration -->
 <div id="fileupload">
    <!-- Redirect browsers with JavaScript disabled to the origin page -->
    <noscript><input type="hidden" name="redirect" value="<%= main_app.root_path %>" /></noscript>
@@ -9,6 +10,9 @@
    <% else %>
      <%= t('hyrax.base.form_files.local_upload_html') %>
    <% end %>
+
+   <%= render partial: 'form_declaration', locals: { f: f, curation_concern: curation_concern } %>
+
    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
    <div class="fileupload-buttonbar">
      <div class="row">
