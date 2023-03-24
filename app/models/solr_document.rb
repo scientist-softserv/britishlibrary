@@ -86,6 +86,7 @@ class SolrDocument
   attribute :collection_names, Solr::Array, solr_name('collection_names')
   attribute :collection_id, Solr::Array, solr_name('collection_id')
   attribute :ethos_access_rights, Solr::Array, solr_name('ethos_access_rights')
+  attribute :record_level_file_version_declaration, Solr::String, solr_name('record_level_file_version_declaration')
 
   field_semantics.merge!(
     contributor: ['contributor_list_tesim', 'editor_list_tesim', 'funder_tesim'],
