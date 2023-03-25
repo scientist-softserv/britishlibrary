@@ -85,6 +85,7 @@ FROM hyku-base as hyku-web
 
 COPY --chown=1001:101 $APP_PATH/Gemfile* /app/samvera/hyrax-webapp/
 RUN sh -l -c " \
+  mkdir -p tmp/shared && \
   bundle install --jobs "$(nproc)" && \
   sed -i '/require .enumerator./d' /usr/local/bundle/gems/oai-1.1.0/lib/oai/provider/resumption_token.rb && \
   sed -i '/require .enumerator./d' /usr/local/bundle/gems/edtf-3.0.7/lib/edtf.rb && \
