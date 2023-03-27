@@ -43,9 +43,9 @@ module Hyku
     end
 
     def date_accepted
-      date = solr_document["date_accepted_dtsim"]
-      return formatted_date(date) if date.present?
-      solr_document["date_accepted_tesim"]
+      return if solr_document["date_accepted_tesim"]&.join.blank?
+
+      solr_document["date_accepted_tesim"].map { |d| Ubiquity::ParseDate.return_date_part(d, "year") }
     end
 
     def date_submitted
