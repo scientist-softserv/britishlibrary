@@ -121,4 +121,38 @@ RSpec.describe Hyku::WorkShowPresenter do
       end
     end
   end
+
+  describe "#date_accepted" do
+    context "when date_accepted is in YYYY format" do
+      let(:document) { { "date_accepted_tesim" => ["2023"] } }
+
+      it "returns the formatted date" do
+        expect(presenter.date_accepted).to eq(["2023"])
+      end
+    end
+
+    context "when date_accepted is in YYYY-MM-DD format" do
+      let(:document) { { "date_accepted_tesim" => ["2023-12-13"] } }
+
+      it "returns the formatted date" do
+        expect(presenter.date_accepted).to eq(["2023"])
+      end
+    end
+
+    context "when date_accepted is in MM/DD/YYYY format" do
+      let(:document) { { "date_accepted_tesim" => ["12/13/2023"] } }
+
+      it "returns the formatted date" do
+        expect(presenter.date_accepted).to eq(["2023"])
+      end
+    end
+
+    context "when date_accepted is not valid" do
+      let(:document) { { "date_accepted_tesim" => [""] } }
+
+      it "returns nil" do
+        expect(presenter.date_accepted).to be nil
+      end
+    end
+  end
 end

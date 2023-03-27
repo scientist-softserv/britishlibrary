@@ -20,7 +20,7 @@ module Ubiquity
       return date if date_part == 'year' && date.match(/^\d{4}$/)
 
       begin
-        parsed_date = date.match(%r{\d{1,2}/\d{1,2}/\d{4}}) ? Date.strptime(date, '%m/%d/%Y') : Date.parse(date)
+        parsed_date = date =~ %r{\d{1,2}/\d{1,2}/\d{4}} ? Date.strptime(date, '%m/%d/%Y') : Date.parse(date)
       rescue ArgumentError
         parsed_date = nil
       end
@@ -31,7 +31,6 @@ module Ubiquity
       when 'year'  then parsed_date.strftime("%Y")
       when 'month' then parsed_date.strftime("%m")
       when 'day'   then parsed_date.strftime("%d")
-      else nil
       end
     end
 
