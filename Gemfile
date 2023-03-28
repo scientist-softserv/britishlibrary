@@ -102,7 +102,7 @@ end
 
 # Bulkrax :: While we technically don't need a version when we tag on the branch, this helps us have
 #            a quick scan of what version we're assuming/working with.
-gem 'bulkrax', "~> 5.1.0", git: 'https://github.com/samvera-labs/bulkrax.git', branch: 'fixing-bulkrax-bug'#ref: '5b51de36a551973263e550a0361b177ed312620c'
+gem 'bulkrax', "~> 5.1.0", git: 'https://github.com/samvera-labs/bulkrax.git', ref: '0c5f8ea2642ece97ecd0e14b3b63cc04d83a0a02'
 
 gem 'blacklight', '~> 6.7'
 gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'

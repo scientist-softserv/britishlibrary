@@ -11,8 +11,8 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 0f736559c7efa18bedbddb843ec105c3f89a0834
-  branch: fixing-bulkrax-bug
+  revision: 0c5f8ea2642ece97ecd0e14b3b63cc04d83a0a02
+  ref: 0c5f8ea2642ece97ecd0e14b3b63cc04d83a0a02
   specs:
     bulkrax (5.1.0)
       bagit (~> 0.4)
