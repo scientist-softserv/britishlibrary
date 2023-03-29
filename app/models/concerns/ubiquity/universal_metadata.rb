@@ -151,5 +151,8 @@ module Ubiquity
     end
     # rubocop:enable Metrics/MethodLength
 
+    def open_access_determination
+      OpenAccessService.unrestricted_use_files_for?(work: self)
+    end
   end
 end
