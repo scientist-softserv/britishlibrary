@@ -79,7 +79,7 @@ module Ubiquity
 
     # remove hash keys with value of nil, "", and "NaN"
     def remove_hash_keys_with_empty_and_nil_values(data)
-      if (data.present? && data.class == Array)
+      if (data&.join.present? && data.class == Array)
         new_data = data.map do |hash|
           ['contributor_orcid', 'contributor_isni', 'creator_orcid', 'creator_isni', 'editor_isni', 'editor_orcid'].each do|ele|
             hash[ele] = hash[ele].strip.chomp('/').split('/').last.gsub(/[^a-z0-9X-]/, '') if hash[ele].present?
