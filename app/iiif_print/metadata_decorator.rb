@@ -2,6 +2,18 @@ module IiifPrint
   module MetadataDecorator
     private
 
+      def faceted_values_for(field_name:)
+        values_for(field_name: field_name).map do |value|
+          # In BL, creator facet is `creator_search_sim`
+          search_field = field_name == :creator ? field_name.to_s + "_search_sim" : field_name.to_s + "_sim"
+          path = Rails.application.routes.url_helpers.search_catalog_path(
+            "f[#{search_field}][]": value, locale: I18n.locale
+          )
+          path += '&include_child_works=true' if work["is_child_bsi"] == true
+          "<a href='#{File.join(@base_url, path)}'>#{value}</a>"
+        end
+      end
+
       # BL has three special name fields that are split into
       # family name, given name, and also organization name
       # which need to be handled differently
@@ -20,6 +32,8 @@ module IiifPrint
           handle_alternative_identifier(values)
         elsif field_name == :related_identifier
           handle_related_identifier(values)
+        elsif field_name == :resource_type
+          handle_resource_type(values)
         else
           values
         end
@@ -70,6 +84,10 @@ module IiifPrint
         end
 
         build_identifier_values(hashes)
+      end
+
+      def handle_resource_type(values)
+        values.map { |value| Qa::Authorities::Local.subauthority_for('resource_types').find(value).fetch('term') }
       end
 
       def apply_label(label, value)
