@@ -40,6 +40,8 @@ module IiifPrint
       end
 
       def handle_names(field_name, values)
+        return unless Ubiquity::JsonValidator.valid_json?(values.first)
+
         field = field_name.to_s
         names = JSON.parse(values.first)
         names.map do |hash|
@@ -56,6 +58,8 @@ module IiifPrint
       end
 
       def handle_funder(values)
+        return unless Ubiquity::JsonValidator.valid_json?(values.first)
+
         hashes = JSON.parse(values.first)
 
         result = []
@@ -70,12 +74,16 @@ module IiifPrint
       end
 
       def handle_alternative_identifier(values)
+        return unless Ubiquity::JsonValidator.valid_json?(values.first)
+
         hashes = JSON.parse(values.first)
 
         build_identifier_values(hashes)
       end
 
       def handle_related_identifier(values)
+        return unless Ubiquity::JsonValidator.valid_json?(values.first)
+
         hashes = JSON.parse(values.first)
 
         # Replace "relation_type" with "relation" in hash keys
