@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe OpenAccessService do
-  subject { described_class.unrestricted_use_files_for?(work: work) }
+  subject { described_class.new(work: work).unrestricted_use_files? }
 
   let(:book) { build(:book_with_one_file, funder: funder) }
   let(:generic_work) do
@@ -13,20 +13,36 @@ RSpec.describe OpenAccessService do
   let(:image) { build(:image) }
   let(:filesets) { double }
   let(:embargo) { double }
-  let(:funder) { [] }
+  # rubocop:disable Metrics/LineLength
+  # funder is an ugly thing as stored! Here we have 2 funders
+  let(:funder) do
+    ["[{\"funder_name\":\"Biotechnology and Biological Sciences Research Council\",\"funder_doi\":\"http://dx.doi.org/10.13039/501100000268\",\"funder_position\":\"0\",\"funder_isni\":\"0000 0001 2189 3037\",\"funder_ror\":\"https://ror.org/00cwqg982\"},{\"funder_name\":\"British Academy\",\"funder_doi\":\"http://dx.doi.org/10.13039/501100000286\",\"funder_position\":\"1\",\"funder_isni\":\"0000 0004 0411 8698\",\"funder_ror\":\"https://ror.org/0302b4677\"}]"]
+  end
 
-  describe '#unrestricted_use_files_for?' do
+  # rubocop:enable Metrics/LineLength
+
+  describe '#unrestricted_use_files?' do
     context 'for scholarly articles' do
       let(:work) { generic_work }
 
-      context 'when unrestricted use' do
+      context 'when unrestricted use it is true' do
         before do
           allow(work).to receive(:file_sets).and_return([filesets])
           allow(filesets).to receive(:open_access?).and_return(true)
+          allow_any_instance_of(described_class).to receive(:coalition_s?).and_return(true)
         end
-        it 'returns true' do
-          expect(subject).to be_truthy
+
+        it { is_expected.to be_truthy }
+      end
+
+      context 'when not Plan S funder it is falsey' do
+        before do
+          allow(work).to receive(:file_sets).and_return([filesets])
+          allow(filesets).to receive(:open_access?).and_return(true)
+          allow_any_instance_of(described_class).to receive(:coalition_s?).and_return(false)
         end
+
+        it { is_expected.to be_falsey }
       end
     end
 
@@ -37,6 +53,7 @@ RSpec.describe OpenAccessService do
         before do
           allow(work).to receive(:file_sets).and_return([filesets])
           allow(filesets).to receive(:open_access?).and_return(true)
+          allow_any_instance_of(described_class).to receive(:coalition_s?).and_return(true)
         end
 
         it 'returns true' do
@@ -48,7 +65,8 @@ RSpec.describe OpenAccessService do
         before do
           allow(work).to receive(:file_sets).and_return([filesets])
           allow(filesets).to receive(:open_access?).and_return(true)
-          allow(described_class).to receive(:embargo_within_max_allowed_age?).and_return(true)
+          allow_any_instance_of(described_class).to receive(:embargo_within_max_allowed_age?).and_return(true)
+          allow_any_instance_of(described_class).to receive(:coalition_s?).and_return(true)
         end
 
         it 'returns true' do
@@ -60,7 +78,8 @@ RSpec.describe OpenAccessService do
         before do
           allow(work).to receive(:file_sets).and_return([filesets])
           allow(filesets).to receive(:open_access?).and_return(true)
-          allow(described_class).to receive(:embargo_within_max_allowed_age?).and_return(false)
+          allow_any_instance_of(described_class).to receive(:embargo_within_max_allowed_age?).and_return(false)
+          allow_any_instance_of(described_class).to receive(:coalition_s?).and_return(true)
         end
 
         it 'returns false' do
@@ -76,14 +95,6 @@ RSpec.describe OpenAccessService do
         expect(subject).to be_falsey
       end
     end
-  end
-
-  describe '#coalition_s_funder?' do
-    subject { described_class.send(:coalition_s_funder?, work: work) }
-
-    let(:work) { generic_work }
-
-    it { is_expected.to be_truthy }
   end
 
   describe '#embargo_within_max_allowed_age?' do
@@ -103,9 +114,8 @@ RSpec.describe OpenAccessService do
 
     describe 'when there is an embargo date' do
       subject do
-        described_class.send(:embargo_within_max_allowed_age?,
-                             work: work,
-                             max_embargo_mths: 5)
+        described_class.new(work: work).send(:embargo_within_max_allowed_age?,
+                                             max_embargo_mths: 5)
       end
 
       let(:release) { Date.new(2023, 3, 30) }
@@ -115,9 +125,8 @@ RSpec.describe OpenAccessService do
 
     describe 'when max months is zero' do
       subject do
-        described_class.send(:embargo_within_max_allowed_age?,
-                             work: work,
-                             max_embargo_mths: 0)
+        described_class.new(work: work).send(:embargo_within_max_allowed_age?,
+                                             max_embargo_mths: 0)
       end
 
       let(:release) { nil }
@@ -127,9 +136,8 @@ RSpec.describe OpenAccessService do
 
     describe 'when embargo longer than max months' do
       subject do
-        described_class.send(:embargo_within_max_allowed_age?,
-                             work: work,
-                             max_embargo_mths: 1)
+        described_class.new(work: work).send(:embargo_within_max_allowed_age?,
+                                             max_embargo_mths: 1)
       end
 
       let(:release) { nil }
@@ -139,9 +147,8 @@ RSpec.describe OpenAccessService do
 
     describe 'when embargo shorter than max months' do
       subject do
-        described_class.send(:embargo_within_max_allowed_age?,
-                             work: work,
-                             max_embargo_mths: 12)
+        described_class.new(work: work).send(:embargo_within_max_allowed_age?,
+                                             max_embargo_mths: 12)
       end
 
       let(:release) { nil }
