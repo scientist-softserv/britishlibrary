@@ -18,6 +18,7 @@ RSpec.describe OpenAccessService do
   let(:funder) do
     ["[{\"funder_name\":\"Biotechnology and Biological Sciences Research Council\",\"funder_doi\":\"http://dx.doi.org/10.13039/501100000268\",\"funder_position\":\"0\",\"funder_isni\":\"0000 0001 2189 3037\",\"funder_ror\":\"https://ror.org/00cwqg982\"},{\"funder_name\":\"British Academy\",\"funder_doi\":\"http://dx.doi.org/10.13039/501100000286\",\"funder_position\":\"1\",\"funder_isni\":\"0000 0004 0411 8698\",\"funder_ror\":\"https://ror.org/0302b4677\"}]"]
   end
+  let(:plan_s_funder) { PlanSFunder.new(funder_doi: 'http://dx.doi.org/10.13039/501100000268', funder_name: 'Biotechnology and Biological Sciences Research Council', funder_status: 'active' ) }
 
   # rubocop:enable Metrics/LineLength
 
@@ -29,7 +30,7 @@ RSpec.describe OpenAccessService do
         before do
           allow(work).to receive(:file_sets).and_return([filesets])
           allow(filesets).to receive(:open_access?).and_return(true)
-          allow_any_instance_of(described_class).to receive(:coalition_s?).and_return(true)
+          allow(PlanSFunder).to receive(:where).and_return([plan_s_funder])
         end
 
         it { is_expected.to be_truthy }
@@ -39,7 +40,7 @@ RSpec.describe OpenAccessService do
         before do
           allow(work).to receive(:file_sets).and_return([filesets])
           allow(filesets).to receive(:open_access?).and_return(true)
-          allow_any_instance_of(described_class).to receive(:coalition_s?).and_return(false)
+          allow(PlanSFunder).to receive(:where).and_return([])
         end
 
         it { is_expected.to be_falsey }

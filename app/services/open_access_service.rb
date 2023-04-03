@@ -33,14 +33,11 @@ class OpenAccessService
       funder_doi_array.each do |doi|
         return true if funder_doi?(doi: doi)
       end
-      # possible secondary check by funder name needed?
       false
     end
 
-    # TODO: verify the doi by checking new table once it exists
     def funder_doi?(doi:)
-      # return true if PlanSFunder.where(doi: doi, status: 'active')
-      return true if doi
+      return true unless PlanSFunder.where(funder_doi: doi, funder_status: 'active').empty?
       false
     end
 
