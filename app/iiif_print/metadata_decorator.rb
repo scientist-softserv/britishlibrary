@@ -20,8 +20,7 @@ module IiifPrint
       SPECIAL_NAME_FIELDS = [:creator, :contributor, :editor].freeze
 
       def values_for(field_name:)
-        field_name = field_name.try(:name) || field_name
-        values = Array(work["#{field_name}_tesim"] || work["#{field_name}_dtsi"]&.to_date.try(:to_formatted_s, :standard))
+        values = super
         return if values.empty?
 
         if SPECIAL_NAME_FIELDS.include?(field_name)
