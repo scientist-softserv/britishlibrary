@@ -102,7 +102,7 @@ end
 
 # Bulkrax :: While we technically don't need a version when we tag on the branch, this helps us have
 #            a quick scan of what version we're assuming/working with.
-gem 'bulkrax', "~> 5.1.0", git: 'https://github.com/samvera-labs/bulkrax.git', ref: '9d57ec6c9e1eb7f4775b0b65c82fde48a5a49b58'
+gem 'bulkrax', "~> 5.1.0", git: 'https://github.com/samvera-labs/bulkrax.git', ref: 'main'
 
 gem 'blacklight', '~> 6.7'
 gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'
@@ -152,4 +152,4 @@ gem 'sidekiq'
 gem 'tether-rails'
 gem 'validate_url'
 gem 'hyrax-v2_graph_indexer', "~> 0.3", git: 'https://github.com/scientist-softserv/hyrax-v2_graph_indexer.git', ref: 'e8b5976c6aa91ac18af8b29acb949e8f30152c2d'
-gem 'iiif_print', git: 'https://github.com/scientist-softserv/iiif_print.git', ref: '2c20ca1'
+gem 'iiif_print', git: 'https://github.com/scientist-softserv/iiif_print.git', branch: 'main'

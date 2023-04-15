@@ -15,10 +15,6 @@ IiifPrint.config do |config|
   # @example
   #   config.excluded_model_name_solr_field_key = 'some_solr_field_key'
 
-  # Configure how the manifest sorts the canvases, by default it sorts by :title,
-  # but a different model property may be desired such as :date_published
-  # @example
-  #   config.sort_iiif_manifest_canvases_by = :date_published
   config.default_iiif_manifest_version = 3
 
   config.metadata_fields = {
