@@ -54,6 +54,7 @@ module Ubiquity
 
     class_methods do
 
+      # rubocop:disable Metrics/MethodLength
       def build_permitted_params
         super.tap do |permitted_params|
           permitted_params << {contributor_group: [:contributor_organization_name, :contributor_given_name,
@@ -85,10 +86,13 @@ module Ubiquity
                                                                  current_he_institution_isni
                                                                  current_he_institution_ror] }
 
-            permitted_params << :doi_options
+          permitted_params << :doi_options
+
+          permitted_params << :record_level_file_version_declaration
         end
       end
     end # closes class class_methods
+    # rubocop:enable Metrics/MethodLength
 
     # instance methods
     def title

@@ -74,7 +74,7 @@ RSpec.describe 'Create a GenericWork', js: true do
       choose('generic_work_visibility_open')
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
       check('agreement')
-
+      page.execute_script "window.scrollBy(0,10000)"
       click_on('save_with_files')
       expect(page).to have_content('My Test Work')
       expect(page).to have_content "Your files are being processed by Hyku in the background."
