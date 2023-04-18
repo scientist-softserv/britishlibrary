@@ -163,7 +163,7 @@ extraEnvVars: &envVars
   - name: OMP_THREAD_LIMIT
     value: "1"
   - name: EXTERNAL_IIIF_URL
-    value: https://d2ltm8fy0v0agc.cloudfront.net/iiif/2
+    value: https://dudgkgvsbllzg.cloudfront.net/iiif/2
 
 worker:
   replicaCount: 1
