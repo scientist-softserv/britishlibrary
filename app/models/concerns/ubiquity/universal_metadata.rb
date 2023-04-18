@@ -151,8 +151,10 @@ module Ubiquity
     end
     # rubocop:enable Metrics/MethodLength
 
+    OPEN_ACCESS_RIGHTS = 'info:eu-repo/semantics/openAccess'
     def open_access_determination
-      OpenAccessService.unrestricted_use_files_for?(work: self)
+      return OPEN_ACCESS_RIGHTS if OpenAccessService.new(work: self).unrestricted_use_files?
+      nil
     end
   end
 end

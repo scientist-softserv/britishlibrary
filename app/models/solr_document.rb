@@ -87,7 +87,7 @@ class SolrDocument
   attribute :collection_id, Solr::Array, solr_name('collection_id')
   attribute :ethos_access_rights, Solr::Array, solr_name('ethos_access_rights')
   attribute :record_level_file_version_declaration, Solr::String, solr_name('record_level_file_version_declaration')
-  attribute :open_access_determination, Solr::String, solr_name('open_access') 
+  attribute :open_access_determination, Solr::String, 'open_access_determination_ssim'
 
   field_semantics.merge!(
     contributor: ['contributor_list_tesim', 'editor_list_tesim', 'funder_tesim'],
@@ -98,7 +98,7 @@ class SolrDocument
     language: 'language_tesim',
     publisher: 'publisher_tesim',
     relation: 'journal_title_tesim',
-    rights: 'license_tesim',
+    rights: ['license_tesim', 'open_access_determination_ssim'],
     subject: 'keyword_tesim',
     title: 'title_tesim',
     type: 'human_readable_type_tesim'
