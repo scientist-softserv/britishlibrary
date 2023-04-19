@@ -11,8 +11,8 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 4a04f8b9b19af78f75d286dd2d78516fe4cf474e
-  ref: 4a04f8b9b19af78f75d286dd2d78516fe4cf474e
+  revision: edf72456bed27fe241238ba73cc63c4bed369621
+  ref: main
   specs:
     bulkrax (5.1.0)
       bagit (~> 0.4)
@@ -127,7 +127,7 @@ GIT
 
 GIT
   remote: https://github.com/scientist-softserv/iiif_print.git
-  revision: e3384284a9992df867b7bedc256c82485355551d
+  revision: 25e1785f78d41b7acb259c7080ec15c368173a33
   branch: main
   specs:
     iiif_print (1.0.0)

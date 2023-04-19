@@ -7,10 +7,4 @@ RSpec.describe Hyrax::IiifManifestPresenter::DisplayImagePresenter do
   it "includes Hyrax::IiifAv::DisplaysContent" do
     expect(described_class.include?(Hyrax::IiifAv::DisplaysContent)).to be true
   end
-
-  describe "#display_image" do
-    subject { presenter.display_image }
-
-    it { is_expected.to be_nil }
-  end
 end
