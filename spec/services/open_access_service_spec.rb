@@ -18,7 +18,7 @@ RSpec.describe OpenAccessService do
   let(:funder) do
     ["[{\"funder_name\":\"Biotechnology and Biological Sciences Research Council\",\"funder_doi\":\"http://dx.doi.org/10.13039/501100000268\",\"funder_position\":\"0\",\"funder_isni\":\"0000 0001 2189 3037\",\"funder_ror\":\"https://ror.org/00cwqg982\"},{\"funder_name\":\"British Academy\",\"funder_doi\":\"http://dx.doi.org/10.13039/501100000286\",\"funder_position\":\"1\",\"funder_isni\":\"0000 0004 0411 8698\",\"funder_ror\":\"https://ror.org/0302b4677\"}]"]
   end
-  let(:plan_s_funder) { PlanSFunder.new(funder_doi: 'http://dx.doi.org/10.13039/501100000268', funder_name: 'Biotechnology and Biological Sciences Research Council', funder_status: 'active' ) }
+  let(:plan_s_funder) { PlanSFunder.new(funder_doi: 'http://dx.doi.org/10.13039/501100000268', funder_name: 'Biotechnology and Biological Sciences Research Council', funder_status: 'active') }
 
   # rubocop:enable Metrics/LineLength
 

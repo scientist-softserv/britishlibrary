@@ -1,3 +1,3 @@
 class PlanSFunder < ApplicationRecord
-  validates_uniqueness_of :funder_doi
+  validates :funder_doi, uniqueness: true
 end
