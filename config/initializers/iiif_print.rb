@@ -17,6 +17,7 @@ IiifPrint.config do |config|
 
   config.default_iiif_manifest_version = 3
 
+  # @note These fields will appear in rendering order.
   config.metadata_fields = {
     alt_title: {},
     resource_type: {},
