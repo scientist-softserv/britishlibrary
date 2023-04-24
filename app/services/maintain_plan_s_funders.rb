@@ -7,7 +7,7 @@ class MaintainPlanSFunders
   # Responsible for initial loading & maintenance of PlanSFunder model data.
   def self.call(csv_path: "lib/data/plan_s_funders.csv")
     @doi_in_csv = []
-    @funders_to_reindex = []
+    @updated_funder_dois = []
     csv_data = File.read(csv_path)
     CSV.parse(csv_data, headers: true) do |row|
       convert_to_funder(row: row)
@@ -15,8 +15,9 @@ class MaintainPlanSFunders
     # This is preparation for using API calls... funders may be removed
     # rather than just deactivated as we are doing in CSV
     handle_removed_funders
-    # @TODO: Process list of funder DOIs to reindex in the rake task (this is not happening yet).
-    @funders_to_reindex
+    # Process list of funder DOIs to reindex in the rake task.
+    ReindexFundersJob.perform_later(dois: @updated_funder_dois)
+    @updated_funder_dois
   end
 
   def self.convert_to_funder(row:)
@@ -62,7 +63,7 @@ class MaintainPlanSFunders
   private_class_method :find_or_initialize_funder
 
   def self.need_to_reindex(funder:)
-    @funders_to_reindex << funder.funder_doi
+    @updated_funder_dois << funder.funder_doi
   end
   private_class_method :need_to_reindex
 end
