@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_09_001128) do
+ActiveRecord::Schema.define(version: 2023_04_03_180646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -469,6 +469,15 @@ ActiveRecord::Schema.define(version: 2022_06_09_001128) do
     t.date "release_date"
     t.string "release_period"
     t.index ["source_id"], name: "index_permission_templates_on_source_id", unique: true
+  end
+
+  create_table "plan_s_funders", force: :cascade do |t|
+    t.string "funder_doi", null: false
+    t.string "funder_name", null: false
+    t.string "funder_status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["funder_doi"], name: "index_plan_s_funders_on_funder_doi"
   end
 
   create_table "proxy_deposit_requests", id: :serial, force: :cascade do |t|
