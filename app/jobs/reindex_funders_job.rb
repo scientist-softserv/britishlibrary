@@ -8,22 +8,22 @@ class ReindexFundersJob < ApplicationJob
       next if account.name == "search"
       account.switch do
         dois.each do |doi|
-          # find all ids in this tenant using this doi      
-          qry =  "funder_tesim:\"#{doi}\""
+          # find all ids in this tenant using this doi
+          qry = "funder_tesim:\"#{doi}\""
           ids = ActiveFedora::SolrService.query(
-            qry, 
-            fl: ActiveFedora.id_field, 
+            qry,
+            fl: ActiveFedora.id_field,
             rows: 100
           ).map { |x| x.fetch(ActiveFedora.id_field) }
 
           # reindex each work by id
           ids.each do |id|
-              ActiveFedora::Base.find(id)&.update_index
-              count_indexed +=1
+            ActiveFedora::Base.find(id)&.update_index
+            count_indexed += 1
           end
         end
       end
-    end 
-    Rails.logger.info("😈😈 reindexed #{count_indexed} works in all tenants")  
+    end
+    Rails.logger.info("😈😈 reindexed #{count_indexed} works in all tenants")
   end
 end
