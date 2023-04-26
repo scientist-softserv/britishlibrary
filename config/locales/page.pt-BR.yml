@@ -1,0 +1,8 @@
+pt-BR:
+  hyrax:
+    icons:
+      page:     'fa fa-file-text-o'
+    select_type:
+      page:
+        description:        "Page trabalhos"
+        name:               "Page"

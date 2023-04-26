@@ -1,0 +1,8 @@
+it:
+  hyrax:
+    icons:
+      page:     'fa fa-file-text-o'
+    select_type:
+      page:
+        description:        "Page opere"
+        name:               "Page"
