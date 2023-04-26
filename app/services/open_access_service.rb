@@ -37,7 +37,9 @@ class OpenAccessService
     end
 
     def funder_doi?(doi:)
-      return true unless PlanSFunder.where(funder_doi: doi, funder_status: 'active').empty?
+      # DOIs can begin with either http://doi.org or https://dx.doi.org so we verify only the numeric portion
+      cleaned_doi = doi.match(%r{https?://.*doi\.org/(.+)})[1]
+      return true unless PlanSFunder.where(funder_doi: cleaned_doi, funder_status: 'active').empty?
       false
     end
 
