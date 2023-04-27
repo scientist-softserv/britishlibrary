@@ -36,9 +36,10 @@ class OpenAccessService
       false
     end
 
+    DOI_REGEX = %r{^https?://.*doi\.org/(.+)$}
     def funder_doi?(doi:)
-      # DOIs can begin with either http://doi.org or https://dx.doi.org so we verify only the numeric portion
-      cleaned_doi = doi.match(%r{https?://.*doi\.org/(.+)})[1]
+      # DOIs can begin with either http://doi.org or https://dx.doi.org so we verify using only the numeric portion
+      cleaned_doi = doi.gsub(DOI_REGEX, '\1')
       return true unless PlanSFunder.where(funder_doi: cleaned_doi, funder_status: 'active').empty?
       false
     end

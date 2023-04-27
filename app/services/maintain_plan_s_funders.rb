@@ -35,6 +35,8 @@ class MaintainPlanSFunders
   private_class_method :handle_removed_funders
 
   def self.maintain_record(data:)
+    return unless data[:funder_doi]
+
     @doi_in_csv << data[:funder_doi]
 
     # Update record based on this row
