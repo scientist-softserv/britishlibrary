@@ -1,10 +1,10 @@
 # Generated via
 #  `rails generate hyrax:work PdfPage`
 require 'rails_helper'
-include Warden::Test::Helpers
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature 'Create a PdfPage', js: false do
+RSpec.describe 'Create a PdfPage', js: false do
+  include Warden::Test::Helpers
   context 'a logged in user' do
     let(:user_attributes) do
       { email: 'test@example.com' }
@@ -30,7 +30,8 @@ RSpec.feature 'Create a PdfPage', js: false do
       login_as user
     end
 
-    scenario do
+    # rubocop:disable RSpec/ExampleLength
+    it do
       visit '/dashboard'
       click_link "Works"
       click_link "Add new work"
@@ -65,5 +66,6 @@ RSpec.feature 'Create a PdfPage', js: false do
       expect(page).to have_content('My Test Work')
       expect(page).to have_content "Your files are being processed by Hyrax in the background."
     end
+    # rubocop:enable RSpec/ExampleLength
   end
 end
