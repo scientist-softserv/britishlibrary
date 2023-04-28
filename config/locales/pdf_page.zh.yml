@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      pdf_page:     'fa fa-file-text-o'
+    select_type:
+      pdf_page:
+        # TODO: translate `human_name` into Chinese
+        description:        "Pdf page 作品"
+        name:               "Pdf Page"
+        # TODO: translate `human_name` into Chinese

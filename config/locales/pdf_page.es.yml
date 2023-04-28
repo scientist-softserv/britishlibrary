@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      pdf_page:     'fa fa-file-text-o'
+    select_type:
+      pdf_page:
+        # TODO: translate `human_name` into Spanish
+        description:        "Pdf page trabajos"
+        name:               "Pdf Page"
+        # TODO: translate `human_name` into Spanish

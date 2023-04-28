@@ -1,21 +1,19 @@
-# frozen_string_literal: true
-
-class Image < ActiveFedora::Base
+# Generated via
+#  `rails generate hyrax:work PdfPage`
+class PdfPage < ActiveFedora::Base
   include Hyrax::WorkBehavior
   include Ubiquity::UniversalMetadata
   include Ubiquity::SharedMetadata
   include Ubiquity::AllModelsVirtualFields
   include Ubiquity::WorksVirtualFields
+  include Ubiquity::VersionMetadataModelConcern
   # include Ubiquity::UpdateSharedIndex
   include Ubiquity::FileAvailabilityFaceting
-  # include ::Ubiquity::CachingSingle
+  # include Ubiquity::CachingSingle
   # Adds behaviors for hyrax-doi plugin.
   include Hyrax::DOI::DOIBehavior
   # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
-  include IiifPrint.model_configuration(
-    pdf_split_child_model: PdfPage
-  )
 
   property :extent, predicate: ::RDF::Vocab::DC.extent, multiple: true do |index|
     index.as :stored_searchable
@@ -25,8 +23,12 @@ class Image < ActiveFedora::Base
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
 
-  self.indexer = ImageIndexer
+  self.indexer = PdfPageIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
+
+  include IiifPrint.model_configuration(
+    pdf_split_child_model: PdfPage
+  )
 end
