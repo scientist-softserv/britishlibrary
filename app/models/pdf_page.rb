@@ -9,11 +9,6 @@ class PdfPage < ActiveFedora::Base
   include Ubiquity::VersionMetadataModelConcern
   # include Ubiquity::UpdateSharedIndex
   include Ubiquity::FileAvailabilityFaceting
-  # include Ubiquity::CachingSingle
-  # Adds behaviors for hyrax-doi plugin.
-  include Hyrax::DOI::DOIBehavior
-  # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
-  include Hyrax::DOI::DataCiteDOIBehavior
 
   property :extent, predicate: ::RDF::Vocab::DC.extent, multiple: true do |index|
     index.as :stored_searchable
