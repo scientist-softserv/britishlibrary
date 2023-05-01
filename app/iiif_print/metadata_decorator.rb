@@ -64,9 +64,9 @@ module IiifPrint
         result = []
         hashes.each do |hash|
           funder_name = hash['funder_name']
-          funder_awards = hash['funder_award'].join(' | ')
+          funder_awards = hash['funder_award']&.join(' | ')
           result << apply_label('Name', funder_name)
-          result << apply_label('Awards', funder_awards)
+          result << apply_label('Awards', funder_awards) if funder_awards
         end
 
         result
