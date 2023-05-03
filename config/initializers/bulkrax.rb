@@ -153,7 +153,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', false)
       'publisher' => { from: ['publisher'] },
       'qualification_level' => { from: ['qualification_level'] },
       'qualification_name' => { from: ['qualification_name'] },
-      'record_level_file_version_declaration' => { from: 'file_declaration' },
+      'record_level_file_version_declaration' => { from: ['file_declaration'] },
       'refereed' => { from: ['peer_reviewed'] },
       'related_exhibition' => { from: ['related_exhibition'] },
       'related_exhibition_date' => { from: ['related_exhibition_date'] },
