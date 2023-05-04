@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      pdf_page:     'fa fa-file-text-o'
+    select_type:
+      pdf_page:
+        description:        "Pdf page Werke"
+        name:               "Pdf Page"
