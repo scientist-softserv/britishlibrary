@@ -152,4 +152,4 @@ gem 'sidekiq'
 gem 'tether-rails'
 gem 'validate_url'
 gem 'hyrax-v2_graph_indexer', "~> 0.3", git: 'https://github.com/scientist-softserv/hyrax-v2_graph_indexer.git', ref: 'e8b5976c6aa91ac18af8b29acb949e8f30152c2d'
-gem 'iiif_print', git: 'https://github.com/scientist-softserv/iiif_print.git', ref: "18e4826bcb0caec6b8ebf74d0b9ec407c398e995"
+gem 'iiif_print', git: 'https://github.com/scientist-softserv/iiif_print.git', ref: '18e4826bcb0caec6b8ebf74d0b9ec407c398e995'
