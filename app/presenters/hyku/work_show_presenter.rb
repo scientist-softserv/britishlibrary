@@ -44,7 +44,12 @@ module Hyku
 
     def date_accepted
       return if solr_document["date_accepted_tesim"]&.join.blank?
+      return thesis_or_disseration_date_accepted if solr_document.human_readable_type == "Thesis Or Dissertation"
 
+      solr_document["date_accepted_tesim"]
+    end
+
+    def thesis_or_disseration_date_accepted
       solr_document["date_accepted_tesim"].map { |d| Ubiquity::ParseDate.return_date_part(d, "year") }
     end
 
