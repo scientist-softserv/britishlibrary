@@ -451,6 +451,27 @@ class CatalogController < ApplicationController
     config.spell_max = 5
   end
 
+  # OVERRIDE Blacklight 6.24.0 to pass search_results custom params
+  # get search results from the solr index
+  def index
+    params.merge({q: '-has_model_ssim:PdfPage'})
+    (@response, @document_list) = search_results(q: '-has_model_ssim:PdfPage', params: params)
+
+    respond_to do |format|
+      format.html { store_preferred_view }
+      format.rss  { render :layout => false }
+      format.atom { render :layout => false }
+      format.json do
+        @presenter = Blacklight::JsonPresenter.new(@response,
+                                                    @document_list,
+                                                    facets_from_request,
+                                                    blacklight_config)
+      end
+      additional_response_formats(format)
+      document_export_formats(format)
+    end
+  end
+
   # This is overridden just to give us a JSON response for debugging.
   def show
     _, @document = fetch params[:id]
