@@ -98,7 +98,7 @@ module Hyrax
 
       def recent
         # grab any recent documents
-        (_, @recent_documents) = search_results(q: '', sort: sort_field, rows: 6)
+        (_, @recent_documents) = search_results(q: '-has_model_ssim:PdfPage', sort: sort_field, rows: 6)
       rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
         @recent_documents = []
       end
