@@ -30,6 +30,20 @@ RSpec.describe Ubiquity::ParseDate do
       expect(described_class.return_date_part(date, 'day')).to eq('13')
     end
 
+    it 'handles MM/YYYY' do
+      date = '12/2023'
+      expect(described_class.return_date_part(date, 'year')).to eq('2023')
+      expect(described_class.return_date_part(date, 'month')).to eq('12')
+      expect(described_class.return_date_part(date, 'day')).to be_nil
+    end
+
+    it 'handles YYYY-MM' do
+      date = '2023-12'
+      expect(described_class.return_date_part(date, 'year')).to eq('2023')
+      expect(described_class.return_date_part(date, 'month')).to eq('12')
+      expect(described_class.return_date_part(date, 'day')).to be_nil
+    end
+
     it 'returns nil for invalid dates' do
       date = 'invalid_date'
       expect(described_class.return_date_part(date, 'year')).to be_nil
