@@ -8,15 +8,6 @@ IiifPrint.config do |config|
   #
   config.excluded_model_name_solr_field_values = ['Pdf Page']
 
-  config.child_work_attributes_function = lambda do |parent_work:, admin_set_id:|
-    {
-      admin_set_id: admin_set_id.to_s,
-      creator: parent_work.creator.to_a,
-      rights_statement: parent_work.rights_statement.to_a,
-      visibility: parent_work.visibility.to_s, 
-      is_child: true
-    }
-  end
   # Add configurable solr field key for searching,
   # default key is: 'human_readable_type_sim'
   # if another key is used, make sure to adjust the
