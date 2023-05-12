@@ -28,6 +28,7 @@ class AppIndexer < Hyrax::WorkIndexer
       solr_doc[Solrizer.solr_name('account_cname')] = Site.instance&.account&.cname
       solr_doc['account_institution_name_ssim'] = "#{Site.instance.institution_name} Research Repository"
       solr_doc['open_access_determination_ssim'] = object.open_access_determination
+      solr_doc['record_level_file_version_declaration_bsi'] = object.record_level_file_version_declaration
     end
   end
 end
