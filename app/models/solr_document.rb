@@ -86,7 +86,7 @@ class SolrDocument
   attribute :collection_names, Solr::Array, solr_name('collection_names')
   attribute :collection_id, Solr::Array, solr_name('collection_id')
   attribute :ethos_access_rights, Solr::Array, solr_name('ethos_access_rights')
-  attribute :record_level_file_version_declaration, Solr::String, solr_name('record_level_file_version_declaration')
+  attribute :record_level_file_version_declaration, Solr::String, 'record_level_file_version_declaration_bsi'
   attribute :open_access_determination, Solr::String, 'open_access_determination_ssim'
 
   field_semantics.merge!(

@@ -8,6 +8,7 @@ module Bulkrax::HasLocalProcessing
     parsed_metadata['resource_type'] = ['ThesisOrDissertation Doctoral thesis'] if parser.is_a? Bulkrax::XmlEtdDcParser
     parsed_metadata['creator_search'] = parsed_metadata&.[]('creator_search')&.map { |c| c.values.join(', ') }
     parsed_metadata["qualification_name"] = set_qualification_name if parsed_metadata["qualification_name"]
+    parsed_metadata['record_level_file_version_declaration'] = ActiveModel::Type::Boolean.new.cast parsed_metadata['record_level_file_version_declaration']
     set_institutional_relationships
 
     ['funder', 'creator', 'contributor', 'editor', 'alternate_identifier', 'related_identifier', 'current_he_institution'].each do |key|

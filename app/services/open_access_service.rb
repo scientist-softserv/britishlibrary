@@ -11,7 +11,7 @@ class OpenAccessService
     # Scholarly articles
     when Article, ConferenceItem, GenericWork
       return true if peer_reviewed? &&
-                     work.record_level_file_version_declaration == '1' &&
+                     ActiveModel::Type::Boolean.new.cast(work.record_level_file_version_declaration) &&
                      public_files?(max_embargo_mths: 0) &&
                      coalition_s?
     # Books
