@@ -29,7 +29,12 @@ module Hyrax
     # OVERRIDE Hyrax 2.9.6 for IRUS Analytics
     def item_identifier_for_irus_analytics
       # return the OAI identifier
-      "#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{params[:id]}"
+      # We must send the parent work id to IRUS otherwise it gets confused
+      # This works but hits fcrepo twice :/
+      parent_work_id = ActiveFedora::Base.find(params[:id]).parent.id
+
+      #"#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{params[:id]}"
+      "#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{parent_work_id}"
     end
 
     private

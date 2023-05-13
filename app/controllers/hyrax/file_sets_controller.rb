@@ -80,7 +80,13 @@ module Hyrax
     def item_identifier_for_irus_analytics
       # return the OAI identifier
       # http://www.openarchives.org/OAI/2.0/guidelines-oai-identifier.htm
-      "#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{params[:id]}"
+
+      # We must send the parent work id to IRUS otherwise it gets confused
+      # This works but hits fcrepo twice :/
+      parent_work_id = ActiveFedora::Base.find(params[:id]).parent.id
+
+      #"#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{params[:id]}"
+      "#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{parent_work_id}"
     end
 
     def skip_send_irus_analytics?(usage_event_type)
