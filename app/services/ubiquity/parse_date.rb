@@ -15,56 +15,62 @@ module Ubiquity
       return_values
     end
 
-    def self.return_date_part(date, date_part)
-      return nil if date.blank?
-      return date if date_part == 'year' && date.match(/^\d{4}$/)
+    class << self
+      def return_date_part(date, date_part)
+        return nil if date.blank?
+        return date if date_part == 'year' && date.match(/^\d{4}$/)
 
-      parsed_date = parse_date_by_format(date)
+        parsed_date = parse_date_by_format(date)
 
-      return nil if parsed_date.nil?
+        return nil if parsed_date.nil?
 
-      extract_date_part(parsed_date, date, date_part)
-    end
+        extract_date_part(parsed_date, date, date_part)
+      end
 
-    def self.transform_published_date_group(date_published_hash)
-      if date_published_hash.present?
-        date = ''
-        date_published_hash.each do |date_hash|
-          date << date_hash[:date_published_year] if date_hash[:date_published_year].present?
-          date << '-' + date_hash[:date_published_month] if date_hash[:date_published_month].present?
-          if date_hash[:date_published_day].present? && date_hash[:date_published_month].present?
-            date << '-' + date_hash[:date_published_day]
+      def transform_published_date_group(date_published_hash)
+        if date_published_hash.present?
+          date = ''
+          date_published_hash.each do |date_hash|
+            date << date_hash[:date_published_year] if date_hash[:date_published_year].present?
+            date << '-' + date_hash[:date_published_month] if date_hash[:date_published_month].present?
+            if date_hash[:date_published_day].present? && date_hash[:date_published_month].present?
+              date << '-' + date_hash[:date_published_day]
+            end
+          end
+          date
+        end
+      end
+
+      private
+
+      def parse_date_by_format(date)
+        case date
+        when /^\d{4}-\d{2}$/ then Date.strptime(date, '%Y-%m') # 'YYYY-MM' format
+        when %r{^\d{1,2}\/\d{4}$} then Date.strptime(date, '%m/%Y') # 'MM/YYYY' format
+        when %r{^\d{1,2}\/\d{1,2}\/\d{4}$} then Date.strptime(date, '%m/%d/%Y') # 'MM/DD/YYYY' format
+        else
+          begin
+            Date.parse(date)
+          rescue StandardError
+            nil
           end
         end
-        date
       end
-    end
 
-    private
-
-    def self.parse_date_by_format(date)
-      case date
-      when /^\d{4}-\d{2}$/ then Date.strptime(date, '%Y-%m') # 'YYYY-MM' format
-      when /^\d{1,2}\/\d{4}$/ then Date.strptime(date, '%m/%Y') # 'MM/YYYY' format
-      when %r{\d{1,2}/\d{1,2}/\d{4}} then Date.strptime(date, '%m/%d/%Y') # 'MM/DD/YYYY' format
-      else
-        Date.parse(date) rescue nil
+      def extract_date_part(parsed_date, original_date, date_part)
+        case date_part
+        when 'year'  then parsed_date.strftime("%Y")
+        when 'month' then parsed_date.strftime("%m")
+        when 'day'   then day_part(parsed_date, original_date)
+        end
       end
-    end
 
-    def self.extract_date_part(parsed_date, original_date, date_part)
-      case date_part
-      when 'year'  then parsed_date.strftime("%Y")
-      when 'month' then parsed_date.strftime("%m")
-      when 'day'   then day_part(parsed_date, original_date)
-      end
-    end
-
-    def self.day_part(parsed_date, original_date)
-      if parsed_date.day == 1 && (original_date.match(/^\d{4}-\d{2}$/) || original_date.match(/^\d{1,2}\/\d{4}$/))
-        nil
-      else
-        parsed_date.strftime("%d")
+      def day_part(parsed_date, original_date)
+        if parsed_date.day == 1 && (original_date.match(/^\d{4}-\d{2}$/) || original_date.match(%r{^\d{1,2}/\d{4}$}))
+          nil
+        else
+          parsed_date.strftime("%d")
+        end
       end
     end
 
