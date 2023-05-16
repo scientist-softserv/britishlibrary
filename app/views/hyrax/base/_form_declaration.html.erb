@@ -1,4 +1,4 @@
 <% if curation_concern.respond_to?(:record_level_file_version_declaration) %>
   <% checked = ActiveModel::Type::Boolean.new.cast(curation_concern.record_level_file_version_declaration) %>
-  <%= f.input :record_level_file_version_declaration, as: :boolean, label: t('hyrax.base.form_files.record_level_file_version_declaration_question', model: curation_concern.class), input_html: { checked: checked } %>
+  <%= f.input :record_level_file_version_declaration, as: :boolean, label: t('hyrax.base.form_files.record_level_file_version_declaration_question'), input_html: { checked: checked } %>
 <% end %>

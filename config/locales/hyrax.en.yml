@@ -326,7 +326,7 @@ en:
           accommodate your request. If you experience errors uploading from the
           cloud, let us know via the %{contact_href}.</p>
         local_upload_html: "<p>You can add one or more files to associate with this work.</p>"
-        record_level_file_version_declaration_question: Does %{model} include non-restricted use file?
+        record_level_file_version_declaration_question: Is at least one file unrestricted (open access)?
       form_member_of_collections:
         actions:
           remove: Remove from collection
