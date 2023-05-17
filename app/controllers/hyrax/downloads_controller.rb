@@ -31,9 +31,7 @@ module Hyrax
     # OVERRIDE Hyrax 2.9.6 for IRUS Analytics
     def item_identifier_for_irus_analytics
       # return the OAI identifier
-      # We must send the parent work id to IRUS otherwise it gets confused
-      parent_work_id = helpers.work_id_from_file_set_id(params[:id])
-      "#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{parent_work_id}"
+      helpers.oai_identifier(self, params[:id])
     end
 
     private
