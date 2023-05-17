@@ -6,6 +6,8 @@ module Hyrax
     include Hyrax::LocalFileDownloadsControllerBehavior
     include IrusAnalytics::Controller::AnalyticsBehaviour
 
+    helper Hyrax::IrusHelper
+
     def self.default_content_path
       :original_file
     end
@@ -30,10 +32,7 @@ module Hyrax
     def item_identifier_for_irus_analytics
       # return the OAI identifier
       # We must send the parent work id to IRUS otherwise it gets confused
-      # This works but hits fcrepo twice :/
-      parent_work_id = ActiveFedora::Base.find(params[:id]).parent.id
-
-      #"#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{params[:id]}"
+      parent_work_id = helpers.work_id_from_file_set_id(params[:id])
       "#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{parent_work_id}"
     end
 

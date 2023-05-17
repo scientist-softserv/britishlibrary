@@ -14,6 +14,8 @@ module Hyrax
 
     # provides the help_text view method
     helper PermissionsHelper
+    # IRUS helper
+    helper Hyrax::IrusHelper
 
     helper_method :curation_concern
     copy_blacklight_config_from(::CatalogController)
@@ -80,12 +82,8 @@ module Hyrax
     def item_identifier_for_irus_analytics
       # return the OAI identifier
       # http://www.openarchives.org/OAI/2.0/guidelines-oai-identifier.htm
-
       # We must send the parent work id to IRUS otherwise it gets confused
-      # This works but hits fcrepo twice :/
-      parent_work_id = ActiveFedora::Base.find(params[:id]).parent.id
-
-      #"#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{params[:id]}"
+      parent_work_id = helpers.work_id_from_file_set_id(params[:id])
       "#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{parent_work_id}"
     end
 
