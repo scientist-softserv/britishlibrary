@@ -14,6 +14,8 @@ module Hyrax
 
     # provides the help_text view method
     helper PermissionsHelper
+    # IRUS helper
+    helper Hyrax::IrusHelper
 
     helper_method :curation_concern
     copy_blacklight_config_from(::CatalogController)
@@ -80,7 +82,7 @@ module Hyrax
     def item_identifier_for_irus_analytics
       # return the OAI identifier
       # http://www.openarchives.org/OAI/2.0/guidelines-oai-identifier.htm
-      "#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{params[:id]}"
+      helpers.oai_identifier(self, params[:id])
     end
 
     def skip_send_irus_analytics?(usage_event_type)

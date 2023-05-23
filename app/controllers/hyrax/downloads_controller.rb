@@ -6,6 +6,8 @@ module Hyrax
     include Hyrax::LocalFileDownloadsControllerBehavior
     include IrusAnalytics::Controller::AnalyticsBehaviour
 
+    helper Hyrax::IrusHelper
+
     def self.default_content_path
       :original_file
     end
@@ -29,7 +31,7 @@ module Hyrax
     # OVERRIDE Hyrax 2.9.6 for IRUS Analytics
     def item_identifier_for_irus_analytics
       # return the OAI identifier
-      "#{CatalogController.blacklight_config.oai[:provider][:record_prefix].call(self)}:#{params[:id]}"
+      helpers.oai_identifier(self, params[:id])
     end
 
     private
