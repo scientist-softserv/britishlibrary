@@ -18,8 +18,14 @@ class ReindexFundersJob < ApplicationJob
 
           # reindex each work by id
           ids.each do |id|
-            ActiveFedora::Base.find(id)&.update_index
-            count_indexed += 1
+            begin
+              ActiveFedora::Base.find(id)&.update_index
+              count_indexed += 1
+            rescue StandardError => e
+              Rails.logger.error("😈😈😈 ERROR: unable to reindex id #{id} in tenant #{account.name}")
+              Rails.logger.error(e.message)
+              next
+            end
           end
         end
       end
