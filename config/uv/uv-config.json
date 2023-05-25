@@ -1,6 +1,9 @@
 {
   "modules": {
     "downloadDialogue": {
+      "options": {
+        "confinedImageSize": 1000000
+      },
       "content": {
         "wholeImageHighRes": "Whole image {0} x {1}px (jpg)"
       }
