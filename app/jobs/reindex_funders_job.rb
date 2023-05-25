@@ -22,8 +22,8 @@ class ReindexFundersJob < ApplicationJob
               ActiveFedora::Base.find(id)&.update_index
               count_indexed += 1
             rescue => e
-              Rails.logger.info("😈😈😈 ERROR: unable to reindex id #{id} in tenant #{account.name}")
-              Rails.logger.info("#{e.message}")
+              Rails.logger.error("😈😈😈 ERROR: unable to reindex id #{id} in tenant #{account.name}")
+              Rails.logger.error("#{e.message}")
               next
             end
           end
