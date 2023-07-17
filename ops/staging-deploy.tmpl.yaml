@@ -168,13 +168,13 @@ extraEnvVars: &envVars
   - name: EXTERNAL_IIIF_URL
     value: https://d2ltm8fy0v0agc.cloudfront.net/iiif/2
   - name: AWS_S3_BUCKET
-    value: $AWS_S3_BUCKET
+    value: temp-bl-bucket-for-browse-everything
   - name: AWS_ACCESS_KEY_ID
     value: $AWS_ACCESS_KEY_ID
   - name: AWS_SECRET_ACCESS_KEY
     value: $AWS_SECRET_ACCESS_KEY
   - name: AWS_S3_REGION
-    value: $AWS_S3_REGION
+    value: eu-west-1
 
 worker:
   replicaCount: 1
