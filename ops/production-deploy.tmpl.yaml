@@ -168,7 +168,7 @@ extraEnvVars: &envVars
   - name: EXTERNAL_IIIF_URL
     value: https://dudgkgvsbllzg.cloudfront.net/iiif/2
   - name: AWS_BUCKET
-    value: "samvera-fcrepo-staging-bl"
+    value: "samvera-fcrepo-bl"
   - name: AWS_ACCESS_KEY_ID
     value: $AWS_ACCESS_KEY_ID
   - name: AWS_SECRET_ACCESS_KEY
