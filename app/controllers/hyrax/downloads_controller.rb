@@ -36,6 +36,18 @@ module Hyrax
 
     private
 
+      # OVERRIDE Hyrax 2.9.6 allow downloading directly from S3
+      def send_file_contents
+        if ENV['S3_DOWNLOADS']
+          s3_object = Aws::S3::Object.new(ENV['AWS_BUCKET'], file.digest.first.to_s.gsub('urn:sha1:', ''))
+          redirect_to s3_object.presigned_url(:get, expires_in: 300, response_content_disposition: "attachment\; filename=#{file.original_name}")
+        else
+          self.status = 200
+          prepare_file_headers
+          stream_body file.stream
+        end
+      end
+
       # Override the Hydra::Controller::DownloadBehavior#content_options so that
       # we have an attachement rather than 'inline'
       def content_options
