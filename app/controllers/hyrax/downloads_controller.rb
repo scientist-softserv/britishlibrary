@@ -1,5 +1,7 @@
 # OVERRIDE Hyrax 2.9.6 for IRUS Analytics
 
+require 'aws-sdk-s3'
+
 module Hyrax
   class DownloadsController < ApplicationController
     include Hydra::Controller::DownloadBehavior
@@ -40,7 +42,7 @@ module Hyrax
       def send_file_contents
         if ENV['S3_DOWNLOADS']
           s3_object = Aws::S3::Object.new(ENV['AWS_BUCKET'], file.digest.first.to_s.gsub('urn:sha1:', ''))
-          redirect_to s3_object.presigned_url(:get, expires_in: 300, response_content_disposition: "attachment\; filename=#{file.original_name}")
+          redirect_to s3_object.presigned_url(:get, expires_in: 3600, response_content_disposition: "attachment\; filename=#{file.original_name}")
         else
           self.status = 200
           prepare_file_headers
