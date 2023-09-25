@@ -55,3 +55,19 @@ IiifPrint.config do |config|
     collection: {}
   }
 end
+
+# Override Hrax::WorkShowPresenter.authorized_item_ids to disallow "Pdf Page" work type from showing as members
+Hyrax::WorkShowPresenter.class_eval do
+  private
+    # list of item ids to display is based on ordered_ids
+    def authorized_item_ids
+      @member_item_list_ids ||= begin
+        items = ordered_ids
+        items.delete_if { |m| !current_ability.can?(:read, m) } if Flipflop.hide_private_items?
+        #TODO a better way to detect if the user is signed in... if only there was a user_signed_in?
+        items.delete_if { |m| ActiveFedora::Base.where(id: m).first.human_readable_type == "Pdf Page" && current_ability.current_user.email.blank? }
+        items
+      end
+    end
+end
+
