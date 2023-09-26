@@ -27,14 +27,12 @@ module Ubiquity
     #    c. Save the the array of hashes from step 2b
     #
     def save_creator
-      STDERR.puts "############# saving creator"
       self.creator_group ||= JSON.parse(self.creator.first) if self.creator.present?
       # remove Hash with empty values and nil
       clean_submitted_data ||= remove_hash_keys_with_empty_and_nil_values(self.creator_group)
       # Check if the hash keys are only those used for default values like position
       data = compare_hash_keys?(clean_submitted_data)
-      STDERR.puts "############# #{data}"
-      STDERR.puts "############# #{clean_submitted_data}"
+
       if (self.creator_group.present? && clean_submitted_data.present? && data == false)
         creator_json = clean_submitted_data.to_json
         populate_creator_search_field(creator_json) unless self.instance_of?(Collection)
@@ -47,13 +45,11 @@ module Ubiquity
     end
 
     def save_contributor
-      STDERR.puts "############# saving contributor"
       self.contributor_group ||= JSON.parse(self.contributor.first) if self.contributor.present?
       clean_incomplete_data(self.contributor_group) if self.contributor.present?
       clean_submitted_data ||= remove_hash_keys_with_empty_and_nil_values(self.contributor_group)
       data = compare_hash_keys?(clean_submitted_data)
-      STDERR.puts "############# #{data}"
-      STDERR.puts "############# #{clean_submitted_data}"
+
       if (self.contributor_group.present? && clean_submitted_data.present? && data == false )
         contributor_json = clean_submitted_data.to_json
         self.contributor = [contributor_json]
