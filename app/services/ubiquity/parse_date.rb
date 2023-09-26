@@ -47,7 +47,7 @@ module Ubiquity
         case date
         when /^\d{4}-\d{2}$/ then Date.strptime(date, '%Y-%m') # 'YYYY-MM' format
         when %r{^\d{1,2}\/\d{4}$} then Date.strptime(date, '%m/%Y') # 'MM/YYYY' format
-        when %r{^\d{1,2}\/\d{1,2}\/\d{4}$} then Date.strptime(date, '%m/%d/%Y') # 'MM/DD/YYYY' format
+        when %r{^\d{1,2}\/\d{1,2}\/\d{4}$} then Date.strptime(date, '%d/%m/%Y') # 'DD/MM/YYYY' format
         else
           begin
             Date.parse(date)
