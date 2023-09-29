@@ -70,11 +70,11 @@ class Ability
 
   # Overrides hyarx 2.9.6 to call a version of admin_set_with_deposit? that limits
   # the id string used in the solr query to 200 ids (see admin_set_with_deposit_limited?
-  def can_create_any_work?
-    Hyrax.config.curation_concerns.any? do |curation_concern_type|
-      can?(:create, curation_concern_type)
-    end && admin_set_with_deposit_limited?
-  end
+#  def can_create_any_work?
+#    Hyrax.config.curation_concerns.any? do |curation_concern_type|
+#      can?(:create, curation_concern_type)
+#    end && admin_set_with_deposit_limited?
+#  end
 
   # If the ids string is too long then solr will bail so (until we are on hyrax3.x)
   # introduce an _entirely_ abitrary limit to the number of ids used in query
@@ -83,12 +83,21 @@ class Ability
   # The mis-report will be a false negative so will not admit users to any admin_sets
   # they shouldn't have access to, but may in extreme circumstances lock some out.
   # TODO upgrade hyrax used by hyku to version 3.x
-  def admin_set_with_deposit_limited?
+  def admin_set_with_deposit?
     ids = Hyrax::PermissionTemplateAccess.for_user(ability: self,
                                                    access: ['deposit', 'manage'])
                                          .joins(:permission_template)
                                          .pluck(Arel.sql('DISTINCT source_id'))
-    query = "_query_:\"{!raw f=has_model_ssim}AdminSet\" AND {!terms f=id}#{ids.take(200).join(',')}"
-    ActiveFedora::SolrService.count(query).positive?
+    query = "_query_:\"{!raw f=has_model_ssim}AdminSet\" AND {!terms f=id}#{ids.join(',')}"
+    solr_query(query).count.positive?
+  end
+
+  # Query solr using POST so that the query doesn't get too large for a URI
+  def solr_query(query, args = {})
+    args[:q] = query
+    args[:qt] = 'standard'
+    conn = ActiveFedora::SolrService.instance.conn
+    result = conn.post('select', data: args)
+    result.fetch('response').fetch('docs')
   end
 end
