@@ -12,7 +12,7 @@ module Ubiquity
                             'British Museum' => ['britishmuseum', 'britishmuseum-demo'],
                             'Tate' => ['tate', 'tate-demo'],
                             'Royal Botanic Gardens, Kew' => ['kew', 'kew-demo'],
-                            'Science Museum' => ['sciencemuseumgroup', 'sciencemuseumgroup-demo'],
+                            'Science Museum Group' => ['sciencemuseumgroup', 'sciencemuseumgroup-demo'],
                             'National Trust' => ['nt', 'nt-demo'],
                             '' => ['nhs', 'nhs-demo']
                           }
