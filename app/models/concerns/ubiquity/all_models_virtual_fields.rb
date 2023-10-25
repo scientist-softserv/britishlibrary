@@ -150,7 +150,7 @@ module Ubiquity
       return if data_hash.empty?
       field_name = get_field_name(data_hash)
       data_hash.each do |hash|
-        if (hash["#{field_name}_family_name"].blank? && hash["#{field_name}_organization_name"].blank?)
+        if (hash["#{field_name}_given_name"].blank? && hash["#{field_name}_organization_name"].blank?)
           hash.transform_values! { |v| nil }
         end
       end

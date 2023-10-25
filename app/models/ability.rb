@@ -67,4 +67,24 @@ class Ability
   def can_export_works?
     can_create_any_work?
   end
+
+  # Override Hyrax 2.9.6 to use post with solr and avoid over long URI errors
+  # TODO upgrade hyrax used by hyku to version 3.x
+  def admin_set_with_deposit?
+    ids = Hyrax::PermissionTemplateAccess.for_user(ability: self,
+                                                   access: ['deposit', 'manage'])
+                                         .joins(:permission_template)
+                                         .pluck(Arel.sql('DISTINCT source_id'))
+    query = "_query_:\"{!raw f=has_model_ssim}AdminSet\" AND {!terms f=id}#{ids.join(',')}"
+    solr_query(query).count.positive?
+  end
+
+  # Query solr using POST so that the query doesn't get too large for a URI
+  def solr_query(query, args = {})
+    args[:q] = query
+    args[:qt] = 'standard'
+    conn = ActiveFedora::SolrService.instance.conn
+    result = conn.post('select', data: args)
+    result.fetch('response').fetch('docs')
+  end
 end
