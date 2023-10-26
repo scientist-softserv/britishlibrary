@@ -16,6 +16,9 @@ terms:
   - id: National Museums Scotland
     term: National Museums Scotland
     active: true
+  - id: National Trust
+    term: National Trust
+    active: true
   - id: Royal Botanic Gardens, Kew
     term: Royal Botanic Gardens, Kew
     active: true
@@ -43,6 +46,6 @@ terms:
   - id: Somerset NHS Foundation Trust
     term: Somerset NHS Foundation Trust
     active: false
-  - id: National Trust
-    term: National Trust
+  - id: Science Museum Group
+    term: Science Museum Group
     active: true
