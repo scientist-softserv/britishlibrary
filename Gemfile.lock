@@ -119,10 +119,10 @@ GIT
 
 GIT
   remote: https://github.com/scientist-softserv/hyrax-v2_graph_indexer.git
-  revision: e8b5976c6aa91ac18af8b29acb949e8f30152c2d
-  ref: e8b5976c6aa91ac18af8b29acb949e8f30152c2d
+  revision: 53b0a2d28868af25d306bc361634439c008892ac
+  ref: 53b0a2d28868af25d306bc361634439c008892ac
   specs:
-    hyrax-v2_graph_indexer (0.3.0)
+    hyrax-v2_graph_indexer (0.5.0)
       hyrax (~> 2.9)
       railties
 
@@ -1285,7 +1285,7 @@ DEPENDENCIES
   hyrax!
   hyrax-doi!
   hyrax-iiif_av!
-  hyrax-v2_graph_indexer (~> 0.3)!
+  hyrax-v2_graph_indexer (~> 0.5)!
   i18n-debug
   i18n-tasks
   iiif_print!
