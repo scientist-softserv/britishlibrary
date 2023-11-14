@@ -9,8 +9,8 @@ RSpec.describe Ubiquity::ParseDate do
       expect(described_class.return_date_part(date, 'day')).to eq('13')
     end
 
-    it 'handles MM/DD/YYYY format' do
-      date = '12/13/2023'
+    it 'handles DD/MM/YYYY format' do
+      date = '13/12/2023'
       expect(described_class.return_date_part(date, 'year')).to eq('2023')
       expect(described_class.return_date_part(date, 'month')).to eq('12')
       expect(described_class.return_date_part(date, 'day')).to eq('13')

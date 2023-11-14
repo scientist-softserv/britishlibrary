@@ -62,7 +62,7 @@ class CatalogController < ApplicationController
     #
     # Without this parameter, we can easily enter a situation where the Solr query is too long for a
     # GET request.  Switching to :post avoids that problem.
-    # config.http_method :post
+    config.http_method = :post
 
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
     config.default_solr_params = {

@@ -151,5 +151,5 @@ gem "sentry-raven"
 gem 'sidekiq'
 gem 'tether-rails'
 gem 'validate_url'
-gem 'hyrax-v2_graph_indexer', "~> 0.3", git: 'https://github.com/scientist-softserv/hyrax-v2_graph_indexer.git', ref: 'e8b5976c6aa91ac18af8b29acb949e8f30152c2d'
+gem 'hyrax-v2_graph_indexer', "~> 0.5", git: 'https://github.com/scientist-softserv/hyrax-v2_graph_indexer.git', ref: '53b0a2d28868af25d306bc361634439c008892ac'
 gem 'iiif_print', git: 'https://github.com/scientist-softserv/iiif_print.git'
