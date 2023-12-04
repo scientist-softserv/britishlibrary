@@ -27,8 +27,8 @@ class AttachFilesToWorkJob < Hyrax::ApplicationJob
       actor.attach_to_work(work)
     end
     # [BL-override] Log viruses
-    rescue VirusDetectedError => error
-      Rails.logger.error "Virus encountered while processing work #{work.id}.\n" "\t#{error.message}"
+    #rescue VirusDetectedError => error
+    #Rails.logger.error "Virus encountered while processing work #{work.id}.\n" "\t#{error.message}"
   end
 
   # [BL-override] Add virus detection error class
@@ -55,18 +55,15 @@ class AttachFilesToWorkJob < Hyrax::ApplicationJob
     # A work with files attached by a proxy user will set the depositor as the intended user
     # that the proxy was depositing on behalf of. See tickets #2764, #2902.
     def proxy_or_depositor(work)
-      work.on_behalf_of.blank? ? work.depositor : work.on_behalf_of
+      work.on_behalf_of.presence || work.depositor
     end
 
     # [hyc-override] add virus checking method
     def virus_check!(uploaded_file)
-      STDERR.puts "###############################################################"
-      STDERR.puts " file in virus_check! #{Rails.root.to_s}/public/#{uploaded_file.file.to_s}"
-      STDERR.puts "###############################################################"
-      return unless Hyc::VirusScanner.infected?("#{Rails.root.to_s}/public/#{uploaded_file.file.to_s}")
+      rails_root = Rails.root.to_s
+      return unless Hyc::VirusScanner.infected?("#{rails_root}/public#{uploaded_file.file}")
       carrierwave_file = uploaded_file.file.file
       carrierwave_file.delete
       raise(VirusDetectedError, carrierwave_file.filename)
     end
-
 end
