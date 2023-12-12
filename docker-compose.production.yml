@@ -126,7 +126,7 @@ services:
       target: hyku-worker
       args:
         - HYKU_BULKRAX_ENABLED=true
-    command: bundle exec sidekiq
+    command: clamd && bundle exec sidekiq
     depends_on:
       - check_volumes
       - db
