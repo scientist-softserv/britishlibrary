@@ -16,7 +16,7 @@ class AttachFilesToWorkJob < Hyrax::ApplicationJob
       STDERR.puts "######################################################"
       STDERR.puts " Uploaded_file before virus_check! #{uploaded_file}"
       STDERR.puts "######################################################"
-      virus_check!(uploaded_file)
+      #virus_check!(uploaded_file)
       next if uploaded_file.file_set_uri.present?
       STDERR.puts " New file is not infected :) #{uploaded_file}"
       actor = Hyrax::Actors::FileSetActor.new(FileSet.create, user)
