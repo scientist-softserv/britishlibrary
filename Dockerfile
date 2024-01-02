@@ -6,8 +6,6 @@ USER root
 RUN apk --no-cache upgrade && \
   apk --no-cache add \
     bash \
-    clamav \
-    clamav-daemon \
     cmake \
     exiftool \
     ffmpeg \
@@ -36,11 +34,6 @@ RUN apk --no-cache upgrade && \
   # source "$HOME/.cargo/env" && \
   # cargo install rbspy && \
   echo "******** Packages Installed *********"
-
-RUN sed -i 's/User clamav/User app/g' /etc/clamav/clamd.conf
-RUN mkdir -p /var/run/clamav && chown -R app:app /var/run/clamav
-RUN mkdir -p /var/log/clamav && chown -R app:app /var/log/clamav
-RUN chown -R app:app /var/lib/clamav
 
 RUN wget https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.0-57.tar.gz \
     && tar xf 7.1.0-57.tar.gz \
@@ -106,6 +99,5 @@ RUN RAILS_ENV=production SECRET_KEY_BASE=`bin/rake secret` DB_ADAPTER=nulldb DAT
 CMD ./bin/web
 
 FROM hyku-web as hyku-worker
-RUN freshclam
 ENV MALLOC_ARENA_MAX=2
 CMD ./bin/worker

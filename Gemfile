@@ -153,5 +153,3 @@ gem 'tether-rails'
 gem 'validate_url'
 gem 'hyrax-v2_graph_indexer', "~> 0.5", git: 'https://github.com/scientist-softserv/hyrax-v2_graph_indexer.git', ref: '53b0a2d28868af25d306bc361634439c008892ac'
 gem 'iiif_print', git: 'https://github.com/scientist-softserv/iiif_print.git'
-#clamby (for which interface has been back-ported from Hydra 2.0)
-gem 'clamby'
