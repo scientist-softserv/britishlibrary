@@ -1,4 +1,4 @@
-<% array_size = (array_of_hash.size <= 5 ? array_of_hash.size - 1 : 4) %>
+<% array_size = (array_of_hash&.size <= 5 ? array_of_hash.size - 1 : 4) %>
 <% array_of_hash.each_with_index do |hash, index| %>
   <% if index <= 4 %>
     <span itemprop='<%= "#{attr_name}" %>'>
