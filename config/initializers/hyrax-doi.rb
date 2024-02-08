@@ -188,6 +188,12 @@ Hyrax::DOI::DataCiteRegistrar.class_eval do
   def client 
     Hyrax::DOI::DataCiteClient.new(username: self.username, password: self.password, prefix: self.prefix, mode: self.mode)
   end
+  
+  # Override Hyrax::DOI::DataCiteRegister.work_url to ensure that the url registered uses the tenant host
+  def work_url(work)
+    account_cname = work["account_cname_tesim"]&.first
+    Rails.application.routes.url_helpers.polymorphic_url(work, host: account_cname)
+  end
 
 end
 
