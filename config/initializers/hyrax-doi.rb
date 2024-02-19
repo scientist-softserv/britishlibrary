@@ -191,7 +191,7 @@ Hyrax::DOI::DataCiteRegistrar.class_eval do
   
   # Override Hyrax::DOI::DataCiteRegister.work_url to ensure that the url registered uses the tenant host
   def work_url(work)
-    account_cname = work["account_cname_tesim"]&.first
+    account_cname = Account.find_by(tenant: Apartment::Tenant.current)&.cname
     Rails.application.routes.url_helpers.polymorphic_url(work, host: account_cname)
   end
 
