@@ -10,27 +10,6 @@ GIT
       openurl
 
 GIT
-  remote: https://github.com/samvera-labs/bulkrax.git
-  revision: ae05be9a0dd7fa95d260069c5274c816e24293bd
-  ref: main
-  specs:
-    bulkrax (5.2.1)
-      bagit (~> 0.4)
-      coderay
-      dry-monads (~> 1.4.0)
-      iso8601 (~> 0.9.0)
-      kaminari
-      language_list (~> 1.2, >= 1.2.1)
-      libxml-ruby (~> 3.2.4)
-      loofah (>= 2.2.3)
-      oai (>= 0.4, < 2.x)
-      rack (>= 2.0.6)
-      rails (>= 5.1.6)
-      rdf (>= 2.0.2, < 4.0)
-      rubyzip
-      simple_form
-
-GIT
   remote: https://github.com/samvera-labs/hyrax-doi.git
   revision: d494a50ef8ce3eae594c7ed7148c33b3c977d4a7
   branch: main
@@ -59,6 +38,27 @@ GIT
   specs:
     samvera-nesting_indexer (2.0.0)
       dry-equalizer
+
+GIT
+  remote: https://github.com/samvera/bulkrax
+  revision: 8c37b0d062ad362075e1912e3192da681e19713a
+  branch: 5.3.1-british_library
+  specs:
+    bulkrax (5.3.1)
+      bagit (~> 0.4)
+      coderay
+      dry-monads (~> 1.4.0)
+      iso8601 (~> 0.9.0)
+      kaminari
+      language_list (~> 1.2, >= 1.2.1)
+      libxml-ruby (~> 3.2.4)
+      loofah (>= 2.2.3)
+      oai (>= 0.4, < 2.x)
+      rack (>= 2.0.6)
+      rails (>= 5.1.6)
+      rdf (>= 2.0.2, < 4.0)
+      rubyzip
+      simple_form
 
 GIT
   remote: https://github.com/samvera/hyrax.git
@@ -257,7 +257,7 @@ GEM
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
-    bagit (0.4.5)
+    bagit (0.4.6)
       docopt (~> 0.5.0)
       validatable (~> 1.6)
     bcp47 (0.3.3)
@@ -1263,7 +1263,7 @@ DEPENDENCIES
   blacklight_oai_provider (~> 6.1, >= 6.1.1)
   bootstrap-datepicker-rails
   browse-everything (~> 1.1.2)
-  bulkrax (~> 5.2.0)!
+  bulkrax!
   byebug
   capybara
   capybara-screenshot (~> 1.0)
