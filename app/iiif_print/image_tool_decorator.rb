@@ -9,7 +9,7 @@ module IiifPrint
       cmd = "identify -ping -format 'Geometry: %G\nDepth: %[bit-depth]\nColorspace: %[colorspace]\nAlpha: %A\nMIME type: %m\n' #{path}"
       `#{cmd}`.lines
     end
- end
+  end
 end
 
 IiifPrint::ImageTool.prepend(IiifPrint::ImageToolDecorator)
