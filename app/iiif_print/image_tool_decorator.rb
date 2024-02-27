@@ -6,9 +6,6 @@ module IiifPrint
   module ImageToolDecorator
     # Add -ping option for efficiency
     def im_identify
-      STDERR.puts "######################################################################"
-      STDERR.puts "#################### IN OVERRID IM_IDENTIFY ##########################"
-      STDERR.puts "######################################################################"
       cmd = "identify -ping -format 'Geometry: %G\nDepth: %[bit-depth]\nColorspace: %[colorspace]\nAlpha: %A\nMIME type: %m\n' #{path}"
       `#{cmd}`.lines
     end
