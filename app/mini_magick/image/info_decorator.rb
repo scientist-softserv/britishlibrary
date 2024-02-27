@@ -5,7 +5,6 @@
 module MiniMagick
   class Image
     module InfoDecorator
-
       def identify
         MiniMagick::Tool::Identify.new do |builder|
           yield builder if block_given?
