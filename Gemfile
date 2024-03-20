@@ -100,9 +100,9 @@ group :development do
   # gem 'xray-rails' # when using this gem, know that sidekiq will not work
 end
 
-# Bulkrax :: While we technically don't need a version when we tag on the branch, this helps us have
-#            a quick scan of what version we're assuming/working with.
-gem 'bulkrax', "~> 5.2.0", git: 'https://github.com/samvera-labs/bulkrax.git', ref: 'main'
+# Bulkrax :: Upgrading passed this point might cause issues, for now we've made a
+#            branch off v5.3.1 that includes `DownloadCloudFileJob` work.
+gem 'bulkrax', git: 'https://github.com/samvera/bulkrax', branch: '5.3.1-british_library'
 
 gem 'blacklight', '~> 6.7'
 gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'
