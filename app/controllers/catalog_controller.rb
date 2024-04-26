@@ -69,7 +69,7 @@ class CatalogController < ApplicationController
       qt: "search",
       rows: 10,
       qf: IiifPrint.config.metadata_fields.keys.map { |attribute| "#{attribute}_tesim" }
-                   .join(' ') << "title_tesim description_tesim all_text_timv"
+                   .join(' ') << " title_tesim description_tesim all_text_timv"
     }
 
     # Specify which field to use in the tag cloud on the homepage.
