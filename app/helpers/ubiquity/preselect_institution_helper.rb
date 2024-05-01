@@ -14,6 +14,8 @@ module Ubiquity
                             'Royal Botanic Gardens, Kew' => ['kew', 'kew-demo'],
                             'Science Museum Group' => ['sciencemuseumgroup', 'sciencemuseumgroup-demo'],
                             'National Trust' => ['nt', 'nt-demo'],
+                            'National Library of Scotland' => ['nls', 'nls-demo'],
+                            'The Alan Turing Institute' => ['turing', 'turing-demo'],
                             '' => ['nhs', 'nhs-demo']
                           }
       institution_hash.select { |_key, values| values.include?(tenant_name) }.keys.first

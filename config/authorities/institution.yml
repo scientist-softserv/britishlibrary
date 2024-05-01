@@ -49,3 +49,9 @@ terms:
   - id: Science Museum Group
     term: Science Museum Group
     active: true
+  - id: National Library of Scotland
+    term: National Library of Scotland
+    active: true
+  - id: The Alan Turing Institute
+    term: The Alan Turing Institute 
+    active: true
