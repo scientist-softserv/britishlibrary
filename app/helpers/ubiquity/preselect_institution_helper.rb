@@ -15,7 +15,7 @@ module Ubiquity
                             'Science Museum Group' => ['sciencemuseumgroup', 'sciencemuseumgroup-demo'],
                             'National Trust' => ['nt', 'nt-demo'],
                             'National Library of Scotland' => ['nls', 'nls-demo'],
-                            'The Alan Turing Institute' => ['turing', 'turing-demo'],
+                            'The Alan Turing Institute' => ['ati', 'ati-demo'],
                             '' => ['nhs', 'nhs-demo']
                           }
       institution_hash.select { |_key, values| values.include?(tenant_name) }.keys.first
