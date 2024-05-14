@@ -1,3 +1,15 @@
+# Override IiifPrint::Configuration to allow a config item to limit splitting PDFs by page count (IiifPrint 1.0.0 8fdf56e)
+IiifPrint::Configuration.class_eval do
+  attr_writer :split_pdf_page_limit
+  # rubocop:disable Metrics/MethodLength
+  # @api private
+  # @note These fields will appear in rendering order.
+  # @todo To move this to an `@api public` state, we need to consider what a proper configuration looks like.
+  def split_pdf_page_limit
+    @split_pdf_page_limit ||= 100
+  end
+end
+
 IiifPrint.config do |config|
   # NOTE: WorkTypes and models are used synonymously here.
   # Add models to be excluded from search so the user
@@ -54,6 +66,9 @@ IiifPrint.config do |config|
     add_info: {},
     collection: {}
   }
+
+  config.split_pdf_page_limit = 100
+
 end
 
 # Override Hrax::WorkShowPresenter.authorized_item_ids to disallow "Pdf Page" work type from showing as members
@@ -69,5 +84,31 @@ Hyrax::WorkShowPresenter.class_eval do
         items
       end
     end
+end
+
+# Override IiifPrint::SplitPdfs::ChildWorkCreationFromPdfService (IiifPrint 1.0.0 8fdf56e)
+# IiiifPrint rendering does not do well when there are many pages
+# So enforce a page limit over which IiifPRint will not split a PDF
+# into childworks with images for each page
+# Duplicate pagecount from IiifPrint::SplitPdfs::BaseSplitter
+IiifPrint::SplitPdfs::ChildWorkCreationFromPdfService.class_eval do
+
+  PAGE_COUNT_REGEXP = %r{^Pages: +(\d+)$}.freeze
+
+  def self.pagecount(pdfpath)
+    # Default to a value that will avoid
+    # IiifPrint splitting from happening
+    pagecount=IiifPrint.config.split_pdf_page_limit+1
+    cmd = "pdfinfo #{pdfpath}"
+    Open3.popen3(cmd) do |_stdin, stdout, _stderr, _wait_thr|
+      match = PAGE_COUNT_REGEXP.match(stdout.read)
+      pagecount = match[1].to_i
+    end
+    pagecount
+  end
+
+  def self.pdfs_only_for(paths)
+    paths.select { |path| path.end_with?('.pdf', '.PDF') && pagecount(path) < IiifPrint.config.split_pdf_page_limit }
+  end
 end
 
