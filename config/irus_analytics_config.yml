@@ -61,3 +61,7 @@ production:
     source_repository: nms.iro.bl.uk
   mola.iro.bl.uk:
     source_repository: mola.iro.bl.uk
+  nt.iro.bl.uk:
+    source_repository: nt.iro.bl.uk
+  sciencemuseumgroup.iro.bl.uk:
+    source_repository: sciencemuseumgroup.iro.bl.uk
