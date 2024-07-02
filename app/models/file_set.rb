@@ -5,10 +5,10 @@ class FileSet < ActiveFedora::Base
   include Ubiquity::UniversalMetadata
 
   property :s3_only,
-    predicate: ::RDF::URI("https://hykucommons.org/terms/s3_only"),
-    multiple: false do |index|
-      index.as :stored_searchable, :facetable
-    end
+           predicate: ::RDF::URI("https://hykucommons.org/terms/s3_only"),
+           multiple: false do |index|
+    index.as :stored_searchable, :facetable
+  end
 
   include ::Hyrax::FileSetBehavior
 end

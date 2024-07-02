@@ -49,14 +49,14 @@ module Hyrax
                       end
           if s3_object.exists?
             redirect_to s3_object.presigned_url(
-              :get, 
-              expires_in: 3600, 
+              :get,
+              expires_in: 3600,
               response_content_disposition: "attachment\;   filename=#{file.original_name}"
             )
             return
           end
         end
-        # from here on this is effectively `super` if this was a decorator 
+        # from here on this is effectively `super` if this was a decorator
         # will fall back to streaming object via fedora
         self.status = 200
         prepare_file_headers

@@ -3,7 +3,6 @@ module Hyrax
     # Actions for a file identified by file_set and relation (maps to use predicate)
     # @note Spawns asynchronous jobs
     module FileActorDecorator
-
       def perform_ingest_file_through_active_fedora(io)
         # Skip versioning because versions will be minted by VersionCommitter as necessary during save_characterize_and_record_committer.
         # these are files too big to send to S3 w/o Streaming
@@ -20,16 +19,15 @@ module Hyrax
           Rails.logger.error("[FileActor] writing to fcrepo #{file_set.id}")
           # Skip versioning because versions will be minted by VersionCommitter as necessary during save_characterize_and_record_committer.
           Hydra::Works::AddFileToFileSet.call(file_set,
-            io,
-            relation,
-            versioning: false)
+                                              io,
+                                              relation,
+                                              versioning: false)
         end
         return false unless file_set.save
         repository_file = related_file
         create_version(repository_file, user)
         CharacterizeJob.perform_later(file_set, repository_file.id, pathhint(io))
       end
-
     end
   end
 end
