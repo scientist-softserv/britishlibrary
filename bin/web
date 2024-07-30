@@ -3,9 +3,4 @@ if ENV['GOOGLE_OAUTH_PRIVATE_KEY_VALUE'] && !ENV['GOOGLE_OAUTH_PRIVATE_KEY_VALUE
   %x{echo #{ENV['GOOGLE_OAUTH_PRIVATE_KEY_VALUE']} | base64 --decode > prod-cred.p12}
 end
 
-#exec "bundle exec puma -v -b tcp://0.0.0.0:3000"
-RAILS_START=`bundle exec puma -v -b tcp://0.0.0.0`
-if [ "$?" -ne "0" ]; then
-  echo "### There was an issue starting rails/puma. We have kept this container alive for you to go and see what's up ###"
-  tail -f /dev/null
-fi 
+exec "bundle exec puma -v -b tcp://0.0.0.0:3000"
