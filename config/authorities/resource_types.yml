@@ -64,6 +64,8 @@ terms:
     term: Magazine article
   - id: Article Newspaper article
     term: Newspaper article
+  - id: Article Preprint
+    term: Preprint
   - id: Book Grey literature
     term: Grey literature
   - id: Book Technical documentation
