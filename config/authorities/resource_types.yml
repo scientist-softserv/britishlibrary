@@ -154,6 +154,8 @@ terms:
     term: Patent
   - id: GenericWork Policy
     term: Policy
+  - id: GenericWork Preprint
+    term: Preprint
   - id: GenericWork Website
     term: Website
   - id: GenericWork Workflow
