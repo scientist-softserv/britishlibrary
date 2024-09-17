@@ -103,7 +103,7 @@ module Bolognese
             'Cartographic material': 'Image', #GenericWork
             'Interactive resource': 'InteractiveResource',
             'Journal issue': 'Journal',
-            'Leaflet': 'Leaflet',
+            'Leaflet': 'Text',
             'Learning object': 'InteractiveResource',
             'Musical notation': 'Other',
             'Website': 'InteractiveResource',

@@ -65,3 +65,5 @@ production:
     source_repository: nt.iro.bl.uk
   sciencemuseumgroup.iro.bl.uk:
     source_repository: sciencemuseumgroup.iro.bl.uk
+  nls.iro.bl.uk:
+    source_repository: nls.iro.bl.uk
