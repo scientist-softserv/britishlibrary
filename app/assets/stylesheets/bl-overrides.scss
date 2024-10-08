@@ -525,7 +525,7 @@ body.public-facing.bl-public-facing {
   div.col-xs-12.catalog-logo-section {
     img {
       max-height: 100px;
-      max-width: 150px;
+      max-width: 200px;
       height: unset;
     }
   }
@@ -937,6 +937,10 @@ body.public-facing.bl-public-facing {
 
   .splash-searchbar {
     padding-top: 40px;
+  }
+
+  h4.pt-40.splash-page ul {
+    margin-top: 10px;
   }
 
   @media (min-width: 1200px) {

@@ -10,7 +10,17 @@
         </div>
       </div>
         <h4 class="pt-40 splash-page">
-            Welcome to our shared repository where you’ll find research produced by staff of the British Library and our current partner organisations: the British Museum, MOLA (Museum of London Archaeology), National Museums Scotland, National Trust, Science Museum Group, and Royal Botanic Gardens, Kew.<br/><br/>
+          Welcome to our shared repository where you’ll find research produced by our partner organisations: 
+          <ul>
+            <li>British Library</li>
+            <li>MOLA (Museum of London Archaeology)</li>
+            <li>National Library of Scotland</li>
+            <li>National Museums Scotland</li>
+            <li>National Trust</li>
+            <li>Royal Botanic Gardens, Kew</li>
+            <li>Science Museum Group</li>
+            <li>The British Museum</li>
+          </ul>
             Visit one repository at a time, or use the search box to search and explore publications, reports, datasets and papers from across our combined content.
         </h4>
     </div>
@@ -49,9 +59,14 @@
             <%= image_tag("splash-logos/NT_logo.png", class: "tenant-logo", alt: "The National Trust") %>
           <% end %>
         </div>
-        <div class="col-xs-6 col-xs-push-3 col-sm-4 col-sm-push-4 text-center">
+        <div class="col-xs-6 col-xs-push-1 col-sm-4 col-sm-push-2 text-center">
           <%= link_to "//#{host_for('sciencemuseumgroup')}" do %>
             <%= image_tag("splash-logos/SMGLogo.png", class: "tenant-logo", alt: "Science Museum Group") %>
+          <% end %>
+        </div>
+        <div class="col-xs-6 col-xs-push-1 col-sm-4 col-sm-push-2 text-center">
+          <%= link_to "//#{host_for('nls')}" do %>
+            <%= image_tag("splash-logos/NLSLogo.png", class: "tenant-logo", alt: "National Library of Scotland (Leabharlann Nàiseanta na h-Alba)") %>
           <% end %>
         </div>
       </div>
