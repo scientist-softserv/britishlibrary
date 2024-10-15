@@ -134,6 +134,10 @@ extraEnvVars: &envVars
     value: iro.bl.uk
   - name: HYKU_SMTP_SETTINGS
     value: '{"from":"openaccess@bl.uk","user_name":"apikey","password":"$SMTP_PASSWORD","address":"smtp.sendgrid.net","domain":"bl.uk","port":"587","authentication":"plain","enable_starttls_auto":true}'
+  - name: HYKU_DEMO_USER
+    value: "bl_hyku_demo_user"
+  - name: HYKU_DEMO_PASSWORD
+    value: "26G_-7KXUU8jM-t"
   - name: SMTP_ADDRESS
     value: smtp.sendgrid.net
   - name: SMTP_DOMAIN
