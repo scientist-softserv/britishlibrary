@@ -48,10 +48,13 @@ module Hyrax
                         Aws::S3::Object.new(ENV['AWS_BUCKET'], file.digest.first.to_s.gsub('urn:sha1:', ''))
                       end
           if s3_object.exists?
+            STDERR.puts "##################################"
+            STDERR.puts "Redirecting to S3 using the filename #{file.original_name}"
+            STDERR.puts "File object: #{file}"
             redirect_to s3_object.presigned_url(
               :get,
               expires_in: 3600,
-              response_content_disposition: "attachment\;   filename=#{file.original_name}"
+              response_content_disposition: "attachment\; filename=#{file.original_name}"
             )
             return
           end
