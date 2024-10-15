@@ -6,7 +6,10 @@ module Hydra
       def attach_attributes(external_file_url, filename = nil)
         current_file.content = StringIO.new('-') # anything but blank
         # filename will be the url as that is what ahppens in self.call
-        STDERR.puts "We will call this file: #{@file_set.label}... or maybe #{@file_set.filename}.... or even #{file_set.label}"
+        STDERR.puts "##### We will call this file"
+        STDERR.puts "##### file_set: #{@file_set}"
+        STDERR.puts "##### label #{@file_set.label}"
+        STDERR.puts "##### label without the @ #{file_set.label}"
         current_file.original_name = @file_set.label
 #        current_file.original_name = filename
         current_file.mime_type = "message/external-body; access-type=URL; URL=\"#{external_file_url}\""
