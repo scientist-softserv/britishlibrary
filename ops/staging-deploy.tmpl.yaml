@@ -144,7 +144,7 @@ extraEnvVars: &envVars
   - name: HYKU_DEMO_USER
     value: "bl_hyku_demo_user"
   - name: HYKU_DEMO_PASSWORD
-    value: "26G_-7KXUU8jM-t"
+    value: $HYKU_DEMO_PASSWORD
   - name: S3_DOWNLOADS
     value: "true"
   - name: SMTP_ADDRESS
