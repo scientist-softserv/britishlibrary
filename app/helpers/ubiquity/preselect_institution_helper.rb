@@ -8,7 +8,7 @@ module Ubiquity
       institution_hash = {
                             'British Library' => ['sandbox', 'sandbox2', 'bl', 'bl-demo'],
                             'British Museum' => ['britishmuseum', 'britishmuseum-demo'],
-                            'Historic Royal Palaces' => ['hrp', 'hrp-demo'],
+                            'Historic Royal Palaces' => ['historicroyalpalaces', 'historicroyalpalaces-demo'],
                             'MOLA' => ['sandbox2', 'mola', 'mola-demo'],
                             'National Library of Scotland' => ['nls', 'nls-demo'],
                             'National Museums Scotland' => ['nms', 'nms-demo'],
