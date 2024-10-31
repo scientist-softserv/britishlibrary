@@ -5,6 +5,9 @@ terms:
   - id: British Museum
     term: British Museum
     active: true
+  - id: Historic Royal Palaces
+    term: Historic Royal Palaces
+    active: true
   - id: MOLA
     term: MOLA
     active: true
@@ -24,7 +27,7 @@ terms:
     active: true
   - id: Tate
     term: Tate
-    active: false
+    active: true
   - id: Barts Health NHS Trust
     term: Barts Health NHS Trust
     active: false
