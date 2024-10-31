@@ -3,6 +3,7 @@ class FileSetIndexer < Hyrax::FileSetIndexer
 
     super.tap do |solr_doc|
       solr_doc['hasFormat_ssim'] = object.rendering_ids
+      solr_doc['digest_ssim'] = "urn:sha1:#{object.s3_only}" if object.s3_only.present?
     end
 
   rescue Ldp::HttpError => exception

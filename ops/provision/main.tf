@@ -38,6 +38,17 @@ data "local_file" "efs_name" {
   filename = "efs_name"
 }
 
+resource "helm_release" "aws-load-balancer" {
+  chart   = "aws-load-balancer-controller"
+  name    = "aws-load-balancer-controller"
+  namespace = "kube-system"
+  repository = "https://aws.github.io/eks-charts"
+  set {
+    name = "clusterName"
+    value = "r2-bl"
+  }
+}
+
 resource "helm_release" "ingress-nginx" {
   name = "ingress-nginx"
   namespace = "ingress-nginx"
@@ -45,22 +56,10 @@ resource "helm_release" "ingress-nginx" {
   version = "4.5.2"
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart = "ingress-nginx"
+  depends_on = [helm_release.aws-load-balancer]
   values = [
     file("k8s/ingress-nginx-values.yaml")
   ]
-}
-
-resource "helm_release" "eks_efs_csi_driver" {
-  chart      = "aws-efs-csi-driver"
-  name       = "efs"
-  namespace  = "storage"
-  create_namespace = true
-  repository = "https://kubernetes-sigs.github.io/aws-efs-csi-driver/"
-
-  set {
-    name  = "image.repository"
-    value = "602401143452.dkr.ecr.${var.region}.amazonaws.com/eks/aws-efs-csi-driver"
-  }
 }
 
 resource "kubernetes_storage_class" "storage_class" {
