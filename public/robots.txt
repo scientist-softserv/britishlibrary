@@ -1,5 +1,12 @@
-# See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
-#
-# To ban all spiders from the entire site uncomment the next two lines:
-# User-agent: *
-# Disallow: /
+# Stop crawlers running searches (via facet links)
+User-agent: *
+Disallow: /catalog
+# but do give them some lovely resource-sync sitemaps
+Sitemap: https://bl.iro.bl.uk/resourcelist
+Sitemap: https://mola.iro.bl.uk/resourcelist
+Sitemap: https://nls.iro.bl.uk/resourcelist
+Sitemap: https://nms.iro.bl.uk/resourcelist
+Sitemap: https://nt.iro.bl.uk/resourcelist
+Sitemap: https://kew.iro.bl.uk/resourcelist
+Sitemap: https://sciencemuseumgroup.iro.bl.uk/resourcelist
+Sitemap: https://britishmuseum.iro.bl.uk/resourcelist
