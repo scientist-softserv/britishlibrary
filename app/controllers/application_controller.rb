@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
       return true if Rails.env.test?
       if (is_hidden || is_staging) && !is_api_or_pdf
         authenticate_or_request_with_http_basic do |username, password|
-          username == ENV.fetch("HYKU_DEMO_USER", "samvera") && password == ENV.fetch("HYKU_DEMO_PASSWORD", "hyku")
+          username == ENV.fetch("HYKU_DEMO_USER", "bl_demo_user") && password == ENV.fetch("HYKU_DEMO_PASSWORD", "resu_omed_lb")
         end
       end
     end
