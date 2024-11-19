@@ -1,6 +1,7 @@
 # Stop crawlers running searches (via facet links)
 User-agent: *
 Disallow: /catalog
+Disallow: */pdf_pages/*
 # but do give them some lovely resource-sync sitemaps
 Sitemap: https://bl.iro.bl.uk/resourcelist
 Sitemap: https://mola.iro.bl.uk/resourcelist
